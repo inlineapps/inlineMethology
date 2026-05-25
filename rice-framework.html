@@ -153,6 +153,7 @@
     <a href="#anatomy">Anatomy</a>
     <a href="#mechanism">How it picks work</a>
     <a href="#example">Worked example</a>
+    <a href="#apply">Apply to a sheet</a>
     <a href="#limits">Where it breaks</a>
     <a href="methodologies-comparison.html" style="color:var(--accent);font-weight:700">Comparison table →</a>
   </nav>
@@ -227,6 +228,27 @@
     </table>
   </div>
   <p style="font-size:13.5px;color:var(--ink-soft)">Reading: the Slack integration dominates because Reach is high, Confidence is high (we've already heard the request from customers), and Effort is bounded. The onboarding rebuild looks "big" intuitively but its <b>low Confidence × high Effort</b> punishes it — exactly the discipline RICE is for. And the cheap CSV export out-ranks the onboarding rebuild because it's nearly free — the signal is either to ship the export honestly or to invest in onboarding <em>discovery</em> (user research, mockups, prototype tests) to lift Confidence before scoring again. <br><em>Numbers are illustrative — the value is in seeing how the formula rewards Confidence and punishes Effort, not in defending these specific scores.</em></p>
+
+  <!-- APPLY TO A SHEET -->
+  <h2 class="sec" id="apply">Apply to a feature sheet</h2>
+  <p class="secsub">If you adopt RICE for your backlog, every feature row gains six columns. The first four are honest inputs, the fifth is computed, the sixth is the verdict. The worked example above is what the sheet looks like once it's filled in.</p>
+
+  <div class="extable">
+    <table class="ex">
+      <thead><tr><th>Column to add</th><th>What it captures</th><th>How you fill it</th></tr></thead>
+      <tbody>
+        <tr><td>Feature</td><td>Idea or backlog item</td><td>Existing backlog title</td></tr>
+        <tr><td>Reach</td><td>Users / events affected per quarter</td><td>Raw count — analytics, segment size, or honest estimate</td></tr>
+        <tr><td>Impact</td><td>How much it moves the chosen goal per reached user</td><td>Pick from fixed scale: 3 / 2 / 1 / 0.5 / 0.25</td></tr>
+        <tr><td>Confidence</td><td>How sure you are in Reach &amp; Impact</td><td>100% (have data) / 80% (some data) / 50% (hunch)</td></tr>
+        <tr><td>Effort</td><td>Total person-months across product, design, eng</td><td>Sized by the team, not the requester</td></tr>
+        <tr><td>RICE Score</td><td>(R × I × C) ÷ E</td><td>Spreadsheet formula — auto-computed</td></tr>
+        <tr><td>Decision</td><td>Build / cut / send to discovery</td><td>Top-N within Effort budget; rest = cut or research</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note"><b>Decision rule.</b> Sort by RICE Score descending. Build the top N that fit your Effort budget for the cycle. Items ranked low because of <em>low Confidence</em> aren't a cut — they're candidates for discovery work (user research, fake-door test) to lift Confidence before re-scoring next cycle. Items ranked low because of <em>low Reach or Impact</em> are real cuts. RICE is the audit trail of <em>why</em> you picked this over that — not proof it will work; that still requires shipping and measuring.</div>
 
   <!-- LIMITS -->
   <h2 class="sec" id="limits">Where RICE breaks (and what to do instead)</h2>

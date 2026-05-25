@@ -139,6 +139,7 @@
     <a href="#anatomy">The artifact</a>
     <a href="#mechanism">How it picks work</a>
     <a href="#example">Worked example</a>
+    <a href="#apply">Apply to a sheet</a>
     <a href="#limits">Where it breaks</a>
     <a href="methodologies-comparison.html" style="color:var(--gold);font-weight:700">Comparison table →</a>
   </nav>
@@ -200,6 +201,44 @@
     <p style="color:var(--ink-soft);font-size:13px">The Kindle PR-FAQ went through many iterations before the device was built. The team didn't just <em>design</em> the Kindle from the PR — they kept revising the PR until the customer story was undeniable.</p>
   </div>
   <p style="font-size:13px;color:var(--ink-soft)">Source for the Kindle PR-FAQ narrative: Bryar &amp; Carr, <em>Working Backwards</em>, Chapter 5. The exact wording above is reconstructed from public retellings, not Amazon-published text — the structure and discipline are the verifiable parts.</p>
+
+  <!-- APPLY TO A SHEET -->
+  <h2 class="sec" id="apply">Apply to a feature sheet</h2>
+  <p class="secsub">PR-FAQ doesn't produce a numeric score either — it produces an <strong>artifact gate</strong>. Your sheet doesn't rank features; it tracks <em>readiness</em>. A feature does not enter build until every cell is green and the silent-read review passes. The columns are a checklist, not a calculation.</p>
+
+  <div class="extable">
+    <table class="ex">
+      <thead><tr><th>Column to add</th><th>What it captures</th><th>How you fill it</th></tr></thead>
+      <tbody>
+        <tr><td>Bet</td><td>Candidate feature / product</td><td>Backlog item — usually a "big bet," not routine work</td></tr>
+        <tr><td>PR drafted?</td><td>One-page mock press release exists</td><td>Y / N</td></tr>
+        <tr><td>Headline strong?</td><td>The launch reads compelling in the customer's own words</td><td>Y / re-write — subjective, decided by the silent-read room</td></tr>
+        <tr><td>Customer &amp; bad-day moment</td><td>The specific user and situation the PR addresses</td><td>One sentence — "X user, when Y happens, today they Z"</td></tr>
+        <tr><td>Customer quote drafted?</td><td>Hypothetical real reaction to the launch</td><td>Y / N</td></tr>
+        <tr><td>Numeric success metric</td><td>"We expect X% Y in 6 months, because Z"</td><td>Internal-FAQ field — the line that makes PR-FAQ a pre-build estimator</td></tr>
+        <tr><td>Kill criteria</td><td>What would convince us to stop?</td><td>Internal-FAQ field — explicit thresholds</td></tr>
+        <tr><td>External-FAQ count</td><td>Customer/journalist objections answered (pricing, availability, limits, comparisons)</td><td>Integer (target ≥ 5–8 honest answers)</td></tr>
+        <tr><td>Silent-read passed?</td><td>Did the 20-min silent-read review survive critique?</td><td>Y / N / re-draft</td></tr>
+        <tr><td>Ready for build?</td><td>The gate</td><td>Ready (all green + silent-read passed) / Re-draft / Kill</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 style="font-family:Georgia,serif;font-size:18px;margin:24px 0 8px">Worked example — three bets in the PR-FAQ queue</h3>
+  <p style="font-size:13.5px;color:var(--ink-soft);margin:0 0 12px">Illustrative bets shaped after the Bryar &amp; Carr template. The point is the gate behaviour — not the specific bets.</p>
+
+  <div class="extable">
+    <table class="ex">
+      <thead><tr><th>Bet</th><th>Headline</th><th>Numeric metric</th><th>Kill criteria</th><th>FAQ count</th><th>Silent-read</th><th>Verdict</th></tr></thead>
+      <tbody>
+        <tr class="top"><td>"Kindle"-style reader device (the canonical case)</td><td>"Every book ever printed, in 60 seconds"</td><td>Yes — units in y1, share of trade book sales by y3</td><td>Yes — publisher sign-on threshold</td><td>~12</td><td>Passed</td><td class="score">Ready</td></tr>
+        <tr><td>Smart speaker for kids</td><td>Drafted but weak — "Voice that listens like a parent"</td><td>Partial — adoption stated, no retention floor</td><td>Missing</td><td>4</td><td>—</td><td class="score" style="color:var(--gold)">Re-draft</td></tr>
+        <tr><td>AR shopping overlay</td><td>"Try things on virtually" — no customer pain</td><td>—</td><td>—</td><td>2</td><td>—</td><td class="score" style="color:var(--accent)">Kill</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note"><b>Decision rule.</b> <b>Ready for build</b> only when <em>every</em> column is green <em>and</em> the silent-read room can't poke a useful hole in the doc. <b>Re-draft</b> if any field is missing or weak — go back to step 2, no engineering effort yet. <b>Kill</b> when the headline can't be made compelling after iteration; that's the PR-FAQ doing its job — most first drafts die at this gate, which is the point. PR-FAQ filters at the bet level; once a bet is built, individual changes still go through <a class="cite" href="microsoft-exp-framework.html">experiment-style A/B</a> readouts.</div>
 
   <!-- LIMITS -->
   <h2 class="sec" id="limits">Where PR-FAQ breaks</h2>

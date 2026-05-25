@@ -144,6 +144,7 @@
     <a href="#mechanism">How it picks work</a>
     <a href="#example">Bing headline example</a>
     <a href="#stats">The humbling stats</a>
+    <a href="#apply">Apply to a sheet</a>
     <a href="methodologies-comparison.html" style="color:var(--blue);font-weight:700">Comparison table →</a>
   </nav>
 
@@ -209,7 +210,47 @@
   </div>
   <div class="caveat">Caveat: the ⅓ / ½ / ⅙ split is the figure Kohavi quotes in talks and HBR — it's a Microsoft-internal aggregate, not a controlled study. Other companies (Booking, Netflix) cite similar ratios independently. The $100M figure is HBR-published (reputable secondary).</div>
 
-  <div class="note"><b>Why this matters for the planning debate.</b> If only ~1/3 of ideas win, ranking 50 ideas with RICE and shipping the top 10 means you ship ~7 losers and ~3 winners — and you may not know which were which. ExP-style discipline says: <b>ship behind a test, declare the OEC up front, kill what doesn't move it.</b> That's the entire argument for .</div>
+  <div class="note"><b>Why this matters for prioritisation.</b> If only ~1/3 of ideas win, ranking 50 ideas with RICE and shipping the top 10 means you ship ~7 losers and ~3 winners — and you may not know which were which. ExP-style discipline says: <b>ship behind a test, declare the OEC up front, kill what doesn't move it.</b> That's the entire argument for trustworthy experimentation as the layer that finishes what scoring frameworks start.</div>
+
+  <!-- APPLY TO A SHEET -->
+  <h2 class="sec" id="apply">Apply to a feature sheet</h2>
+  <p class="secsub">ExP-style discipline doesn't score features pre-build — it adjudicates them <strong>post-build via experiment</strong>. If you adopt it, your feature sheet evolves from "ideas + scores" into a <em>live experiment ledger</em>: every shipped feature carries the test that earned it the right to stay.</p>
+
+  <div class="extable">
+    <table class="ex">
+      <thead><tr><th>Column to add</th><th>What it captures</th><th>How you fill it</th></tr></thead>
+      <tbody>
+        <tr><td>Feature</td><td>What's being tested</td><td>Backlog title</td></tr>
+        <tr><td>Hypothesis</td><td>"If we ship X, OEC moves by Y, because Z"</td><td>One sentence — locked before code is written</td></tr>
+        <tr><td>OEC</td><td>The single agreed success metric</td><td>Picked from the org's OEC catalogue — no per-test improvisation</td></tr>
+        <tr><td>Guardrails</td><td>Metrics that must <em>not</em> regress (latency, errors, support volume, churn)</td><td>Standard set + feature-specific additions</td></tr>
+        <tr><td>MDE</td><td>Minimum detectable effect — smallest move worth shipping for</td><td>Set by business value, not by what's easy to detect</td></tr>
+        <tr><td>Sample size N (CUPED)</td><td>Users per arm needed for that MDE at 80% power</td><td>Power calc — CUPED cuts ~50% off the raw N</td></tr>
+        <tr><td>Ramp plan</td><td>Exposure schedule (1% → 5% → 25% → 50% → 100%)</td><td>Standard ramp; pause at any step if guardrail breaches</td></tr>
+        <tr><td>Stop rule</td><td>When to call it (time, sample, or guardrail breach)</td><td>Defined upfront — no "let's run it another week" mid-test</td></tr>
+        <tr><td>Trust checks</td><td>SRM, A/A pre-test, segment sanity</td><td>Platform-automated; flagged tests get blocked from readout</td></tr>
+        <tr><td>Result</td><td>OEC delta + CI + guardrail status</td><td>Auto-populated from platform readout</td></tr>
+        <tr><td>Decision</td><td>Ship / Iterate / Kill</td><td>Driven by the rule below, not by attachment</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 style="font-family:Georgia,serif;font-size:18px;margin:24px 0 8px">Worked example — three features in flight</h3>
+  <p style="font-size:13.5px;color:var(--ink-soft);margin:0 0 12px">Illustrative experiments shaped after the Bing-style template. Numbers chosen to show the three outcomes (ship / iterate / kill) the discipline produces.</p>
+
+  <div class="extable">
+    <table class="ex">
+      <thead><tr><th>Feature</th><th>OEC</th><th>Guardrails</th><th>N / arm</th><th>Ramp</th><th>Result</th><th>Decision</th></tr></thead>
+      <tbody>
+        <tr class="top"><td>Headline color &amp; font tweak (Bing-style)</td><td>Revenue / session</td><td>Latency, abandon rate</td><td>~200k</td><td>50/50 · 2 wk</td><td>OEC +1.2% (sig), guardrails held</td><td class="score">Ship</td></tr>
+        <tr><td>New onboarding tutorial</td><td>D7 retention</td><td>Completion rate, errors</td><td>~80k</td><td>1→5→25→50%</td><td>OEC flat, guardrails OK</td><td class="score" style="color:var(--gold)">Iterate</td></tr>
+        <tr><td>Aggressive paywall variant</td><td>Trial → paid conversion</td><td>Post-paid churn, support tickets</td><td>~20k</td><td>5% · halted</td><td>OEC +8% BUT support tickets +40%</td><td class="score" style="color:var(--accent)">Kill</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note"><b>Decision rule.</b> <b>Ship</b> only if (1) OEC moves with statistical significance, (2) <em>every</em> guardrail holds, and (3) no SRM or trust flag was raised. <b>Iterate</b> if OEC is flat but guardrails are clean — change the variant, re-run. <b>Kill</b> immediately when a guardrail breaches, even if the OEC looks great (the paywall row): a feature that lifts conversion but burns support load is a net loss. The point of CUPED is that you can read these verdicts in days, not weeks — speed of decision is what makes the ⅓-win rate survivable.</div>
+
   <footer>
     Companion to <a href="impact-saas-companies.html#exp">← SaaS case studies · Experimentation</a> · <a href="methodologies-comparison.html">All methods compared</a><br>
     Grounded in: <a href="https://exp-platform.com/">exp-platform.com</a>, the CUPED paper (Deng et al., 2013), the Kohavi/Tang/Xu book <em>Trustworthy Online Controlled Experiments</em>, and Kohavi &amp; Thomke's HBR article. ⅓-win and $100M figures are Microsoft-published in those sources.
