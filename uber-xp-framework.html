@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Uber XP — staged rollout, universal holdout, marketplace experiments</title>
+<style>
+  :root{
+    --ink:#1c2230; --ink-soft:#465065; --line:#e3ddd0; --paper:#faf7f0;
+    --card:#ffffff; --accent:#b5482e; --accent-soft:#fbeae4;
+    --gold:#9a7b2e; --gold-soft:#f6efdc; --teal:#1f6f6b; --teal-soft:#e2f0ee;
+    --blue:#2d4a7c; --blue-soft:#e6ecf6; --purple:#5b3b78; --purple-soft:#efe6f6;
+    --shadow:0 1px 2px rgba(28,34,48,.06),0 8px 24px rgba(28,34,48,.06);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.62;font-size:16px;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:920px;margin:0 auto;padding:0 24px 96px}
+  header.masthead{border-bottom:3px solid var(--ink);margin-bottom:8px;padding:48px 0 22px}
+  .kicker{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);font-weight:700;margin:0 0 10px}
+  h1{font-family:Georgia,"Times New Roman",serif;font-size:40px;line-height:1.08;margin:0 0 12px;letter-spacing:-.01em}
+  .sub{color:var(--ink-soft);margin:0;max-width:64ch}
+  .goal{margin-top:18px;background:var(--accent-soft);border:1px solid #f2c9bd;border-left:5px solid var(--accent);border-radius:10px;padding:13px 18px;font-size:15px}
+  .goal span{color:var(--accent);text-transform:uppercase;letter-spacing:.08em;font-size:11px;font-weight:800}
+  nav.toc{position:sticky;top:0;background:rgba(250,247,240,.92);backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);padding:12px 0;margin-bottom:34px;z-index:5;font-size:14px}
+  nav.toc a{color:var(--ink-soft);text-decoration:none;margin-right:16px;white-space:nowrap}
+  nav.toc a:hover{color:var(--blue)}
+  .finding{background:var(--ink);color:#f3efe6;border-radius:14px;padding:24px 28px;margin:0 0 36px;box-shadow:var(--shadow)}
+  .finding h2{color:#fff;margin:0 0 8px;font-family:Georgia,serif;font-size:21px}
+  .finding p{margin:0 0 10px;color:#cfc9bb}
+  .finding p:last-child{margin:0}
+  .finding b{color:#9bc7ef}
+  h2.sec{font-family:Georgia,serif;font-size:26px;margin:40px 0 6px;padding-top:18px;border-top:2px solid var(--line)}
+  .secsub{color:var(--ink-soft);font-size:14.5px;margin:0 0 18px;max-width:68ch}
+  p{margin:0 0 14px}
+  /* three pieces */
+  .three{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:14px 0}
+  .concept{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;box-shadow:var(--shadow);border-top:5px solid var(--blue)}
+  .concept .ab{font-family:Georgia,serif;font-size:13px;color:var(--blue);font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:4px}
+  .concept h3{margin:0 0 8px;font-size:17px;font-family:Georgia,serif}
+  .concept p{margin:0;font-size:13.5px;color:var(--ink-soft);line-height:1.5}
+  .concept p b{color:var(--ink)}
+  /* ramp visualization */
+  .ramp{background:#fff;border:1px solid var(--line);border-radius:12px;padding:22px;box-shadow:var(--shadow);margin:14px 0;text-align:center}
+  .ramp .stages{display:flex;justify-content:space-around;gap:8px;margin-top:14px;flex-wrap:wrap}
+  .ramp .stage{background:var(--blue-soft);border:1px solid #cdd9ee;border-radius:8px;padding:10px 14px;flex:1 1 100px;min-width:90px}
+  .ramp .stage .pct{font-family:Georgia,serif;font-size:20px;color:var(--blue);font-weight:700;line-height:1}
+  .ramp .stage .lb{font-size:12px;color:var(--ink-soft);margin-top:4px}
+  .ramp .arrow{display:inline-block;color:var(--blue);font-size:18px;font-weight:700;align-self:center}
+  /* steps */
+  .step{display:flex;gap:16px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:12px 0;box-shadow:var(--shadow);border-left:5px solid var(--blue)}
+  .step .num{font-family:Georgia,serif;font-size:28px;font-weight:700;color:var(--blue);line-height:1;min-width:30px}
+  .step h3{margin:0 0 5px;font-size:17px}
+  .step p{margin:0;font-size:14.5px;color:var(--ink-soft)}
+  .step p b{color:var(--ink)}
+  /* stats */
+  .stats{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
+  .stat{flex:1 1 150px;background:#f6f4ee;border:1px solid var(--line);border-radius:8px;padding:12px 14px;text-align:center}
+  .stat .n{font-family:Georgia,serif;font-size:22px;color:var(--blue);font-weight:700;line-height:1.1}
+  .stat .l{font-size:11.5px;color:var(--ink-soft);margin-top:4px;line-height:1.35}
+  /* ours */
+  .ours{background:var(--teal-soft);border-left:5px solid var(--teal);border-radius:10px;padding:18px 22px;margin:18px 0}
+  .ours h3{margin:0 0 8px;color:var(--teal);font-size:18px;font-family:Georgia,serif}
+  .ours .draft{font-size:11px;background:var(--teal);color:#fff;padding:3px 9px;border-radius:5px;text-transform:uppercase;letter-spacing:.06em;font-weight:700}
+  .ours code{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;font-size:13px;background:#fff;border:1px solid #bcdcd8;border-radius:5px;padding:2px 7px}
+  a.cite{color:var(--teal);text-decoration:none;border-bottom:1px solid var(--teal)}
+  a.cite:hover{color:var(--accent);border-color:var(--accent)}
+  .note{background:var(--blue-soft);border-left:4px solid var(--blue);border-radius:8px;padding:14px 18px;margin:18px 0;font-size:14.5px}
+  .note b{color:var(--blue)}
+  .src{font-size:13px;color:var(--ink-soft);margin-top:10px}
+  footer{border-top:1px solid var(--line);padding-top:20px;color:var(--ink-soft);font-size:13px;margin-top:44px}
+  footer a{color:var(--teal)}
+  @media(max-width:680px){.three{grid-template-columns:1fr}h1{font-size:30px}}
+</style>
+</head>
+<body>
+<nav class="sitenav">
+<style>
+  .sitenav{position:fixed;top:12px;right:16px;z-index:100;font-size:13px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  .sitenav details{background:#1c2230;color:#f3efe6;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.22)}
+  .sitenav summary{list-style:none;cursor:pointer;padding:8px 14px;font-weight:700;letter-spacing:.04em;user-select:none}
+  .sitenav summary::-webkit-details-marker{display:none}
+  .sitenav summary::after{content:" \25BE";color:#cfc9bb;font-size:10px;margin-left:2px}
+  .sitenav details[open] summary::after{content:" \25B4"}
+  .sitenav .navmenu{position:absolute;top:calc(100% + 6px);right:0;background:#fff;color:#1c2230;border:1px solid #e3ddd0;border-radius:10px;padding:16px 18px;box-shadow:0 8px 28px rgba(28,34,48,.22);display:grid;grid-template-columns:repeat(2,minmax(180px,1fr));gap:14px 26px;min-width:400px;max-width:92vw;max-height:80vh;overflow-y:auto}
+  .sitenav .navgrp h4{margin:0 0 5px;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:#465065;font-weight:700;border-bottom:1px solid #e3ddd0;padding-bottom:4px}
+  .sitenav .navgrp a{display:block;color:#1c2230;text-decoration:none;font-size:13px;padding:2px 0;line-height:1.5}
+  .sitenav .navgrp a:hover{color:#b5482e}
+  .sitenav .navgrp a.cur{font-weight:700;color:#b5482e}
+  @media(max-width:600px){.sitenav .navmenu{grid-template-columns:1fr;min-width:240px;max-width:88vw}.sitenav{top:8px;right:8px}}
+</style>
+<details>
+<summary>📑 Jump to</summary>
+<div class="navmenu">
+<div class="navgrp"><h4>Start here</h4>
+<a href="index.html"><b>← Home (goal &amp; map)</b></a>
+<a href="impact-saas-companies.html">SaaS / B2B field study</a>
+<a href="impact-consumer-companies.html">Consumer-tech field study</a>
+<a href="methodologies-comparison.html"><b>All methods compared →</b></a>
+<a href="experiment-trustworthiness.html">How 40k tests actually work →</a>
+</div>
+<div class="navgrp"><h4>Scoring &amp; Input modeling</h4>
+<a href="rice-framework.html">RICE (Intercom)</a>
+<a href="north-star-framework.html">North Star (Amplitude / Slack)</a>
+</div>
+<div class="navgrp"><h4>Goal-laddering / Define first</h4>
+<a href="v2mom-framework.html">V2MOM (Salesforce)</a>
+<a href="pyramid-of-clarity-framework.html">Pyramid of Clarity (Asana)</a>
+<a href="pr-faq-framework.html">PR-FAQ (Amazon)</a>
+<a href="heart-framework.html">HEART (Google)</a>
+<a href="dibb-framework.html">DIBB (Spotify)</a>
+</div>
+<div class="navgrp"><h4>Experimentation (SaaS)</h4>
+<a href="microsoft-exp-framework.html">Microsoft ExP / CUPED</a>
+<a href="linkedin-xlnt-framework.html">LinkedIn T-REX</a>
+</div>
+<div class="navgrp"><h4>Experimentation (Consumer)</h4>
+<a href="netflix-experimentation.html">Netflix · ABlaze</a>
+<a href="booking-experimentation.html">Booking.com</a>
+<a href="airbnb-erf-framework.html">Airbnb ERF</a>
+<a class="cur" href="uber-xp-framework.html">Uber XP</a>
+<a href="doordash-switchback-framework.html">DoorDash switchback</a>
+<a href="lyft-experimentation.html">Lyft</a>
+<a href="pinterest-ab-framework.html">Pinterest</a>
+</div>
+<div class="navgrp"><h4>Written discipline</h4>
+<a href="stripe-shaping-framework.html">Stripe shaping</a>
+</div>
+</div>
+</details>
+</nav>
+
+<div class="wrap">
+  <header class="masthead">
+    <p class="kicker">Methods · Deep-dive · Experimentation (Consumer)</p>
+    <h1>Uber XP — staged rollout + universal holdout for long-term effects</h1>
+    <p class="sub">Uber's experimentation platform combines <strong>flag-based staged rollout</strong> with a distinctive <strong>universal holdout</strong> — a small group permanently excluded from all new features to measure cumulative long-term impact. The platform's other big claim is engineering: a 100× speed-up in evaluation latency via local (rather than remote) flag resolution.</p>
+    <div class="goal"><span>Goal</span><br>Decide features by data-backed expected impact — choose by outcome, not by to-do list or opinion.</div>
+  </header>
+
+  <nav class="toc">
+    <a href="#headline">Honest headline</a>
+    <a href="#anatomy">Three pieces</a>
+    <a href="#mechanism">How it picks work</a>
+    <a href="#ramp">The ramp pattern</a>
+    <a href="methodologies-comparison.html" style="color:var(--blue);font-weight:700">Comparison table →</a>
+  </nav>
+
+  <div class="finding" id="headline">
+    <h2>The honest headline: the long-run holdout is the underrated idea</h2>
+    <p>Any platform can run an A/B test. Uber's contribution: <b>a "universal holdout" — a permanently-excluded slice of users who never see new features</b> — to measure the <em>cumulative</em> impact of everything shipped over a quarter or year. It catches the failure mode where every individual test "wins" but the product gets worse overall (death by a thousand local optima).</p>
+    <p>Same decision rule as the rest (OEC + ramp). The holdout is the audit layer that the rest of the experimentation set tends to skip.</p>
+  </div>
+
+  <!-- ANATOMY -->
+  <h2 class="sec" id="anatomy">Three pieces — XP, staged rollout, universal holdout</h2>
+
+  <div class="three">
+    <div class="concept">
+      <div class="ab">XP</div>
+      <h3>The platform</h3>
+      <p>Uber's internal experimentation platform — flag service, randomization, metrics, dashboards. The headline engineering win: the rewrite from <b>remote to local flag evaluation</b> cut latency 100×.</p>
+    </div>
+    <div class="concept">
+      <div class="ab">Ramp</div>
+      <h3>Staged rollout as the default</h3>
+      <p>Every feature ships behind a flag and ramps 1% → 5% → 25% → 50% → 100%. At each step the platform reads the OEC and guardrails; a regression auto-rolls-back.</p>
+    </div>
+    <div class="concept">
+      <div class="ab">Holdout</div>
+      <h3>Universal holdout — cumulative long-term effect</h3>
+      <p>A small % of users is <b>permanently excluded</b> from all new features for a period (e.g. a quarter). Comparing their behaviour to the rest measures the <em>aggregate</em> effect of the entire shipped quarter — not just per-feature lifts.</p>
+    </div>
+  </div>
+  <div class="src">Source: <a class="cite" href="https://www.uber.com/us/en/blog/experimentation-platform/">Uber Engineering — XP platform</a> · <a class="cite" href="https://www.uber.com/us/en/blog/xp/">Building XP</a>.</div>
+
+  <!-- MECHANISM -->
+  <h2 class="sec" id="mechanism">How an XP-style decision actually gets made</h2>
+
+  <div class="step"><div class="num">1</div><div><h3>Define the experiment in the platform UI</h3><p>Hypothesis, OEC, guardrails, segments. Standard config so the platform can auto-monitor.</p></div></div>
+  <div class="step"><div class="num">2</div><div><h3>Ramp behind a flag, with auto-rollback</h3><p>If guardrail metrics breach during a ramp step, the platform rolls the flag back automatically. Engineers don't have to be watching.</p></div></div>
+  <div class="step"><div class="num">3</div><div><h3>Read the OEC at each step; promote or kill</h3><p>Each ramp step is itself an experiment. Most features die at the 1% or 5% step.</p></div></div>
+  <div class="step"><div class="num">4</div><div><h3>Compare against the universal holdout, quarterly</h3><p>The audit: did the quarter's shipped work actually improve the product vs the held-out users? If not, individual wins were probably local — a cue to re-examine the OECs.</p></div></div>
+  <div class="step"><div class="num">5</div><div><h3>Loop the holdout learning back into metric design</h3><p>If many quarters show no aggregate lift despite per-feature wins, the OECs are wrong (or the metric is gameable). The holdout forces this honesty.</p></div></div>
+
+  <!-- RAMP -->
+  <h2 class="sec" id="ramp">The ramp pattern — what shipping behind XP looks like</h2>
+  <p class="secsub">Five steps. Every feature, every time. The ramp is the experiment.</p>
+
+  <div class="ramp">
+    <div class="stages">
+      <div class="stage"><div class="pct">1%</div><div class="lb">Smoke test — does anything crash?</div></div>
+      <div class="stage"><div class="pct">5%</div><div class="lb">Early read of OEC + guardrails</div></div>
+      <div class="stage"><div class="pct">25%</div><div class="lb">Statistical significance check</div></div>
+      <div class="stage"><div class="pct">50%</div><div class="lb">Confirm at scale</div></div>
+      <div class="stage"><div class="pct">100%</div><div class="lb">Ship to everyone (except holdout)</div></div>
+    </div>
+    <p style="font-size:12.5px;color:var(--ink-soft);margin:14px 0 0">Auto-rollback at any step if guardrails breach. Most features that don't ship to 100% never make it past the 5% step — exactly when killing is cheapest.</p>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="n">1,000+</div><div class="l">experiments running concurrently</div></div>
+    <div class="stat"><div class="n">100×</div><div class="l">faster experiment evaluation (post-rewrite)</div></div>
+    <div class="stat"><div class="n">~1–5%</div><div class="l">typical universal-holdout size</div></div>
+  </div>
+
+  <div class="note"><b>The transferable insight: the holdout, not the ramp.</b> Staged ramps are now a standard pattern across the industry (LinkedIn, Booking, Microsoft all do it). The universal holdout is rarer and more powerful — it answers the question <em>"is the product better this quarter than it was last quarter?"</em> in a causal way no roll-up of individual tests can. The honest cost: a small slice of users gets a deliberately worse product for a quarter.</div>
+  <footer>
+    Companion to <a href="impact-consumer-companies.html#measure">← Consumer case studies · Measure don't estimate</a> · <a href="methodologies-comparison.html">All methods compared</a> · siblings: <a href="microsoft-exp-framework.html">Microsoft ExP</a> · <a href="doordash-switchback-framework.html">DoorDash switchback</a> (other marketplace-specific design)<br>
+    Grounded in: <a href="https://www.uber.com/us/en/blog/experimentation-platform/">Uber Engineering's XP posts</a>. Numbers (100× faster, 1,000+ concurrent, holdout %) are Uber-published.
+  </footer>
+</div>
+</body>
+</html>

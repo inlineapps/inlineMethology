@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Booking.com — democratised experimentation at marketplace scale</title>
+<style>
+  :root{
+    --ink:#1c2230; --ink-soft:#465065; --line:#e3ddd0; --paper:#faf7f0;
+    --card:#ffffff; --accent:#b5482e; --accent-soft:#fbeae4;
+    --gold:#9a7b2e; --gold-soft:#f6efdc; --teal:#1f6f6b; --teal-soft:#e2f0ee;
+    --blue:#2d4a7c; --blue-soft:#e6ecf6; --purple:#5b3b78; --purple-soft:#efe6f6;
+    --shadow:0 1px 2px rgba(28,34,48,.06),0 8px 24px rgba(28,34,48,.06);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.62;font-size:16px;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:920px;margin:0 auto;padding:0 24px 96px}
+  header.masthead{border-bottom:3px solid var(--ink);margin-bottom:8px;padding:48px 0 22px}
+  .kicker{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);font-weight:700;margin:0 0 10px}
+  h1{font-family:Georgia,"Times New Roman",serif;font-size:40px;line-height:1.08;margin:0 0 12px;letter-spacing:-.01em}
+  .sub{color:var(--ink-soft);margin:0;max-width:64ch}
+  .goal{margin-top:18px;background:var(--accent-soft);border:1px solid #f2c9bd;border-left:5px solid var(--accent);border-radius:10px;padding:13px 18px;font-size:15px}
+  .goal span{color:var(--accent);text-transform:uppercase;letter-spacing:.08em;font-size:11px;font-weight:800}
+  nav.toc{position:sticky;top:0;background:rgba(250,247,240,.92);backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);padding:12px 0;margin-bottom:34px;z-index:5;font-size:14px}
+  nav.toc a{color:var(--ink-soft);text-decoration:none;margin-right:16px;white-space:nowrap}
+  nav.toc a:hover{color:var(--blue)}
+  .finding{background:var(--ink);color:#f3efe6;border-radius:14px;padding:24px 28px;margin:0 0 36px;box-shadow:var(--shadow)}
+  .finding h2{color:#fff;margin:0 0 8px;font-family:Georgia,serif;font-size:21px}
+  .finding p{margin:0 0 10px;color:#cfc9bb}
+  .finding p:last-child{margin:0}
+  .finding b{color:#9bc7ef}
+  h2.sec{font-family:Georgia,serif;font-size:26px;margin:40px 0 6px;padding-top:18px;border-top:2px solid var(--line)}
+  .secsub{color:var(--ink-soft);font-size:14.5px;margin:0 0 18px;max-width:68ch}
+  p{margin:0 0 14px}
+  /* three pillars */
+  .three{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:14px 0}
+  .concept{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;box-shadow:var(--shadow);border-top:5px solid var(--blue)}
+  .concept .ab{font-family:Georgia,serif;font-size:13px;color:var(--blue);font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:4px}
+  .concept h3{margin:0 0 8px;font-size:17px;font-family:Georgia,serif}
+  .concept p{margin:0;font-size:13.5px;color:var(--ink-soft);line-height:1.5}
+  .concept p b{color:var(--ink)}
+  /* steps */
+  .step{display:flex;gap:16px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:12px 0;box-shadow:var(--shadow);border-left:5px solid var(--blue)}
+  .step .num{font-family:Georgia,serif;font-size:28px;font-weight:700;color:var(--blue);line-height:1;min-width:30px}
+  .step h3{margin:0 0 5px;font-size:17px}
+  .step p{margin:0;font-size:14.5px;color:var(--ink-soft)}
+  .step p b{color:var(--ink)}
+  /* the famous example */
+  .ex{background:#fff;border:1px dashed var(--blue);border-radius:12px;padding:18px 22px;margin:14px 0;font-size:14.5px}
+  .ex h3{margin:0 0 8px;color:var(--blue);font-family:Georgia,serif;font-size:17px}
+  /* stats */
+  .stats{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
+  .stat{flex:1 1 150px;background:#f6f4ee;border:1px solid var(--line);border-radius:8px;padding:12px 14px;text-align:center}
+  .stat .n{font-family:Georgia,serif;font-size:22px;color:var(--blue);font-weight:700;line-height:1.1}
+  .stat .l{font-size:11.5px;color:var(--ink-soft);margin-top:4px;line-height:1.35}
+  /* ours */
+  .ours{background:var(--teal-soft);border-left:5px solid var(--teal);border-radius:10px;padding:18px 22px;margin:18px 0}
+  .ours h3{margin:0 0 8px;color:var(--teal);font-size:18px;font-family:Georgia,serif}
+  .ours .draft{font-size:11px;background:var(--teal);color:#fff;padding:3px 9px;border-radius:5px;text-transform:uppercase;letter-spacing:.06em;font-weight:700}
+  .ours code{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;font-size:13px;background:#fff;border:1px solid #bcdcd8;border-radius:5px;padding:2px 7px}
+  a.cite{color:var(--teal);text-decoration:none;border-bottom:1px solid var(--teal)}
+  a.cite:hover{color:var(--accent);border-color:var(--accent)}
+  .note{background:var(--blue-soft);border-left:4px solid var(--blue);border-radius:8px;padding:14px 18px;margin:18px 0;font-size:14.5px}
+  .note b{color:var(--blue)}
+  .caveat{font-size:12.5px;color:#8a6d2e;background:#fbf6e7;border:1px dashed #d8c98f;border-radius:6px;padding:7px 11px;margin-top:10px}
+  .src{font-size:13px;color:var(--ink-soft);margin-top:10px}
+  footer{border-top:1px solid var(--line);padding-top:20px;color:var(--ink-soft);font-size:13px;margin-top:44px}
+  footer a{color:var(--teal)}
+  @media(max-width:680px){.three{grid-template-columns:1fr}h1{font-size:30px}}
+</style>
+</head>
+<body>
+<nav class="sitenav">
+<style>
+  .sitenav{position:fixed;top:12px;right:16px;z-index:100;font-size:13px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  .sitenav details{background:#1c2230;color:#f3efe6;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.22)}
+  .sitenav summary{list-style:none;cursor:pointer;padding:8px 14px;font-weight:700;letter-spacing:.04em;user-select:none}
+  .sitenav summary::-webkit-details-marker{display:none}
+  .sitenav summary::after{content:" \25BE";color:#cfc9bb;font-size:10px;margin-left:2px}
+  .sitenav details[open] summary::after{content:" \25B4"}
+  .sitenav .navmenu{position:absolute;top:calc(100% + 6px);right:0;background:#fff;color:#1c2230;border:1px solid #e3ddd0;border-radius:10px;padding:16px 18px;box-shadow:0 8px 28px rgba(28,34,48,.22);display:grid;grid-template-columns:repeat(2,minmax(180px,1fr));gap:14px 26px;min-width:400px;max-width:92vw;max-height:80vh;overflow-y:auto}
+  .sitenav .navgrp h4{margin:0 0 5px;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:#465065;font-weight:700;border-bottom:1px solid #e3ddd0;padding-bottom:4px}
+  .sitenav .navgrp a{display:block;color:#1c2230;text-decoration:none;font-size:13px;padding:2px 0;line-height:1.5}
+  .sitenav .navgrp a:hover{color:#b5482e}
+  .sitenav .navgrp a.cur{font-weight:700;color:#b5482e}
+  @media(max-width:600px){.sitenav .navmenu{grid-template-columns:1fr;min-width:240px;max-width:88vw}.sitenav{top:8px;right:8px}}
+</style>
+<details>
+<summary>📑 Jump to</summary>
+<div class="navmenu">
+<div class="navgrp"><h4>Start here</h4>
+<a href="index.html"><b>← Home (goal &amp; map)</b></a>
+<a href="impact-saas-companies.html">SaaS / B2B field study</a>
+<a href="impact-consumer-companies.html">Consumer-tech field study</a>
+<a href="methodologies-comparison.html"><b>All methods compared →</b></a>
+<a href="experiment-trustworthiness.html">How 40k tests actually work →</a>
+</div>
+<div class="navgrp"><h4>Scoring &amp; Input modeling</h4>
+<a href="rice-framework.html">RICE (Intercom)</a>
+<a href="north-star-framework.html">North Star (Amplitude / Slack)</a>
+</div>
+<div class="navgrp"><h4>Goal-laddering / Define first</h4>
+<a href="v2mom-framework.html">V2MOM (Salesforce)</a>
+<a href="pyramid-of-clarity-framework.html">Pyramid of Clarity (Asana)</a>
+<a href="pr-faq-framework.html">PR-FAQ (Amazon)</a>
+<a href="heart-framework.html">HEART (Google)</a>
+<a href="dibb-framework.html">DIBB (Spotify)</a>
+</div>
+<div class="navgrp"><h4>Experimentation (SaaS)</h4>
+<a href="microsoft-exp-framework.html">Microsoft ExP / CUPED</a>
+<a href="linkedin-xlnt-framework.html">LinkedIn T-REX</a>
+</div>
+<div class="navgrp"><h4>Experimentation (Consumer)</h4>
+<a href="netflix-experimentation.html">Netflix · ABlaze</a>
+<a class="cur" href="booking-experimentation.html">Booking.com</a>
+<a href="airbnb-erf-framework.html">Airbnb ERF</a>
+<a href="uber-xp-framework.html">Uber XP</a>
+<a href="doordash-switchback-framework.html">DoorDash switchback</a>
+<a href="lyft-experimentation.html">Lyft</a>
+<a href="pinterest-ab-framework.html">Pinterest</a>
+</div>
+<div class="navgrp"><h4>Written discipline</h4>
+<a href="stripe-shaping-framework.html">Stripe shaping</a>
+</div>
+</div>
+</details>
+</nav>
+
+<div class="wrap">
+  <header class="masthead">
+    <p class="kicker">Methods · Deep-dive · Experimentation (Consumer)</p>
+    <h1>Booking.com — democratised experimentation as company culture</h1>
+    <p class="sub">Booking's distinctive contribution isn't a clever technique — it's a <strong>culture</strong>: any employee can launch an experiment on millions of users without management sign-off. The platform's job is to enforce trust (guardrails, SRM, defined metrics), not to gatekeep ideas.</p>
+    <div class="goal"><span>Goal</span><br>Decide features by data-backed expected impact — choose by outcome, not by to-do list or opinion.</div>
+  </header>
+
+  <nav class="toc">
+    <a href="#headline">Honest headline</a>
+    <a href="#anatomy">Three pillars</a>
+    <a href="#mechanism">How it picks work</a>
+    <a href="#example">The sold-out story</a>
+    <a href="methodologies-comparison.html" style="color:var(--blue);font-weight:700">Comparison table →</a>
+  </nav>
+
+  <div class="finding" id="headline">
+    <h2>The honest headline: trust the platform, not the manager</h2>
+    <p>Most experimentation cultures gate ideas at a person: a director, a council, a roadmap review. Booking gates at the <em>platform</em>: <b>if your hypothesis passes the automated guardrails, you can ship the test — no one's permission required</b>. That single inversion is what enables ~25,000 tests/year at the company level.</p>
+    <p>The famous Stefan Thomke HBR write-up calls it "Building a Culture of Experimentation" — and the load-bearing word is <em>culture</em>. The platform is the enforcement layer; the culture is the choice to let employees act on what the platform clears.</p>
+  </div>
+
+  <!-- ANATOMY -->
+  <h2 class="sec" id="anatomy">Three pillars that make the culture safe</h2>
+  <p class="secsub">Anyone can launch a test, <em>but</em> the platform won't let an unsafe one through. The pillars are the auto-enforced trust checks.</p>
+
+  <div class="three">
+    <div class="concept">
+      <div class="ab">Hypothesis</div>
+      <h3>Written before the test runs</h3>
+      <p>Every experiment must declare its <b>hypothesis, OEC, and guardrails</b> in a templated form. The system rejects tests without them. Forces "what would change my mind?" up front.</p>
+    </div>
+    <div class="concept">
+      <div class="ab">SRM checks</div>
+      <h3>Sample-Ratio-Mismatch — auto-flagged</h3>
+      <p>If treatment / control groups end up unequal in size (a sign of bad randomization or instrumentation), the platform <b>refuses to read out the result</b>. This single check kills a huge fraction of false wins industry-wide.</p>
+    </div>
+    <div class="concept">
+      <div class="ab">Standard metrics</div>
+      <h3>Defined once, used everywhere</h3>
+      <p>The OEC, guardrails, and supporting metrics are <b>shared definitions</b> across teams. Removes the "my metric vs your metric" argument; makes cross-experiment comparison honest.</p>
+    </div>
+  </div>
+  <div class="src">Source: <a class="cite" href="https://hbr.org/2020/03/building-a-culture-of-experimentation">HBR — Building a culture of experimentation (Thomke, March 2020)</a> · <a class="cite" href="https://www.researchgate.net/publication/320582817">Paper — Democratizing Online Controlled Experiments at Booking.com</a>.</div>
+
+  <!-- MECHANISM -->
+  <h2 class="sec" id="mechanism">How Booking actually picks what ships</h2>
+  <p class="secsub">There is no "prioritization meeting" in the classical sense. The mechanism is <b>cheap-to-launch + guardrails-enforced = let the test decide</b>.</p>
+
+  <div class="step"><div class="num">1</div><div><h3>Anyone writes the hypothesis</h3><p>A designer, an engineer, a PM. Templated: <em>"If we change X, OEC will move by Y because Z."</em> The template is the gate.</p></div></div>
+  <div class="step"><div class="num">2</div><div><h3>Platform validates and provisions</h3><p>Auto-checks the hypothesis is complete; assigns randomization; sets the OEC and guardrails; opens the experiment.</p></div></div>
+  <div class="step"><div class="num">3</div><div><h3>Run, with SRM and guardrails watching</h3><p>If anything goes off the rails (SRM, guardrail breach), the test is paused. No human in the loop required.</p></div></div>
+  <div class="step"><div class="num">4</div><div><h3>Read the OEC. Ship, kill, or iterate.</h3><p>The platform reports significance against the pre-declared OEC. <b>The author decides what to do</b> — no management sign-off step.</p></div></div>
+  <div class="step"><div class="num">5</div><div><h3>Cumulative culture: ~25,000 tests/year</h3><p>Because the cost-to-launch is near-zero, the rate of experiments per employee per year is the highest publicly reported. That volume is itself the prioritization mechanism — bad ideas die fast, good ones reveal themselves.</p></div></div>
+
+  <div class="stats">
+    <div class="stat"><div class="n">1,000+</div><div class="l">concurrent experiments</div></div>
+    <div class="stat"><div class="n">~25,000</div><div class="l">experiments per year</div></div>
+    <div class="stat"><div class="n">0</div><div class="l">required management sign-offs to launch</div></div>
+  </div>
+  <div class="caveat">Numbers via HBR (Thomke, 2020) and Booking's own published papers. Reputable, secondary-published.</div>
+
+  <!-- EXAMPLE -->
+  <h2 class="sec" id="example">The "sold-out properties" example — why you can't guess</h2>
+  <div class="ex">
+    <h3>A finding no PM would have proposed</h3>
+    <p>One of Booking's most-quoted experiments: showing <em>sold-out</em> properties alongside available ones <strong>increased bookings</strong>. The signal was social-proof / scarcity — these places are good, others have already booked them — pushing diners to book the available alternatives faster.</p>
+    <p style="color:var(--ink-soft);font-size:13px">No prioritization framework would have ranked "show users things they can't buy" highly. The experiment found it. That's the entire case for the culture: <em>the wins you'd never have predicted are why measurement beats estimation</em>.</p>
+    <div class="src" style="margin-top:6px">Source: Thomke, HBR 2020.</div>
+  </div>
+
+  <div class="note"><b>The transferable insight: cheap-to-launch is the lever.</b> The reason Booking's culture works is that the cost to run a test is so low that <em>not</em> running one is the unusual choice. For a team our size, "cheap" means automated guardrails and a single shared metric definition — not 100 data scientists. The expensive part is the discipline of writing the hypothesis and OEC <em>every time</em>.</div>
+  <footer>
+    Companion to <a href="impact-consumer-companies.html#measure">← Consumer case studies · Measure don't estimate</a> · <a href="methodologies-comparison.html">All methods compared</a> · siblings: <a href="microsoft-exp-framework.html">Microsoft ExP</a> · <a href="linkedin-xlnt-framework.html">LinkedIn T-REX</a><br>
+    Grounded in: <a href="https://hbr.org/2020/03/building-a-culture-of-experimentation">Stefan Thomke, HBR 2020</a> and Booking's own <em>Democratizing OCEs</em> paper. Numbers (1,000+ concurrent, ~25,000/year, sold-out example) are HBR-published.
+  </footer>
+</div>
+</body>
+</html>

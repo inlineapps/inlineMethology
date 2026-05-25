@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RICE — Intercom's transparent ranking formula</title>
+<style>
+  :root{
+    --ink:#1c2230; --ink-soft:#465065; --line:#e3ddd0; --paper:#faf7f0;
+    --card:#ffffff; --accent:#b5482e; --accent-soft:#fbeae4;
+    --gold:#9a7b2e; --gold-soft:#f6efdc; --teal:#1f6f6b; --teal-soft:#e2f0ee;
+    --blue:#2d4a7c; --blue-soft:#e6ecf6; --purple:#5b3b78; --purple-soft:#efe6f6;
+    --shadow:0 1px 2px rgba(28,34,48,.06),0 8px 24px rgba(28,34,48,.06);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.62;font-size:16px;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:920px;margin:0 auto;padding:0 24px 96px}
+  header.masthead{border-bottom:3px solid var(--ink);margin-bottom:8px;padding:48px 0 22px}
+  .kicker{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:700;margin:0 0 10px}
+  h1{font-family:Georgia,"Times New Roman",serif;font-size:40px;line-height:1.08;margin:0 0 12px;letter-spacing:-.01em}
+  .sub{color:var(--ink-soft);margin:0;max-width:64ch}
+  .goal{margin-top:18px;background:var(--accent-soft);border:1px solid #f2c9bd;border-left:5px solid var(--accent);border-radius:10px;padding:13px 18px;font-size:15px}
+  .goal span{color:var(--accent);text-transform:uppercase;letter-spacing:.08em;font-size:11px;font-weight:800}
+  nav.toc{position:sticky;top:0;background:rgba(250,247,240,.92);backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);padding:12px 0;margin-bottom:34px;z-index:5;font-size:14px}
+  nav.toc a{color:var(--ink-soft);text-decoration:none;margin-right:16px;white-space:nowrap}
+  nav.toc a:hover{color:var(--accent)}
+  .finding{background:var(--ink);color:#f3efe6;border-radius:14px;padding:24px 28px;margin:0 0 36px;box-shadow:var(--shadow)}
+  .finding h2{color:#fff;margin:0 0 8px;font-family:Georgia,serif;font-size:21px}
+  .finding p{margin:0 0 10px;color:#cfc9bb}
+  .finding p:last-child{margin:0}
+  .finding b{color:#f3d9a0}
+  .finding code{background:#2a3247;color:#f3d9a0;padding:2px 7px;border-radius:5px;font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;font-size:14px}
+  h2.sec{font-family:Georgia,serif;font-size:26px;margin:40px 0 6px;padding-top:18px;border-top:2px solid var(--line)}
+  .secsub{color:var(--ink-soft);font-size:14.5px;margin:0 0 18px;max-width:68ch}
+  p{margin:0 0 14px}
+  /* anatomy diagram */
+  .anatomy{background:#fff;border:1px solid var(--line);border-radius:14px;padding:26px;box-shadow:var(--shadow);margin:18px 0}
+  .eq-big{text-align:center;font-family:Georgia,serif;font-size:22px;margin:6px 0 18px}
+  .eq-big .num{color:var(--accent);font-weight:700}
+  .eq-big .den{color:var(--ink-soft)}
+  .factors{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:8px 0 0}
+  .factor{border:1px solid var(--line);border-radius:10px;padding:14px 14px;background:var(--accent-soft)}
+  .factor .lt{font-family:Georgia,serif;font-size:28px;color:var(--accent);font-weight:700;line-height:1}
+  .factor .nm{font-weight:700;margin:2px 0 5px;font-size:14px}
+  .factor .ds{font-size:12.5px;color:var(--ink-soft);line-height:1.45}
+  .factor .scl{font-size:11.5px;color:var(--accent);margin-top:6px;font-weight:600}
+  /* steps */
+  .step{display:flex;gap:16px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:12px 0;box-shadow:var(--shadow);border-left:5px solid var(--accent)}
+  .step .num{font-family:Georgia,serif;font-size:28px;font-weight:700;color:var(--accent);line-height:1;min-width:30px}
+  .step h3{margin:0 0 5px;font-size:17px}
+  .step p{margin:0;font-size:14.5px;color:var(--ink-soft)}
+  .step p b{color:var(--ink)}
+  /* worked example table */
+  .extable{overflow-x:auto;margin:14px 0}
+  table.ex{border-collapse:collapse;width:100%;font-size:13.5px;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  table.ex th,table.ex td{padding:10px 12px;text-align:center;border-bottom:1px solid var(--line)}
+  table.ex thead th{background:var(--ink);color:#f3efe6;font-size:12px;letter-spacing:.05em;text-transform:uppercase}
+  table.ex tbody tr:last-child td{border-bottom:none}
+  table.ex td:first-child{text-align:left;font-weight:600}
+  table.ex td.score{font-family:Georgia,serif;font-size:18px;color:var(--accent);font-weight:700}
+  table.ex tbody tr.top{background:var(--accent-soft)}
+  /* limits */
+  .limits{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 22px;margin:14px 0;box-shadow:var(--shadow)}
+  .limits h3{margin:0 0 8px;font-size:16px}
+  .limits ul{margin:6px 0;padding-left:22px}
+  .limits li{margin:6px 0;font-size:14.5px;color:var(--ink-soft)}
+  .limits li b{color:var(--ink)}
+  /* ours */
+  .ours{background:var(--teal-soft);border-left:5px solid var(--teal);border-radius:10px;padding:18px 22px;margin:18px 0}
+  .ours h3{margin:0 0 8px;color:var(--teal);font-size:18px;font-family:Georgia,serif}
+  .ours .draft{font-size:11px;background:var(--teal);color:#fff;padding:3px 9px;border-radius:5px;text-transform:uppercase;letter-spacing:.06em;font-weight:700}
+  .ours code{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;font-size:13px;background:#fff;border:1px solid #bcdcd8;border-radius:5px;padding:2px 7px}
+  a.cite{color:var(--teal);text-decoration:none;border-bottom:1px solid var(--teal)}
+  a.cite:hover{color:var(--accent);border-color:var(--accent)}
+  .note{background:var(--blue-soft);border-left:4px solid var(--blue);border-radius:8px;padding:14px 18px;margin:18px 0;font-size:14.5px}
+  .note b{color:var(--blue)}
+  .src{font-size:13px;color:var(--ink-soft);margin-top:10px}
+  footer{border-top:1px solid var(--line);padding-top:20px;color:var(--ink-soft);font-size:13px;margin-top:44px}
+  footer a{color:var(--teal)}
+  @media(max-width:680px){.factors{grid-template-columns:repeat(2,1fr)}h1{font-size:30px}}
+</style>
+</head>
+<body>
+<nav class="sitenav">
+<style>
+  .sitenav{position:fixed;top:12px;right:16px;z-index:100;font-size:13px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  .sitenav details{background:#1c2230;color:#f3efe6;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.22)}
+  .sitenav summary{list-style:none;cursor:pointer;padding:8px 14px;font-weight:700;letter-spacing:.04em;user-select:none}
+  .sitenav summary::-webkit-details-marker{display:none}
+  .sitenav summary::after{content:" \25BE";color:#cfc9bb;font-size:10px;margin-left:2px}
+  .sitenav details[open] summary::after{content:" \25B4"}
+  .sitenav .navmenu{position:absolute;top:calc(100% + 6px);right:0;background:#fff;color:#1c2230;border:1px solid #e3ddd0;border-radius:10px;padding:16px 18px;box-shadow:0 8px 28px rgba(28,34,48,.22);display:grid;grid-template-columns:repeat(2,minmax(180px,1fr));gap:14px 26px;min-width:400px;max-width:92vw;max-height:80vh;overflow-y:auto}
+  .sitenav .navgrp h4{margin:0 0 5px;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:#465065;font-weight:700;border-bottom:1px solid #e3ddd0;padding-bottom:4px}
+  .sitenav .navgrp a{display:block;color:#1c2230;text-decoration:none;font-size:13px;padding:2px 0;line-height:1.5}
+  .sitenav .navgrp a:hover{color:#b5482e}
+  .sitenav .navgrp a.cur{font-weight:700;color:#b5482e}
+  @media(max-width:600px){.sitenav .navmenu{grid-template-columns:1fr;min-width:240px;max-width:88vw}.sitenav{top:8px;right:8px}}
+</style>
+<details>
+<summary>📑 Jump to</summary>
+<div class="navmenu">
+<div class="navgrp"><h4>Start here</h4>
+<a href="index.html"><b>← Home (goal &amp; map)</b></a>
+<a href="impact-saas-companies.html">SaaS / B2B field study</a>
+<a href="impact-consumer-companies.html">Consumer-tech field study</a>
+<a href="methodologies-comparison.html"><b>All methods compared →</b></a>
+<a href="experiment-trustworthiness.html">How 40k tests actually work →</a>
+</div>
+<div class="navgrp"><h4>Scoring &amp; Input modeling</h4>
+<a class="cur" href="rice-framework.html">RICE (Intercom)</a>
+<a href="north-star-framework.html">North Star (Amplitude / Slack)</a>
+</div>
+<div class="navgrp"><h4>Goal-laddering / Define first</h4>
+<a href="v2mom-framework.html">V2MOM (Salesforce)</a>
+<a href="pyramid-of-clarity-framework.html">Pyramid of Clarity (Asana)</a>
+<a href="pr-faq-framework.html">PR-FAQ (Amazon)</a>
+<a href="heart-framework.html">HEART (Google)</a>
+<a href="dibb-framework.html">DIBB (Spotify)</a>
+</div>
+<div class="navgrp"><h4>Experimentation (SaaS)</h4>
+<a href="microsoft-exp-framework.html">Microsoft ExP / CUPED</a>
+<a href="linkedin-xlnt-framework.html">LinkedIn T-REX</a>
+</div>
+<div class="navgrp"><h4>Experimentation (Consumer)</h4>
+<a href="netflix-experimentation.html">Netflix · ABlaze</a>
+<a href="booking-experimentation.html">Booking.com</a>
+<a href="airbnb-erf-framework.html">Airbnb ERF</a>
+<a href="uber-xp-framework.html">Uber XP</a>
+<a href="doordash-switchback-framework.html">DoorDash switchback</a>
+<a href="lyft-experimentation.html">Lyft</a>
+<a href="pinterest-ab-framework.html">Pinterest</a>
+</div>
+<div class="navgrp"><h4>Written discipline</h4>
+<a href="stripe-shaping-framework.html">Stripe shaping</a>
+</div>
+</div>
+</details>
+</nav>
+
+<div class="wrap">
+  <header class="masthead">
+    <p class="kicker">Methods · Deep-dive · Scoring</p>
+    <h1>RICE — Intercom's transparent ranking formula</h1>
+    <p class="sub">A four-factor score Intercom's growth team built to compare project ideas against a single goal "while minimizing personal bias." Not a forecaster — a way to make assumptions visible and rankable.</p>
+    <div class="goal"><span>Goal</span><br>Decide features by data-backed expected impact — choose by outcome, not by to-do list or opinion.</div>
+  </header>
+
+  <nav class="toc">
+    <a href="#headline">Honest headline</a>
+    <a href="#anatomy">Anatomy</a>
+    <a href="#mechanism">How it picks work</a>
+    <a href="#example">Worked example</a>
+    <a href="#limits">Where it breaks</a>
+    <a href="methodologies-comparison.html" style="color:var(--accent);font-weight:700">Comparison table →</a>
+  </nav>
+
+  <div class="finding" id="headline">
+    <h2>The honest headline: it's a transparent ranking, not a forecast</h2>
+    <p>RICE doesn't predict revenue. It takes four numbers you would have guessed anyway — <b>Reach, Impact, Confidence, Effort</b> — and forces them onto a shared scale so two ideas are <b>comparable</b>. Most of its value is in step zero: <b>"write down what you actually believe."</b> A weak Confidence score is the formula's way of catching a bullshit estimate before it ships.</p>
+    <p>The formula: <code>RICE = (Reach × Impact × Confidence) ÷ Effort</code> — designed to maximize "total impact per time worked." It is widely used (Intercom, GitLab, thousands of PM teams) precisely because it's <b>cheap, comparable, and falsifiable</b> — not because it's accurate.</p>
+  </div>
+
+  <!-- ANATOMY -->
+  <h2 class="sec" id="anatomy">Anatomy: four factors, one formula</h2>
+  <p class="secsub">Each factor uses a fixed scale so different reviewers produce comparable scores. The Confidence multiplier is the secret sauce — it discounts ideas where you don't actually know the numbers.</p>
+
+  <div class="anatomy">
+    <div class="eq-big">
+      <span class="num">Reach × Impact × Confidence</span>
+      <span class="den"> ÷ Effort</span>
+    </div>
+    <div class="factors">
+      <div class="factor">
+        <div class="lt">R</div>
+        <div class="nm">Reach</div>
+        <div class="ds">How many people / events affected per time period (e.g. customers per quarter).</div>
+        <div class="scl">Scale: raw count</div>
+      </div>
+      <div class="factor">
+        <div class="lt">I</div>
+        <div class="nm">Impact</div>
+        <div class="ds">How much it moves the chosen goal per person — picked from a fixed scale, not made up.</div>
+        <div class="scl">Scale: 3 / 2 / 1 / 0.5 / 0.25</div>
+      </div>
+      <div class="factor">
+        <div class="lt">C</div>
+        <div class="nm">Confidence</div>
+        <div class="ds">How sure you are in the R and I numbers — backed by data, evidence, or just a hunch.</div>
+        <div class="scl">Scale: 100% / 80% / 50%</div>
+      </div>
+      <div class="factor">
+        <div class="lt">E</div>
+        <div class="nm">Effort</div>
+        <div class="ds">Total person-months of work across product, design, and engineering.</div>
+        <div class="scl">Scale: person-months</div>
+      </div>
+    </div>
+    <p style="font-size:12.5px;color:var(--ink-soft);margin:14px 0 0">Scales above are <strong>Intercom's published defaults</strong> — teams may adapt, but the discipline is the same: fixed scale + Confidence multiplier so guesses can't hide as facts.</p>
+  </div>
+  <div class="src">Source: <a class="cite" href="https://www.intercom.com/blog/rice-simple-prioritization-for-product-managers/">Intercom — RICE: simple prioritization for product managers</a> (Sean McBride, original 2016 post).</div>
+
+  <!-- MECHANISM -->
+  <h2 class="sec" id="mechanism">How RICE actually picks work</h2>
+  <p class="secsub">RICE is a four-step ritual, not a one-shot calculation. Step 5 — review the results sceptically — is what separates teams that use RICE well from teams that blindly ship the top of the list.</p>
+
+  <div class="step"><div class="num">1</div><div><h3>Agree the goal first</h3><p>RICE compares ideas against <b>one goal</b> — e.g. "growth in trial signups" or "reduce support contacts." If you skip this, Impact has nothing to mean. (Intercom's example was scored against "improving conversion to paid.")</p></div></div>
+  <div class="step"><div class="num">2</div><div><h3>Score each idea on R, I, C, E</h3><p>Use the fixed scales. <b>Force Confidence honestly</b>: an idea with no data is 50%, not 80%. That single number stops "we feel strongly" from outranking "we measured."</p></div></div>
+  <div class="step"><div class="num">3</div><div><h3>Compute and rank</h3><p>Sort by the score. Ideas with similar scores are <em>not</em> meaningfully different — RICE is a coarse ordering, not a precise ranking.</p></div></div>
+  <div class="step"><div class="num">4</div><div><h3>Sanity-check the top of the list</h3><p>Read the top 5–10 and ask "does this list make sense?" If a beloved idea ranks low, the value is in <em>why</em>: usually low Reach or low Confidence. Don't override the score — fix the inputs (do research to lift Confidence, or accept the verdict).</p></div></div>
+  <div class="step"><div class="num">5</div><div><h3>After shipping: log estimate vs actual</h3><p>The under-used step. Intercom: "the score is only a guess until you ship and measure." Track which Impact estimates were wildly wrong — over time your scale calibrates.</p></div></div>
+
+  <!-- WORKED EXAMPLE -->
+  <h2 class="sec" id="example">Worked example — three illustrative SaaS feature ideas</h2>
+  <p class="secsub">Hypothetical scores using <b>Intercom's published scales</b> to show how the formula behaves. The point is to see how the math punishes low Confidence × high Effort and rewards cheap-but-narrow ideas — not to argue these specific numbers.</p>
+
+  <div class="extable">
+    <table class="ex">
+      <thead><tr><th>Idea</th><th>Reach (users/Q)</th><th>Impact (3/2/1/.5/.25)</th><th>Confidence</th><th>Effort (PM)</th><th>RICE Score</th></tr></thead>
+      <tbody>
+        <tr class="top"><td>Add Slack notification integration</td><td>~5,000</td><td>2 (high)</td><td>80%</td><td>3</td><td class="score">2,667</td></tr>
+        <tr><td>Rebuild onboarding flow</td><td>~2,000</td><td>2 (high)</td><td>50%</td><td>10</td><td class="score">200</td></tr>
+        <tr><td>Add CSV export to dashboard</td><td>~3,000</td><td>0.5 (low)</td><td>50%</td><td>1</td><td class="score">750</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="font-size:13.5px;color:var(--ink-soft)">Reading: the Slack integration dominates because Reach is high, Confidence is high (we've already heard the request from customers), and Effort is bounded. The onboarding rebuild looks "big" intuitively but its <b>low Confidence × high Effort</b> punishes it — exactly the discipline RICE is for. And the cheap CSV export out-ranks the onboarding rebuild because it's nearly free — the signal is either to ship the export honestly or to invest in onboarding <em>discovery</em> (user research, mockups, prototype tests) to lift Confidence before scoring again. <br><em>Numbers are illustrative — the value is in seeing how the formula rewards Confidence and punishes Effort, not in defending these specific scores.</em></p>
+
+  <!-- LIMITS -->
+  <h2 class="sec" id="limits">Where RICE breaks (and what to do instead)</h2>
+  <p class="secsub">The most common abuse: treating the score as truth instead of an exposed argument. The Intercom post itself flags these.</p>
+
+  <div class="limits">
+    <h3>Three honest limits</h3>
+    <ul>
+      <li><b>Spurious precision.</b> A score of 2,667 vs 2,540 is meaningless — RICE separates "buckets," not points. Round to within ~25%.</li>
+      <li><b>It doesn't tell you <em>which</em> goal to score against.</b> That's the North Star Framework's job. RICE is the second step, not the first. See <a class="cite" href="north-star-framework.html">North Star deep-dive</a>.</li>
+      <li><b>It penalises discovery work.</b> Genuinely novel bets have low Confidence, so they always lose to obvious incremental wins. Counter: ring-fence a "discovery budget" outside the RICE list, or use  to lift Confidence before scoring.</li>
+    </ul>
+  </div>
+
+  <div class="note"><b>RICE ≠ feature impact estimator.</b> RICE ranks <em>candidates</em> against a goal you already chose. The actual expected impact still needs evidence — past data, fake-door test, or a controlled experiment. RICE is the audit trail of <em>why</em> we picked this over that, not the proof it will work.</div>
+  <footer>
+    Companion to <a href="impact-saas-companies.html#scoring">← SaaS case studies · Scoring &amp; Sizing</a> · <a href="methodologies-comparison.html">All methods compared</a><br>
+    Grounded in: Intercom's original RICE blog post (Sean McBride, 2016) and the <a href="https://handbook.gitlab.com/handbook/product/product-processes/">GitLab Handbook</a> describing public RICE use. Worked-example numbers are illustrative team estimates clearly flagged as such.
+  </footer>
+</div>
+</body>
+</html>

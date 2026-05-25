@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How Top Consumer-Tech Companies Decide — Study B</title>
+<style>
+  :root{
+    --ink:#1c2230; --ink-soft:#465065; --line:#e3ddd0; --paper:#faf7f0;
+    --card:#ffffff; --accent:#b5482e; --accent-soft:#fbeae4;
+    --gold:#9a7b2e; --gold-soft:#f6efdc; --teal:#1f6f6b; --teal-soft:#e2f0ee;
+    --blue:#2d4a7c; --blue-soft:#e6ecf6; --purple:#5b3b78; --purple-soft:#efe6f6;
+    --shadow:0 1px 2px rgba(28,34,48,.06),0 8px 24px rgba(28,34,48,.06);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.62;font-size:16px;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:980px;margin:0 auto;padding:0 24px 96px}
+  header.masthead{border-bottom:3px solid var(--ink);margin-bottom:8px;padding:48px 0 22px}
+  .kicker{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);font-weight:700;margin:0 0 10px}
+  h1{font-family:Georgia,"Times New Roman",serif;font-size:40px;line-height:1.08;margin:0 0 12px;letter-spacing:-.01em}
+  .sub{color:var(--ink-soft);margin:0;max-width:64ch}
+  .goal{margin-top:18px;background:var(--accent-soft);border:1px solid #f2c9bd;border-left:5px solid var(--accent);border-radius:10px;padding:13px 18px;font-size:15px}
+  .goal span{color:var(--accent);text-transform:uppercase;letter-spacing:.08em;font-size:11px;font-weight:800}
+  nav.toc{position:sticky;top:0;background:rgba(250,247,240,.92);backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);padding:12px 0;margin-bottom:34px;z-index:5;font-size:14px}
+  nav.toc a{color:var(--ink-soft);text-decoration:none;margin-right:16px;white-space:nowrap}
+  nav.toc a:hover{color:var(--accent)}
+  .finding{background:var(--ink);color:#f3efe6;border-radius:14px;padding:24px 28px;margin:0 0 30px;box-shadow:var(--shadow)}
+  .finding h2{color:#fff;margin:0 0 8px;font-family:Georgia,serif;font-size:21px}
+  .finding p{margin:0 0 8px;color:#cfc9bb}
+  .finding p:last-child{margin:0}
+  .finding b{color:#f3d9a0}
+  .legend{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 30px}
+  .tag{font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:5px 11px;border-radius:6px;color:#fff;white-space:nowrap}
+  .tag.define{background:var(--gold)} .tag.measure{background:var(--blue)}
+  .grouphead{font-family:Georgia,serif;font-size:24px;margin:38px 0 4px;padding-top:14px;border-top:2px solid var(--line)}
+  .groupsub{color:var(--ink-soft);font-size:14px;margin:0 0 16px}
+  .co{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:20px 24px;box-shadow:var(--shadow);margin:14px 0;border-left:5px solid var(--line)}
+  .co.define{border-left-color:var(--gold)} .co.measure{border-left-color:var(--blue)}
+  .co-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  .co-head h3{margin:0;font-size:20px}
+  .co-head h3 .n{color:var(--ink-soft);font-size:14px;font-weight:700;margin-right:6px}
+  .fw{font-size:13px;color:var(--ink-soft);margin:4px 0 10px;font-weight:600}
+  .fw b{color:var(--ink)}
+  .co ul{margin:8px 0;padding-left:20px}.co li{margin:4px 0;font-size:14.5px}
+  .impact{border-left:3px solid var(--blue);background:var(--blue-soft);border-radius:8px;padding:11px 15px;margin:12px 0;font-size:14px}
+  .co.define .impact{border-left-color:var(--gold);background:var(--gold-soft)}
+  .impact b{display:block;margin-bottom:3px;font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--blue)}
+  .co.define .impact b{color:var(--gold)}
+  .stats{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}
+  .stat{flex:1 1 130px;background:#f6f4ee;border:1px solid var(--line);border-radius:8px;padding:10px 12px;text-align:center}
+  .stat .n{font-family:Georgia,serif;font-size:22px;color:var(--blue);font-weight:700;line-height:1.1}
+  .stat .l{font-size:11.5px;color:var(--ink-soft);margin-top:3px}
+  .src{font-size:13px;margin-top:10px}
+  .src .lbl{color:var(--ink-soft);font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:11px;margin-right:6px}
+  .src a{color:var(--teal);text-decoration:none;border-bottom:1px solid var(--teal);margin-right:10px}
+  .src a:hover{color:var(--accent);border-color:var(--accent)}
+  .caveat{font-size:12.5px;color:#8a6d2e;background:#fbf6e7;border:1px dashed #d8c98f;border-radius:6px;padding:7px 11px;margin-top:10px}
+  footer{border-top:1px solid var(--line);padding-top:20px;color:var(--ink-soft);font-size:13px;margin-top:44px}
+  footer a{color:var(--teal)}
+  @media(max-width:600px){h1{font-size:30px}}
+</style>
+</head>
+<body>
+<nav class="sitenav">
+<style>
+  .sitenav{position:fixed;top:12px;right:16px;z-index:100;font-size:13px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  .sitenav details{background:#1c2230;color:#f3efe6;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.22)}
+  .sitenav summary{list-style:none;cursor:pointer;padding:8px 14px;font-weight:700;letter-spacing:.04em;user-select:none}
+  .sitenav summary::-webkit-details-marker{display:none}
+  .sitenav summary::after{content:" \25BE";color:#cfc9bb;font-size:10px;margin-left:2px}
+  .sitenav details[open] summary::after{content:" \25B4"}
+  .sitenav .navmenu{position:absolute;top:calc(100% + 6px);right:0;background:#fff;color:#1c2230;border:1px solid #e3ddd0;border-radius:10px;padding:16px 18px;box-shadow:0 8px 28px rgba(28,34,48,.22);display:grid;grid-template-columns:repeat(2,minmax(180px,1fr));gap:14px 26px;min-width:400px;max-width:92vw;max-height:80vh;overflow-y:auto}
+  .sitenav .navgrp h4{margin:0 0 5px;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:#465065;font-weight:700;border-bottom:1px solid #e3ddd0;padding-bottom:4px}
+  .sitenav .navgrp a{display:block;color:#1c2230;text-decoration:none;font-size:13px;padding:2px 0;line-height:1.5}
+  .sitenav .navgrp a:hover{color:#b5482e}
+  .sitenav .navgrp a.cur{font-weight:700;color:#b5482e}
+  @media(max-width:600px){.sitenav .navmenu{grid-template-columns:1fr;min-width:240px;max-width:88vw}.sitenav{top:8px;right:8px}}
+</style>
+<details>
+<summary>📑 Jump to</summary>
+<div class="navmenu">
+<div class="navgrp"><h4>Start here</h4>
+<a href="index.html"><b>← Home (goal &amp; map)</b></a>
+<a href="impact-saas-companies.html">SaaS / B2B field study</a>
+<a class="cur" href="impact-consumer-companies.html">Consumer-tech field study</a>
+<a href="methodologies-comparison.html"><b>All methods compared →</b></a>
+<a href="experiment-trustworthiness.html">How 40k tests actually work →</a>
+</div>
+<div class="navgrp"><h4>Scoring &amp; Input modeling</h4>
+<a href="rice-framework.html">RICE (Intercom)</a>
+<a href="north-star-framework.html">North Star (Amplitude / Slack)</a>
+</div>
+<div class="navgrp"><h4>Goal-laddering / Define first</h4>
+<a href="v2mom-framework.html">V2MOM (Salesforce)</a>
+<a href="pyramid-of-clarity-framework.html">Pyramid of Clarity (Asana)</a>
+<a href="pr-faq-framework.html">PR-FAQ (Amazon)</a>
+<a href="heart-framework.html">HEART (Google)</a>
+<a href="dibb-framework.html">DIBB (Spotify)</a>
+</div>
+<div class="navgrp"><h4>Experimentation (SaaS)</h4>
+<a href="microsoft-exp-framework.html">Microsoft ExP / CUPED</a>
+<a href="linkedin-xlnt-framework.html">LinkedIn T-REX</a>
+</div>
+<div class="navgrp"><h4>Experimentation (Consumer)</h4>
+<a href="netflix-experimentation.html">Netflix · ABlaze</a>
+<a href="booking-experimentation.html">Booking.com</a>
+<a href="airbnb-erf-framework.html">Airbnb ERF</a>
+<a href="uber-xp-framework.html">Uber XP</a>
+<a href="doordash-switchback-framework.html">DoorDash switchback</a>
+<a href="lyft-experimentation.html">Lyft</a>
+<a href="pinterest-ab-framework.html">Pinterest</a>
+</div>
+<div class="navgrp"><h4>Written discipline</h4>
+<a href="stripe-shaping-framework.html">Stripe shaping</a>
+</div>
+</div>
+</details>
+</nav>
+
+<div class="wrap">
+  <header class="masthead">
+    <p class="kicker">Study B · Consumer-tech field study</p>
+    <h1>How Top Consumer-Tech Companies Decide What to Build</h1>
+    <p class="sub">Ten consumer giants — their product-decision culture, and how they handle a feature's expected impact. The headline: most of them don't <em>estimate</em> impact at all. Every claim is sourced.</p>
+    <div class="goal"><span>Goal</span><br>Decide features by data-backed expected impact — choose by outcome, not by to-do list or opinion.</div>
+  </header>
+
+  <nav class="toc">
+    <a href="#finding">Key finding</a>
+    <a href="#define">Define impact first</a>
+    <a href="#measure">Measure, don't estimate</a>
+    <a href="methodologies-comparison.html" style="color:var(--blue);font-weight:700">All methods compared →</a>
+  </nav>
+
+  <div class="finding" id="finding">
+    <h2>The uncomfortable, grounded finding</h2>
+    <p>Of these ten, only <b>Amazon</b> (PR-FAQ) — and partly <b>Google</b> (HEART/GSM) and <b>Spotify</b> (DIBB) — actually <b>define expected impact before building</b>. The rest — Netflix, Booking.com, Airbnb, Uber, DoorDash, Lyft, Pinterest — are <b>measure-not-estimate</b> cultures: they don't forecast a feature's value, they ship it behind a controlled experiment and let data reveal the truth.</p>
+    <p>And the truth is humbling: across Microsoft, Google and Bing-scale testing, only <b>~10–33% of ideas</b> actually move the target metric. That is the real answer to "why don't we know the dead-simple winning feature?" — the best companies <b>assume they don't know</b> and instrument cheaply to find out.</p>
+    <p>The transferable discipline isn't a magic estimate. It's: <b>define one success metric (OEC) up front, then let data — not the to-do list — decide what ships.</b></p>
+  </div>
+
+  <div class="legend">
+    <span class="tag define">Define impact before building</span>
+    <span class="tag measure">Measure impact via experiment</span>
+  </div>
+
+  <!-- DEFINE -->
+  <h2 class="grouphead" id="define">Define Impact Before Building</h2>
+  <p class="groupsub">Force the expected outcome onto paper — or into a metric tree — before writing code.</p>
+
+  <div class="co define">
+    <div class="co-head"><h3><span class="n">01</span>Amazon</h3><span class="tag define">Define first</span></div>
+    <div class="fw">Framework: <b>Working Backwards / PR-FAQ</b> &nbsp;·&nbsp; <a href="pr-faq-framework.html" style="color:var(--gold);font-weight:700;border-bottom:1px solid var(--gold);text-decoration:none">Deep-dive →</a></div>
+    <ul>
+      <li>Most major products since ~2004 begin from the customer experience and work back to what to build.</li>
+      <li>Principal artifact: a mock <strong>press release</strong> (&lt;1 page) + <strong>FAQ</strong> (≤5 pages) — a forcing function to define customer value before any code.</li>
+      <li>Narrative 6-page memos, not slide decks; meetings are truth-seeking, not selling.</li>
+    </ul>
+    <div class="impact"><b>How they handle impact</b>
+      The clearest <em>pre-build estimation</em> model in the set: the PR-FAQ forces the customer problem, expected outcome, and explicit <strong>success metrics</strong> to be written down up front. Codified by ex-Amazon execs Bryar &amp; Carr in <em>Working Backwards</em>.</div>
+    <div class="src"><span class="lbl">Source</span><a href="https://www.aboutamazon.com/news/workplace/an-insider-look-at-amazons-culture-and-processes">About Amazon — culture &amp; processes</a><a href="https://workingbackwards.com/concepts/working-backwards-pr-faq-process/">Working Backwards — PR-FAQ</a></div>
+  </div>
+
+  <div class="co define">
+    <div class="co-head"><h3><span class="n">02</span>Google</h3><span class="tag define">Define first</span></div>
+    <div class="fw">Framework: <b>HEART + Goals-Signals-Metrics</b> (+ OKRs, experiments) &nbsp;·&nbsp; <a href="heart-framework.html" style="color:var(--gold);font-weight:700;border-bottom:1px solid var(--gold);text-decoration:none">Deep-dive →</a></div>
+    <ul>
+      <li>HEART — Happiness, Engagement, Adoption, Retention, Task-success — a UX metric framework (Rodden, Hutchinson &amp; Fu).</li>
+      <li>GSM ladders each goal → observable signal → measurable metric, keeping metrics tied to intent.</li>
+    </ul>
+    <div class="impact"><b>How they handle impact</b>
+      HEART/GSM defines <em>what success looks like</em> before measuring; actual lift is then validated by experiments. A metric-laddering tool, then test-confirmed.</div>
+    <div class="caveat">Original source: Rodden et al., "Measuring the User Experience on a Large Scale," CHI 2010.</div>
+    <div class="src"><span class="lbl">Source</span><a href="https://ixdf.org/literature/article/google-s-heart-framework-for-measuring-ux">IxDF — Google's HEART framework</a><a href="https://research.google/pubs/measuring-the-user-experience-on-a-large-scale-user-centered-metrics-for-web-applications/">Google Research — original paper</a></div>
+  </div>
+
+  <div class="co define">
+    <div class="co-head"><h3><span class="n">03</span>Spotify</h3><span class="tag define">Define first</span></div>
+    <div class="fw">Framework: <b>DIBB + Bets Board</b> — Data → Insight → Belief → Bet &nbsp;·&nbsp; <a href="dibb-framework.html" style="color:var(--gold);font-weight:700;border-bottom:1px solid var(--gold);text-decoration:none">Deep-dive →</a></div>
+    <ul>
+      <li>Aligns the org around a consistent path from observed data to committed bets.</li>
+      <li>Company Bets (large, cross-org, 6–12 mo) tracked on a Kanban "Bets Board"; each bet has a 2-page doc with sponsor, stakeholders, and success metrics.</li>
+    </ul>
+    <div class="impact"><b>How they handle impact</b>
+      A <em>qualitative/strategic</em> prioritization model: bets are justified by a belief derived from data, with success metrics defined per bet, then validated in execution — not a quantitative estimator.</div>
+    <div class="caveat">Sourcing caveat: no first-party Spotify post defines DIBB. Best sources are Henrik Kniberg (ex-Spotify coach) and secondary PM sites — treat as second-party.</div>
+    <div class="src"><span class="lbl">Source</span><a href="https://blog.crisp.se/2016/06/08/henrikkniberg/spotify-rhythm">Henrik Kniberg — Spotify Rhythm</a><a href="https://www.product-frameworks.com/DIBB.html">Product Frameworks — DIBB</a></div>
+  </div>
+
+  <!-- MEASURE -->
+  <h2 class="grouphead" id="measure">Measure, Don't Estimate</h2>
+  <p class="groupsub">These companies don't forecast a feature's impact — they ship behind a controlled experiment and read the result. Discipline = a pre-declared success metric + guardrails. &nbsp;</p>
+
+  <div class="co measure">
+    <div class="co-head"><h3><span class="n">04</span>Netflix</h3><span class="tag measure">Measure</span></div>
+    <div class="fw">Framework: <b>Experimentation &amp; Causal Inference</b> (ABlaze platform) &nbsp;·&nbsp; <a href="netflix-experimentation.html" style="color:var(--blue);font-weight:700;border-bottom:1px solid var(--blue);text-decoration:none">Deep-dive →</a></div>
+    <ul>
+      <li>Nearly every product/business decision is guided by member behavior observed in tests, not opinion.</li>
+      <li>Where A/B tests are infeasible, uses quasi-experiments and causal ML (interrupted time series, IPW).</li>
+    </ul>
+    <div class="impact"><b>How they handle impact</b>
+      Post-hoc <em>measurement</em>, not pre-build estimation — measures causal lift via controlled experiments, using sequential testing and CUPED-style variance reduction to detect effects faster.</div>
+    <div class="src"><span class="lbl">Source</span><a href="https://research.netflix.com/research-area/experimentation-and-causal-inference">Netflix Research — Experimentation</a><a href="https://netflixtechblog.com/sequential-a-b-testing-keeps-the-world-streaming-netflix-part-1-continuous-data-cba6c7ed49df">TechBlog — Sequential A/B testing</a></div>
+  </div>
+
+  <div class="co measure">
+    <div class="co-head"><h3><span class="n">05</span>Booking.com</h3><span class="tag measure">Measure</span></div>
+    <div class="fw">Practice: <b>Democratized large-scale experimentation</b> (OEC + SRM guardrails) &nbsp;·&nbsp; <a href="booking-experimentation.html" style="color:var(--blue);font-weight:700;border-bottom:1px solid var(--blue);text-decoration:none">Deep-dive →</a></div>
+    <ul>
+      <li>Any employee can launch an experiment on millions of users without management sign-off.</li>
+      <li>Central platform enforces guardrails: standard randomization, automatic Sample-Ratio-Mismatch checks, pre-defined metrics, hypothesis templates.</li>
+    </ul>
+    <div class="impact"><b>How they handle impact</b>
+      Measure-not-estimate: ship decisions rest on the experiment's OEC movement plus guardrails, not pre-launch forecasts. A counterintuitive win they'd never have guessed: showing <em>sold-out</em> properties alongside available ones increased bookings.</div>
+    <div class="stats">
+      <div class="stat"><div class="n">1,000+</div><div class="l">concurrent experiments</div></div>
+      <div class="stat"><div class="n">~25,000</div><div class="l">tests per year</div></div>
+    </div>
+    <div class="caveat">Numbers via HBR (Thomke 2020) — reputable, secondary-published.</div>
+    <div class="src"><span class="lbl">Source</span><a href="https://hbr.org/2020/03/building-a-culture-of-experimentation">HBR — Building a culture of experimentation</a><a href="https://www.researchgate.net/publication/320582817">Paper — Democratizing OCEs at Booking.com</a></div>
+  </div>
+
+  <div class="co measure">
+    <div class="co-head"><h3><span class="n">06</span>Airbnb</h3><span class="tag measure">Measure</span></div>
+    <div class="fw">Framework: <b>Experimentation Reporting Framework (ERF)</b> &nbsp;·&nbsp; <a href="airbnb-erf-framework.html" style="color:var(--blue);font-weight:700;border-bottom:1px solid var(--blue);text-decoration:none">Deep-dive →</a></div>
+    <ul>
+      <li>Internal A/B platform for validating hypotheses and quantifying impact; metrics defined in a common config language.</li>
+      <li>Built to make experiments simple and reduce error/bias via automation.</li>
+    </ul>
+    <div class="impact"><b>How they handle impact</b>
+      Measure-not-estimate: quantifies impact post-launch via ERF, using variance reduction to shrink confidence intervals and required sample sizes.</div>
+    <div class="stats">
+      <div class="stat"><div class="n">~500</div><div class="l">concurrent experiments (from a few dozen in 2014)</div></div>
+    </div>
+    <div class="src"><span class="lbl">Source</span><a href="https://medium.com/airbnb-engineering/experiment-reporting-framework-4e3fcd29e6c0">Airbnb Eng — ERF</a><a href="https://medium.com/airbnb-engineering/https-medium-com-jonathan-parks-scaling-erf-23fd17c91166">Scaling ERF</a></div>
+  </div>
+
+  <div class="co measure">
+    <div class="co-head"><h3><span class="n">07</span>Uber</h3><span class="tag measure">Measure</span></div>
+    <div class="fw">Framework: <b>Experimentation Platform (XP)</b> &nbsp;·&nbsp; <a href="uber-xp-framework.html" style="color:var(--blue);font-weight:700;border-bottom:1px solid var(--blue);text-decoration:none">Deep-dive →</a></div>
+    <ul>
+      <li>Combines staged feature rollout with analytics; flags, monitoring, and a "universal holdout" to measure long-term cumulative effects.</li>
+      <li>Monitors treatment effects to prevent regressions on key metrics.</li>
+    </ul>
+    <div class="impact"><b>How they handle impact</b>
+      Measure-not-estimate; impact read from live experiment metrics. Re-architected from remote to local evaluation for 100× lower latency.</div>
+    <div class="stats">
+      <div class="stat"><div class="n">1,000+</div><div class="l">experiments running at any time</div></div>
+      <div class="stat"><div class="n">100×</div><div class="l">faster experiment evaluation</div></div>
+    </div>
+    <div class="src"><span class="lbl">Source</span><a href="https://www.uber.com/us/en/blog/experimentation-platform/">Uber Eng — XP platform</a><a href="https://www.uber.com/us/en/blog/xp/">Building XP</a></div>
+  </div>
+
+  <div class="co measure">
+    <div class="co-head"><h3><span class="n">08</span>DoorDash</h3><span class="tag measure">Measure</span></div>
+    <div class="fw">Framework: <b>Switchback experiments</b> (Dash-AB engine) &nbsp;·&nbsp; <a href="doordash-switchback-framework.html" style="color:var(--blue);font-weight:700;border-bottom:1px solid var(--blue);text-decoration:none">Deep-dive →</a></div>
+    <ul>
+      <li>A marketplace breaks standard A/B independence (orders share a Dasher fleet → network effects).</li>
+      <li>Solution: switchback tests randomizing treatment/control by region × time-window, not by user.</li>
+      <li>Dash-AB standardizes A/B, switchback, CUPED/CUPAC and interaction analysis.</li>
+    </ul>
+    <div class="impact"><b>How they handle impact</b>
+      Measure-not-estimate, with marketplace-specific <em>design</em> (switchbacks, cluster-robust standard errors) to get unbiased causal estimates despite interference.</div>
+    <div class="src"><span class="lbl">Source</span><a href="https://careersatdoordash.com/blog/switchback-tests-and-randomized-experimentation-under-network-effects-at-doordash/">DoorDash — Switchback tests</a><a href="https://careersatdoordash.com/blog/meet-dash-ab-the-statistics-engine-of-experimentation-at-doordash/">Meet Dash-AB</a></div>
+  </div>
+
+  <div class="co measure">
+    <div class="co-head"><h3><span class="n">09</span>Lyft</h3><span class="tag measure">Measure</span></div>
+    <div class="fw">Practice: <b>Marketplace experimentation</b> (A/B + time-split / region-split) &nbsp;·&nbsp; <a href="lyft-experimentation.html" style="color:var(--blue);font-weight:700;border-bottom:1px solid var(--blue);text-decoration:none">Deep-dive →</a></div>
+    <ul>
+      <li>Strong norm to test every product change; causal data informs strategic direction.</li>
+      <li>Most common test = rider/driver A/B; second = time-split tests to handle network-effect interference.</li>
+      <li>Investing in adaptive/always-on experimentation (contextual bandits).</li>
+    </ul>
+    <div class="impact"><b>How they handle impact</b>
+      Measure-not-estimate; marketplace interference handled via time/region splits rather than naive A/B.</div>
+    <div class="src"><span class="lbl">Source</span><a href="https://eng.lyft.com/experimentation-in-a-ridesharing-marketplace-b39db027a66e">Lyft Eng — Marketplace experimentation</a><a href="https://eng.lyft.com/challenges-in-experimentation-be9ab98a7ef4">Challenges in experimentation</a></div>
+  </div>
+
+  <div class="co measure">
+    <div class="co-head"><h3><span class="n">10</span>Pinterest</h3><span class="tag measure">Measure</span></div>
+    <div class="fw">Practice: <b>A/B testing platform</b> &nbsp;·&nbsp; <a href="pinterest-ab-framework.html" style="color:var(--blue);font-weight:700;border-bottom:1px solid var(--blue);text-decoration:none">Deep-dive →</a></div>
+    <ul>
+      <li>Experiments guide products and features; lightweight config UI + QA workflow + simplified cross-platform APIs.</li>
+      <li>Real-time monitoring dashboard to catch regressions early.</li>
+    </ul>
+    <div class="impact"><b>How they handle impact</b>
+      Measure-not-estimate; impact read from experiment metrics with real-time monitoring.</div>
+    <div class="stats">
+      <div class="stat"><div class="n">~1,000</div><div class="l">experiments running at any time</div></div>
+    </div>
+    <div class="caveat">Weakest "decision framework" sourcing of the set — strong platform posts, less on decision process. (No platform named "Helium" — that name is unverified.)</div>
+    <div class="src"><span class="lbl">Source</span><a href="https://medium.com/pinterest-engineering/building-pinterests-a-b-testing-platform-ab4934ace9f4">Pinterest Eng — A/B platform</a><a href="https://medium.com/pinterest-engineering/scalable-a-b-experiments-at-pinterest-1e28ddb7d22">Scalable A/B experiments</a></div>
+  </div>
+
+  <footer>
+    Study B of two · Companion: <a href="impact-saas-companies.html">← SaaS / B2B companies (Study A)</a> · <strong><a href="methodologies-comparison.html">All methods compared (table)</a></strong><br>
+    Every entry is grounded in the linked sources; caveats note where sourcing is snippet-level or secondary-published. No fabricated frameworks or figures.
+  </footer>
+</div>
+</body>
+</html>

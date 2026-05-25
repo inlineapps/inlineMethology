@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How Top SaaS / B2B Companies Decide — Study A</title>
+<style>
+  :root{
+    --ink:#1c2230; --ink-soft:#465065; --line:#e3ddd0; --paper:#faf7f0;
+    --card:#ffffff; --accent:#b5482e; --accent-soft:#fbeae4;
+    --gold:#9a7b2e; --gold-soft:#f6efdc; --teal:#1f6f6b; --teal-soft:#e2f0ee;
+    --blue:#2d4a7c; --blue-soft:#e6ecf6; --purple:#5b3b78; --purple-soft:#efe6f6;
+    --shadow:0 1px 2px rgba(28,34,48,.06),0 8px 24px rgba(28,34,48,.06);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.62;font-size:16px;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:980px;margin:0 auto;padding:0 24px 96px}
+  header.masthead{border-bottom:3px solid var(--ink);margin-bottom:8px;padding:48px 0 22px}
+  .kicker{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:700;margin:0 0 10px}
+  h1{font-family:Georgia,"Times New Roman",serif;font-size:40px;line-height:1.08;margin:0 0 12px;letter-spacing:-.01em}
+  .sub{color:var(--ink-soft);margin:0;max-width:64ch}
+  .goal{margin-top:18px;background:var(--accent-soft);border:1px solid #f2c9bd;border-left:5px solid var(--accent);border-radius:10px;padding:13px 18px;font-size:15px}
+  .goal span{color:var(--accent);text-transform:uppercase;letter-spacing:.08em;font-size:11px;font-weight:800}
+  nav.toc{position:sticky;top:0;background:rgba(250,247,240,.92);backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);padding:12px 0;margin-bottom:34px;z-index:5;font-size:14px}
+  nav.toc a{color:var(--ink-soft);text-decoration:none;margin-right:16px;white-space:nowrap}
+  nav.toc a:hover{color:var(--accent)}
+  .finding{background:var(--ink);color:#f3efe6;border-radius:14px;padding:24px 28px;margin:0 0 36px;box-shadow:var(--shadow)}
+  .finding h2{color:#fff;margin:0 0 8px;font-family:Georgia,serif;font-size:21px}
+  .finding p{margin:0;color:#cfc9bb}
+  .legend{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 30px}
+  .tag{font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:5px 11px;border-radius:6px;color:#fff;white-space:nowrap}
+  .tag.scoring{background:var(--accent)} .tag.input{background:var(--purple)}
+  .tag.experiment{background:var(--blue)} .tag.goal{background:var(--gold)} .tag.qual{background:var(--teal)}
+  .grouphead{font-family:Georgia,serif;font-size:24px;margin:38px 0 4px;padding-top:14px;border-top:2px solid var(--line)}
+  .groupsub{color:var(--ink-soft);font-size:14px;margin:0 0 16px}
+  .co{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:20px 24px;box-shadow:var(--shadow);margin:14px 0;border-left:5px solid var(--line)}
+  .co.scoring{border-left-color:var(--accent)} .co.input{border-left-color:var(--purple)}
+  .co.experiment{border-left-color:var(--blue)} .co.goal{border-left-color:var(--gold)} .co.qual{border-left-color:var(--teal)}
+  .co-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  .co-head h3{margin:0;font-size:20px}
+  .co-head h3 .n{color:var(--ink-soft);font-size:14px;font-weight:700;margin-right:6px}
+  .fw{font-size:13px;color:var(--ink-soft);margin:4px 0 10px;font-weight:600}
+  .fw b{color:var(--ink)}
+  .co ul{margin:8px 0;padding-left:20px}.co li{margin:4px 0;font-size:14.5px}
+  .impact{background:var(--gold-soft);border-left:3px solid var(--gold);border-radius:8px;padding:11px 15px;margin:12px 0;font-size:14px}
+  .impact b{color:var(--gold);display:block;margin-bottom:3px;font-size:12px;letter-spacing:.05em;text-transform:uppercase}
+  .stats{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}
+  .stat{flex:1 1 130px;background:#f6f4ee;border:1px solid var(--line);border-radius:8px;padding:10px 12px;text-align:center}
+  .stat .n{font-family:Georgia,serif;font-size:22px;color:var(--accent);font-weight:700;line-height:1.1}
+  .stat .l{font-size:11.5px;color:var(--ink-soft);margin-top:3px}
+  .src{font-size:13px;margin-top:10px}
+  .src .lbl{color:var(--ink-soft);font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:11px;margin-right:6px}
+  .src a{color:var(--teal);text-decoration:none;border-bottom:1px solid var(--teal);margin-right:10px}
+  .src a:hover{color:var(--accent);border-color:var(--accent)}
+  .caveat{font-size:12.5px;color:#8a6d2e;background:#fbf6e7;border:1px dashed #d8c98f;border-radius:6px;padding:7px 11px;margin-top:10px}
+  footer{border-top:1px solid var(--line);padding-top:20px;color:var(--ink-soft);font-size:13px;margin-top:44px}
+  footer a{color:var(--teal)}
+  @media(max-width:600px){h1{font-size:30px}}
+</style>
+</head>
+<body>
+<nav class="sitenav">
+<style>
+  .sitenav{position:fixed;top:12px;right:16px;z-index:100;font-size:13px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  .sitenav details{background:#1c2230;color:#f3efe6;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.22)}
+  .sitenav summary{list-style:none;cursor:pointer;padding:8px 14px;font-weight:700;letter-spacing:.04em;user-select:none}
+  .sitenav summary::-webkit-details-marker{display:none}
+  .sitenav summary::after{content:" \25BE";color:#cfc9bb;font-size:10px;margin-left:2px}
+  .sitenav details[open] summary::after{content:" \25B4"}
+  .sitenav .navmenu{position:absolute;top:calc(100% + 6px);right:0;background:#fff;color:#1c2230;border:1px solid #e3ddd0;border-radius:10px;padding:16px 18px;box-shadow:0 8px 28px rgba(28,34,48,.22);display:grid;grid-template-columns:repeat(2,minmax(180px,1fr));gap:14px 26px;min-width:400px;max-width:92vw;max-height:80vh;overflow-y:auto}
+  .sitenav .navgrp h4{margin:0 0 5px;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:#465065;font-weight:700;border-bottom:1px solid #e3ddd0;padding-bottom:4px}
+  .sitenav .navgrp a{display:block;color:#1c2230;text-decoration:none;font-size:13px;padding:2px 0;line-height:1.5}
+  .sitenav .navgrp a:hover{color:#b5482e}
+  .sitenav .navgrp a.cur{font-weight:700;color:#b5482e}
+  @media(max-width:600px){.sitenav .navmenu{grid-template-columns:1fr;min-width:240px;max-width:88vw}.sitenav{top:8px;right:8px}}
+</style>
+<details>
+<summary>📑 Jump to</summary>
+<div class="navmenu">
+<div class="navgrp"><h4>Start here</h4>
+<a href="index.html"><b>← Home (goal &amp; map)</b></a>
+<a class="cur" href="impact-saas-companies.html">SaaS / B2B field study</a>
+<a href="impact-consumer-companies.html">Consumer-tech field study</a>
+<a href="methodologies-comparison.html"><b>All methods compared →</b></a>
+<a href="experiment-trustworthiness.html">How 40k tests actually work →</a>
+</div>
+<div class="navgrp"><h4>Scoring &amp; Input modeling</h4>
+<a href="rice-framework.html">RICE (Intercom)</a>
+<a href="north-star-framework.html">North Star (Amplitude / Slack)</a>
+</div>
+<div class="navgrp"><h4>Goal-laddering / Define first</h4>
+<a href="v2mom-framework.html">V2MOM (Salesforce)</a>
+<a href="pyramid-of-clarity-framework.html">Pyramid of Clarity (Asana)</a>
+<a href="pr-faq-framework.html">PR-FAQ (Amazon)</a>
+<a href="heart-framework.html">HEART (Google)</a>
+<a href="dibb-framework.html">DIBB (Spotify)</a>
+</div>
+<div class="navgrp"><h4>Experimentation (SaaS)</h4>
+<a href="microsoft-exp-framework.html">Microsoft ExP / CUPED</a>
+<a href="linkedin-xlnt-framework.html">LinkedIn T-REX</a>
+</div>
+<div class="navgrp"><h4>Experimentation (Consumer)</h4>
+<a href="netflix-experimentation.html">Netflix · ABlaze</a>
+<a href="booking-experimentation.html">Booking.com</a>
+<a href="airbnb-erf-framework.html">Airbnb ERF</a>
+<a href="uber-xp-framework.html">Uber XP</a>
+<a href="doordash-switchback-framework.html">DoorDash switchback</a>
+<a href="lyft-experimentation.html">Lyft</a>
+<a href="pinterest-ab-framework.html">Pinterest</a>
+</div>
+<div class="navgrp"><h4>Written discipline</h4>
+<a href="stripe-shaping-framework.html">Stripe shaping</a>
+</div>
+</div>
+</details>
+</nav>
+
+<div class="wrap">
+  <header class="masthead">
+    <p class="kicker">Study A · SaaS / B2B field study</p>
+    <h1>How Top SaaS / B2B Companies Decide What to Build</h1>
+    <p class="sub">Ten well-documented software companies — their product-decision framework, and (where they publish one) how they estimate a feature's expected impact. Every claim is sourced; entries without a real quantitative method say so plainly.</p>
+    <div class="goal"><span>Goal</span><br>Decide features by data-backed expected impact — choose by outcome, not by to-do list or opinion.</div>
+  </header>
+
+  <nav class="toc">
+    <a href="#finding">Key finding</a>
+    <a href="#scoring">Scoring &amp; Sizing</a>
+    <a href="#input">Input Modeling</a>
+    <a href="#exp">Experimentation</a>
+    <a href="#goal">Goal-Laddering</a>
+    <a href="#qual">Written Discipline</a>
+    <a href="methodologies-comparison.html" style="color:var(--accent);font-weight:700">All methods compared →</a>
+  </nav>
+
+  <div class="finding" id="finding">
+    <h2>The pattern across all ten</h2>
+    <p>SaaS/B2B companies split into three honest camps. A few publish a real <strong>quantitative scoring or input-modeling method</strong> (Intercom, Atlassian, GitLab, Amplitude, Slack). A few are <strong>experimentation-led</strong> — they measure impact rather than forecast it (Microsoft, LinkedIn). The rest are <strong>goal-alignment frameworks</strong> that ladder work to outcomes but do <em>not</em> score features (Salesforce, Asana, Stripe). Knowing which is which stops us from copying a goal framework and pretending it's an impact estimator.</p>
+  </div>
+
+  <div class="legend">
+    <span class="tag scoring">Scoring / Sizing</span>
+    <span class="tag input">Input modeling</span>
+    <span class="tag experiment">Experimentation</span>
+    <span class="tag goal">Goal-laddering</span>
+    <span class="tag qual">Written discipline</span>
+  </div>
+
+  <!-- SCORING -->
+  <h2 class="grouphead" id="scoring">Scoring &amp; Sizing</h2>
+  <p class="groupsub">Turn each feature into a comparable number before committing.</p>
+
+  <div class="co scoring">
+    <div class="co-head"><h3><span class="n">01</span>Intercom</h3><span class="tag scoring">Scoring</span></div>
+    <div class="fw">Framework: <b>RICE scoring</b> (its origin) &nbsp;·&nbsp; <a href="rice-framework.html" style="color:var(--accent);font-weight:700;border-bottom:1px solid var(--accent);text-decoration:none">Deep-dive →</a></div>
+    <ul>
+      <li>Built by Intercom's growth team to compare project ideas against a single goal, minimizing personal bias.</li>
+      <li>Four factors combined into one comparable score; designed to maximize "total impact per time worked."</li>
+    </ul>
+    <div class="impact"><b>How they estimate impact</b>
+      Score = (Reach × Impact × Confidence) ÷ Effort. Reach = people affected per period; Impact on a fixed scale (3 / 2 / 1 / .5 / .25); Confidence (100 / 80 / 50%) discounts un-evidenced guesses; Effort in person-months. The Impact × Confidence terms <em>are</em> the expected-impact estimate.</div>
+    <div class="src"><span class="lbl">Source</span><a href="https://www.intercom.com/blog/rice-simple-prioritization-for-product-managers/">Intercom — RICE</a></div>
+  </div>
+
+  <div class="co scoring">
+    <div class="co-head"><h3><span class="n">02</span>Atlassian</h3><span class="tag scoring">Scoring</span></div>
+    <div class="fw">Framework: <b>Weighted Scoring Model</b> (+ prioritization playbook) &nbsp;·&nbsp; <a href="methodologies-comparison.html#table" style="color:var(--accent);font-weight:700;border-bottom:1px solid var(--accent);text-decoration:none">See in comparison →</a></div>
+    <ul>
+      <li>Publishes a guide comparing six prioritization frameworks for choosing what to build next.</li>
+      <li>Frames prioritization as weighing opportunities against business goals, customer value, and resources — strategy-led, not preference-led.</li>
+    </ul>
+    <div class="impact"><b>How they estimate impact</b>
+      Weighted Scoring: distribute 100 points across weighted criteria, score each feature per criterion, multiply by weight and sum. The weighted total is the expected-value proxy used to rank.</div>
+    <div class="src"><span class="lbl">Source</span><a href="https://www.atlassian.com/agile/product-management/prioritization-framework">Atlassian — Prioritization frameworks</a><a href="https://www.atlassian.com/software/jira/product-discovery/resources/handbook/prioritization">Jira Product Discovery handbook</a></div>
+  </div>
+
+  <div class="co scoring">
+    <div class="co-head"><h3><span class="n">03</span>GitLab</h3><span class="tag scoring">Scoring</span></div>
+    <div class="fw">Framework: <b>RICE + Customer Issues Prioritization</b> (fully public handbook) &nbsp;·&nbsp; <a href="rice-framework.html" style="color:var(--accent);font-weight:700;border-bottom:1px solid var(--accent);text-decoration:none">RICE deep-dive →</a></div>
+    <ul>
+      <li>Entire product process is open in the GitLab Handbook; uses RICE-style and async-RICE prioritization across product groups.</li>
+      <li>A dedicated Customer Issues framework gives teams "a shared language to communicate customer impact."</li>
+    </ul>
+    <div class="impact"><b>How they estimate impact</b>
+      RICE for ranking; the customer-issues framework scores issues by whether they block sales, risk renewals, or are committed deliverables — translating qualitative feedback into impact-weighted signals.</div>
+    <div class="caveat">Caveat: exact point scale comes from handbook snippets — confirm on the page before quoting precise sub-values.</div>
+    <div class="src"><span class="lbl">Source</span><a href="https://handbook.gitlab.com/handbook/product/product-processes/customer-issues-prioritization-framework/">GitLab Handbook — Customer Issues framework</a><a href="https://handbook.gitlab.com/handbook/product/product-processes/">Product processes</a></div>
+  </div>
+
+  <!-- INPUT MODELING -->
+  <h2 class="grouphead" id="input">Input Modeling</h2>
+  <p class="groupsub">Tie each feature to the metric input it moves, not to raw output. &nbsp;→ <a href="north-star-framework.html" style="color:var(--purple);font-weight:700;border-bottom:1px solid var(--purple);text-decoration:none">Deep-dive: how the North Star Framework actually sets priority</a></p>
+
+  <div class="co input">
+    <div class="co-head"><h3><span class="n">04</span>Amplitude</h3><span class="tag input">Input modeling</span></div>
+    <div class="fw">Framework: <b>North Star Framework / Playbook</b> &nbsp;·&nbsp; <a href="north-star-framework.html" style="color:var(--purple);font-weight:700;border-bottom:1px solid var(--purple);text-decoration:none">Deep-dive →</a></div>
+    <ul>
+      <li>One North Star Metric (NSM) capturing customer value, supported by 3–5 Inputs teams can directly move.</li>
+      <li>A "North Star tree" connects initiatives to inputs so teams see how work ladders to the NSM and can trade off.</li>
+    </ul>
+    <div class="impact"><b>How they estimate impact</b>
+      Features are judged by <em>which Input</em> they move and how that Input drives the NSM — not by output count. Amplitude's own NSM is <strong>Weekly Learning Users</strong> (active users who shared a learning consumed by others within 7 days).</div>
+    <div class="caveat">Caveat: precise WLU input names came via search snippet — confirm on the Playbook page.</div>
+    <div class="src"><span class="lbl">Source</span><a href="https://amplitude.com/resources/north-star-playbook">Amplitude — North Star Playbook</a><a href="https://amplitude.com/books/north-star/amplitudes-north-star-metric-and-inputs">NSM &amp; inputs</a></div>
+  </div>
+
+  <div class="co input">
+    <div class="co-head"><h3><span class="n">05</span>Slack</h3><span class="tag input">Input modeling</span></div>
+    <div class="fw">Framework: <b>North Star + activation-input metric</b> &nbsp;·&nbsp; <a href="north-star-framework.html" style="color:var(--purple);font-weight:700;border-bottom:1px solid var(--purple);text-decoration:none">Deep-dive →</a></div>
+    <ul>
+      <li>North Star is <strong>Weekly Active Teams</strong> (team-level value, not raw user count); team-level inputs like messages-sent and activation rate feed it.</li>
+      <li>Famous activation input: <strong>2,000 messages sent</strong> by a team. Founder Stewart Butterfield: "after 2,000 messages, 93% of those customers are still using Slack today" — the threshold at which a team has truly tried the product.</li>
+    </ul>
+    <div class="impact"><b>How they estimate impact</b>
+      Work is judged by whether it moves the activation input that predicts retention — i.e. gets more teams to the 2,000-message threshold faster — rather than by feature count. Amplitude's own North Star Playbook uses Slack as a worked example of this input-driven model.</div>
+    <div class="caveat">Caveat: the 2,000-message figure and NSM are founder/secondary accounts (First Round, Amplitude), not a published internal scoring sheet; it's an input model, not a per-feature score.</div>
+    <div class="src"><span class="lbl">Source</span><a href="https://review.firstround.com/from-0-to-1b-slacks-founder-shares-their-epic-launch-strategy/">First Round Review — Butterfield interview</a><a href="https://amplitude.com/blog/product-north-star-metric">Amplitude — North Star (Slack example)</a></div>
+  </div>
+
+  <!-- EXPERIMENTATION -->
+  <h2 class="grouphead" id="exp">Experimentation (measure, don't guess)</h2>
+  <p class="groupsub">Define a success metric up front, ship behind a test, let data decide. &nbsp;</p>
+
+  <div class="co experiment">
+    <div class="co-head"><h3><span class="n">06</span>Microsoft</h3><span class="tag experiment">Experimentation</span></div>
+    <div class="fw">Framework: <b>ExP platform · OEC · CUPED</b> (Ron Kohavi) &nbsp;·&nbsp; <a href="microsoft-exp-framework.html" style="color:var(--blue);font-weight:700;border-bottom:1px solid var(--blue);text-decoration:none">Deep-dive →</a></div>
+    <ul>
+      <li>Pioneered trustworthy controlled experiments at scale; features ship on test results, not opinion.</li>
+      <li>Co-authors of the standard text <em>Trustworthy Online Controlled Experiments</em>.</li>
+    </ul>
+    <div class="impact"><b>How they estimate impact</b>
+      The <strong>OEC</strong> (Overall Evaluation Criterion) is a single agreed success metric per experiment. <strong>CUPED</strong> uses pre-experiment data to cut variance, getting the same power from fewer users.</div>
+    <div class="stats">
+      <div class="stat"><div class="n">~50%</div><div class="l">variance cut by CUPED (Bing)</div></div>
+      <div class="stat"><div class="n">~⅓</div><div class="l">of ideas actually improve the target metric</div></div>
+      <div class="stat"><div class="n">~$100M</div><div class="l">/yr from one Bing headline-color test</div></div>
+    </div>
+    <div class="caveat">The ⅓-win and $100M figures trace to Kohavi / HBR (reputable, secondary-published).</div>
+    <div class="src"><span class="lbl">Source</span><a href="https://exp-platform.com/">exp-platform.com</a><a href="https://hbr.org/2017/09/the-surprising-power-of-online-experiments">HBR — Power of online experiments</a></div>
+  </div>
+
+  <div class="co experiment">
+    <div class="co-head"><h3><span class="n">07</span>LinkedIn</h3><span class="tag experiment">Experimentation</span></div>
+    <div class="fw">Framework: <b>XLNT → T-REX</b> experimentation platform &nbsp;·&nbsp; <a href="linkedin-xlnt-framework.html" style="color:var(--blue);font-weight:700;border-bottom:1px solid var(--blue);text-decoration:none">Deep-dive →</a></div>
+    <ul>
+      <li>End-to-end internal A/B platform; easy design/deploy plus automatic metric analysis to popularize testing.</li>
+      <li>Architecture and scale documented openly on the engineering blog.</li>
+    </ul>
+    <div class="impact"><b>How they estimate impact</b>
+      Expected impact is measured via controlled experiments with automated analysis built into the platform — the experiment result is the decision unit.</div>
+    <div class="stats">
+      <div class="stat"><div class="n">2,800+</div><div class="l">experiments via XLNT</div></div>
+      <div class="stat"><div class="n">~41,000</div><div class="l">A/B tests served simultaneously</div></div>
+      <div class="stat"><div class="n">700M+</div><div class="l">members in scope</div></div>
+    </div>
+    <div class="src"><span class="lbl">Source</span><a href="https://engineering.linkedin.com/ab-testing/xlnt-platform-driving-ab-testing-linkedin">LinkedIn Eng — XLNT</a><a href="https://www.linkedin.com/blog/engineering/ab-testing-experimentation/our-evolution-towards-t-rex-the-prehistory-of-experimentation-i">Evolution to T-REX</a></div>
+  </div>
+
+  <!-- GOAL LADDERING -->
+  <h2 class="grouphead" id="goal">Goal-Laddering <span style="font-size:14px;color:var(--ink-soft);font-weight:400">(alignment, not feature scoring)</span></h2>
+  <p class="groupsub">These connect work to outcomes — but do not estimate per-feature impact. Use them for alignment, not as a scoring model.</p>
+
+  <div class="co goal">
+    <div class="co-head"><h3><span class="n">08</span>Salesforce</h3><span class="tag goal">Goal-laddering</span></div>
+    <div class="fw">Framework: <b>V2MOM</b> — Vision, Values, Methods, Obstacles, Measures &nbsp;·&nbsp; <a href="v2mom-framework.html" style="color:var(--gold);font-weight:700;border-bottom:1px solid var(--gold);text-decoration:none">Deep-dive →</a></div>
+    <ul>
+      <li>Strategic alignment framework created by Marc Benioff; cascades company direction so individual work ladders to top goals.</li>
+      <li>Only quantitative element is "Measures" (the numeric results targeted).</li>
+    </ul>
+    <div class="impact"><b>How they estimate impact</b>
+      It doesn't — V2MOM is goal-setting/alignment, <em>not</em> a feature-impact scoring method. Present it as disciplined goal-setting, not opportunity sizing.</div>
+    <div class="src"><span class="lbl">Source</span><a href="https://www.salesforce.com/blog/how-to-create-alignment-within-your-company/">Salesforce — Create alignment with a V2MOM</a></div>
+  </div>
+
+  <div class="co goal">
+    <div class="co-head"><h3><span class="n">09</span>Asana</h3><span class="tag goal">Goal-laddering</span></div>
+    <div class="fw">Framework: <b>Pyramid of Clarity</b> (Mission → Strategy → Objectives → Key Results → Projects) &nbsp;·&nbsp; <a href="pyramid-of-clarity-framework.html" style="color:var(--gold);font-weight:700;border-bottom:1px solid var(--gold);text-decoration:none">Deep-dive →</a></div>
+    <ul>
+      <li>Every person can trace how daily work ladders to objectives and the company mission.</li>
+      <li>Goal: prioritize "work that drives measurable impact" via clear alignment.</li>
+    </ul>
+    <div class="impact"><b>How they estimate impact</b>
+      Goal-laddering via OKRs — impact is judged by whether a project moves a Key Result. An alignment + measurement structure, not a scoring formula.</div>
+    <div class="src"><span class="lbl">Source</span><a href="https://asana.com/inside-asana/pyramid-of-clarity">Asana — Pyramid of Clarity</a><a href="https://wavelength.asana.com/pyramid-clarity-strategic-alignment/">Wavelength</a></div>
+  </div>
+
+  <!-- WRITTEN DISCIPLINE -->
+  <h2 class="grouphead" id="qual">Written Discipline</h2>
+  <p class="groupsub">No scoring formula — rigor comes from forcing the argument onto paper.</p>
+
+  <div class="co qual">
+    <div class="co-head"><h3><span class="n">10</span>Stripe</h3><span class="tag qual">Written discipline</span></div>
+    <div class="fw">Practice: <b>Product shaping + written deep-dives + long-term-direction filter</b> &nbsp;·&nbsp; <a href="stripe-shaping-framework.html" style="color:var(--teal);font-weight:700;border-bottom:1px solid var(--teal);text-decoration:none">Deep-dive →</a></div>
+    <ul>
+      <li>Disciplined product judgment over scoring: shape the problem, write deep-dive docs, filter against a multi-decade direction.</li>
+      <li>Uses qualitative log-lines like "users having a bad day" rather than a numeric prioritization model.</li>
+    </ul>
+    <div class="impact"><b>How they estimate impact</b>
+      No public quantitative method — impact is argued qualitatively in writing and filtered by long-term strategy. Included as the honest "great discipline, no scoring formula" exemplar.</div>
+    <div class="src"><span class="lbl">Source</span><a href="https://stripe.com/guides/atlas/building-a-great-pm-org">Stripe Atlas — Building a great PM org</a><a href="https://www.bringthedonuts.com/essays/building-products-at-stripe/">Ken Norton — Building products at Stripe</a></div>
+  </div>
+
+  <footer>
+    Study A of two · Companion: <a href="impact-consumer-companies.html">Consumer-facing companies (Study B) →</a> · <strong><a href="methodologies-comparison.html">All methods compared (table)</a></strong><br>
+    Every entry is grounded in the linked sources; caveats note where sourcing is snippet-level or secondary-published. No fabricated frameworks or figures.
+  </footer>
+</div>
+</body>
+</html>

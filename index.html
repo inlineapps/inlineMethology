@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Methodology research — feature ranking &amp; metric definition</title>
+<style>
+  :root{
+    --ink:#1c2230; --ink-soft:#465065; --line:#e3ddd0; --paper:#faf7f0;
+    --card:#ffffff; --accent:#b5482e; --accent-soft:#fbeae4;
+    --gold:#9a7b2e; --gold-soft:#f6efdc; --teal:#1f6f6b; --teal-soft:#e2f0ee;
+    --blue:#2d4a7c; --blue-soft:#e6ecf6; --purple:#5b3b78; --purple-soft:#efe6f6;
+    --shadow:0 1px 2px rgba(28,34,48,.06),0 8px 24px rgba(28,34,48,.06);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.62;font-size:16px;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 24px 96px}
+  header.masthead{border-bottom:3px solid var(--ink);margin-bottom:8px;padding:48px 0 26px}
+  .kicker{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:700;margin:0 0 10px}
+  h1{font-family:Georgia,"Times New Roman",serif;font-size:46px;line-height:1.05;margin:0 0 14px;letter-spacing:-.01em}
+  .sub{color:var(--ink-soft);margin:0;max-width:68ch;font-size:17px}
+  .goal{margin-top:22px;background:var(--ink);color:#f3efe6;border-radius:12px;padding:22px 26px;box-shadow:var(--shadow)}
+  .goal .lbl{color:#f3d9a0;text-transform:uppercase;letter-spacing:.1em;font-size:11px;font-weight:800;display:block;margin-bottom:6px}
+  .goal h2{font-family:Georgia,serif;font-size:23px;margin:0 0 6px;color:#fff;line-height:1.25}
+  .goal p{margin:6px 0 0;color:#cfc9bb;font-size:15.5px}
+  h2.sec{font-family:Georgia,serif;font-size:28px;margin:50px 0 8px;letter-spacing:-.005em}
+  .secsub{color:var(--ink-soft);margin:0 0 22px;max-width:68ch}
+  .how{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:18px 0 0}
+  .how .step{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 18px;box-shadow:var(--shadow)}
+  .how .step .n{font-family:Georgia,serif;color:var(--accent);font-size:32px;font-weight:700;line-height:1;margin-bottom:4px}
+  .how .step h3{font-family:Georgia,serif;font-size:17px;margin:8px 0 4px}
+  .how .step p{margin:0;font-size:14.5px;color:var(--ink-soft)}
+  .how .step a{color:var(--teal);text-decoration:none;border-bottom:1px solid var(--teal-soft);font-weight:600}
+  .how .step a:hover{color:var(--accent);border-color:var(--accent-soft)}
+
+  .group{margin:36px 0 0}
+  .group h3{font-family:Georgia,serif;font-size:21px;margin:0 0 4px;display:flex;align-items:center;gap:10px}
+  .group .pill{font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:#fff;padding:3px 9px;border-radius:5px}
+  .pill.s{background:var(--accent)}.pill.i{background:var(--teal)}
+  .pill.e{background:var(--blue)}.pill.g{background:var(--gold)}.pill.q{background:var(--purple)}
+  .group .gdesc{color:var(--ink-soft);margin:2px 0 14px;font-size:14.5px}
+  .pgs{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+  .pg{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--ink);border-radius:8px;padding:13px 16px;box-shadow:var(--shadow)}
+  .pg.s{border-left-color:var(--accent)}.pg.i{border-left-color:var(--teal)}
+  .pg.e{border-left-color:var(--blue)}.pg.g{border-left-color:var(--gold)}.pg.q{border-left-color:var(--purple)}
+  .pg a{color:var(--ink);text-decoration:none;font-weight:700;font-size:15.5px;display:block}
+  .pg a:hover{color:var(--accent)}
+  .pg .from{font-size:12.5px;color:var(--ink-soft);margin-top:3px;letter-spacing:.02em}
+  .pg .what{font-size:13.5px;color:var(--ink-soft);margin-top:4px}
+
+  .keyshelf{background:var(--gold-soft);border:1px solid #d8c98f;border-left:5px solid var(--gold);border-radius:10px;padding:18px 22px;margin:22px 0 0}
+  .keyshelf b{color:#7a5a08}
+  .keyshelf a{color:#7a5a08;font-weight:700;text-decoration:none;border-bottom:1px solid #c6ad55}
+  .keyshelf a:hover{color:var(--accent);border-color:var(--accent-soft)}
+
+  .note{background:#fff;border:1px solid var(--line);border-left:5px solid var(--ink-soft);border-radius:10px;padding:16px 22px;margin:24px 0 0;color:var(--ink-soft);font-size:14.5px}
+  .note b{color:var(--ink)}
+
+  footer{border-top:1px solid var(--line);padding-top:20px;color:var(--ink-soft);font-size:13px;margin-top:56px}
+
+  @media(max-width:780px){h1{font-size:34px}.how,.pgs{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav class="sitenav">
+<style>
+  .sitenav{position:fixed;top:12px;right:16px;z-index:100;font-size:13px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  .sitenav details{background:#1c2230;color:#f3efe6;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.22)}
+  .sitenav summary{list-style:none;cursor:pointer;padding:8px 14px;font-weight:700;letter-spacing:.04em;user-select:none}
+  .sitenav summary::-webkit-details-marker{display:none}
+  .sitenav summary::after{content:" \25BE";color:#cfc9bb;font-size:10px;margin-left:2px}
+  .sitenav details[open] summary::after{content:" \25B4"}
+  .sitenav .navmenu{position:absolute;top:calc(100% + 6px);right:0;background:#fff;color:#1c2230;border:1px solid #e3ddd0;border-radius:10px;padding:16px 18px;box-shadow:0 8px 28px rgba(28,34,48,.22);display:grid;grid-template-columns:repeat(2,minmax(180px,1fr));gap:14px 26px;min-width:400px;max-width:92vw;max-height:80vh;overflow-y:auto}
+  .sitenav .navgrp h4{margin:0 0 5px;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:#465065;font-weight:700;border-bottom:1px solid #e3ddd0;padding-bottom:4px}
+  .sitenav .navgrp a{display:block;color:#1c2230;text-decoration:none;font-size:13px;padding:2px 0;line-height:1.5}
+  .sitenav .navgrp a:hover{color:#b5482e}
+  .sitenav .navgrp a.cur{font-weight:700;color:#b5482e}
+  @media(max-width:600px){.sitenav .navmenu{grid-template-columns:1fr;min-width:240px;max-width:88vw}.sitenav{top:8px;right:8px}}
+</style>
+<details>
+<summary>📑 Jump to</summary>
+<div class="navmenu">
+<div class="navgrp"><h4>Start here</h4>
+<a class="cur" href="index.html"><b>← Home (goal &amp; map)</b></a>
+<a href="impact-saas-companies.html">SaaS / B2B field study</a>
+<a href="impact-consumer-companies.html">Consumer-tech field study</a>
+<a href="methodologies-comparison.html"><b>All methods compared →</b></a>
+<a href="experiment-trustworthiness.html">How 40k tests actually work →</a>
+</div>
+<div class="navgrp"><h4>Scoring &amp; Input modeling</h4>
+<a href="rice-framework.html">RICE (Intercom)</a>
+<a href="north-star-framework.html">North Star (Amplitude / Slack)</a>
+</div>
+<div class="navgrp"><h4>Goal-laddering / Define first</h4>
+<a href="v2mom-framework.html">V2MOM (Salesforce)</a>
+<a href="pyramid-of-clarity-framework.html">Pyramid of Clarity (Asana)</a>
+<a href="pr-faq-framework.html">PR-FAQ (Amazon)</a>
+<a href="heart-framework.html">HEART (Google)</a>
+<a href="dibb-framework.html">DIBB (Spotify)</a>
+</div>
+<div class="navgrp"><h4>Experimentation (SaaS)</h4>
+<a href="microsoft-exp-framework.html">Microsoft ExP / CUPED</a>
+<a href="linkedin-xlnt-framework.html">LinkedIn T-REX</a>
+</div>
+<div class="navgrp"><h4>Experimentation (Consumer)</h4>
+<a href="netflix-experimentation.html">Netflix · ABlaze</a>
+<a href="booking-experimentation.html">Booking.com</a>
+<a href="airbnb-erf-framework.html">Airbnb ERF</a>
+<a href="uber-xp-framework.html">Uber XP</a>
+<a href="doordash-switchback-framework.html">DoorDash switchback</a>
+<a href="lyft-experimentation.html">Lyft</a>
+<a href="pinterest-ab-framework.html">Pinterest</a>
+</div>
+<div class="navgrp"><h4>Written discipline</h4>
+<a href="stripe-shaping-framework.html">Stripe shaping</a>
+</div>
+</div>
+</details>
+</nav>
+
+<div class="wrap">
+  <header class="masthead">
+    <p class="kicker">Methodology research · for team review</p>
+    <h1>How to rank features and define metrics — a methodology survey</h1>
+    <p class="sub">A field study of how 20 of the most-studied software companies actually rank features and decide which metrics matter. The point is to compare the published methods side-by-side so the team can pick (or mix) the one that suits us.</p>
+    <div class="goal">
+      <span class="lbl">Goal of this research</span>
+      <h2>Find a suitable method — to rank features and define metrics — that we can apply across the whole company.</h2>
+      <p>We're surveying what other successful product companies actually do (with sources), so we can have a grounded discussion about which approach (or which combination) to adopt. This is research material to read and discuss, not a recommendation.</p>
+    </div>
+  </header>
+
+  <h2 class="sec">How to read this</h2>
+  <p class="secsub">Three entry points depending on how you want to approach it. Most reviewers find it useful to read in this order.</p>
+  <div class="how">
+    <div class="step">
+      <div class="n">1</div>
+      <h3>Field studies — who does what</h3>
+      <p>What 20 successful companies actually do, with sources. Start here for the lay of the land.</p>
+      <p style="margin-top:8px"><a href="impact-saas-companies.html">SaaS &amp; B2B (Study A) →</a><br><a href="impact-consumer-companies.html">Consumer-tech (Study B) →</a></p>
+    </div>
+    <div class="step">
+      <div class="n">2</div>
+      <h3>Methods deep-dive</h3>
+      <p>Each method gets its own page — what it is, how it works, where the evidence comes from. Click any company in the field studies, or jump from the comparison table.</p>
+      <p style="margin-top:8px"><a href="methodologies-comparison.html">All 19 methods compared →</a></p>
+    </div>
+    <div class="step">
+      <div class="n">3</div>
+      <h3>Trust check</h3>
+      <p>Skeptical of "40,000 tests a day"? So were we. A grounded deep-dive on how high-volume experimentation actually works (and what's honestly impossible).</p>
+      <p style="margin-top:8px"><a href="experiment-trustworthiness.html">Trustworthiness mechanics →</a></p>
+    </div>
+  </div>
+
+  <div class="keyshelf">
+    <b>Shortcut for reviewers who want to skim:</b> &nbsp;The <a href="methodologies-comparison.html">19-method comparison table</a> is the single most useful page — it lays out every method side-by-side with what each does, what it doesn't do, and where the evidence comes from. From there, click into the deep-dives for whatever looks promising.
+  </div>
+
+  <h2 class="sec">All pages, by category</h2>
+  <p class="secsub">Every method below is sourced. Caveats on sourcing are noted on the deep-dive pages themselves. "From" indicates the company the method is documented at — methods are then transferable across teams.</p>
+
+  <div class="group">
+    <h3><span class="pill s">Scoring</span> Numeric ranking formulas</h3>
+    <p class="gdesc">Produce a number to rank ideas. Cheap to run, easy to game; best as a tool to expose disagreements about Reach/Impact/Confidence.</p>
+    <div class="pgs">
+      <div class="pg s"><a href="rice-framework.html">RICE — Reach × Impact × Confidence ÷ Effort</a><div class="from">From: Intercom</div><div class="what">The most-cited scoring formula. Fixed scales, transparent math, easy to audit.</div></div>
+    </div>
+  </div>
+
+  <div class="group">
+    <h3><span class="pill i">Input Modeling</span> Map work to a single output metric</h3>
+    <p class="gdesc">Build a tree from a "North Star" outcome down to the inputs teams can move. Helps every team see whether their work moves the company-level metric or not.</p>
+    <div class="pgs">
+      <div class="pg i"><a href="north-star-framework.html">North Star metric &amp; input model</a><div class="from">From: Amplitude, Slack, Atlassian</div><div class="what">One number for the whole company; inputs cascade down to team-level OKRs.</div></div>
+    </div>
+  </div>
+
+  <div class="group">
+    <h3><span class="pill e">Experimentation</span> Measure, don't estimate</h3>
+    <p class="gdesc">Ship a controlled test and let the data decide. The only category that produces a <em>causal</em> answer; pays for that rigour in infrastructure cost and slower decisions.</p>
+    <div class="pgs">
+      <div class="pg e"><a href="microsoft-exp-framework.html">ExP · OEC · CUPED</a><div class="from">From: Microsoft (Bing, Office, Azure)</div><div class="what">The classic platform — single Overall Evaluation Criterion + variance reduction.</div></div>
+      <div class="pg e"><a href="linkedin-xlnt-framework.html">LiX → XLNT → T-REX</a><div class="from">From: LinkedIn</div><div class="what">Same discipline as Microsoft, told as a platform-investment story.</div></div>
+      <div class="pg e"><a href="netflix-experimentation.html">ABlaze + Causal Inference</a><div class="from">From: Netflix</div><div class="what">A/B for what's randomizable; quasi-experiments for what isn't.</div></div>
+      <div class="pg e"><a href="booking-experimentation.html">Booking's democratized experimentation</a><div class="from">From: Booking.com</div><div class="what">~25,000 tests/year. Hypothesis-first, SRM-checked, standard metric library.</div></div>
+      <div class="pg e"><a href="airbnb-erf-framework.html">ERF — Experimentation Reporting Framework</a><div class="from">From: Airbnb</div><div class="what">Shared metric DSL + standard reports + variance reduction.</div></div>
+      <div class="pg e"><a href="uber-xp-framework.html">XP + universal holdout</a><div class="from">From: Uber</div><div class="what">Staged ramp 1→5→25→50→100% + quarterly cumulative-effect measurement.</div></div>
+      <div class="pg e"><a href="doordash-switchback-framework.html">Switchback experiments</a><div class="from">From: DoorDash</div><div class="what">For marketplace SUTVA violations — randomize region × time-window cells.</div></div>
+      <div class="pg e"><a href="lyft-experimentation.html">A/B + time-split + bandits</a><div class="from">From: Lyft</div><div class="what">Three designs for three kinds of marketplace problem.</div></div>
+      <div class="pg e"><a href="pinterest-ab-framework.html">Pinterest's A/B platform</a><div class="from">From: Pinterest</div><div class="what">Lightweight config + cross-platform consistency + real-time monitoring.</div></div>
+    </div>
+  </div>
+
+  <div class="group">
+    <h3><span class="pill g">Goal-laddering / Define-first</span> Pick the metric before the work</h3>
+    <p class="gdesc">Force the team to name what success looks like — and how it will be measured — <em>before</em> committing to build. Cheap discipline, high payoff.</p>
+    <div class="pgs">
+      <div class="pg g"><a href="heart-framework.html">HEART + Goals-Signals-Metrics</a><div class="from">From: Google (CHI 2010)</div><div class="what">5 user-experience dimensions, each laddered down to a specific metric.</div></div>
+      <div class="pg g"><a href="dibb-framework.html">DIBB — Data → Insight → Belief → Bet</a><div class="from">From: Spotify</div><div class="what">Every bet must trace back through evidence; antidote to "we just feel like it."</div></div>
+      <div class="pg g"><a href="v2mom-framework.html">V2MOM — Vision · Values · Methods · Obstacles · Measures</a><div class="from">From: Salesforce (Benioff, 1999)</div><div class="what">Top-down alignment cascade; every team's plan rolls up to the company V2MOM.</div></div>
+      <div class="pg g"><a href="pyramid-of-clarity-framework.html">Pyramid of Clarity</a><div class="from">From: Asana</div><div class="what">Mission → Strategy → Objectives → Key Results → Projects.</div></div>
+    </div>
+  </div>
+
+  <div class="group">
+    <h3><span class="pill q">Written Discipline</span> Make the team write the bet before they make it</h3>
+    <p class="gdesc">No formula, no number — just a structured document peer reviewers can engage with. Works only if reading and pushing back is taken seriously.</p>
+    <div class="pgs">
+      <div class="pg q"><a href="pr-faq-framework.html">PR-FAQ · Working Backwards</a><div class="from">From: Amazon</div><div class="what">Write the launch press release + customer FAQ <em>before</em> you build. If it's not compelling, don't build.</div></div>
+      <div class="pg q"><a href="stripe-shaping-framework.html">Shaping + deep-dives + long-term filter</a><div class="from">From: Stripe</div><div class="what">No scoring formula. Qualitative judgement reinforced by writing culture and a long-term direction.</div></div>
+    </div>
+  </div>
+
+  <h2 class="sec">Background reading</h2>
+  <p class="secsub">Two foundational pages that aren't methods themselves but help interpret the rest.</p>
+  <div class="pgs" style="grid-template-columns:1fr 1fr">
+    <div class="pg" style="border-left-color:var(--ink-soft)"><a href="methodologies-comparison.html">All 19 methods compared — side-by-side</a><div class="what">9-column table: what each method decides, what it doesn't do, where it's from, where the evidence is. The most useful single page for reviewers.</div></div>
+    <div class="pg" style="border-left-color:var(--ink-soft)"><a href="experiment-trustworthiness.html">How "40,000 tests a day" actually works</a><div class="what">Grounded answer to the obvious skepticism about high-volume experimentation. Covers interference (Google KDD 2010), duration, variance.</div></div>
+  </div>
+
+  <div class="note">
+    <b>How this material was built.</b> Every claim about a company's published method links to that company's own engineering blog, an academic paper, or a published book. Where sourcing is secondary (e.g. Spotify's DIBB has no first-party Spotify post), that's flagged on the deep-dive page. Worked examples that aren't drawn directly from published material are explicitly labelled as illustrative.
+  </div>
+
+  <footer>
+    Methodology research deck · 2026. Built to inform a team decision about which method (or combination) to adopt. Not a recommendation — a comparable side-by-side view of what successful companies actually publish about how they do it.
+  </footer>
+</div>
+</body>
+</html>

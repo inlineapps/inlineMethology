@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lyft — marketplace experimentation with time/region splits + adaptive bandits</title>
+<style>
+  :root{
+    --ink:#1c2230; --ink-soft:#465065; --line:#e3ddd0; --paper:#faf7f0;
+    --card:#ffffff; --accent:#b5482e; --accent-soft:#fbeae4;
+    --gold:#9a7b2e; --gold-soft:#f6efdc; --teal:#1f6f6b; --teal-soft:#e2f0ee;
+    --blue:#2d4a7c; --blue-soft:#e6ecf6; --purple:#5b3b78; --purple-soft:#efe6f6;
+    --shadow:0 1px 2px rgba(28,34,48,.06),0 8px 24px rgba(28,34,48,.06);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.62;font-size:16px;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:920px;margin:0 auto;padding:0 24px 96px}
+  header.masthead{border-bottom:3px solid var(--ink);margin-bottom:8px;padding:48px 0 22px}
+  .kicker{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);font-weight:700;margin:0 0 10px}
+  h1{font-family:Georgia,"Times New Roman",serif;font-size:40px;line-height:1.08;margin:0 0 12px;letter-spacing:-.01em}
+  .sub{color:var(--ink-soft);margin:0;max-width:64ch}
+  .goal{margin-top:18px;background:var(--accent-soft);border:1px solid #f2c9bd;border-left:5px solid var(--accent);border-radius:10px;padding:13px 18px;font-size:15px}
+  .goal span{color:var(--accent);text-transform:uppercase;letter-spacing:.08em;font-size:11px;font-weight:800}
+  nav.toc{position:sticky;top:0;background:rgba(250,247,240,.92);backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);padding:12px 0;margin-bottom:34px;z-index:5;font-size:14px}
+  nav.toc a{color:var(--ink-soft);text-decoration:none;margin-right:16px;white-space:nowrap}
+  nav.toc a:hover{color:var(--blue)}
+  .finding{background:var(--ink);color:#f3efe6;border-radius:14px;padding:24px 28px;margin:0 0 36px;box-shadow:var(--shadow)}
+  .finding h2{color:#fff;margin:0 0 8px;font-family:Georgia,serif;font-size:21px}
+  .finding p{margin:0 0 10px;color:#cfc9bb}
+  .finding p:last-child{margin:0}
+  .finding b{color:#9bc7ef}
+  h2.sec{font-family:Georgia,serif;font-size:26px;margin:40px 0 6px;padding-top:18px;border-top:2px solid var(--line)}
+  .secsub{color:var(--ink-soft);font-size:14.5px;margin:0 0 18px;max-width:68ch}
+  p{margin:0 0 14px}
+  /* three pieces */
+  .three{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:14px 0}
+  .concept{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;box-shadow:var(--shadow);border-top:5px solid var(--blue)}
+  .concept .ab{font-family:Georgia,serif;font-size:13px;color:var(--blue);font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:4px}
+  .concept h3{margin:0 0 8px;font-size:17px;font-family:Georgia,serif}
+  .concept p{margin:0;font-size:13.5px;color:var(--ink-soft);line-height:1.5}
+  .concept p b{color:var(--ink)}
+  /* steps */
+  .step{display:flex;gap:16px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:12px 0;box-shadow:var(--shadow);border-left:5px solid var(--blue)}
+  .step .num{font-family:Georgia,serif;font-size:28px;font-weight:700;color:var(--blue);line-height:1;min-width:30px}
+  .step h3{margin:0 0 5px;font-size:17px}
+  .step p{margin:0;font-size:14.5px;color:var(--ink-soft)}
+  .step p b{color:var(--ink)}
+  /* ours */
+  .ours{background:var(--teal-soft);border-left:5px solid var(--teal);border-radius:10px;padding:18px 22px;margin:18px 0}
+  .ours h3{margin:0 0 8px;color:var(--teal);font-size:18px;font-family:Georgia,serif}
+  .ours .draft{font-size:11px;background:var(--teal);color:#fff;padding:3px 9px;border-radius:5px;text-transform:uppercase;letter-spacing:.06em;font-weight:700}
+  .ours code{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;font-size:13px;background:#fff;border:1px solid #bcdcd8;border-radius:5px;padding:2px 7px}
+  a.cite{color:var(--teal);text-decoration:none;border-bottom:1px solid var(--teal)}
+  a.cite:hover{color:var(--accent);border-color:var(--accent)}
+  .note{background:var(--blue-soft);border-left:4px solid var(--blue);border-radius:8px;padding:14px 18px;margin:18px 0;font-size:14.5px}
+  .note b{color:var(--blue)}
+  .src{font-size:13px;color:var(--ink-soft);margin-top:10px}
+  footer{border-top:1px solid var(--line);padding-top:20px;color:var(--ink-soft);font-size:13px;margin-top:44px}
+  footer a{color:var(--teal)}
+  @media(max-width:680px){.three{grid-template-columns:1fr}h1{font-size:30px}}
+</style>
+</head>
+<body>
+<nav class="sitenav">
+<style>
+  .sitenav{position:fixed;top:12px;right:16px;z-index:100;font-size:13px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  .sitenav details{background:#1c2230;color:#f3efe6;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.22)}
+  .sitenav summary{list-style:none;cursor:pointer;padding:8px 14px;font-weight:700;letter-spacing:.04em;user-select:none}
+  .sitenav summary::-webkit-details-marker{display:none}
+  .sitenav summary::after{content:" \25BE";color:#cfc9bb;font-size:10px;margin-left:2px}
+  .sitenav details[open] summary::after{content:" \25B4"}
+  .sitenav .navmenu{position:absolute;top:calc(100% + 6px);right:0;background:#fff;color:#1c2230;border:1px solid #e3ddd0;border-radius:10px;padding:16px 18px;box-shadow:0 8px 28px rgba(28,34,48,.22);display:grid;grid-template-columns:repeat(2,minmax(180px,1fr));gap:14px 26px;min-width:400px;max-width:92vw;max-height:80vh;overflow-y:auto}
+  .sitenav .navgrp h4{margin:0 0 5px;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:#465065;font-weight:700;border-bottom:1px solid #e3ddd0;padding-bottom:4px}
+  .sitenav .navgrp a{display:block;color:#1c2230;text-decoration:none;font-size:13px;padding:2px 0;line-height:1.5}
+  .sitenav .navgrp a:hover{color:#b5482e}
+  .sitenav .navgrp a.cur{font-weight:700;color:#b5482e}
+  @media(max-width:600px){.sitenav .navmenu{grid-template-columns:1fr;min-width:240px;max-width:88vw}.sitenav{top:8px;right:8px}}
+</style>
+<details>
+<summary>📑 Jump to</summary>
+<div class="navmenu">
+<div class="navgrp"><h4>Start here</h4>
+<a href="index.html"><b>← Home (goal &amp; map)</b></a>
+<a href="impact-saas-companies.html">SaaS / B2B field study</a>
+<a href="impact-consumer-companies.html">Consumer-tech field study</a>
+<a href="methodologies-comparison.html"><b>All methods compared →</b></a>
+<a href="experiment-trustworthiness.html">How 40k tests actually work →</a>
+</div>
+<div class="navgrp"><h4>Scoring &amp; Input modeling</h4>
+<a href="rice-framework.html">RICE (Intercom)</a>
+<a href="north-star-framework.html">North Star (Amplitude / Slack)</a>
+</div>
+<div class="navgrp"><h4>Goal-laddering / Define first</h4>
+<a href="v2mom-framework.html">V2MOM (Salesforce)</a>
+<a href="pyramid-of-clarity-framework.html">Pyramid of Clarity (Asana)</a>
+<a href="pr-faq-framework.html">PR-FAQ (Amazon)</a>
+<a href="heart-framework.html">HEART (Google)</a>
+<a href="dibb-framework.html">DIBB (Spotify)</a>
+</div>
+<div class="navgrp"><h4>Experimentation (SaaS)</h4>
+<a href="microsoft-exp-framework.html">Microsoft ExP / CUPED</a>
+<a href="linkedin-xlnt-framework.html">LinkedIn T-REX</a>
+</div>
+<div class="navgrp"><h4>Experimentation (Consumer)</h4>
+<a href="netflix-experimentation.html">Netflix · ABlaze</a>
+<a href="booking-experimentation.html">Booking.com</a>
+<a href="airbnb-erf-framework.html">Airbnb ERF</a>
+<a href="uber-xp-framework.html">Uber XP</a>
+<a href="doordash-switchback-framework.html">DoorDash switchback</a>
+<a class="cur" href="lyft-experimentation.html">Lyft</a>
+<a href="pinterest-ab-framework.html">Pinterest</a>
+</div>
+<div class="navgrp"><h4>Written discipline</h4>
+<a href="stripe-shaping-framework.html">Stripe shaping</a>
+</div>
+</div>
+</details>
+</nav>
+
+<div class="wrap">
+  <header class="masthead">
+    <p class="kicker">Methods · Deep-dive · Experimentation (Consumer)</p>
+    <h1>Lyft — marketplace experimentation with time/region splits + adaptive bandits</h1>
+    <p class="sub">Lyft's published approach is the close cousin of <a href="doordash-switchback-framework.html" style="color:#1f6f6b">DoorDash's switchback</a>: every product change runs as an experiment, but marketplace interference forces designs richer than ordinary A/B — <strong>time-split</strong> and <strong>region-split</strong> tests, plus growing use of <strong>contextual bandits</strong> for adaptive, always-on optimisation.</p>
+    <div class="goal"><span>Goal</span><br>Decide features by data-backed expected impact — choose by outcome, not by to-do list or opinion.</div>
+  </header>
+
+  <nav class="toc">
+    <a href="#headline">Honest headline</a>
+    <a href="#anatomy">Three designs Lyft uses</a>
+    <a href="#mechanism">How it picks work</a>
+    <a href="methodologies-comparison.html" style="color:var(--blue);font-weight:700">Comparison table →</a>
+  </nav>
+
+  <div class="finding" id="headline">
+    <h2>The honest headline: A/B for diffs, time/region splits for marketplace, bandits for "no off-switch" optimisation</h2>
+    <p>Lyft's engineering blog frames experimentation as <b>three design choices that map to three kinds of decisions</b>. Most teams pick one design and apply it everywhere; Lyft argues the design has to match what's being changed. The decision rule (OEC + measured causal effect) is constant; the <em>shape of the test</em> isn't.</p>
+    <p>The most under-talked part of Lyft's story: <b>contextual bandits</b> — instead of a discrete A/B that ends, the algorithm learns the best variant <em>per context</em> continuously. It's the design for problems that never stop (matching, dispatch, surge) where "ship the winner" isn't the goal — "always serve the right one" is.</p>
+  </div>
+
+  <!-- ANATOMY -->
+  <h2 class="sec" id="anatomy">Three experimental designs Lyft uses, and when</h2>
+  <p class="secsub">The pattern: <em>match the design to the interference structure of the feature</em>. Skipping this step is the most common cause of biased marketplace results.</p>
+
+  <div class="three">
+    <div class="concept">
+      <div class="ab">A/B</div>
+      <h3>User-level A/B — for non-marketplace changes</h3>
+      <p>Standard split. Used for UI, copy, recommendations, anything that doesn't change a shared resource (Dasher pool / driver supply / pricing). The default and the cheapest design.</p>
+    </div>
+    <div class="concept">
+      <div class="ab">Time-split</div>
+      <h3>Time-split / region-split — for marketplace changes</h3>
+      <p>For features that touch the supply pool, randomise <b>time windows</b> (or whole regions) to treatment / control. Avoids the interference Lyft repeatedly publishes about; same family as DoorDash switchback.</p>
+    </div>
+    <div class="concept">
+      <div class="ab">Bandits</div>
+      <h3>Contextual bandits — for always-on optimisation</h3>
+      <p>For decisions made continuously (matching, surge, ETA), the test never ends. Bandits route more traffic to better-performing variants <em>over time</em>, balancing exploration and exploitation. Used where "the winner" is context-dependent.</p>
+    </div>
+  </div>
+  <div class="src">Source: <a class="cite" href="https://eng.lyft.com/experimentation-in-a-ridesharing-marketplace-b39db027a66e">Lyft Engineering — Experimentation in a ridesharing marketplace</a> · <a class="cite" href="https://eng.lyft.com/challenges-in-experimentation-be9ab98a7ef4">Challenges in experimentation</a>.</div>
+
+  <!-- MECHANISM -->
+  <h2 class="sec" id="mechanism">How Lyft actually picks the right design</h2>
+
+  <div class="step"><div class="num">1</div><div><h3>Classify the change first</h3><p>Does it touch a shared resource? Is it a one-time decision or continuous? The answer routes the design. <b>Skipping this is where most marketplace experiments go wrong.</b></p></div></div>
+  <div class="step"><div class="num">2</div><div><h3>If shared resource → time/region split</h3><p>Randomise the whole city for some time windows. Use cluster-robust standard errors when analysing.</p></div></div>
+  <div class="step"><div class="num">3</div><div><h3>If continuous-decision → bandit</h3><p>Define the reward signal and the contexts. The bandit allocates traffic over time; you read aggregate performance, not a one-shot lift.</p></div></div>
+  <div class="step"><div class="num">4</div><div><h3>Otherwise → ordinary A/B</h3><p>The simple case. Same OEC + guardrails discipline as every other platform on this list.</p></div></div>
+  <div class="step"><div class="num">5</div><div><h3>Read the OEC. Decide. Iterate.</h3><p>The decision rule is unchanged across designs — but the <em>estimate</em> is only trustworthy if the design was right for the change.</p></div></div>
+
+  <div class="note"><b>The transferable insight: bandits aren't only for ML teams.</b> A small adaptive system that "tries variants and routes more traffic to the better one" is buildable in a sprint for problems like which homepage hero to show, which merchant to feature, which notification template performs. For decisions that don't have a single right answer over time, bandits beat fixed A/B because they keep learning.</div>
+  <footer>
+    Companion to <a href="impact-consumer-companies.html#measure">← Consumer case studies · Measure don't estimate</a> · <a href="methodologies-comparison.html">All methods compared</a> · siblings: <a href="doordash-switchback-framework.html">DoorDash switchback</a> · <a href="uber-xp-framework.html">Uber XP</a><br>
+    Grounded in: <a href="https://eng.lyft.com/experimentation-in-a-ridesharing-marketplace-b39db027a66e">Lyft Engineering's marketplace experimentation post</a> and the follow-up <em>Challenges</em> post. Bandit usage is publicly described in Lyft's posts on adaptive experimentation.
+  </footer>
+</div>
+</body>
+</html>

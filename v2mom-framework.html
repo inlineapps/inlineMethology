@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>V2MOM — Salesforce's alignment cascade</title>
+<style>
+  :root{
+    --ink:#1c2230; --ink-soft:#465065; --line:#e3ddd0; --paper:#faf7f0;
+    --card:#ffffff; --accent:#b5482e; --accent-soft:#fbeae4;
+    --gold:#9a7b2e; --gold-soft:#f6efdc; --teal:#1f6f6b; --teal-soft:#e2f0ee;
+    --blue:#2d4a7c; --blue-soft:#e6ecf6; --purple:#5b3b78; --purple-soft:#efe6f6;
+    --shadow:0 1px 2px rgba(28,34,48,.06),0 8px 24px rgba(28,34,48,.06);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.62;font-size:16px;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:920px;margin:0 auto;padding:0 24px 96px}
+  header.masthead{border-bottom:3px solid var(--ink);margin-bottom:8px;padding:48px 0 22px}
+  .kicker{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:700;margin:0 0 10px}
+  h1{font-family:Georgia,"Times New Roman",serif;font-size:40px;line-height:1.08;margin:0 0 12px;letter-spacing:-.01em}
+  .sub{color:var(--ink-soft);margin:0;max-width:64ch}
+  .goal{margin-top:18px;background:var(--accent-soft);border:1px solid #f2c9bd;border-left:5px solid var(--accent);border-radius:10px;padding:13px 18px;font-size:15px}
+  .goal span{color:var(--accent);text-transform:uppercase;letter-spacing:.08em;font-size:11px;font-weight:800}
+  nav.toc{position:sticky;top:0;background:rgba(250,247,240,.92);backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);padding:12px 0;margin-bottom:34px;z-index:5;font-size:14px}
+  nav.toc a{color:var(--ink-soft);text-decoration:none;margin-right:16px;white-space:nowrap}
+  nav.toc a:hover{color:var(--gold)}
+  .finding{background:var(--ink);color:#f3efe6;border-radius:14px;padding:24px 28px;margin:0 0 36px;box-shadow:var(--shadow)}
+  .finding h2{color:#fff;margin:0 0 8px;font-family:Georgia,serif;font-size:21px}
+  .finding p{margin:0 0 10px;color:#cfc9bb}
+  .finding p:last-child{margin:0}
+  .finding b{color:#f3d9a0}
+  h2.sec{font-family:Georgia,serif;font-size:26px;margin:40px 0 6px;padding-top:18px;border-top:2px solid var(--line)}
+  .secsub{color:var(--ink-soft);font-size:14.5px;margin:0 0 18px;max-width:68ch}
+  p{margin:0 0 14px}
+  /* the 5 letters */
+  .letters{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:14px 0}
+  .ltr{background:#fff;border:1px solid var(--line);border-top:5px solid var(--gold);border-radius:10px;padding:16px 14px;text-align:center}
+  .ltr .big{font-family:Georgia,serif;font-size:32px;color:var(--gold);font-weight:700;line-height:1}
+  .ltr .nm{font-weight:700;font-size:13px;margin:5px 0 4px}
+  .ltr .ds{font-size:12px;color:var(--ink-soft);line-height:1.4}
+  /* worked example V2MOM */
+  .v2example{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px 24px;margin:14px 0;box-shadow:var(--shadow);border-left:5px solid var(--gold)}
+  .v2example h3{margin:0 0 10px;font-size:18px;font-family:Georgia,serif}
+  .v2row{display:grid;grid-template-columns:140px 1fr;gap:14px;padding:10px 0;border-top:1px solid var(--line);font-size:14.5px}
+  .v2row:first-of-type{border-top:none}
+  .v2row .l{font-weight:700;color:var(--gold);font-family:Georgia,serif}
+  .v2row .b{color:var(--ink)}
+  /* steps */
+  .step{display:flex;gap:16px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:12px 0;box-shadow:var(--shadow);border-left:5px solid var(--gold)}
+  .step .num{font-family:Georgia,serif;font-size:28px;font-weight:700;color:var(--gold);line-height:1;min-width:30px}
+  .step h3{margin:0 0 5px;font-size:17px}
+  .step p{margin:0;font-size:14.5px;color:var(--ink-soft)}
+  .step p b{color:var(--ink)}
+  /* what it doesn't do */
+  .warn{background:#f7e9d6;border-left:4px solid #c97f1a;border-radius:8px;padding:14px 18px;margin:18px 0;font-size:14.5px;color:#5b3b08}
+  .warn b{color:#9a4e08}
+  /* ours */
+  .ours{background:var(--teal-soft);border-left:5px solid var(--teal);border-radius:10px;padding:18px 22px;margin:18px 0}
+  .ours h3{margin:0 0 8px;color:var(--teal);font-size:18px;font-family:Georgia,serif}
+  .ours .draft{font-size:11px;background:var(--teal);color:#fff;padding:3px 9px;border-radius:5px;text-transform:uppercase;letter-spacing:.06em;font-weight:700}
+  .ours code{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;font-size:13px;background:#fff;border:1px solid #bcdcd8;border-radius:5px;padding:2px 7px}
+  a.cite{color:var(--teal);text-decoration:none;border-bottom:1px solid var(--teal)}
+  a.cite:hover{color:var(--accent);border-color:var(--accent)}
+  .note{background:var(--blue-soft);border-left:4px solid var(--blue);border-radius:8px;padding:14px 18px;margin:18px 0;font-size:14.5px}
+  .note b{color:var(--blue)}
+  .src{font-size:13px;color:var(--ink-soft);margin-top:10px}
+  footer{border-top:1px solid var(--line);padding-top:20px;color:var(--ink-soft);font-size:13px;margin-top:44px}
+  footer a{color:var(--teal)}
+  @media(max-width:680px){.letters{grid-template-columns:repeat(2,1fr)}.v2row{grid-template-columns:1fr}h1{font-size:30px}}
+</style>
+</head>
+<body>
+<nav class="sitenav">
+<style>
+  .sitenav{position:fixed;top:12px;right:16px;z-index:100;font-size:13px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  .sitenav details{background:#1c2230;color:#f3efe6;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.22)}
+  .sitenav summary{list-style:none;cursor:pointer;padding:8px 14px;font-weight:700;letter-spacing:.04em;user-select:none}
+  .sitenav summary::-webkit-details-marker{display:none}
+  .sitenav summary::after{content:" \25BE";color:#cfc9bb;font-size:10px;margin-left:2px}
+  .sitenav details[open] summary::after{content:" \25B4"}
+  .sitenav .navmenu{position:absolute;top:calc(100% + 6px);right:0;background:#fff;color:#1c2230;border:1px solid #e3ddd0;border-radius:10px;padding:16px 18px;box-shadow:0 8px 28px rgba(28,34,48,.22);display:grid;grid-template-columns:repeat(2,minmax(180px,1fr));gap:14px 26px;min-width:400px;max-width:92vw;max-height:80vh;overflow-y:auto}
+  .sitenav .navgrp h4{margin:0 0 5px;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:#465065;font-weight:700;border-bottom:1px solid #e3ddd0;padding-bottom:4px}
+  .sitenav .navgrp a{display:block;color:#1c2230;text-decoration:none;font-size:13px;padding:2px 0;line-height:1.5}
+  .sitenav .navgrp a:hover{color:#b5482e}
+  .sitenav .navgrp a.cur{font-weight:700;color:#b5482e}
+  @media(max-width:600px){.sitenav .navmenu{grid-template-columns:1fr;min-width:240px;max-width:88vw}.sitenav{top:8px;right:8px}}
+</style>
+<details>
+<summary>📑 Jump to</summary>
+<div class="navmenu">
+<div class="navgrp"><h4>Start here</h4>
+<a href="index.html"><b>← Home (goal &amp; map)</b></a>
+<a href="impact-saas-companies.html">SaaS / B2B field study</a>
+<a href="impact-consumer-companies.html">Consumer-tech field study</a>
+<a href="methodologies-comparison.html"><b>All methods compared →</b></a>
+<a href="experiment-trustworthiness.html">How 40k tests actually work →</a>
+</div>
+<div class="navgrp"><h4>Scoring &amp; Input modeling</h4>
+<a href="rice-framework.html">RICE (Intercom)</a>
+<a href="north-star-framework.html">North Star (Amplitude / Slack)</a>
+</div>
+<div class="navgrp"><h4>Goal-laddering / Define first</h4>
+<a class="cur" href="v2mom-framework.html">V2MOM (Salesforce)</a>
+<a href="pyramid-of-clarity-framework.html">Pyramid of Clarity (Asana)</a>
+<a href="pr-faq-framework.html">PR-FAQ (Amazon)</a>
+<a href="heart-framework.html">HEART (Google)</a>
+<a href="dibb-framework.html">DIBB (Spotify)</a>
+</div>
+<div class="navgrp"><h4>Experimentation (SaaS)</h4>
+<a href="microsoft-exp-framework.html">Microsoft ExP / CUPED</a>
+<a href="linkedin-xlnt-framework.html">LinkedIn T-REX</a>
+</div>
+<div class="navgrp"><h4>Experimentation (Consumer)</h4>
+<a href="netflix-experimentation.html">Netflix · ABlaze</a>
+<a href="booking-experimentation.html">Booking.com</a>
+<a href="airbnb-erf-framework.html">Airbnb ERF</a>
+<a href="uber-xp-framework.html">Uber XP</a>
+<a href="doordash-switchback-framework.html">DoorDash switchback</a>
+<a href="lyft-experimentation.html">Lyft</a>
+<a href="pinterest-ab-framework.html">Pinterest</a>
+</div>
+<div class="navgrp"><h4>Written discipline</h4>
+<a href="stripe-shaping-framework.html">Stripe shaping</a>
+</div>
+</div>
+</details>
+</nav>
+
+<div class="wrap">
+  <header class="masthead">
+    <p class="kicker">Methods · Deep-dive · Goal-laddering</p>
+    <h1>V2MOM — Salesforce's five-line alignment cascade</h1>
+    <p class="sub">Marc Benioff drafted V2MOM on the back of an envelope at Salesforce's founding in 1999. Five questions every leader, team, and individual answers in one page. It is an <em>alignment</em> mechanism, not a feature-impact estimator — and being honest about that is the whole point.</p>
+    <div class="goal"><span>Goal</span><br>Decide features by data-backed expected impact — choose by outcome, not by to-do list or opinion.</div>
+  </header>
+
+  <nav class="toc">
+    <a href="#headline">Honest headline</a>
+    <a href="#anatomy">The five letters</a>
+    <a href="#mechanism">How it picks work</a>
+    <a href="#example">Worked example</a>
+    <a href="#limits">What it doesn't do</a>
+    <a href="methodologies-comparison.html" style="color:var(--gold);font-weight:700">Comparison table →</a>
+  </nav>
+
+  <div class="finding" id="headline">
+    <h2>The honest headline: it's a one-page cascade, not a scoring formula</h2>
+    <p>V2MOM doesn't tell you what to build. It tells you what you're <b>trying to do</b>, what you'll <b>refuse to compromise on</b>, <b>how</b> you'll do it, what's <b>in the way</b>, and how you'll <b>know it worked</b> — written by every leader, cascaded to every team. The discipline is that <em>everyone in the company</em> can read the CEO's V2MOM and write a coherent one of their own that lines up with it.</p>
+    <p>Benioff's claim, repeated for 25 years: V2MOM is <b>"the secret to Salesforce's success."</b> Useful precisely <em>because</em> it doesn't pretend to estimate per-feature impact — it forces clarity at the level above.</p>
+  </div>
+
+  <!-- ANATOMY -->
+  <h2 class="sec" id="anatomy">The five letters</h2>
+  <p class="secsub">Every V2MOM answers the same five questions in the same order. The ordering is load-bearing: you can't write a sensible "Method" until you've written the "Values" that constrain it.</p>
+
+  <div class="letters">
+    <div class="ltr"><div class="big">V</div><div class="nm">Vision</div><div class="ds">What do we want to achieve? One sentence, ambitious, unambiguous.</div></div>
+    <div class="ltr"><div class="big">V</div><div class="nm">Values</div><div class="ds">What principles guide the work? What we will <em>not</em> compromise on.</div></div>
+    <div class="ltr"><div class="big">M</div><div class="nm">Methods</div><div class="ds">How will we get there? The 3–5 strategic actions.</div></div>
+    <div class="ltr"><div class="big">O</div><div class="nm">Obstacles</div><div class="ds">What stands in the way? Honest naming of risks &amp; gaps.</div></div>
+    <div class="ltr"><div class="big">M</div><div class="nm">Measures</div><div class="ds">How will we know we succeeded? Numeric outcomes.</div></div>
+  </div>
+  <div class="src">Source: <a class="cite" href="https://www.salesforce.com/blog/how-to-create-alignment-within-your-company/">Salesforce — Create alignment with a V2MOM</a> · Benioff's <em>Behind the Cloud</em> (2009) tells the origin story (envelope, American Airlines flight, March 1999).</div>
+
+  <!-- MECHANISM -->
+  <h2 class="sec" id="mechanism">How V2MOM actually picks the work</h2>
+  <p class="secsub">It picks <strong>strategic direction</strong>, not features. The mechanism is the <em>cascade</em>: CEO writes one, every leader writes one aligned to it, every team writes one aligned to their leader's, every individual writes one aligned to their team's. Misalignment is visible in writing.</p>
+
+  <div class="step"><div class="num">1</div><div><h3>CEO writes the company V2MOM first</h3><p>Single page. <b>Vision</b> is one sentence. <b>Methods</b> are the 3–5 strategies — these are what the rest of the company must align to.</p></div></div>
+  <div class="step"><div class="num">2</div><div><h3>Each org/team writes their own V2MOM that ladders up</h3><p>The team's <b>Vision</b> is a slice of the CEO's; the team's <b>Methods</b> support one of the CEO's Methods. If a team's V2MOM doesn't connect, that's a misalignment to debate.</p></div></div>
+  <div class="step"><div class="num">3</div><div><h3>Individuals write personal V2MOMs aligned to their team</h3><p>Everyone, every year. Salesforce makes this part of performance review. The cumulative effect: each person can point at how their work ladders to the CEO's Vision.</p></div></div>
+  <div class="step"><div class="num">4</div><div><h3>Measures get tracked. Methods get revised.</h3><p>Periodically — quarterly at most companies that use V2MOM — you check Measures and re-write the V2MOM. It is <b>not static</b>; it adapts as reality moves.</p></div></div>
+
+  <!-- WORKED EXAMPLE -->
+  <h2 class="sec" id="example">Worked example — Benioff's actual 1999 V2MOM</h2>
+  <p class="secsub">Reconstructed from <em>Behind the Cloud</em> and the Salesforce blog. The point isn't this exact wording — it's that the whole strategy of a company that became a $200B business fits on one page.</p>
+
+  <div class="v2example">
+    <h3>Salesforce, 1999 — the founding V2MOM (paraphrased from Benioff)</h3>
+    <div class="v2row"><div class="l">Vision</div><div class="b">Rapidly create a world-class internet company / web site for sales force automation.</div></div>
+    <div class="v2row"><div class="l">Values</div><div class="b">World-class organization · Time to market · Functionality · Usability · Value to customer.</div></div>
+    <div class="v2row"><div class="l">Methods</div><div class="b">Hire the team · Finalize product specifications &amp; technology · Build prototype · Run beta tests · Launch site.</div></div>
+    <div class="v2row"><div class="l">Obstacles</div><div class="b">Hiring engineering talent · Funding · Building rapidly with quality.</div></div>
+    <div class="v2row"><div class="l">Measures</div><div class="b">A working web site · Customers using it · Press coverage at launch.</div></div>
+  </div>
+  <p style="font-size:13px;color:var(--ink-soft)">Note the Measures: they are <b>outcomes</b> (working site, customers using it), not output counts (features shipped). And there is <em>no per-feature impact estimate anywhere</em> — that's the point.</p>
+
+  <!-- LIMITS -->
+  <h2 class="sec" id="limits">What V2MOM does <em>not</em> do</h2>
+
+  <div class="warn">
+    <b>It is not a prioritisation framework.</b> A V2MOM tells your team <em>which direction</em> they're pushing in. It does <strong>not</strong> tell them whether to ship Feature A or Feature B next quarter. Inside a single "Method," you still need a scoring framework (<a class="cite" href="rice-framework.html">RICE</a>), an input model (<a class="cite" href="north-star-framework.html">North Star</a>), or experimentation (<a class="cite" href="microsoft-exp-framework.html">ExP</a>) to pick the bets that move the Measures.<br><br>
+    <b>It is not OKRs.</b> OKRs are an objective + measurable key results, per cycle. V2MOM is a full strategic statement (vision, values, obstacles too) — many companies use V2MOM at leadership level and OKRs at team level. (Asana's <a class="cite" href="pyramid-of-clarity-framework.html">Pyramid of Clarity</a> takes the OKR side of the same shape.)
+  </div>
+
+  <div class="note"><b>Why V2MOM is on the list anyway.</b> Every other framework on this site assumes you've already agreed <em>what you're trying to do</em>. V2MOM is the artifact that produces that agreement and forces it into writing. Without it, RICE scores a wishlist; with it, RICE scores candidates that all support the same Method.</div>
+  <footer>
+    Companion to <a href="impact-saas-companies.html#goal">← SaaS case studies · Goal-laddering</a> · <a href="methodologies-comparison.html">All methods compared</a> · related: <a href="pyramid-of-clarity-framework.html">Pyramid of Clarity</a> (Asana's variant)<br>
+    Grounded in: <a href="https://www.salesforce.com/blog/how-to-create-alignment-within-your-company/">Salesforce's own V2MOM post</a> and Marc Benioff's <em>Behind the Cloud</em> (Wiley, 2009). The 1999 V2MOM is paraphrased from those sources; our V2MOM-lite is clearly flagged as a draft.
+  </footer>
+</div>
+</body>
+</html>

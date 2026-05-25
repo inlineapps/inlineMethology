@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LinkedIn XLNT → T-REX — democratised experimentation at platform scale</title>
+<style>
+  :root{
+    --ink:#1c2230; --ink-soft:#465065; --line:#e3ddd0; --paper:#faf7f0;
+    --card:#ffffff; --accent:#b5482e; --accent-soft:#fbeae4;
+    --gold:#9a7b2e; --gold-soft:#f6efdc; --teal:#1f6f6b; --teal-soft:#e2f0ee;
+    --blue:#2d4a7c; --blue-soft:#e6ecf6; --purple:#5b3b78; --purple-soft:#efe6f6;
+    --shadow:0 1px 2px rgba(28,34,48,.06),0 8px 24px rgba(28,34,48,.06);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.62;font-size:16px;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:920px;margin:0 auto;padding:0 24px 96px}
+  header.masthead{border-bottom:3px solid var(--ink);margin-bottom:8px;padding:48px 0 22px}
+  .kicker{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);font-weight:700;margin:0 0 10px}
+  h1{font-family:Georgia,"Times New Roman",serif;font-size:40px;line-height:1.08;margin:0 0 12px;letter-spacing:-.01em}
+  .sub{color:var(--ink-soft);margin:0;max-width:64ch}
+  .goal{margin-top:18px;background:var(--accent-soft);border:1px solid #f2c9bd;border-left:5px solid var(--accent);border-radius:10px;padding:13px 18px;font-size:15px}
+  .goal span{color:var(--accent);text-transform:uppercase;letter-spacing:.08em;font-size:11px;font-weight:800}
+  nav.toc{position:sticky;top:0;background:rgba(250,247,240,.92);backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);padding:12px 0;margin-bottom:34px;z-index:5;font-size:14px}
+  nav.toc a{color:var(--ink-soft);text-decoration:none;margin-right:16px;white-space:nowrap}
+  nav.toc a:hover{color:var(--blue)}
+  .finding{background:var(--ink);color:#f3efe6;border-radius:14px;padding:24px 28px;margin:0 0 36px;box-shadow:var(--shadow)}
+  .finding h2{color:#fff;margin:0 0 8px;font-family:Georgia,serif;font-size:21px}
+  .finding p{margin:0 0 10px;color:#cfc9bb}
+  .finding p:last-child{margin:0}
+  .finding b{color:#9bc7ef}
+  h2.sec{font-family:Georgia,serif;font-size:26px;margin:40px 0 6px;padding-top:18px;border-top:2px solid var(--line)}
+  .secsub{color:var(--ink-soft);font-size:14.5px;margin:0 0 18px;max-width:68ch}
+  p{margin:0 0 14px}
+  /* timeline */
+  .timeline{background:#fff;border:1px solid var(--line);border-radius:12px;padding:22px;box-shadow:var(--shadow);margin:14px 0}
+  .tline{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .era{border:1px solid var(--line);border-radius:10px;padding:14px;background:#faf7f0}
+  .era .y{font-family:Georgia,serif;font-size:14px;color:var(--blue);font-weight:700;letter-spacing:.05em;text-transform:uppercase}
+  .era .nm{font-family:Georgia,serif;font-size:20px;font-weight:700;margin:4px 0 6px;color:var(--ink)}
+  .era .ds{font-size:13px;color:var(--ink-soft);line-height:1.5}
+  /* steps */
+  .step{display:flex;gap:16px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:12px 0;box-shadow:var(--shadow);border-left:5px solid var(--blue)}
+  .step .num{font-family:Georgia,serif;font-size:28px;font-weight:700;color:var(--blue);line-height:1;min-width:30px}
+  .step h3{margin:0 0 5px;font-size:17px}
+  .step p{margin:0;font-size:14.5px;color:var(--ink-soft)}
+  .step p b{color:var(--ink)}
+  /* stats */
+  .stats{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
+  .stat{flex:1 1 150px;background:#f6f4ee;border:1px solid var(--line);border-radius:8px;padding:12px 14px;text-align:center}
+  .stat .n{font-family:Georgia,serif;font-size:22px;color:var(--blue);font-weight:700;line-height:1.1}
+  .stat .l{font-size:11.5px;color:var(--ink-soft);margin-top:4px;line-height:1.35}
+  /* ours */
+  .ours{background:var(--teal-soft);border-left:5px solid var(--teal);border-radius:10px;padding:18px 22px;margin:18px 0}
+  .ours h3{margin:0 0 8px;color:var(--teal);font-size:18px;font-family:Georgia,serif}
+  .ours .draft{font-size:11px;background:var(--teal);color:#fff;padding:3px 9px;border-radius:5px;text-transform:uppercase;letter-spacing:.06em;font-weight:700}
+  .ours code{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;font-size:13px;background:#fff;border:1px solid #bcdcd8;border-radius:5px;padding:2px 7px}
+  a.cite{color:var(--teal);text-decoration:none;border-bottom:1px solid var(--teal)}
+  a.cite:hover{color:var(--accent);border-color:var(--accent)}
+  .note{background:var(--blue-soft);border-left:4px solid var(--blue);border-radius:8px;padding:14px 18px;margin:18px 0;font-size:14.5px}
+  .note b{color:var(--blue)}
+  .caveat{font-size:12.5px;color:#8a6d2e;background:#fbf6e7;border:1px dashed #d8c98f;border-radius:6px;padding:7px 11px;margin-top:10px}
+  .src{font-size:13px;color:var(--ink-soft);margin-top:10px}
+  footer{border-top:1px solid var(--line);padding-top:20px;color:var(--ink-soft);font-size:13px;margin-top:44px}
+  footer a{color:var(--teal)}
+  @media(max-width:680px){.tline{grid-template-columns:1fr}h1{font-size:30px}}
+</style>
+</head>
+<body>
+<nav class="sitenav">
+<style>
+  .sitenav{position:fixed;top:12px;right:16px;z-index:100;font-size:13px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  .sitenav details{background:#1c2230;color:#f3efe6;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.22)}
+  .sitenav summary{list-style:none;cursor:pointer;padding:8px 14px;font-weight:700;letter-spacing:.04em;user-select:none}
+  .sitenav summary::-webkit-details-marker{display:none}
+  .sitenav summary::after{content:" \25BE";color:#cfc9bb;font-size:10px;margin-left:2px}
+  .sitenav details[open] summary::after{content:" \25B4"}
+  .sitenav .navmenu{position:absolute;top:calc(100% + 6px);right:0;background:#fff;color:#1c2230;border:1px solid #e3ddd0;border-radius:10px;padding:16px 18px;box-shadow:0 8px 28px rgba(28,34,48,.22);display:grid;grid-template-columns:repeat(2,minmax(180px,1fr));gap:14px 26px;min-width:400px;max-width:92vw;max-height:80vh;overflow-y:auto}
+  .sitenav .navgrp h4{margin:0 0 5px;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:#465065;font-weight:700;border-bottom:1px solid #e3ddd0;padding-bottom:4px}
+  .sitenav .navgrp a{display:block;color:#1c2230;text-decoration:none;font-size:13px;padding:2px 0;line-height:1.5}
+  .sitenav .navgrp a:hover{color:#b5482e}
+  .sitenav .navgrp a.cur{font-weight:700;color:#b5482e}
+  @media(max-width:600px){.sitenav .navmenu{grid-template-columns:1fr;min-width:240px;max-width:88vw}.sitenav{top:8px;right:8px}}
+</style>
+<details>
+<summary>📑 Jump to</summary>
+<div class="navmenu">
+<div class="navgrp"><h4>Start here</h4>
+<a href="index.html"><b>← Home (goal &amp; map)</b></a>
+<a href="impact-saas-companies.html">SaaS / B2B field study</a>
+<a href="impact-consumer-companies.html">Consumer-tech field study</a>
+<a href="methodologies-comparison.html"><b>All methods compared →</b></a>
+<a href="experiment-trustworthiness.html">How 40k tests actually work →</a>
+</div>
+<div class="navgrp"><h4>Scoring &amp; Input modeling</h4>
+<a href="rice-framework.html">RICE (Intercom)</a>
+<a href="north-star-framework.html">North Star (Amplitude / Slack)</a>
+</div>
+<div class="navgrp"><h4>Goal-laddering / Define first</h4>
+<a href="v2mom-framework.html">V2MOM (Salesforce)</a>
+<a href="pyramid-of-clarity-framework.html">Pyramid of Clarity (Asana)</a>
+<a href="pr-faq-framework.html">PR-FAQ (Amazon)</a>
+<a href="heart-framework.html">HEART (Google)</a>
+<a href="dibb-framework.html">DIBB (Spotify)</a>
+</div>
+<div class="navgrp"><h4>Experimentation (SaaS)</h4>
+<a href="microsoft-exp-framework.html">Microsoft ExP / CUPED</a>
+<a class="cur" href="linkedin-xlnt-framework.html">LinkedIn T-REX</a>
+</div>
+<div class="navgrp"><h4>Experimentation (Consumer)</h4>
+<a href="netflix-experimentation.html">Netflix · ABlaze</a>
+<a href="booking-experimentation.html">Booking.com</a>
+<a href="airbnb-erf-framework.html">Airbnb ERF</a>
+<a href="uber-xp-framework.html">Uber XP</a>
+<a href="doordash-switchback-framework.html">DoorDash switchback</a>
+<a href="lyft-experimentation.html">Lyft</a>
+<a href="pinterest-ab-framework.html">Pinterest</a>
+</div>
+<div class="navgrp"><h4>Written discipline</h4>
+<a href="stripe-shaping-framework.html">Stripe shaping</a>
+</div>
+</div>
+</details>
+</nav>
+
+<div class="wrap">
+  <header class="masthead">
+    <p class="kicker">Methods · Deep-dive · Experimentation</p>
+    <h1>LinkedIn XLNT → T-REX — democratised experimentation at platform scale</h1>
+    <p class="sub">LinkedIn's internal A/B platform has had three names across a decade — <strong>LiX → XLNT → T-REX</strong>. The story is less about the framework and more about what it costs to make experimentation <em>so cheap and trustworthy</em> that every team uses it by default.</p>
+    <div class="goal"><span>Goal</span><br>Decide features by data-backed expected impact — choose by outcome, not by to-do list or opinion.</div>
+  </header>
+
+  <nav class="toc">
+    <a href="#headline">Honest headline</a>
+    <a href="#anatomy">LiX → XLNT → T-REX</a>
+    <a href="#mechanism">How it picks work</a>
+    <a href="#stats">The scale</a>
+    <a href="methodologies-comparison.html" style="color:var(--blue);font-weight:700">Comparison table →</a>
+  </nav>
+
+  <div style="background:#fbf6e7;border:1px dashed #d8c98f;border-left:5px solid var(--gold);border-radius:10px;padding:14px 20px;margin:0 0 22px;font-size:14.5px;color:#5b4708">
+    <b style="color:#7a5a08">Skeptical of the "40k/day" claim?</b> &nbsp;Good — it deserves scrutiny. The answer (orthogonal layered randomization from Google's KDD 2010 paper, plus 1-week-minimum read windows) is its own deep-dive: <a href="experiment-trustworthiness.html" style="color:#7a5a08;font-weight:700;border-bottom:1px solid #7a5a08;text-decoration:none">How 40k tests actually work → trustworthiness mechanics</a>.
+  </div>
+
+  <div class="finding" id="headline">
+    <h2>The honest headline: same idea as Microsoft ExP, told as a platform story</h2>
+    <p>LinkedIn does not have a unique <em>method</em>. The decision rule is the same as Microsoft: <b>declare a metric, ship behind a controlled test, let the result decide.</b> What's different — and worth studying — is the <b>platform-as-culture</b> argument: invest enough in tooling that any engineer can launch an experiment in minutes, and "we A/B tested it" stops being a special event and becomes the default verb.</p>
+    <p>The published scale: <b>40,000+ experiments run every day on ~8,000 metrics</b>. That number isn't bragging — it's the <em>evidence</em> that the platform investment paid off. Without the tooling, that volume would be impossible. <strong>Honest mechanics — what really runs, how interference is mitigated, and why no one decides in a morning — are in the <a href="experiment-trustworthiness.html">trustworthiness deep-dive</a>.</strong></p>
+  </div>
+
+  <!-- ANATOMY -->
+  <h2 class="sec" id="anatomy">LiX → XLNT → T-REX — three names, one continuous platform</h2>
+  <p class="secsub">It helps to see the timeline because LinkedIn's own engineering blog uses all three names. They're successive generations of <em>the same</em> internal A/B platform.</p>
+
+  <div class="timeline">
+    <div class="tline">
+      <div class="era">
+        <div class="y">~2010s</div>
+        <div class="nm">LiX</div>
+        <div class="ds">"LinkedIn eXperimentation." First-gen platform — proved you could run controlled experiments at scale internally. Engineering blog calls this the <em>prehistory</em>.</div>
+      </div>
+      <div class="era">
+        <div class="y">~2014–2019</div>
+        <div class="nm">XLNT</div>
+        <div class="ds">End-to-end platform covering <em>design → deploy → analyse</em>. Built to remove every excuse not to test — easy variant assignment, automatic metric pipelines, browser dashboards.</div>
+      </div>
+      <div class="era">
+        <div class="y">~2020+</div>
+        <div class="nm">T-REX</div>
+        <div class="ds">Current evolution — a 20× speed-up in the experimentation engine, "fast variant assignment," and the architecture that now serves the 40k experiments/day load.</div>
+      </div>
+    </div>
+  </div>
+  <div class="src">Source: <a class="cite" href="https://engineering.linkedin.com/blog/topic/t-rex">LinkedIn Engineering — T-REX article series</a> · <a class="cite" href="https://www.linkedin.com/blog/engineering/ab-testing-experimentation/our-evolution-towards-t-rex-the-prehistory-of-experimentation-i">Evolution towards T-REX</a> · <a class="cite" href="https://engineering.linkedin.com/blog/2020/making-the-linkedin-experimentation-engine-20x-faster">Making the engine 20× faster</a>.</div>
+
+  <!-- MECHANISM -->
+  <h2 class="sec" id="mechanism">How a LinkedIn-style platform actually decides what ships</h2>
+  <p class="secsub">The decision rule is borrowed from Kohavi's <a class="cite" href="microsoft-exp-framework.html">ExP discipline</a>. What's unique here is the <b>shape of the platform</b> that makes it routine, not heroic, to follow that rule.</p>
+
+  <div class="step"><div class="num">1</div><div><h3>One team, one tool, one definition language</h3><p>All metrics are defined in a shared schema so every team's experiments speak the same statistical language. No bespoke dashboards per team — that's the only way 40k/day works.</p></div></div>
+  <div class="step"><div class="num">2</div><div><h3>Feature flagging is the unit of deploy</h3><p>Code is wrapped in a flag before launch. Shipping <em>is</em> a ramp. The framework's quiet trick: there's no separate "experimentation system" — every release goes through the same gate.</p></div></div>
+  <div class="step"><div class="num">3</div><div><h3>Automatic metric computation &amp; significance</h3><p>The platform reads out treatment vs control on the agreed metrics without a data scientist in the loop. Engineers can run their own experiments — that's the "democratised" claim.</p></div></div>
+  <div class="step"><div class="num">4</div><div><h3>Trust checks built-in</h3><p>Sample-Ratio-Mismatch and other guardrails run automatically. If the test failed to randomise cleanly, the platform flags it before anyone reads the result — preventing the most common false win.</p></div></div>
+  <div class="step"><div class="num">5</div><div><h3>Cumulative learning across thousands of tests</h3><p>The platform is also a research dataset — variance estimates, baseline rates, ramp curves all get reused, which is what enables the 20× speedup. <b>Each new experiment is cheaper because the previous 40,000 happened.</b></p></div></div>
+
+  <!-- STATS -->
+  <h2 class="sec" id="stats">The published scale</h2>
+  <p class="secsub">Why these numbers matter: they show what "experimentation culture" looks like at the operational maximum — and they set the bar for what is technically possible at smaller scale.</p>
+
+  <div class="stats">
+    <div class="stat"><div class="n">40,000+</div><div class="l">experiments per day (current T-REX figure)</div></div>
+    <div class="stat"><div class="n">~8,000</div><div class="l">metrics measured per experiment</div></div>
+    <div class="stat"><div class="n">20×</div><div class="l">speed-up in the engine (2020 rewrite)</div></div>
+    <div class="stat"><div class="n">700M+</div><div class="l">members in scope of every test</div></div>
+  </div>
+  <div class="caveat">Caveat: the 40k/day and 8k-metrics figures are from LinkedIn's own engineering blog (T-REX series, 2020+); confirm on the linked posts before quoting. They're the published claim, not an external audit.</div>
+
+  <div class="note"><b>The transferable insight.</b> LinkedIn proves you don't need a unique <em>method</em> to win — same OEC + ramp discipline as Microsoft. What you need is <b>tooling so cheap that no one has to ask permission to run a test</b>. For a smaller team, that "tooling" doesn't need to be a custom platform; it can be a feature-flag service + a shared metrics dashboard + a written norm that every release ramps 1%→10%→50%→100% behind a pre-declared OEC.</div>
+  <footer>
+    Companion to <a href="impact-saas-companies.html#exp">← SaaS case studies · Experimentation</a> · <a href="methodologies-comparison.html">All methods compared</a> · sibling: <a href="microsoft-exp-framework.html">Microsoft ExP</a> (the same decision rule, different platform story)<br>
+    Grounded in: LinkedIn Engineering Blog's T-REX series, the original <a href="https://engineering.linkedin.com/ab-testing/xlnt-platform-driving-ab-testing-linkedin">XLNT introduction</a>, and the <a href="https://engineering.linkedin.com/blog/2020/making-the-linkedin-experimentation-engine-20x-faster">2020 engine rewrite post</a>. Numbers are LinkedIn-published.
+  </footer>
+</div>
+</body>
+</html>
