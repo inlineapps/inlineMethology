@@ -116,7 +116,7 @@
 <div class="navgrp"><h4>Goal-laddering / Define first</h4>
 <a href="v2mom-framework.html">V2MOM (Salesforce)</a>
 <a href="pyramid-of-clarity-framework.html">Pyramid of Clarity (Asana)</a>
-<a href="pr-faq-framework.html">PR-FAQ (Amazon)</a>
+<a href="pr-faq-framework.html">PR-FAQ / Working Backwards (Amazon)</a>
 <a href="heart-framework.html">HEART (Google)</a>
 <a href="dibb-framework.html">DIBB (Spotify)</a>
 </div>
@@ -214,20 +214,25 @@
   <div class="step"><div class="num">5</div><div><h3>After shipping: log estimate vs actual</h3><p>The under-used step. Intercom: "the score is only a guess until you ship and measure." Track which Impact estimates were wildly wrong — over time your scale calibrates.</p></div></div>
 
   <!-- WORKED EXAMPLE -->
-  <h2 class="sec" id="example">Worked example — three illustrative SaaS feature ideas</h2>
-  <p class="secsub">Hypothetical scores using <b>Intercom's published scales</b> to show how the formula behaves. The point is to see how the math punishes low Confidence × high Effort and rewards cheap-but-narrow ideas — not to argue these specific numbers.</p>
+  <h2 class="sec" id="example">Worked example — a SaaS backlog snapshot with RICE applied</h2>
+  <p class="secsub">Eight candidate features scored on <b>Intercom's published scales</b>. Effort budget for the cycle = <strong>10 person-months</strong>. Rows highlighted in coral are what the formula picks; the rest are either <em>discovery candidates</em> (low Confidence — go research) or <em>real cuts</em> (low Reach × Impact). Numbers illustrative.</p>
 
   <div class="extable">
     <table class="ex">
-      <thead><tr><th>Idea</th><th>Reach (users/Q)</th><th>Impact (3/2/1/.5/.25)</th><th>Confidence</th><th>Effort (PM)</th><th>RICE Score</th></tr></thead>
+      <thead><tr><th>Feature</th><th>Reach (users/Q)</th><th>Impact</th><th>Confidence</th><th>Effort (PM)</th><th>RICE</th><th>Decision</th></tr></thead>
       <tbody>
-        <tr class="top"><td>Add Slack notification integration</td><td>~5,000</td><td>2 (high)</td><td>80%</td><td>3</td><td class="score">2,667</td></tr>
-        <tr><td>Rebuild onboarding flow</td><td>~2,000</td><td>2 (high)</td><td>50%</td><td>10</td><td class="score">200</td></tr>
-        <tr><td>Add CSV export to dashboard</td><td>~3,000</td><td>0.5 (low)</td><td>50%</td><td>1</td><td class="score">750</td></tr>
+        <tr class="top"><td>Add Slack notification integration</td><td>5,000</td><td>2</td><td>80%</td><td>3</td><td class="score">2,667</td><td>Build</td></tr>
+        <tr class="top"><td>Saved filters on reports page</td><td>4,000</td><td>1</td><td>80%</td><td>2</td><td class="score">1,600</td><td>Build</td></tr>
+        <tr class="top"><td>Bulk user import via SCIM</td><td>800</td><td>2</td><td>100%</td><td>2</td><td class="score">800</td><td>Build</td></tr>
+        <tr class="top"><td>Add CSV export to dashboard</td><td>3,000</td><td>0.5</td><td>50%</td><td>1</td><td class="score">750</td><td>Build</td></tr>
+        <tr class="top"><td>Mobile dark mode</td><td>1,500</td><td>0.25</td><td>100%</td><td>1</td><td class="score">375</td><td>Build · fills budget</td></tr>
+        <tr><td>AI-powered insights panel</td><td>6,000</td><td>1</td><td>50%</td><td>8</td><td class="score" style="color:var(--gold)">375</td><td>Discovery — lift Confidence</td></tr>
+        <tr><td>Customisable dashboard widgets</td><td>2,500</td><td>0.5</td><td>80%</td><td>4</td><td class="score" style="color:var(--ink-soft)">250</td><td>Cut</td></tr>
+        <tr><td>Rebuild onboarding flow</td><td>2,000</td><td>2</td><td>50%</td><td>10</td><td class="score" style="color:var(--gold)">200</td><td>Discovery — lift Confidence</td></tr>
       </tbody>
     </table>
   </div>
-  <p style="font-size:13.5px;color:var(--ink-soft)">Reading: the Slack integration dominates because Reach is high, Confidence is high (we've already heard the request from customers), and Effort is bounded. The onboarding rebuild looks "big" intuitively but its <b>low Confidence × high Effort</b> punishes it — exactly the discipline RICE is for. And the cheap CSV export out-ranks the onboarding rebuild because it's nearly free — the signal is either to ship the export honestly or to invest in onboarding <em>discovery</em> (user research, mockups, prototype tests) to lift Confidence before scoring again. <br><em>Numbers are illustrative — the value is in seeing how the formula rewards Confidence and punishes Effort, not in defending these specific scores.</em></p>
+  <p style="font-size:13.5px;color:var(--ink-soft)">Reading the sheet: Slack integration dominates (high Reach × high Confidence × bounded Effort). Cheap items like dark mode and CSV export earn their spot purely on low denominator — the math rewards "cheap and narrow" honestly. Five rows fit the 10-PM budget (3+2+2+1+1 = 9). The <em>onboarding rebuild</em> and <em>AI panel</em> look intuitively important, but <b>low Confidence × high Effort</b> kills both — exactly the discipline RICE is for. Don't override: instead invest in research, mockups, or a fake-door test to lift Confidence, then re-score next cycle. The <em>customisable widgets</em> row is a real cut — solid Confidence but too little Impact per unit of Effort.</p>
 
   <!-- APPLY TO A SHEET -->
   <h2 class="sec" id="apply">Apply to a feature sheet</h2>

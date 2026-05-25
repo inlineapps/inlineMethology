@@ -101,7 +101,7 @@
 <div class="navgrp"><h4>Goal-laddering / Define first</h4>
 <a href="v2mom-framework.html">V2MOM (Salesforce)</a>
 <a href="pyramid-of-clarity-framework.html">Pyramid of Clarity (Asana)</a>
-<a href="pr-faq-framework.html">PR-FAQ (Amazon)</a>
+<a href="pr-faq-framework.html">PR-FAQ / Working Backwards (Amazon)</a>
 <a href="heart-framework.html">HEART (Google)</a>
 <a href="dibb-framework.html">DIBB (Spotify)</a>
 </div>
@@ -138,6 +138,7 @@
     <a href="#anatomy">What ERF actually is</a>
     <a href="#mechanism">How it picks work</a>
     <a href="#stats">Scale</a>
+    <a href="#apply">Apply to a sheet</a>
     <a href="methodologies-comparison.html" style="color:var(--blue);font-weight:700">Comparison table →</a>
   </nav>
 
@@ -187,6 +188,31 @@
     <div class="stat"><div class="n">1 framework</div><div class="l">one shared metric DSL, all teams</div></div>
     <div class="stat"><div class="n">~0</div><div class="l">analyst hours per standard experiment</div></div>
   </div>
+
+  <!-- APPLY TO A SHEET -->
+  <h2 class="sec" id="apply">Apply to a feature sheet</h2>
+  <p class="secsub">ERF doesn't change the columns much — it changes the <strong>number you read</strong>. The sheet's <em>Result</em> column has two values: raw lift and ERF-adjusted lift (corrected for novelty, seasonality, network effects). Decisions are made on the adjusted number. The classic trap ERF prevents: shipping a feature whose "lift" was actually seasonal demand or a novelty bump.</p>
+
+  <h3 style="font-family:Georgia,serif;font-size:18px;margin:18px 0 8px">Worked example — an experiment ledger snapshot (Airbnb-style)</h3>
+  <p style="font-size:13.5px;color:var(--ink-soft);margin:0 0 12px">Eight tests. Note the gap between raw and ERF-adjusted lift — that gap is the lie ERF prevents you from believing.</p>
+
+  <div style="overflow-x:auto;margin:14px 0">
+    <table style="border-collapse:collapse;width:100%;font-size:13px;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden">
+      <thead><tr style="background:var(--ink);color:#f3efe6;font-size:11.5px;letter-spacing:.05em;text-transform:uppercase"><th style="padding:9px 10px;text-align:left">Feature</th><th style="padding:9px 10px;text-align:left">OEC</th><th style="padding:9px 10px;text-align:left">Guardrails</th><th style="padding:9px 10px;text-align:left">Raw lift</th><th style="padding:9px 10px;text-align:left">ERF-adjusted</th><th style="padding:9px 10px;text-align:left">Why the gap</th><th style="padding:9px 10px;text-align:left">Decision</th></tr></thead>
+      <tbody>
+        <tr style="background:#e6ecf6"><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-weight:600">Map-based search default</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Bookings</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Cancellation</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">+0.6%</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">+0.3%</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Small novelty bump</td><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-family:Georgia,serif;color:var(--blue);font-weight:700">Ship</td></tr>
+        <tr style="background:#e6ecf6"><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-weight:600">New listing-photo layout</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Bookings</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Listing-edits</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">+1.1%</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">+0.9%</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Mostly real</td><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-family:Georgia,serif;color:var(--blue);font-weight:700">Ship</td></tr>
+        <tr style="background:#e6ecf6"><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-weight:600">Smart pricing for hosts</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Host listing-rate</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Host satisfaction</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">+2.4%</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">+1.8%</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Some seasonality</td><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-family:Georgia,serif;color:var(--blue);font-weight:700">Ship</td></tr>
+        <tr style="background:#e6ecf6"><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-weight:600">Wishlist sharing</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Bookings via shares</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Wishlist abuse</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">+0.4%</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">+0.7%</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Network effect (positive)</td><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-family:Georgia,serif;color:var(--blue);font-weight:700">Ship</td></tr>
+        <tr><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-weight:600">Push notifications for saved searches</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Bookings</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Mute rate</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">+0.9%</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">+0.1%</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Mostly novelty + seasonal</td><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-family:Georgia,serif;color:var(--gold);font-weight:700">Iterate</td></tr>
+        <tr><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-weight:600">Filter persistence</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Saved-search rate</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Search abandon</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">+0.3%</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">+0.4%</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Real effect</td><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-family:Georgia,serif;color:var(--blue);font-weight:700">Ship</td></tr>
+        <tr><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-weight:600">Instant-book promotion</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Bookings</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Host opt-out</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">+2.0%</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">−0.1%</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Entirely seasonality</td><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-family:Georgia,serif;color:var(--accent);font-weight:700">Kill</td></tr>
+        <tr><td style="padding:9px 10px;font-weight:600">Aggressive cleaning-fee display</td><td style="padding:9px 10px">Bookings</td><td style="padding:9px 10px">Bounce</td><td style="padding:9px 10px">−0.4%</td><td style="padding:9px 10px">−0.5%</td><td style="padding:9px 10px">Real decline</td><td style="padding:9px 10px;font-family:Georgia,serif;color:var(--accent);font-weight:700">Kill</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note"><b>Decision rule.</b> Decide on the <em>ERF-adjusted</em> lift, not the raw. The instant-book row is the canonical trap: raw +2.0% would look like a clean ship, but ERF reveals it as entirely seasonal demand the team would have taken credit for. The wishlist row shows the inverse — ERF can <em>increase</em> lift when a real network effect was being masked. Without standardised reporting, every team interprets their own numbers and trust collapses; with it, the whole company reads the same shape every time.</div>
 
   <div class="note"><b>The transferable insight: standardisation, not statistics.</b> The Airbnb story is sometimes told as a CUPED variance-reduction story. The deeper lesson is that <b>the platform's product is the standardised analysis</b>. Without ERF, every team builds their own analysis and the results aren't comparable. With it, the team can ship 10× more tests because each one costs the same fixed (low) effort to read.</div>
   <footer>

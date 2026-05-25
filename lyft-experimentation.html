@@ -96,7 +96,7 @@
 <div class="navgrp"><h4>Goal-laddering / Define first</h4>
 <a href="v2mom-framework.html">V2MOM (Salesforce)</a>
 <a href="pyramid-of-clarity-framework.html">Pyramid of Clarity (Asana)</a>
-<a href="pr-faq-framework.html">PR-FAQ (Amazon)</a>
+<a href="pr-faq-framework.html">PR-FAQ / Working Backwards (Amazon)</a>
 <a href="heart-framework.html">HEART (Google)</a>
 <a href="dibb-framework.html">DIBB (Spotify)</a>
 </div>
@@ -132,6 +132,7 @@
     <a href="#headline">Honest headline</a>
     <a href="#anatomy">Three designs Lyft uses</a>
     <a href="#mechanism">How it picks work</a>
+    <a href="#apply">Apply to a sheet</a>
     <a href="methodologies-comparison.html" style="color:var(--blue);font-weight:700">Comparison table →</a>
   </nav>
 
@@ -172,6 +173,31 @@
   <div class="step"><div class="num">3</div><div><h3>If continuous-decision → bandit</h3><p>Define the reward signal and the contexts. The bandit allocates traffic over time; you read aggregate performance, not a one-shot lift.</p></div></div>
   <div class="step"><div class="num">4</div><div><h3>Otherwise → ordinary A/B</h3><p>The simple case. Same OEC + guardrails discipline as every other platform on this list.</p></div></div>
   <div class="step"><div class="num">5</div><div><h3>Read the OEC. Decide. Iterate.</h3><p>The decision rule is unchanged across designs — but the <em>estimate</em> is only trustworthy if the design was right for the change.</p></div></div>
+
+  <!-- APPLY TO A SHEET -->
+  <h2 class="sec" id="apply">Apply to a feature sheet</h2>
+  <p class="secsub">Lyft's ledger has a <em>design</em> column that's set before any other: <b>A/B</b> for ordinary user-level changes, <b>switchback</b> for shared-resource marketplace features, <b>bandit</b> for continuous always-on decisions. The wrong design produces a biased lift — picking the right one is more important than picking the right metric.</p>
+
+  <h3 style="font-family:Georgia,serif;font-size:18px;margin:18px 0 8px">Worked example — an experiment ledger snapshot (Lyft-style)</h3>
+  <p style="font-size:13.5px;color:var(--ink-soft);margin:0 0 12px">Eight tests across all three designs. Numbers illustrative.</p>
+
+  <div style="overflow-x:auto;margin:14px 0">
+    <table style="border-collapse:collapse;width:100%;font-size:13px;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden">
+      <thead><tr style="background:var(--ink);color:#f3efe6;font-size:11.5px;letter-spacing:.05em;text-transform:uppercase"><th style="padding:9px 10px;text-align:left">Feature</th><th style="padding:9px 10px;text-align:left">Design</th><th style="padding:9px 10px;text-align:left">OEC</th><th style="padding:9px 10px;text-align:left">Guardrails</th><th style="padding:9px 10px;text-align:left">Cell/sample</th><th style="padding:9px 10px;text-align:left">Result</th><th style="padding:9px 10px;text-align:left">Decision</th></tr></thead>
+      <tbody>
+        <tr style="background:#e6ecf6"><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-weight:600">New ETA algorithm</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Switchback</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Wait time</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Cancellation, ETA accuracy</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">30 cities × 30-min</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Wait −6s sig</td><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-family:Georgia,serif;color:var(--blue);font-weight:700">Ship</td></tr>
+        <tr style="background:#e6ecf6"><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-weight:600">Driver-incentive variant</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Switchback</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Driver utilization</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Earnings/hr</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">20 cities × 60-min</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Util +0.8pp</td><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-family:Georgia,serif;color:var(--blue);font-weight:700">Ship</td></tr>
+        <tr style="background:#e6ecf6"><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-weight:600">New cancellation flow</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">A/B</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Rider cancel rate</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Refund volume</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">500k users</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Cancels −3%</td><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-family:Georgia,serif;color:var(--blue);font-weight:700">Ship</td></tr>
+        <tr style="background:#e6ecf6"><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-weight:600">New rider onboarding tutorial</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">A/B</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">D7 retention</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Time-to-first-ride</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">200k users</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">D7 +1.4pp</td><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-family:Georgia,serif;color:var(--blue);font-weight:700">Ship</td></tr>
+        <tr style="background:#e6ecf6"><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-weight:600">Homepage-hero selector</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Bandit (contextual)</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Tap-through rate</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Bounce</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">always-on</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">+1.1% engagement, picks winner per context</td><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-family:Georgia,serif;color:var(--blue);font-weight:700">Adopt — leave on</td></tr>
+        <tr style="background:#e6ecf6"><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-weight:600">Notification template selector</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Bandit</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Open rate</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Unsubscribes</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">always-on</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Opens +5% (bandit-adaptive)</td><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-family:Georgia,serif;color:var(--blue);font-weight:700">Adopt</td></tr>
+        <tr><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-weight:600">Pool reshape</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Switchback</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Trips/$</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Rider satisfaction</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">15 cities × 60-min</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Flat</td><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-family:Georgia,serif;color:var(--gold);font-weight:700">Iterate</td></tr>
+        <tr><td style="padding:9px 10px;font-weight:600">Aggressive surge multiplier</td><td style="padding:9px 10px">Switchback</td><td style="padding:9px 10px">Trips completed</td><td style="padding:9px 10px">Rider satisfaction</td><td style="padding:9px 10px">10 cities × 30-min</td><td style="padding:9px 10px">Trips OK BUT satisfaction −4pts</td><td style="padding:9px 10px;font-family:Georgia,serif;color:var(--accent);font-weight:700">Kill</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note"><b>Decision rule.</b> The design column is the first gate — anything touching shared resources (dispatch, surge, pool, allocation) <strong>cannot</strong> be a user-level A/B without biased estimates. Bandits are the right shape when "the winner" depends on context (which hero, which template) and the test never naturally ends. Standard A/B is fine for everything else. The aggressive-surge row shows the marketplace kill — trips up but satisfaction down means the metric you optimised wasn't the metric you cared about.</div>
 
   <div class="note"><b>The transferable insight: bandits aren't only for ML teams.</b> A small adaptive system that "tries variants and routes more traffic to the better one" is buildable in a sprint for problems like which homepage hero to show, which merchant to feature, which notification template performs. For decisions that don't have a single right answer over time, bandits beat fixed A/B because they keep learning.</div>
   <footer>

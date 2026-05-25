@@ -96,7 +96,7 @@
 <div class="navgrp"><h4>Goal-laddering / Define first</h4>
 <a href="v2mom-framework.html">V2MOM (Salesforce)</a>
 <a href="pyramid-of-clarity-framework.html">Pyramid of Clarity (Asana)</a>
-<a href="pr-faq-framework.html">PR-FAQ (Amazon)</a>
+<a href="pr-faq-framework.html">PR-FAQ / Working Backwards (Amazon)</a>
 <a href="heart-framework.html">HEART (Google)</a>
 <a href="dibb-framework.html">DIBB (Spotify)</a>
 </div>
@@ -132,6 +132,7 @@
     <a href="#headline">Honest headline</a>
     <a href="#anatomy">Three things they do differently</a>
     <a href="#mechanism">How decisions get made</a>
+    <a href="#apply">Apply to a sheet</a>
     <a href="methodologies-comparison.html" style="color:var(--blue);font-weight:700">Comparison table →</a>
   </nav>
 
@@ -173,6 +174,31 @@
   <div class="step"><div class="num">3</div><div><h3>Choose the design — A/B, sequential, or quasi-experimental</h3><p>A/B for randomizable changes. Sequential when speed matters. Quasi-experiment when randomization isn't possible.</p></div></div>
   <div class="step"><div class="num">4</div><div><h3>Run, monitor, decide</h3><p>The platform reads out the OEC. Sequential designs may stop early; classical designs run to pre-declared sample size.</p></div></div>
   <div class="step"><div class="num">5</div><div><h3>Re-evaluate the metric model itself</h3><p>Netflix periodically re-tests which proxy metrics actually correlate with long-run retention — keeping the OEC honest over time. Most companies skip this; it's why their experiments stay trustworthy at scale.</p></div></div>
+
+  <!-- APPLY TO A SHEET -->
+  <h2 class="sec" id="apply">Apply to a feature sheet</h2>
+  <p class="secsub">Netflix's discipline turns the backlog into an experiment ledger where every change ships behind a causal estimate. The columns mirror Microsoft ExP, with Netflix-specific extras: <em>design type</em> (A/B / sequential / quasi-experimental) and <em>QoE guardrails</em> (rebuffer, startup time) that can kill a feature whose OEC moved.</p>
+
+  <h3 style="font-family:Georgia,serif;font-size:18px;margin:18px 0 8px">Worked example — an experiment ledger snapshot (Netflix-style)</h3>
+  <p style="font-size:13.5px;color:var(--ink-soft);margin:0 0 12px">Eight tests. OEC = a proxy metric (hours watched, completion rate, retention) with long-run retention as the eventual check. Numbers illustrative.</p>
+
+  <div style="overflow-x:auto;margin:14px 0">
+    <table style="border-collapse:collapse;width:100%;font-size:13px;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden">
+      <thead><tr style="background:var(--ink);color:#f3efe6;font-size:11.5px;letter-spacing:.05em;text-transform:uppercase"><th style="padding:9px 10px;text-align:left">Feature</th><th style="padding:9px 10px;text-align:left">Design</th><th style="padding:9px 10px;text-align:left">OEC</th><th style="padding:9px 10px;text-align:left">QoE guardrails</th><th style="padding:9px 10px;text-align:left">Cell allocation</th><th style="padding:9px 10px;text-align:left">Result</th><th style="padding:9px 10px;text-align:left">Decision</th></tr></thead>
+      <tbody>
+        <tr style="background:#e6ecf6"><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-weight:600">Autoplay-on-hover refinement</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">A/B</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Hours watched / member</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Rebuffer, startup</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">5%·25%·50%</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">+1.2% hrs, QoE held</td><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-family:Georgia,serif;color:var(--blue);font-weight:700">Promote</td></tr>
+        <tr style="background:#e6ecf6"><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-weight:600">Skip-intro button</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">A/B</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Episodes/session</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Exit rate</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">50/50</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">+4% eps/session, exits flat</td><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-family:Georgia,serif;color:var(--blue);font-weight:700">Promote</td></tr>
+        <tr style="background:#e6ecf6"><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-weight:600">Smart Downloads (mobile)</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">A/B</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Mobile D30 retention</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Storage warnings</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">25%·50%</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">+1.8 pp D30, OK</td><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-family:Georgia,serif;color:var(--blue);font-weight:700">Promote</td></tr>
+        <tr style="background:#e6ecf6"><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-weight:600">4K HDR detection fixes</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">A/B</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Stream quality index</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">CDN cost</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">10%·50%</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">QoE +2.1%, cost flat</td><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-family:Georgia,serif;color:var(--blue);font-weight:700">Promote</td></tr>
+        <tr><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-weight:600">Recommendation re-rank v3</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">A/B</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Completion rate</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Title-skip rate</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">25%·50%</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">+0.3% NS, no harm</td><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-family:Georgia,serif;color:var(--gold);font-weight:700">Iterate</td></tr>
+        <tr><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-weight:600">AI trailer generation</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">A/B</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Title clickthrough</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Editorial complaint rate</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">10%</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">CTR flat, complaints +1.4%</td><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-family:Georgia,serif;color:var(--gold);font-weight:700">Iterate — variant 2</td></tr>
+        <tr><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-weight:600">New profile-picker UX</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">A/B</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Hours watched / member</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Startup time</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">25%·50%</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">+0.4% hrs BUT startup +200ms</td><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-family:Georgia,serif;color:var(--accent);font-weight:700">Kill — QoE breach</td></tr>
+        <tr><td style="padding:9px 10px;font-weight:600">Regional pricing change (LATAM)</td><td style="padding:9px 10px">Quasi-experimental (ITS + synthetic control)</td><td style="padding:9px 10px">Net subscriber adds</td><td style="padding:9px 10px">Churn rate</td><td style="padding:9px 10px">Country rollout</td><td style="padding:9px 10px">Adds +2.3% vs synthetic, churn +0.4%</td><td style="padding:9px 10px;font-family:Georgia,serif;color:var(--blue);font-weight:700">Promote · monitor</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note"><b>Decision rule.</b> <b>Promote</b> when OEC moves with significance AND QoE guardrails hold (the profile-picker row shows the kill condition — hours up means nothing if startup time degrades 200ms). <b>Iterate</b> when OEC is flat but guardrails are fine. <b>Kill</b> on guardrail breach. Note the bottom row: not all decisions can be A/B tested (pricing, regional rollouts) — Netflix uses interrupted time-series + synthetic control to get a causal estimate anyway. The methodology adapts to what's randomisable; the discipline of <em>causal estimate before commitment</em> does not.</div>
 
   <div class="note"><b>The transferable insight: experimentation isn't just A/B.</b> Most teams equate "experimentation" with "split-test the button colour." Netflix's contribution is showing that the <em>discipline</em> (causal estimate of expected impact) is portable to decisions that can't be randomized — by using time-series, regional, and quasi-experimental designs. That means even "non-A/B-able" items (a partnership integration, a one-off campaign, a pricing change) can still be evaluated causally with the right design.</div>
   <footer>

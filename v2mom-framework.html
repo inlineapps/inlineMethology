@@ -105,7 +105,7 @@
 <div class="navgrp"><h4>Goal-laddering / Define first</h4>
 <a class="cur" href="v2mom-framework.html">V2MOM (Salesforce)</a>
 <a href="pyramid-of-clarity-framework.html">Pyramid of Clarity (Asana)</a>
-<a href="pr-faq-framework.html">PR-FAQ (Amazon)</a>
+<a href="pr-faq-framework.html">PR-FAQ / Working Backwards (Amazon)</a>
 <a href="heart-framework.html">HEART (Google)</a>
 <a href="dibb-framework.html">DIBB (Spotify)</a>
 </div>
@@ -143,6 +143,7 @@
     <a href="#mechanism">How it picks work</a>
     <a href="#example">Worked example</a>
     <a href="#limits">What it doesn't do</a>
+    <a href="#apply">Apply to a sheet</a>
     <a href="methodologies-comparison.html" style="color:var(--gold);font-weight:700">Comparison table →</a>
   </nav>
 
@@ -195,6 +196,50 @@
     <b>It is not a prioritisation framework.</b> A V2MOM tells your team <em>which direction</em> they're pushing in. It does <strong>not</strong> tell them whether to ship Feature A or Feature B next quarter. Inside a single "Method," you still need a scoring framework (<a class="cite" href="rice-framework.html">RICE</a>), an input model (<a class="cite" href="north-star-framework.html">North Star</a>), or experimentation (<a class="cite" href="microsoft-exp-framework.html">ExP</a>) to pick the bets that move the Measures.<br><br>
     <b>It is not OKRs.</b> OKRs are an objective + measurable key results, per cycle. V2MOM is a full strategic statement (vision, values, obstacles too) — many companies use V2MOM at leadership level and OKRs at team level. (Asana's <a class="cite" href="pyramid-of-clarity-framework.html">Pyramid of Clarity</a> takes the OKR side of the same shape.)
   </div>
+
+  <!-- APPLY TO A SHEET -->
+  <h2 class="sec" id="apply">Apply to a feature sheet</h2>
+  <p class="secsub">V2MOM doesn't score features — it <em>filters</em> them against the team's Methods. If you adopt it, every backlog row must declare <strong>which Method it supports</strong> and <strong>which Measure it moves</strong>. Features that don't trace to a Method aren't ranked low; they're out of scope this cycle, full stop.</p>
+
+  <p style="font-size:13.5px;color:var(--ink-soft);margin:0 0 12px">For the worked example below, assume this team's V2MOM:<br>
+  <b>Vision:</b> "Be the most-trusted analytics dashboard for product teams." &nbsp;
+  <b>Methods:</b> <code style="background:var(--gold-soft);padding:2px 6px;border-radius:4px;font-size:12.5px">M1 — Ship 5 high-quality integrations</code> · <code style="background:var(--gold-soft);padding:2px 6px;border-radius:4px;font-size:12.5px">M2 — Cut time-to-first-insight to &lt; 2 min</code> · <code style="background:var(--gold-soft);padding:2px 6px;border-radius:4px;font-size:12.5px">M3 — Reach enterprise-grade SSO &amp; SCIM</code> · <code style="background:var(--gold-soft);padding:2px 6px;border-radius:4px;font-size:12.5px">M4 — NPS ≥ 50 in mid-market</code></p>
+
+  <div class="extable">
+    <table class="ex">
+      <thead><tr><th>Column to add</th><th>What it captures</th><th>How you fill it</th></tr></thead>
+      <tbody>
+        <tr><td>Feature</td><td>Backlog item</td><td>Existing title</td></tr>
+        <tr><td>Method #</td><td>Which of the team's 3–5 Methods this feature supports</td><td>M1 / M2 / M3 / M4 — or "none" to surface the orphan</td></tr>
+        <tr><td>Measure moved</td><td>Which specific Measure from the V2MOM this feature lifts</td><td>Pull from the V2MOM's Measures list — must be named</td></tr>
+        <tr><td>Value compromised?</td><td>Does this feature push against a stated Value (e.g. Usability, Time-to-market)?</td><td>None / which Value &amp; how — surfaces trade-offs</td></tr>
+        <tr><td>Obstacle reduced</td><td>Does it remove a named Obstacle from the V2MOM?</td><td>Optional bonus — strengthens the case</td></tr>
+        <tr><td>Effort</td><td>For ranking among in-scope features</td><td>T-shirt or person-months</td></tr>
+        <tr><td>In-scope this cycle?</td><td>The verdict</td><td>In (Method trace + Measure) / Re-shape (loose trace) / Out (no Method)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 style="font-family:Georgia,serif;font-size:18px;margin:24px 0 8px">Worked example — backlog snapshot against the team's V2MOM</h3>
+  <p style="font-size:13.5px;color:var(--ink-soft);margin:0 0 12px">Eight features. The filter quickly separates work-that-serves-the-strategy from work-that-merely-exists-on-the-backlog.</p>
+
+  <div class="extable">
+    <table class="ex">
+      <thead><tr><th>Feature</th><th>Method</th><th>Measure moved</th><th>Value compromised?</th><th>Obstacle reduced</th><th>Effort (PM)</th><th>Verdict</th></tr></thead>
+      <tbody>
+        <tr class="top"><td>Add Slack notification integration</td><td>M1</td><td># integrations live</td><td>No</td><td>—</td><td>3</td><td class="score">In</td></tr>
+        <tr class="top"><td>Bulk SCIM user import</td><td>M3</td><td>SSO/SCIM sign-up rate</td><td>No</td><td>Enterprise procurement gate</td><td>2</td><td class="score">In</td></tr>
+        <tr class="top"><td>First-run wizard with sample data</td><td>M2</td><td>p50 time-to-first-insight</td><td>No</td><td>Cold-start friction</td><td>4</td><td class="score">In</td></tr>
+        <tr class="top"><td>In-app NPS prompt &amp; feedback widget</td><td>M4</td><td>NPS (response volume)</td><td>Usability — adds friction; mitigate w/ 1-tap dismiss</td><td>—</td><td>1</td><td class="score">In</td></tr>
+        <tr><td>AI-generated insights panel</td><td>M2 (claimed)</td><td>p50 TTFI (unverified)</td><td>Usability — adds cognitive load</td><td>—</td><td>8</td><td class="score" style="color:var(--gold)">Re-shape — Method trace too loose</td></tr>
+        <tr><td>Re-engagement email campaign</td><td>M4 (claimed)</td><td>Retention (not a Measure)</td><td>No</td><td>—</td><td>2</td><td class="score" style="color:var(--gold)">Re-shape — doesn't move a named Measure</td></tr>
+        <tr><td>Customisable dashboard widgets</td><td>None — "user request"</td><td>—</td><td>—</td><td>—</td><td>4</td><td class="score" style="color:var(--ink-soft)">Out · no Method</td></tr>
+        <tr><td>Mobile dark mode</td><td>None</td><td>—</td><td>—</td><td>—</td><td>1</td><td class="score" style="color:var(--accent)">Out · vanity</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note" style="margin-top:18px"><b>Decision rule.</b> Three gates. <b>(1)</b> Does the feature name a Method it supports? Orphans are out — that's the V2MOM doing its job. <b>(2)</b> Does it move a Measure that's literally in the V2MOM's Measures section? "Adjacent" doesn't count; re-shape until the Measure is exact. <b>(3)</b> Does it compromise a Value? If yes, it must declare the mitigation. Features passing all three enter the ranked build queue, where you score them with <a class="cite" href="rice-framework.html">RICE</a> or run experiments. V2MOM doesn't score features — it tells you which ones earn the right to be scored.</div>
 
   <div class="note"><b>Why V2MOM is on the list anyway.</b> Every other framework on this site assumes you've already agreed <em>what you're trying to do</em>. V2MOM is the artifact that produces that agreement and forces it into writing. Without it, RICE scores a wishlist; with it, RICE scores candidates that all support the same Method.</div>
   <footer>

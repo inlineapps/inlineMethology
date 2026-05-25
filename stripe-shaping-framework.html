@@ -103,7 +103,7 @@
 <div class="navgrp"><h4>Goal-laddering / Define first</h4>
 <a href="v2mom-framework.html">V2MOM (Salesforce)</a>
 <a href="pyramid-of-clarity-framework.html">Pyramid of Clarity (Asana)</a>
-<a href="pr-faq-framework.html">PR-FAQ (Amazon)</a>
+<a href="pr-faq-framework.html">PR-FAQ / Working Backwards (Amazon)</a>
 <a href="heart-framework.html">HEART (Google)</a>
 <a href="dibb-framework.html">DIBB (Spotify)</a>
 </div>
@@ -140,6 +140,7 @@
     <a href="#anatomy">The three practices</a>
     <a href="#mechanism">How it picks work</a>
     <a href="#limits">Why it's hard to copy</a>
+    <a href="#apply">Apply to a sheet</a>
     <a href="methodologies-comparison.html" style="color:var(--teal);font-weight:700">Comparison table →</a>
   </nav>
 
@@ -195,6 +196,46 @@
     <b>It requires senior judgement absorbing the cost of mistakes.</b> No quantitative method means the price of a wrong call is a wrong product. Stripe can absorb that because the leadership team is trusted to be right often enough. A team without that earned trust will struggle.<br><br>
     <b>"Long-term filter" is easy to invoke and hard to operate.</b> Saying "we filter for the long term" doesn't change anything. Stripe's filter actually <em>killed</em> short-term opportunities — that's the test of whether your version is real.
   </div>
+
+  <!-- APPLY TO A SHEET -->
+  <h2 class="sec" id="apply">Apply to a feature sheet</h2>
+  <p class="secsub">Stripe's discipline doesn't produce a score — it produces a <strong>readiness checklist</strong>. If you adopt it, every backlog row tracks whether the bad-day moment is named, the deep-dive is written, the 30-year filter passes, and a senior decision-maker has been assigned. No build starts until every cell is green and the doc has been read.</p>
+
+  <div style="overflow-x:auto;margin:14px 0">
+    <table style="border-collapse:collapse;width:100%;font-size:13.5px;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden">
+      <thead><tr style="background:var(--ink);color:#f3efe6;font-size:12px;letter-spacing:.05em;text-transform:uppercase"><th style="padding:10px 12px;text-align:left">Column to add</th><th style="padding:10px 12px;text-align:left">What it captures</th><th style="padding:10px 12px;text-align:left">How you fill it</th></tr></thead>
+      <tbody>
+        <tr><td style="padding:9px 12px;border-bottom:1px solid var(--line);font-weight:600">Feature / bet</td><td style="padding:9px 12px;border-bottom:1px solid var(--line)">Candidate</td><td style="padding:9px 12px;border-bottom:1px solid var(--line)">Backlog title</td></tr>
+        <tr><td style="padding:9px 12px;border-bottom:1px solid var(--line);font-weight:600">Bad-day moment</td><td style="padding:9px 12px;border-bottom:1px solid var(--line)">The specific customer and the pain — one sentence</td><td style="padding:9px 12px;border-bottom:1px solid var(--line)">"X user, when Y happens, today they Z" — must be a real person, not a persona</td></tr>
+        <tr><td style="padding:9px 12px;border-bottom:1px solid var(--line);font-weight:600">Deep-dive doc</td><td style="padding:9px 12px;border-bottom:1px solid var(--line)">Long-form memo: problem, history, options, edge cases</td><td style="padding:9px 12px;border-bottom:1px solid var(--line)">Draft / Reviewed / Approved — slides don't count</td></tr>
+        <tr><td style="padding:9px 12px;border-bottom:1px solid var(--line);font-weight:600">Edge cases addressed</td><td style="padding:9px 12px;border-bottom:1px solid var(--line)">How many honest failure modes the doc engages with</td><td style="padding:9px 12px;border-bottom:1px solid var(--line)">Integer count — a strong doc has ≥ 5</td></tr>
+        <tr><td style="padding:9px 12px;border-bottom:1px solid var(--line);font-weight:600">30-year filter</td><td style="padding:9px 12px;border-bottom:1px solid var(--line)">Does this still make sense if the company is around in 30 years?</td><td style="padding:9px 12px;border-bottom:1px solid var(--line)">Pass / Fail / Conditional — short-term-only fails this gate</td></tr>
+        <tr><td style="padding:9px 12px;border-bottom:1px solid var(--line);font-weight:600">Senior decision-maker</td><td style="padding:9px 12px;border-bottom:1px solid var(--line)">Single named person who owns the call</td><td style="padding:9px 12px;border-bottom:1px solid var(--line)">Name — no committees</td></tr>
+        <tr><td style="padding:9px 12px;font-weight:600">Verdict</td><td style="padding:9px 12px">Build / Re-draft / Defer / Kill</td><td style="padding:9px 12px">Per the rule below</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 style="font-family:Georgia,serif;font-size:18px;margin:24px 0 8px">Worked example — a backlog snapshot for a payments-platform team</h3>
+  <p style="font-size:13.5px;color:var(--ink-soft);margin:0 0 12px">Eight candidates shaped after the Stripe-style template. The point is the gate ratio — strong bets tend to clear, but many sit in re-draft or fail the 30-year filter for honest reasons.</p>
+
+  <div style="overflow-x:auto;margin:14px 0">
+    <table style="border-collapse:collapse;width:100%;font-size:13px;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden">
+      <thead><tr style="background:var(--ink);color:#f3efe6;font-size:11.5px;letter-spacing:.05em;text-transform:uppercase"><th style="padding:9px 10px;text-align:left">Feature</th><th style="padding:9px 10px;text-align:left">Bad-day moment</th><th style="padding:9px 10px;text-align:left">Deep-dive</th><th style="padding:9px 10px;text-align:left">Edge cases</th><th style="padding:9px 10px;text-align:left">30-year filter</th><th style="padding:9px 10px;text-align:left">Verdict</th></tr></thead>
+      <tbody>
+        <tr style="background:var(--teal-soft)"><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-weight:600">Localised payment method (Pix-style)</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">"Brazil merchants can't accept the dominant local rail"</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Approved</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">8</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Pass</td><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-family:Georgia,serif;color:var(--teal);font-weight:700">Build</td></tr>
+        <tr style="background:var(--teal-soft)"><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-weight:600">Refund API improvements</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">"Support burden: 30% of tickets are refund mechanics"</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Approved</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">6</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Pass</td><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-family:Georgia,serif;color:var(--teal);font-weight:700">Build</td></tr>
+        <tr style="background:var(--teal-soft)"><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-weight:600">SDK for new mobile framework</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">"Mobile devs blocked — can't integrate without our wrapper"</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Approved</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">5</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Pass</td><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-family:Georgia,serif;color:var(--teal);font-weight:700">Build</td></tr>
+        <tr><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-weight:600">New invoicing line-items</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">"PMs can't itemise discounts on annual deals"</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Draft — thin</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">2</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Pass</td><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-family:Georgia,serif;color:#9a7b2e;font-weight:700">Re-draft</td></tr>
+        <tr><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-weight:600">AI fraud explainer</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Vague — "merchants want to know why" but no specific scenario</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Draft — shallow</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">3</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Conditional</td><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-family:Georgia,serif;color:#9a7b2e;font-weight:700">Re-draft</td></tr>
+        <tr><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-weight:600">Embedded BaaS for marketplaces</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">"Marketplaces blocked on regulated banking primitives"</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">In progress</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">7</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Pass</td><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-family:Georgia,serif;color:var(--ink-soft);font-weight:700">Defer until doc ready</td></tr>
+        <tr><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-weight:600">Crypto on-ramp</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">"Customers asking for crypto checkout"</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Approved — surfaced regulatory + volatility risk</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">9</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Fail — volatility + reg flux</td><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-family:Georgia,serif;color:var(--ink-soft);font-weight:700">Defer — 30-yr filter</td></tr>
+        <tr><td style="padding:9px 10px;font-weight:600">Dashboard UI redesign</td><td style="padding:9px 10px">None — "modernise the UI"</td><td style="padding:9px 10px">Draft</td><td style="padding:9px 10px">1</td><td style="padding:9px 10px">—</td><td style="padding:9px 10px;font-family:Georgia,serif;color:var(--accent);font-weight:700">Kill — no bad-day moment</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note" style="margin-top:18px"><b>Decision rule.</b> Four gates, all must pass. <b>(1)</b> Real bad-day moment named in customer terms (not "modernise" or "improve")? <b>(2)</b> Deep-dive written, reviewed, edge cases engaged? <b>(3)</b> 30-year filter passes — short-term-only wins fail this even if they're tempting. <b>(4)</b> Single named decision-maker assigned? <b>Build</b> when all pass. <b>Re-draft</b> when the doc is thin or the bad-day is vague — go back to writing. <b>Defer</b> when the 30-yr filter fails or the doc isn't ready — neither a yes nor a no, just "not now." <b>Kill</b> when there's no bad-day moment after iteration; that means the feature was a wishlist item, not a customer problem. This method does not score; it filters by argument quality. The price of no formula is heavier reliance on the decision-maker's judgement — that trade-off is the discipline.</div>
 
   <div class="note"><b>Why it belongs on the list anyway.</b> Stripe is a $90B+ private company whose product decisions have been right at a remarkable rate. If a team concludes "we'll just score things with RICE and ship," Stripe is the counter-example: <em>great product judgement can come from disciplined writing and a long-term direction, no scoring formula required</em>. The discipline transfers; the absence of a scoring formula is the trade-off accepted.</div>
   <footer>

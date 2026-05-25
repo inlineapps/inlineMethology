@@ -102,7 +102,7 @@
 <div class="navgrp"><h4>Goal-laddering / Define first</h4>
 <a href="v2mom-framework.html">V2MOM (Salesforce)</a>
 <a href="pyramid-of-clarity-framework.html">Pyramid of Clarity (Asana)</a>
-<a href="pr-faq-framework.html">PR-FAQ (Amazon)</a>
+<a href="pr-faq-framework.html">PR-FAQ / Working Backwards (Amazon)</a>
 <a href="heart-framework.html">HEART (Google)</a>
 <a href="dibb-framework.html">DIBB (Spotify)</a>
 </div>
@@ -139,6 +139,7 @@
     <a href="#anatomy">LiX → XLNT → T-REX</a>
     <a href="#mechanism">How it picks work</a>
     <a href="#stats">The scale</a>
+    <a href="#apply">Apply to a sheet</a>
     <a href="methodologies-comparison.html" style="color:var(--blue);font-weight:700">Comparison table →</a>
   </nav>
 
@@ -198,6 +199,31 @@
     <div class="stat"><div class="n">700M+</div><div class="l">members in scope of every test</div></div>
   </div>
   <div class="caveat">Caveat: the 40k/day and 8k-metrics figures are from LinkedIn's own engineering blog (T-REX series, 2020+); confirm on the linked posts before quoting. They're the published claim, not an external audit.</div>
+
+  <!-- APPLY TO A SHEET -->
+  <h2 class="sec" id="apply">Apply to a feature sheet</h2>
+  <p class="secsub">XLNT/T-REX discipline turns the backlog into a live <strong>experiment ledger</strong> — every release carries its test. The columns mirror Microsoft ExP (OEC, guardrails, MDE, N, ramp, result, decision), with the LinkedIn-specific addition of a <em>network-interference check</em> (triangle test) because connection-based features can leak across treatment/control.</p>
+
+  <h3 style="font-family:Georgia,serif;font-size:18px;margin:18px 0 8px">Worked example — an experiment ledger snapshot (LinkedIn-style)</h3>
+  <p style="font-size:13.5px;color:var(--ink-soft);margin:0 0 12px">Eight experiments. OECs drawn from LinkedIn's published preference: <em>sessions per visitor per week</em> + downstream engagement. Numbers illustrative.</p>
+
+  <div style="overflow-x:auto;margin:14px 0">
+    <table style="border-collapse:collapse;width:100%;font-size:13px;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden">
+      <thead><tr style="background:var(--ink);color:#f3efe6;font-size:11.5px;letter-spacing:.05em;text-transform:uppercase"><th style="padding:9px 10px;text-align:left">Feature</th><th style="padding:9px 10px;text-align:left">OEC</th><th style="padding:9px 10px;text-align:left">Guardrails</th><th style="padding:9px 10px;text-align:left">N/arm</th><th style="padding:9px 10px;text-align:left">Network check</th><th style="padding:9px 10px;text-align:left">Result</th><th style="padding:9px 10px;text-align:left">Decision</th></tr></thead>
+      <tbody>
+        <tr style="background:#e6ecf6"><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-weight:600">Connection-suggestion algo v2</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Sessions/visitor/wk</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Connection spam, latency</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">2M</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Triangle OK</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">+0.8% sig, guards held</td><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-family:Georgia,serif;color:var(--blue);font-weight:700">Ship</td></tr>
+        <tr style="background:#e6ecf6"><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-weight:600">Improved feed ranking</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Sessions/visitor/wk</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Negative-feedback rate, latency</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">5M</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Triangle OK</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">+1.4% sig</td><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-family:Georgia,serif;color:var(--blue);font-weight:700">Ship</td></tr>
+        <tr style="background:#e6ecf6"><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-weight:600">Profile-completion nudge</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">% profiles complete</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Unsubscribes, complaint rate</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">800k</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">N/A</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">+6 pp completion, guards OK</td><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-family:Georgia,serif;color:var(--blue);font-weight:700">Ship</td></tr>
+        <tr style="background:#e6ecf6"><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-weight:600">Endorsement spam filter</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Connection quality score</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">False-positive rate</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">1M</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">N/A</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">−12% spam, FP &lt; 0.2%</td><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-family:Georgia,serif;color:var(--blue);font-weight:700">Ship</td></tr>
+        <tr><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-weight:600">Inline congratulations prompts</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Engagement events/session</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Notification-mute rate</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">500k</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Triangle OK</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">+0.3% NS, mute rate +1%</td><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-family:Georgia,serif;color:var(--gold);font-weight:700">Iterate</td></tr>
+        <tr><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-weight:600">Auto-translate posts</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Locale engagement</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Reading-time, errors</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">300k</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">N/A</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">+0.4% NS (under-powered)</td><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-family:Georgia,serif;color:var(--gold);font-weight:700">Iterate — extend</td></tr>
+        <tr><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-weight:600">Aggressive notification frequency</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Engagement events</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Unsubscribes, mute rate</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">2M</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">N/A</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">+5% engagement BUT unsubs +15%</td><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-family:Georgia,serif;color:var(--accent);font-weight:700">Kill</td></tr>
+        <tr><td style="padding:9px 10px;font-weight:600">AI cover photo generator</td><td style="padding:9px 10px">Engagement</td><td style="padding:9px 10px">Latency, errors</td><td style="padding:9px 10px">400k</td><td style="padding:9px 10px">N/A</td><td style="padding:9px 10px">Flat, SRM flagged</td><td style="padding:9px 10px;font-family:Georgia,serif;color:var(--ink-soft);font-weight:700">Invalid — re-randomize</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note"><b>Decision rule.</b> Same OEC + guardrails rule as Microsoft ExP, with one LinkedIn twist: any feature that touches the social graph (suggestions, content reach, notifications) must pass a <em>network-interference check</em> before the result is trusted. The notification-frequency row shows why guardrails matter — engagement up means nothing if unsubscribes spike harder. The cover-photo row is invalidated by SRM (sample-ratio mismatch), the trust check that catches assignment bugs before they read as wins.</div>
 
   <div class="note"><b>The transferable insight.</b> LinkedIn proves you don't need a unique <em>method</em> to win — same OEC + ramp discipline as Microsoft. What you need is <b>tooling so cheap that no one has to ask permission to run a test</b>. For a smaller team, that "tooling" doesn't need to be a custom platform; it can be a feature-flag service + a shared metrics dashboard + a written norm that every release ramps 1%→10%→50%→100% behind a pre-declared OEC.</div>
   <footer>

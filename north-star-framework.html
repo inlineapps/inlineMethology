@@ -109,7 +109,7 @@
 <div class="navgrp"><h4>Goal-laddering / Define first</h4>
 <a href="v2mom-framework.html">V2MOM (Salesforce)</a>
 <a href="pyramid-of-clarity-framework.html">Pyramid of Clarity (Asana)</a>
-<a href="pr-faq-framework.html">PR-FAQ (Amazon)</a>
+<a href="pr-faq-framework.html">PR-FAQ / Working Backwards (Amazon)</a>
 <a href="heart-framework.html">HEART (Google)</a>
 <a href="dibb-framework.html">DIBB (Spotify)</a>
 </div>
@@ -252,16 +252,21 @@
     </table>
   </div>
 
-  <h3 style="font-family:Georgia,serif;font-size:18px;margin:24px 0 8px">Worked example — three features against a Slack-style NSM</h3>
-  <p style="font-size:13.5px;color:var(--ink-soft);margin:0 0 12px">NSM = Weekly Active Teams. Inputs = Breadth, <b>Depth (% teams reaching 2,000 messages)</b>, Retention, Efficiency. This cycle's focus input = <b>Depth</b>. Numbers illustrative.</p>
+  <h3 style="font-family:Georgia,serif;font-size:18px;margin:24px 0 8px">Worked example — a backlog snapshot against a Slack-style NSM</h3>
+  <p style="font-size:13.5px;color:var(--ink-soft);margin:0 0 12px">NSM = <b>Weekly Active Teams</b>. Inputs = <b>Breadth</b> (teams active), <b>Depth</b> (% teams reaching 2,000 messages), <b>Retention</b> (4-wk return), <b>Efficiency</b> (time-to-first-message). <b>This cycle's focus input = Depth.</b> Numbers illustrative.</p>
 
   <div class="extable">
     <table class="ex">
-      <thead><tr><th>Feature</th><th>Input moved</th><th>Projected lift</th><th>Confidence</th><th>Focus input?</th><th>Verdict</th></tr></thead>
+      <thead><tr><th>Feature</th><th>Input moved</th><th>Projected lift</th><th>Confidence</th><th>Focus input?</th><th>Effort (PM)</th><th>Verdict</th></tr></thead>
       <tbody>
-        <tr class="top"><td>Onboarding revamp (channel templates + invite nudge)</td><td>Depth</td><td>40% → 55% of teams reach 2k msgs</td><td>Data (funnel drop measured)</td><td>Yes</td><td class="score">In</td></tr>
-        <tr><td>Expand integrations directory</td><td>Breadth</td><td>+8% teams with ≥1 active integration</td><td>Analogy</td><td>No (Breadth, not Depth)</td><td class="score" style="color:var(--ink-soft)">Out · queue</td></tr>
-        <tr><td>Dark mode</td><td>None claimed</td><td>—</td><td>—</td><td>No</td><td class="score" style="color:var(--ink-soft)">Out · vanity</td></tr>
+        <tr class="top"><td>Onboarding revamp</td><td>Depth</td><td>40% → 55% reach 2k msgs</td><td>Data — funnel measured</td><td>Yes</td><td>4</td><td class="score">In</td></tr>
+        <tr class="top"><td>Channel templates library</td><td>Depth</td><td>+5 pp Depth</td><td>Analogy — similar OSS feature shipped</td><td>Yes</td><td>2</td><td class="score">In</td></tr>
+        <tr class="top"><td>Invite-after-first-channel nudge</td><td>Depth</td><td>+3 pp Depth</td><td>Data — pilot A/B at +3.2%</td><td>Yes</td><td>1</td><td class="score">In</td></tr>
+        <tr><td>Mobile push notifications</td><td>Depth (msgs read)</td><td>+6% msgs read on mobile</td><td>Hunch</td><td>Yes (Depth-adjacent)</td><td>5</td><td class="score" style="color:var(--gold)">In · low conf — pilot first</td></tr>
+        <tr><td>Re-engagement email for dormant teams</td><td>Retention</td><td>+2 pp 4-wk return</td><td>Data</td><td>No (Retention)</td><td>2</td><td class="score" style="color:var(--ink-soft)">Out · queue (next cycle if focus shifts)</td></tr>
+        <tr><td>Expand integrations directory</td><td>Breadth</td><td>+8% teams with ≥1 integration</td><td>Analogy</td><td>No (Breadth)</td><td>6</td><td class="score" style="color:var(--ink-soft)">Out · queue</td></tr>
+        <tr><td>Faster search index</td><td>Efficiency</td><td>-200 ms p50</td><td>Data</td><td>No (Efficiency)</td><td>3</td><td class="score" style="color:var(--ink-soft)">Out · queue</td></tr>
+        <tr><td>Dark mode</td><td>None claimed</td><td>—</td><td>—</td><td>No</td><td>1</td><td class="score" style="color:var(--accent)">Out · vanity</td></tr>
       </tbody>
     </table>
   </div>

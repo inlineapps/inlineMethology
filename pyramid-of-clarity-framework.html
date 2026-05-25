@@ -102,7 +102,7 @@
 <div class="navgrp"><h4>Goal-laddering / Define first</h4>
 <a href="v2mom-framework.html">V2MOM (Salesforce)</a>
 <a class="cur" href="pyramid-of-clarity-framework.html">Pyramid of Clarity (Asana)</a>
-<a href="pr-faq-framework.html">PR-FAQ (Amazon)</a>
+<a href="pr-faq-framework.html">PR-FAQ / Working Backwards (Amazon)</a>
 <a href="heart-framework.html">HEART (Google)</a>
 <a href="dibb-framework.html">DIBB (Spotify)</a>
 </div>
@@ -140,6 +140,7 @@
     <a href="#mechanism">How it picks work</a>
     <a href="#compare">vs V2MOM, vs OKRs</a>
     <a href="#limits">What it doesn't do</a>
+    <a href="#apply">Apply to a sheet</a>
     <a href="methodologies-comparison.html" style="color:var(--gold);font-weight:700">Comparison table →</a>
   </nav>
 
@@ -203,6 +204,51 @@
     <b>It does not score features.</b> A Project tied to a KR is "justified," not "high-impact." If three Projects are all tied to the same KR, the Pyramid doesn't tell you which to do first. That's where <a class="cite" href="rice-framework.html">RICE</a>, the <a class="cite" href="north-star-framework.html">North Star Framework</a>, or <a class="cite" href="microsoft-exp-framework.html">experimentation</a> come in.<br><br>
     <b>It is only as honest as its KRs.</b> If KRs are vanity metrics (output counts, "ship X features"), the Pyramid laddering will look perfect while the company is going sideways. The discipline is forcing <em>outcome</em> KRs, not output KRs.
   </div>
+
+  <!-- APPLY TO A SHEET -->
+  <h2 class="sec" id="apply">Apply to a feature sheet</h2>
+  <p class="secsub">The Pyramid doesn't rank — it <strong>enforces upward traceability</strong>. If you adopt it, every Project on the backlog must declare its parent KR (which traces to an Objective, then Strategy, then Mission). Orphan Projects — those with no KR parent — are flagged for either re-shaping or dropping. No score, just a trace.</p>
+
+  <p style="font-size:13.5px;color:var(--ink-soft);margin:0 0 12px">For the worked example below, assume this team's pyramid:<br>
+  <b>Mission:</b> "Help product teams work together effortlessly." &nbsp;
+  <b>Strategy:</b> "Become the system-of-record for cross-team work." &nbsp;
+  <b>Objective Q3:</b> "Lift activation &amp; collaboration depth in mid-market."<br>
+  <b>KRs:</b> <code style="background:#f6efdc;padding:2px 6px;border-radius:4px;font-size:12.5px">KR1 — D14 activation 38% → 50%</code> · <code style="background:#f6efdc;padding:2px 6px;border-radius:4px;font-size:12.5px">KR2 — Avg cross-team projects/workspace 1.2 → 2.5</code> · <code style="background:#f6efdc;padding:2px 6px;border-radius:4px;font-size:12.5px">KR3 — SOC2 attestation by Q4</code></p>
+
+  <div style="overflow-x:auto;margin:14px 0">
+    <table style="border-collapse:collapse;width:100%;font-size:13.5px;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden">
+      <thead><tr style="background:var(--ink);color:#f3efe6;font-size:12px;letter-spacing:.05em;text-transform:uppercase"><th style="padding:10px 12px;text-align:left">Column to add</th><th style="padding:10px 12px;text-align:left">What it captures</th><th style="padding:10px 12px;text-align:left">How you fill it</th></tr></thead>
+      <tbody>
+        <tr><td style="padding:9px 12px;border-bottom:1px solid var(--line);font-weight:600">Project / Feature</td><td style="padding:9px 12px;border-bottom:1px solid var(--line)">Backlog item</td><td style="padding:9px 12px;border-bottom:1px solid var(--line)">Existing title</td></tr>
+        <tr><td style="padding:9px 12px;border-bottom:1px solid var(--line);font-weight:600">Parent KR</td><td style="padding:9px 12px;border-bottom:1px solid var(--line)">Which KR this Project moves</td><td style="padding:9px 12px;border-bottom:1px solid var(--line)">KR1 / KR2 / KR3 — or "orphan" to surface the problem</td></tr>
+        <tr><td style="padding:9px 12px;border-bottom:1px solid var(--line);font-weight:600">Expected contribution</td><td style="padding:9px 12px;border-bottom:1px solid var(--line)">How much this Project lifts the KR</td><td style="padding:9px 12px;border-bottom:1px solid var(--line)">Numeric estimate; if you can't say, that's a flag</td></tr>
+        <tr><td style="padding:9px 12px;border-bottom:1px solid var(--line);font-weight:600">Output or outcome?</td><td style="padding:9px 12px;border-bottom:1px solid var(--line)">Is the contribution an outcome (KR moves) or just an output (feature ships)?</td><td style="padding:9px 12px;border-bottom:1px solid var(--line)">Outcome (counts) / Output (flag — KR likely vanity)</td></tr>
+        <tr><td style="padding:9px 12px;border-bottom:1px solid var(--line);font-weight:600">Effort</td><td style="padding:9px 12px;border-bottom:1px solid var(--line)">Rough size — for tiebreakers among in-scope</td><td style="padding:9px 12px;border-bottom:1px solid var(--line)">T-shirt or person-months</td></tr>
+        <tr><td style="padding:9px 12px;font-weight:600">In-scope this Objective?</td><td style="padding:9px 12px">The verdict</td><td style="padding:9px 12px">In (KR + outcome) / Re-shape (loose KR trace) / Orphan</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 style="font-family:Georgia,serif;font-size:18px;margin:24px 0 8px">Worked example — backlog snapshot against the team's Pyramid</h3>
+  <p style="font-size:13.5px;color:var(--ink-soft);margin:0 0 12px">Eight Projects. The trace test quickly separates work that ladders to a KR from work that's been on the roadmap simply because it was on the previous one.</p>
+
+  <div style="overflow-x:auto;margin:14px 0">
+    <table style="border-collapse:collapse;width:100%;font-size:13px;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden">
+      <thead><tr style="background:var(--ink);color:#f3efe6;font-size:11.5px;letter-spacing:.05em;text-transform:uppercase"><th style="padding:9px 10px;text-align:left">Project</th><th style="padding:9px 10px;text-align:left">Parent KR</th><th style="padding:9px 10px;text-align:left">Expected contribution</th><th style="padding:9px 10px;text-align:left">Outcome / Output</th><th style="padding:9px 10px;text-align:left">Effort (PM)</th><th style="padding:9px 10px;text-align:left">Verdict</th></tr></thead>
+      <tbody>
+        <tr style="background:#f6efdc"><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-weight:600">First-run wizard with sample data</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">KR1</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">+4 pp D14 activation</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Outcome</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">4</td><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-family:Georgia,serif;color:var(--gold);font-weight:700">In</td></tr>
+        <tr style="background:#f6efdc"><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-weight:600">Invite-after-first-project nudge</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">KR2</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">+0.4 avg cross-team projects/workspace</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Outcome</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">1</td><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-family:Georgia,serif;color:var(--gold);font-weight:700">In</td></tr>
+        <tr style="background:#f6efdc"><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-weight:600">Cross-team templates library</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">KR2</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">+0.6 avg cross-team projects/workspace</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Outcome</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">3</td><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-family:Georgia,serif;color:var(--gold);font-weight:700">In</td></tr>
+        <tr style="background:#f6efdc"><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-weight:600">SOC2 readiness audit &amp; remediation</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">KR3</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">SOC2 attestation by Q4</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Outcome (binary)</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">6</td><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-family:Georgia,serif;color:var(--gold);font-weight:700">In</td></tr>
+        <tr><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-weight:600">AI insights panel</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">KR1 (claimed)</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">"helps activation" — no number</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Output</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">8</td><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-family:Georgia,serif;color:#9a7b2e;font-weight:700">Re-shape — output not outcome</td></tr>
+        <tr><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-weight:600">Migrate 5 services to new ORM</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Orphan ("eng hygiene")</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">—</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Output</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">5</td><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-family:Georgia,serif;color:#9a7b2e;font-weight:700">Re-shape — split into KR-tied chunks or defer</td></tr>
+        <tr><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-weight:600">Customisable dashboard widgets</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Orphan</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">—</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Output</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">4</td><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-family:Georgia,serif;color:var(--ink-soft);font-weight:700">Orphan — drop or wait for parent KR</td></tr>
+        <tr><td style="padding:9px 10px;font-weight:600">Dark mode</td><td style="padding:9px 10px">Orphan</td><td style="padding:9px 10px">—</td><td style="padding:9px 10px">Output</td><td style="padding:9px 10px">1</td><td style="padding:9px 10px;font-family:Georgia,serif;color:var(--accent);font-weight:700">Orphan — drop</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note" style="margin-top:18px"><b>Decision rule.</b> Three gates. <b>(1)</b> Does the Project trace to a KR? Orphans fail the Pyramid — drop or wait for a parent. <b>(2)</b> Is the expected contribution an <em>outcome</em> (a measurable KR move) or just an <em>output</em> (a thing that gets shipped)? Outputs disguised as outcomes are the AI-panel pattern — re-shape until you can state the lift. <b>(3)</b> Once in-scope, rank Projects against each other inside the same KR by Effort / contribution. The Pyramid filters; you still need <a class="cite" href="rice-framework.html">RICE</a> or <a class="cite" href="microsoft-exp-framework.html">experiments</a> to choose between two Projects that both ladder up.</div>
 
   <div class="note"><b>Why the Pyramid is on the list anyway.</b> It is the most concrete artifact of "every task must explain itself." That alone catches the common planning failure mode — items that are on the roadmap because they were on last sprint's roadmap, never asked <em>which</em> outcome they're meant to move.</div>
   <footer>

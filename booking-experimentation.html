@@ -105,7 +105,7 @@
 <div class="navgrp"><h4>Goal-laddering / Define first</h4>
 <a href="v2mom-framework.html">V2MOM (Salesforce)</a>
 <a href="pyramid-of-clarity-framework.html">Pyramid of Clarity (Asana)</a>
-<a href="pr-faq-framework.html">PR-FAQ (Amazon)</a>
+<a href="pr-faq-framework.html">PR-FAQ / Working Backwards (Amazon)</a>
 <a href="heart-framework.html">HEART (Google)</a>
 <a href="dibb-framework.html">DIBB (Spotify)</a>
 </div>
@@ -142,6 +142,7 @@
     <a href="#anatomy">Three pillars</a>
     <a href="#mechanism">How it picks work</a>
     <a href="#example">The sold-out story</a>
+    <a href="#apply">Apply to a sheet</a>
     <a href="methodologies-comparison.html" style="color:var(--blue);font-weight:700">Comparison table →</a>
   </nav>
 
@@ -199,6 +200,31 @@
     <p style="color:var(--ink-soft);font-size:13px">No prioritization framework would have ranked "show users things they can't buy" highly. The experiment found it. That's the entire case for the culture: <em>the wins you'd never have predicted are why measurement beats estimation</em>.</p>
     <div class="src" style="margin-top:6px">Source: Thomke, HBR 2020.</div>
   </div>
+
+  <!-- APPLY TO A SHEET -->
+  <h2 class="sec" id="apply">Apply to a feature sheet</h2>
+  <p class="secsub">Booking's discipline turns the backlog into an always-on experiment queue. With 1,000+ concurrent tests, the sheet doesn't have a "this quarter's bets" view — it has <em>what's running right now</em>. Columns mirror Microsoft ExP with Booking-specific OEC (conversion to booking, revenue per visitor) and guardrails (cancellation rate, refund rate).</p>
+
+  <h3 style="font-family:Georgia,serif;font-size:18px;margin:18px 0 8px">Worked example — an experiment queue snapshot (Booking-style)</h3>
+  <p style="font-size:13.5px;color:var(--ink-soft);margin:0 0 12px">Eight tests. Numbers illustrative. The "sold-out properties" row is the canonical published example.</p>
+
+  <div style="overflow-x:auto;margin:14px 0">
+    <table style="border-collapse:collapse;width:100%;font-size:13px;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden">
+      <thead><tr style="background:var(--ink);color:#f3efe6;font-size:11.5px;letter-spacing:.05em;text-transform:uppercase"><th style="padding:9px 10px;text-align:left">Feature</th><th style="padding:9px 10px;text-align:left">OEC</th><th style="padding:9px 10px;text-align:left">Guardrails</th><th style="padding:9px 10px;text-align:left">N/arm</th><th style="padding:9px 10px;text-align:left">Ramp</th><th style="padding:9px 10px;text-align:left">Result</th><th style="padding:9px 10px;text-align:left">Decision</th></tr></thead>
+      <tbody>
+        <tr style="background:#e6ecf6"><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-weight:600">Show sold-out properties (canonical)</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Conv to booking</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Cancellation, refund</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">1.2M</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">50/50</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">+1.3% conv, cancel flat</td><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-family:Georgia,serif;color:var(--blue);font-weight:700">Ship</td></tr>
+        <tr style="background:#e6ecf6"><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-weight:600">Property-page redesign</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Conv to booking</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Bounce, scroll depth</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">800k</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">25%·50%</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">+0.8% conv, bounce flat</td><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-family:Georgia,serif;color:var(--blue);font-weight:700">Ship</td></tr>
+        <tr style="background:#e6ecf6"><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-weight:600">AI description translation</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Conv to booking</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Description-edit complaints</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">400k</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">50/50</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">+0.5% conv (locale), OK</td><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-family:Georgia,serif;color:var(--blue);font-weight:700">Ship</td></tr>
+        <tr style="background:#e6ecf6"><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-weight:600">Loyalty badge on profile</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Repeat-booking rate</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">New-user conv</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">600k</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">50/50</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">+0.4% repeat, OK</td><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-family:Georgia,serif;color:var(--blue);font-weight:700">Ship</td></tr>
+        <tr><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-weight:600">Scarcity countdown timer</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Conv to booking</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Cancellation, support tickets</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">300k</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">25%·50%</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">+0.4% conv, tickets +6%</td><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-family:Georgia,serif;color:var(--gold);font-weight:700">Iterate — softer copy</td></tr>
+        <tr><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-weight:600">New filter UX</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Conv to booking</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Search-abandon</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">500k</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">25%</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Flat, search-abandon +0.4%</td><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-family:Georgia,serif;color:var(--gold);font-weight:700">Iterate</td></tr>
+        <tr><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-weight:600">Pre-emptive cancel-fee warning</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">Conv to booking</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">—</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">200k</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">5%</td><td style="padding:9px 10px;border-bottom:1px solid var(--line)">−0.5% conv</td><td style="padding:9px 10px;border-bottom:1px solid var(--line);font-family:Georgia,serif;color:var(--accent);font-weight:700">Kill</td></tr>
+        <tr><td style="padding:9px 10px;font-weight:600">Aggressive cross-sell modal</td><td style="padding:9px 10px">Revenue/visitor</td><td style="padding:9px 10px">Cancellation</td><td style="padding:9px 10px">250k</td><td style="padding:9px 10px">5%</td><td style="padding:9px 10px">Rev +5% BUT cancellations +12%</td><td style="padding:9px 10px;font-family:Georgia,serif;color:var(--accent);font-weight:700">Kill</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note"><b>Decision rule.</b> Standard OEC + guardrails — but Booking's two distinguishing guardrails are <em>cancellation rate</em> and <em>refund rate</em>. The cross-sell row shows why: a feature that lifts revenue by tricking users into bookings they cancel is worse than no feature. The sold-out row is the published canonical: nobody would have <em>guessed</em> that showing things users can't buy would increase bookings — only an experiment found it. That's the entire case for measure-don't-estimate at this scale.</div>
 
   <div class="note"><b>The transferable insight: cheap-to-launch is the lever.</b> The reason Booking's culture works is that the cost to run a test is so low that <em>not</em> running one is the unusual choice. For a team our size, "cheap" means automated guardrails and a single shared metric definition — not 100 data scientists. The expensive part is the discipline of writing the hypothesis and OEC <em>every time</em>.</div>
   <footer>

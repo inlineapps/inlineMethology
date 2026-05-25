@@ -104,7 +104,7 @@
 <div class="navgrp"><h4>Goal-laddering / Define first</h4>
 <a href="v2mom-framework.html">V2MOM (Salesforce)</a>
 <a href="pyramid-of-clarity-framework.html">Pyramid of Clarity (Asana)</a>
-<a href="pr-faq-framework.html">PR-FAQ (Amazon)</a>
+<a href="pr-faq-framework.html">PR-FAQ / Working Backwards (Amazon)</a>
 <a class="cur" href="heart-framework.html">HEART (Google)</a>
 <a href="dibb-framework.html">DIBB (Spotify)</a>
 </div>
@@ -141,6 +141,7 @@
     <a href="#anatomy">HEART + GSM</a>
     <a href="#mechanism">How it picks metrics</a>
     <a href="#example">Worked example</a>
+    <a href="#apply">Apply to a sheet</a>
     <a href="#limits">What it doesn't do</a>
     <a href="methodologies-comparison.html" style="color:var(--gold);font-weight:700">Comparison table →</a>
   </nav>
@@ -201,6 +202,51 @@
     </table>
   </div>
   <p style="font-size:13px;color:var(--ink-soft)">Reading: four metrics, all traceable upward to a goal. The Happiness row is a <em>guardrail</em> — it can't drive shipping the feature but it can stop you from shipping if it goes the wrong way. Notice how the ladder forces you off "engagement is up" hand-waving onto a specific number you can argue with.</p>
+
+  <!-- APPLY TO A SHEET -->
+  <h2 class="sec" id="apply">Apply to a feature sheet</h2>
+  <p class="secsub">HEART/GSM doesn't rank features — it tells you <strong>what metric each feature owes a result on</strong>. If you adopt it, every shipped feature in your backlog gains a HEART row: which dimension(s) it moves, the goal/signal/metric trio, baseline, target, actual, and the decision you make once the data lands.</p>
+
+  <p style="font-size:13.5px;color:var(--ink-soft);margin:0 0 14px">Style note borrowed from Google's CHI paper: pick 2–3 HEART dimensions per feature (not all five), and always include at least one <em>guardrail</em> from a dimension you're <em>not</em> trying to lift (Happiness is the common choice).</p>
+
+  <div class="extable" style="overflow-x:auto;margin:14px 0">
+    <table class="ex" style="border-collapse:collapse;width:100%;font-size:13.5px;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden">
+      <thead><tr><th>Column to add</th><th>What it captures</th><th>How you fill it</th></tr></thead>
+      <tbody>
+        <tr><td>Feature</td><td>Shipped or in-flight item</td><td>Backlog title</td></tr>
+        <tr><td>HEART dimension(s)</td><td>Which 2–3 dimensions this feature claims to move</td><td>H / E / A / R / T — pick 2–3, name the ones you're <em>not</em> moving</td></tr>
+        <tr><td>Goal</td><td>What the user is trying to do, in user language</td><td>One sentence — observable from the user's perspective</td></tr>
+        <tr><td>Signal</td><td>Observable behaviour that shows progress</td><td>The action that proves the goal is being met</td></tr>
+        <tr><td>Metric</td><td>The formula that counts the signal</td><td>Cheapest-to-compute, hardest-to-game candidate</td></tr>
+        <tr><td>Baseline</td><td>Where the metric is today (before the feature)</td><td>From analytics — must exist before the build</td></tr>
+        <tr><td>Target</td><td>Where you want the metric to land</td><td>An ambitious-but-defensible number</td></tr>
+        <tr><td>Guardrail</td><td>Dimension that must <em>not</em> regress (usually Happiness)</td><td>Support contacts, NPS, complaint rate</td></tr>
+        <tr><td>Actual</td><td>Result after ramp</td><td>Post-launch readout</td></tr>
+        <tr><td>Decision</td><td>Keep / Iterate / Roll back / Kill</td><td>Per the rule below</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 style="font-family:Georgia,serif;font-size:18px;margin:24px 0 8px">Worked example — backlog snapshot for an email-client team</h3>
+  <p style="font-size:13.5px;color:var(--ink-soft);margin:0 0 12px">Eight features at different post-ship stages, shaped after the Gmail-Snooze ladder above. Illustrative numbers — the point is the verdict logic.</p>
+
+  <div class="extable">
+    <table class="ex">
+      <thead><tr><th>Feature</th><th>HEART</th><th>Primary metric</th><th>Baseline</th><th>Target</th><th>Actual</th><th>Guardrail (Happiness)</th><th>Decision</th></tr></thead>
+      <tbody>
+        <tr class="top"><td>Snooze (canonical)</td><td>A + E</td><td>% WAU snoozing / month</td><td>0%</td><td>15%</td><td>12%</td><td>Support: −0.2 / 1k</td><td class="score">Keep</td></tr>
+        <tr class="top"><td>Smart Compose</td><td>E + T</td><td>% suggestions accepted</td><td>0%</td><td>25%</td><td>30%</td><td>NPS flat</td><td class="score">Keep</td></tr>
+        <tr class="top"><td>Schedule send</td><td>A</td><td>% WAU using / month</td><td>0%</td><td>8%</td><td>11%</td><td>OK</td><td class="score">Keep</td></tr>
+        <tr class="top"><td>Confidential mode</td><td>A</td><td>% threads w/ confidential on</td><td>0%</td><td>5%</td><td>1.8%</td><td>OK — niche feature</td><td class="score">Keep · niche</td></tr>
+        <tr><td>AI-summarize-thread</td><td>E + T</td><td>summaries clicked / thread</td><td>0%</td><td>20%</td><td>9%</td><td>Support: +1.4 / 1k (mild)</td><td class="score" style="color:var(--gold)">Iterate</td></tr>
+        <tr><td>Voice dictation</td><td>A + E</td><td>% weekly active users using</td><td>0%</td><td>10%</td><td>4%</td><td>OK</td><td class="score" style="color:var(--gold)">Iterate</td></tr>
+        <tr><td>Inline calendar suggestions</td><td>T</td><td>events created / email</td><td>1.2%</td><td>4%</td><td>0.6%</td><td>OK</td><td class="score" style="color:var(--accent)">Kill</td></tr>
+        <tr><td>Reading-pane redesign</td><td>T + H</td><td>time-to-first-action</td><td>5.2s</td><td>4.5s</td><td>4.8s</td><td>NPS −3 pts</td><td class="score" style="color:var(--accent)">Roll back</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note"><b>Decision rule.</b> <b>Keep</b> when the primary metric reaches (or comes close to) target <em>and</em> the guardrail holds. "Niche" is a legal verdict — Confidential mode kept because it serves a small segment well without harming others. <b>Iterate</b> when the metric moved less than expected but guardrails hold; change the variant, re-run. <b>Roll back</b> when the guardrail breaches (the reading-pane row: faster but unhappier). <b>Kill</b> when the metric didn't move and there's no obvious next iteration. HEART/GSM defines <em>what</em> winning looks like; <a class="cite" href="microsoft-exp-framework.html">controlled experiments</a> tell you whether you won.</div>
 
   <!-- LIMITS -->
   <h2 class="sec" id="limits">What HEART/GSM does not do</h2>
