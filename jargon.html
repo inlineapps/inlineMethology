@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jargon — plain-English glossary for the framework deep-dives</title>
+<link rel="stylesheet" href="framework.css">
+<style>
+  /* Page-accent — slate, distinct from any framework's color so it reads as "reference companion" */
+  :root{--page-accent:#3f4a63;--page-accent-soft:#e8eaef}
+  /* Glossary-specific entry styling */
+  .term{background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:10px 0;box-shadow:var(--shadow);border-left:4px solid var(--page-accent)}
+  .term h3{margin:0 0 6px;font-family:Georgia,serif;font-size:18px;color:var(--ink)}
+  .term h3 .expand{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:13px;font-weight:400;color:var(--ink-soft);margin-left:6px}
+  .term p{margin:0 0 8px;font-size:14.5px;line-height:1.55}
+  .term p:last-child{margin-bottom:0}
+  .term .first{font-size:12.5px;color:var(--ink-soft);border-top:1px dashed var(--line);padding-top:8px;margin-top:8px}
+  .term .first a{color:var(--teal);text-decoration:none;border-bottom:1px solid var(--teal)}
+  .term .first a:hover{color:var(--accent);border-color:var(--accent)}
+  .term .why{display:block;margin-top:3px;color:var(--page-accent);font-style:italic}
+  /* Category section header tweak: tighter so 7 categories scan easily */
+  h2.sec{margin-top:34px}
+  .catdesc{color:var(--ink-soft);font-size:14px;margin:0 0 12px;max-width:68ch}
+  /* Cross-link inside body — used for "see also" within a definition */
+  a.x{color:var(--page-accent);text-decoration:none;border-bottom:1px dotted var(--page-accent)}
+  a.x:hover{border-bottom-style:solid}
+</style>
+</head>
+<body>
+<nav class="sitenav">
+<details>
+<summary>📑 Jump to</summary>
+<div class="navmenu">
+<div class="navgrp"><h4>Start here</h4>
+<a href="index.html"><b>← Home (goal &amp; map)</b></a>
+<a href="impact-saas-companies.html">SaaS / B2B field study</a>
+<a href="impact-consumer-companies.html">Consumer-tech field study</a>
+<a href="methodologies-comparison.html"><b>All methods compared →</b></a>
+<a href="experiment-trustworthiness.html">How 40k tests actually work →</a>
+<a class="cur" href="jargon.html"><b>Jargon (glossary)</b></a>
+</div>
+<div class="navgrp"><h4>Scoring &amp; Input modeling</h4>
+<a href="rice-framework.html">RICE (Intercom)</a>
+<a href="north-star-framework.html">North Star (Amplitude / Slack)</a>
+</div>
+<div class="navgrp"><h4>Goal-laddering / Define first</h4>
+<a href="v2mom-framework.html">V2MOM (Salesforce)</a>
+<a href="pyramid-of-clarity-framework.html">Pyramid of Clarity (Asana)</a>
+<a href="pr-faq-framework.html">PR-FAQ / Working Backwards (Amazon)</a>
+<a href="heart-framework.html">HEART (Google)</a>
+<a href="dibb-framework.html">DIBB (Spotify)</a>
+</div>
+<div class="navgrp"><h4>Experimentation (SaaS)</h4>
+<a href="microsoft-exp-framework.html">Microsoft ExP / CUPED</a>
+<a href="linkedin-xlnt-framework.html">LinkedIn T-REX</a>
+</div>
+<div class="navgrp"><h4>Experimentation (Consumer)</h4>
+<a href="netflix-experimentation.html">Netflix · ABlaze</a>
+<a href="booking-experimentation.html">Booking.com</a>
+<a href="airbnb-erf-framework.html">Airbnb ERF</a>
+<a href="uber-xp-framework.html">Uber XP</a>
+<a href="doordash-switchback-framework.html">DoorDash switchback</a>
+<a href="lyft-experimentation.html">Lyft</a>
+<a href="pinterest-ab-framework.html">Pinterest</a>
+</div>
+<div class="navgrp"><h4>AI labs</h4>
+<a href="anthropic-side-quest-framework.html">Anthropic side quests</a>
+<a href="openai-iterative-deployment-framework.html">OpenAI iterative deployment</a>
+</div>
+<div class="navgrp"><h4>Written discipline</h4>
+<a href="stripe-shaping-framework.html">Stripe shaping</a>
+</div>
+</div>
+</details>
+</nav>
+
+<div class="wrap">
+  <header class="masthead">
+    <p class="kicker">Reference · Glossary</p>
+    <h1>Jargon — what these terms mean in plain English</h1>
+    <p class="sub">Every acronym, statistical method, and methodology-specific term used across the framework deep-dives, in plain language. Written for anyone in the company — not just PMs, engineers, or data scientists. Each entry says what the term means, where it first shows up, and why it matters.</p>
+    <div class="goal"><span>Goal</span><br>Skim any framework page without getting stuck on an acronym you've never seen before.</div>
+  </header>
+
+  <div class="eli">
+    <span class="lbl">🎓 8th-grade version</span>
+    <p>The framework deep-dives use a lot of insider words — <b>CUPED, OEC, SUTVA, side quest, ghosting</b> — that mean specific things to PMs, data scientists, or researchers. This page translates each one. You don't need to read it cover-to-cover; click any term on any framework page and you'll land at its definition here.</p>
+    <p>The glossary is grouped by topic, then alphabetical inside each group. Skip to the group you need from the menu below.</p>
+  </div>
+
+  <nav class="toc">
+    <a href="#exp-stats">Stats &amp; methods</a>
+    <a href="#exp-infra">Experiment infra</a>
+    <a href="#pm">PM frameworks</a>
+    <a href="#ai-safety">AI-lab safety</a>
+    <a href="#stripe">Stripe shaping</a>
+    <a href="#metrics">Metrics &amp; numbers</a>
+    <a href="#infra">Infra &amp; web terms</a>
+    <a href="methodologies-comparison.html" style="color:var(--accent);font-weight:700">Comparison table →</a>
+  </nav>
+
+  <div class="finding">
+    <h2>How to read this glossary</h2>
+    <p>Each entry is one paragraph. If a definition mentions another term in <a class="x" href="#oec">dotted underline</a>, that term has its own entry here too. The <b>"First seen here"</b> link goes to the deep-dive page where the term originally appeared on this site — that's where you'll find the long version with worked examples, source quotes, and the citation.</p>
+    <p>If a term has its own deep-dive page (like <code>shaping</code> or <code>side quest</code>), the entry below is a short pointer; click through for the full treatment.</p>
+  </div>
+
+  <!-- ============================================================
+       1. EXPERIMENTATION — STATS & METHODS
+       ============================================================ -->
+  <h2 class="sec" id="exp-stats">Stats &amp; methods (experimentation)</h2>
+  <p class="catdesc">The statistical machinery underneath A/B tests. Most teams running experiments at scale rely on these — they're the difference between a noisy guess and a number you can ship on.</p>
+
+  <section class="term" id="aa-test">
+    <h3>A/A test</h3>
+    <p>An A/B test where both groups get the <em>same</em> experience. You're not testing a feature — you're testing the testing system. If A/A shows a "significant" difference, the platform is broken (bad randomization, contaminated logging, or a metric calculation bug). Big experimentation teams run A/A tests continuously as a sanity check.</p>
+    <p class="first">First seen here: <a href="microsoft-exp-framework.html">Microsoft ExP</a> · <a href="experiment-trustworthiness.html">Trustworthiness</a> <span class="why">Why it matters: catches broken pipelines before they corrupt real decisions.</span></p>
+  </section>
+
+  <section class="term" id="ci">
+    <h3>Confidence interval <span class="expand">(CI)</span></h3>
+    <p>A range around a measured effect — e.g. "lift was +1.8%, CI [+0.3%, +3.3%]." It says <em>"the true effect is plausibly anywhere in this range."</em> If the range crosses zero, you can't tell the feature helped or hurt. Reading the CI (not just the headline number) is the single most important skill for using experiment results honestly.</p>
+    <p class="first">First seen here: <a href="experiment-trustworthiness.html">Trustworthiness</a> · used on every experimentation page <span class="why">Why it matters: a tight CI is a confident decision; a wide CI is "we don't know yet."</span></p>
+  </section>
+
+  <section class="term" id="contextual-bandits">
+    <h3>Contextual bandits</h3>
+    <p>An adaptive experiment that shifts traffic toward whichever variant is winning <em>for each user context</em> (new vs returning, mobile vs desktop, etc.). Unlike a fixed A/B test, a bandit reallocates as it learns — minimising "regret" (users sent to losing variants). The cost is lost statistical clarity: you trade a clean ship/no-ship answer for faster real-world value.</p>
+    <p class="first">First seen here: <a href="lyft-experimentation.html">Lyft</a> <span class="why">Why it matters: right for short-lived, high-stakes choices (homepage banners) — wrong for permanent product decisions.</span></p>
+  </section>
+
+  <section class="term" id="cluster-robust-se">
+    <h3>Cluster-robust standard errors</h3>
+    <p>A statistical correction for when your observations aren't independent — e.g. multiple orders within the same hour-long <a class="x" href="#switchback">switchback</a> cell. Naïve formulas would treat each order as a fresh data point and report fake-narrow confidence intervals. Cluster-robust errors fix this by treating the cell — not the order — as the unit of independence.</p>
+    <p class="first">First seen here: <a href="doordash-switchback-framework.html">DoorDash switchback</a> <span class="why">Why it matters: without it, marketplace experiments look ~10× more certain than they are.</span></p>
+  </section>
+
+  <section class="term" id="cuped">
+    <h3>CUPED <span class="expand">(Controlled-experiment Using Pre-Experiment Data)</span></h3>
+    <p>A Microsoft variance-reduction technique: use each user's behaviour from <em>before</em> the experiment started as a covariate, then subtract that baseline. The result is a tighter <a class="x" href="#ci">confidence interval</a> — roughly 50% narrower — so you reach a ship/no-ship decision in about half the test duration. Standard now at most large experimentation teams.</p>
+    <p class="first">First seen here: <a href="microsoft-exp-framework.html">Microsoft ExP</a> · also <a href="airbnb-erf-framework.html">Airbnb ERF</a>, <a href="experiment-trustworthiness.html">Trustworthiness</a> <span class="why">Why it matters: the same test, half the wait.</span></p>
+  </section>
+
+  <section class="term" id="double-ml">
+    <h3>Double-ML <span class="expand">(double machine learning)</span></h3>
+    <p>A causal-inference method that uses two machine-learning models — one for the outcome, one for the treatment-assignment — and combines them to estimate the true effect of a feature while controlling for confounders. Netflix uses it to estimate effects from data where a clean A/B is impossible (e.g. new-launch markets with no historical baseline).</p>
+    <p class="first">First seen here: <a href="netflix-experimentation.html">Netflix</a> <span class="why">Why it matters: lets you measure things that can't be cleanly randomised.</span></p>
+  </section>
+
+  <section class="term" id="exploration-vs-exploitation">
+    <h3>Exploration vs exploitation</h3>
+    <p>The core tradeoff in any adaptive system: <em>explore</em> = try new options to learn what works; <em>exploit</em> = ship the option that's currently winning to bank value. <a class="x" href="#contextual-bandits">Contextual bandits</a> automate the balance. Most A/B testing is pure exploration; bandits and ML ranking add exploitation.</p>
+    <p class="first">First seen here: <a href="lyft-experimentation.html">Lyft</a> <span class="why">Why it matters: explains why ranking systems keep "wasting" impressions on lower-CTR results — they're learning.</span></p>
+  </section>
+
+  <section class="term" id="ipw">
+    <h3>IPW <span class="expand">(Inverse Probability Weighting)</span></h3>
+    <p>A causal-inference correction for observational data: weight each observation by the inverse of the probability it would have been assigned to its actual group. If a group is over-represented in some segment, IPW down-weights those rows so the estimate isn't biased. Used when randomisation isn't possible.</p>
+    <p class="first">First seen here: <a href="netflix-experimentation.html">Netflix</a> <span class="why">Why it matters: extracts unbiased estimates from messy real-world rollouts.</span></p>
+  </section>
+
+  <section class="term" id="its">
+    <h3>ITS <span class="expand">(Interrupted Time Series)</span></h3>
+    <p>A method for measuring the impact of something you can't A/B — like a regulation change or a region-wide launch. You model the metric's trend <em>before</em> the change, then compare the actual post-change trend to the projected one. The gap is the estimated effect.</p>
+    <p class="first">First seen here: <a href="netflix-experimentation.html">Netflix</a> <span class="why">Why it matters: used when randomisation isn't an option (regulation, holidays, marketing campaigns).</span></p>
+  </section>
+
+  <section class="term" id="mde">
+    <h3>MDE <span class="expand">(Minimum Detectable Effect)</span></h3>
+    <p>The smallest effect size your experiment can reliably tell apart from noise, given your sample size. Calculated <em>before</em> the test starts. If MDE = 1% and you actually need to detect a 0.3% lift, the test is underpowered and will inconclusively report "no effect" even if there is one.</p>
+    <p class="first">First seen here: <a href="microsoft-exp-framework.html">Microsoft ExP</a> · <a href="experiment-trustworthiness.html">Trustworthiness</a> <span class="why">Why it matters: stops you running tests that mathematically can't answer your question.</span></p>
+  </section>
+
+  <section class="term" id="msprt">
+    <h3>mSPRT <span class="expand">(Modified Sequential Probability Ratio Test)</span></h3>
+    <p>A <a class="x" href="#sequential-testing">sequential testing</a> method that lets you peek at results continuously and stop the moment significance is reached, without inflating false-positive rates. The classic fixed-horizon t-test breaks if you peek; mSPRT is built for peeking.</p>
+    <p class="first">First seen here: <a href="experiment-trustworthiness.html">Trustworthiness</a> <span class="why">Why it matters: lets product teams stop a winner early without statistical guilt.</span></p>
+  </section>
+
+  <section class="term" id="novelty-effect">
+    <h3>Novelty effect</h3>
+    <p>The temporary lift you see when users encounter something new — they click because it's different, not because it's better. Usually fades within 1–2 weeks. A test stopped at day 3 because "the lift is huge" often disappoints once novelty wears off. Pair with <a class="x" href="#primacy-effect">primacy effect</a>.</p>
+    <p class="first">First seen here: <a href="airbnb-erf-framework.html">Airbnb ERF</a> · <a href="experiment-trustworthiness.html">Trustworthiness</a> <span class="why">Why it matters: the most common reason early A/B "winners" don't hold up post-launch.</span></p>
+  </section>
+
+  <section class="term" id="oec">
+    <h3>OEC <span class="expand">(Overall Evaluation Criterion)</span></h3>
+    <p>The single agreed-up-front metric that determines whether an experiment ships. Picking the OEC <em>before</em> the test runs is what stops post-hoc "the test failed on conversion but won on engagement" rationalisation. Every major experimentation platform mandates one. Often paired with <a class="x" href="#guardrail">guardrail metrics</a> that must not get worse.</p>
+    <p class="first">First seen here: <a href="heart-framework.html">HEART</a> · core to <a href="experiment-trustworthiness.html">Trustworthiness</a> and every experimentation page <span class="why">Why it matters: the discipline of declaring success in advance.</span></p>
+  </section>
+
+  <section class="term" id="p-hacking">
+    <h3>p-hacking</h3>
+    <p>Running enough analyses on enough metrics that, by pure chance, one of them clears the significance bar — and then reporting only that one as if it were the planned test. Symptoms: 20 metrics analysed, 1 "significant," 19 quietly ignored. Pre-registering the OEC and guardrails before launch is the main defence.</p>
+    <p class="first">First seen here: <a href="experiment-trustworthiness.html">Trustworthiness</a> <span class="why">Why it matters: most "experiment-driven" wrong decisions trace back to this.</span></p>
+  </section>
+
+  <section class="term" id="point-estimate">
+    <h3>Point estimate</h3>
+    <p>The single best-guess number from a test — e.g. "lift was +1.8%." It's the centre of the <a class="x" href="#ci">confidence interval</a>. Reading the point estimate without the CI is the most common A/B-testing mistake: +1.8% sounds great until you see the CI is [−0.5%, +4.1%] and the test can't actually distinguish it from zero.</p>
+    <p class="first">First seen here: <a href="experiment-trustworthiness.html">Trustworthiness</a> · <a href="pinterest-ab-framework.html">Pinterest</a> <span class="why">Why it matters: the headline number always needs its interval.</span></p>
+  </section>
+
+  <section class="term" id="primacy-effect">
+    <h3>Primacy effect</h3>
+    <p>The opposite of <a class="x" href="#novelty-effect">novelty</a>: long-term users are habituated to the old experience and resist the new one, so the early A/B reads negative even when the change is genuinely better. Usually fades within 1–2 weeks once users re-learn the flow. Together with novelty, this is why "wait at least 2 weeks before reading the result" is standard advice.</p>
+    <p class="first">First seen here: <a href="experiment-trustworthiness.html">Trustworthiness</a> <span class="why">Why it matters: stops you killing genuinely-good changes because of week-1 churn.</span></p>
+  </section>
+
+  <section class="term" id="reinforcement-learning">
+    <h3>Reinforcement learning <span class="expand">(RL)</span></h3>
+    <p>A class of machine-learning algorithms where the model learns by taking actions and receiving rewards, then adjusting to maximise future reward. <a class="x" href="#contextual-bandits">Contextual bandits</a> are a simple form of RL. Used in ranking, recommendation, and (more recently) tuning model behaviour from feedback.</p>
+    <p class="first">First seen here: <a href="lyft-experimentation.html">Lyft</a> <span class="why">Why it matters: the family that includes bandits, ranking, and modern AI alignment.</span></p>
+  </section>
+
+  <section class="term" id="sequential-testing">
+    <h3>Sequential testing</h3>
+    <p>Statistical methods (like <a class="x" href="#msprt">mSPRT</a> and group-sequential designs) that allow you to peek at A/B results continuously and stop the moment significance is reached — without inflating false-positive rates. The default fixed-horizon t-test breaks if you peek; sequential methods are built for peeking.</p>
+    <p class="first">First seen here: <a href="experiment-trustworthiness.html">Trustworthiness</a> · <a href="netflix-experimentation.html">Netflix</a>, <a href="linkedin-xlnt-framework.html">LinkedIn T-REX</a> <span class="why">Why it matters: cuts experiment duration and lets winners ship early.</span></p>
+  </section>
+
+  <section class="term" id="significance">
+    <h3>Statistical significance (and "NS")</h3>
+    <p>A test is "statistically significant" when the result is unlikely to be pure noise — convention is p &lt; 0.05, meaning &lt; 5% chance of a false alarm. "NS" on an experiment dashboard means <em>not significant</em>: the test can't tell the effect apart from zero with the data collected. NS is not the same as "no effect" — often it just means the test was too small.</p>
+    <p class="first">First seen here: <a href="linkedin-xlnt-framework.html">LinkedIn T-REX</a> · all experimentation pages <span class="why">Why it matters: most "the test failed" calls actually mean "the test was underpowered."</span></p>
+  </section>
+
+  <section class="term" id="srm">
+    <h3>SRM <span class="expand">(Sample-Ratio Mismatch)</span></h3>
+    <p>When the actual split between A and B groups deviates from the intended ratio — e.g. you wanted 50/50 but got 51/49. Sounds harmless; almost always means the randomisation or logging is broken. Microsoft estimates ~6% of experiments fail SRM and must be discarded. The automated check that catches this is non-negotiable on a serious platform.</p>
+    <p class="first">First seen here: <a href="microsoft-exp-framework.html">Microsoft ExP</a> · <a href="experiment-trustworthiness.html">Trustworthiness</a> <span class="why">Why it matters: an SRM failure means the entire experiment's numbers are unreliable.</span></p>
+  </section>
+
+  <section class="term" id="sutva">
+    <h3>SUTVA <span class="expand">(Stable Unit Treatment Value Assumption)</span></h3>
+    <p>The foundational A/B-testing assumption: one user's outcome doesn't depend on which group <em>other</em> users are in. Holds for most isolated features (e.g. a UI tweak). Breaks dramatically for marketplaces (a Dasher serving a control-group order can't also serve a treatment-group order), social graphs, and shared inventory. When SUTVA breaks, you need <a class="x" href="#switchback">switchback testing</a> or another non-user-level design.</p>
+    <p class="first">First seen here: <a href="doordash-switchback-framework.html">DoorDash switchback</a> · also <a href="lyft-experimentation.html">Lyft</a>, <a href="uber-xp-framework.html">Uber XP</a> <span class="why">Why it matters: standard A/B math gives wrong answers in marketplaces.</span></p>
+  </section>
+
+  <section class="term" id="synthetic-control">
+    <h3>Synthetic control</h3>
+    <p>A causal-inference method for one-off changes: build a "synthetic" comparison group by weighting other regions or segments that match the treated unit's pre-change trend. The synthetic group is what would have happened without the change; the gap is the estimated effect. Originally used in economics; common in marketing-attribution and product launches now.</p>
+    <p class="first">First seen here: <a href="netflix-experimentation.html">Netflix</a> <span class="why">Why it matters: lets you estimate effect of a single launch (Olympics, new market) with no clean control.</span></p>
+  </section>
+
+  <section class="term" id="triangle-test">
+    <h3>Triangle test / network-interference check</h3>
+    <p>A LinkedIn-style A/B variant for social-graph products: instead of randomising at the user level, randomise at the level of triplets of connected users. Checks whether your feature change leaks through the network (e.g. a notification redesign that nudges friends of treated users). Used when standard randomisation would underestimate or hide network effects.</p>
+    <p class="first">First seen here: <a href="linkedin-xlnt-framework.html">LinkedIn T-REX</a> <span class="why">Why it matters: a normal A/B test on a social network systematically lies about effect size.</span></p>
+  </section>
+
+  <!-- ============================================================
+       2. EXPERIMENTATION — INFRA & METHODS
+       ============================================================ -->
+  <h2 class="sec" id="exp-infra">Experiment infrastructure &amp; design methods</h2>
+  <p class="catdesc">Not statistics — the engineering and design patterns that let you run hundreds or thousands of tests in parallel without contamination.</p>
+
+  <section class="term" id="factorial">
+    <h3>Factorial design / multivariate test</h3>
+    <p>Instead of "A vs B," run all combinations: A/B × C/D as four arms (A+C, A+D, B+C, B+D). Lets you measure not just each change's main effect but also their <em>interaction</em> (does C work better when paired with A?). Costs more sample size; the only way to surface interactions cleanly.</p>
+    <p class="first">First seen here: <a href="experiment-trustworthiness.html">Trustworthiness</a> <span class="why">Why it matters: pairs of changes can cancel each other out; factorial is the only honest way to find out.</span></p>
+  </section>
+
+  <section class="term" id="ghosting">
+    <h3>Ghosting / counterfactual logging</h3>
+    <p>Logging what the user <em>would have seen</em> under the alternative variant, alongside what they actually saw — without actually serving it. Lets you study how two ranking models or pricing rules would have differed without running a real A/B test. Booking.com and Netflix both use this to pre-screen ideas before committing experiment budget.</p>
+    <p class="first">First seen here: <a href="experiment-trustworthiness.html">Trustworthiness</a> · <a href="booking-experimentation.html">Booking.com</a> <span class="why">Why it matters: free signal on ideas you'd never get budget to test.</span></p>
+  </section>
+
+  <section class="term" id="guardrail">
+    <h3>Guardrail metric</h3>
+    <p>A secondary metric that must <em>not</em> degrade for the experiment to ship — even if the primary <a class="x" href="#oec">OEC</a> wins. Common guardrails: page-load latency, error rate, support-ticket volume, churn. Guardrails turn "did the feature win?" into "did the feature win <em>without breaking something else important</em>?"</p>
+    <p class="first">First seen here: <a href="heart-framework.html">HEART</a> · <a href="microsoft-exp-framework.html">Microsoft ExP</a>, all experimentation pages <span class="why">Why it matters: most "wins that got rolled back" failed a guardrail nobody pre-declared.</span></p>
+  </section>
+
+  <section class="term" id="holdout">
+    <h3>Holdout (general)</h3>
+    <p>A group of users deliberately kept out of an experiment or a launch, so you have a clean baseline to compare against later. A <em>short-term</em> holdout might be 1% kept on control for the duration of a test; a <em>long-term</em> holdout might be 1% kept on the old experience for months to measure compound effects. See also <a class="x" href="#universal-holdout">universal holdout</a>.</p>
+    <p class="first">First seen here: most experimentation pages <span class="why">Why it matters: without a holdout, "the metric is up" can mean anything — feature, season, weather.</span></p>
+  </section>
+
+  <section class="term" id="layered-randomization">
+    <h3>Layered randomization / overlapping experiment infrastructure</h3>
+    <p>Google's 2010 invention that let one user be in dozens of experiments at once without contamination. Each subsystem (ranking, ads, notifications, homepage) is its own <em>layer</em>; tests within a layer are mutually exclusive, but layers are independent. This is how big platforms run 40,000+ concurrent experiments without the tests interfering with each other.</p>
+    <p class="first">First seen here: <a href="experiment-trustworthiness.html">Trustworthiness</a> · also <a href="linkedin-xlnt-framework.html">LinkedIn T-REX</a>, <a href="pinterest-ab-framework.html">Pinterest</a> <span class="why">Why it matters: the architectural choice that makes large-scale A/B testing possible at all.</span></p>
+  </section>
+
+  <section class="term" id="marketplace-interference">
+    <h3>Marketplace interference / network effects (in testing)</h3>
+    <p>What breaks <a class="x" href="#sutva">SUTVA</a> in marketplaces and social products: a treatment-group user's experience is influenced by control-group users (and vice-versa) because they're competing for the same Dasher, ad slot, inventory item, or attention. Standard A/B math will underestimate the true effect — often by 50% or more. Switchback and triangle tests are the workarounds.</p>
+    <p class="first">First seen here: <a href="doordash-switchback-framework.html">DoorDash switchback</a> · <a href="lyft-experimentation.html">Lyft</a>, <a href="uber-xp-framework.html">Uber XP</a> <span class="why">Why it matters: the hidden reason marketplace A/Bs systematically underwhelm.</span></p>
+  </section>
+
+  <section class="term" id="ramp">
+    <h3>Ramp / staged rollout</h3>
+    <p>Releasing a change in graduated percentages — typically 1% → 5% → 25% → 50% → 100% — pausing at each step to check guardrails and the OEC. Each step is a separate "ramp stage." LinkedIn counts every stage as a separate experiment in its 40k/day figure. The pattern lets you catch problems on 1% of users instead of 100%.</p>
+    <p class="first">First seen here: <a href="linkedin-xlnt-framework.html">LinkedIn T-REX</a> · <a href="openai-iterative-deployment-framework.html">OpenAI iterative deployment</a>, most experimentation pages <span class="why">Why it matters: a controlled blast radius for the inevitable bad releases.</span></p>
+  </section>
+
+  <section class="term" id="switchback">
+    <h3>Switchback testing</h3>
+    <p>Randomise at the level of <em>(region × time-window)</em> instead of user. For one hour in Brooklyn everyone gets the new algorithm; the next hour everyone gets the old one. Solves <a class="x" href="#sutva">SUTVA</a> violations in marketplaces — there's no contamination because everyone in the region at that moment sees the same thing. Trade-off: needs <a class="x" href="#cluster-robust-se">cluster-robust standard errors</a> to compute correctly, and you get fewer effective data points (one per cell, not one per order).</p>
+    <p class="first">First seen here: <a href="doordash-switchback-framework.html">DoorDash switchback</a> · also <a href="lyft-experimentation.html">Lyft</a> (time-split / region-split variants) <span class="why">Why it matters: the standard tool for honest marketplace experiments.</span></p>
+  </section>
+
+  <section class="term" id="two-sided-oec">
+    <h3>Two-sided OEC / marketplace OEC</h3>
+    <p>An <a class="x" href="#oec">OEC</a> that explicitly accounts for both sides of a marketplace — not just rider experience but driver earnings, not just guest bookings but host occupancy. A one-sided OEC will reliably ship features that win for one side and quietly damage the other.</p>
+    <p class="first">First seen here: <a href="uber-xp-framework.html">Uber XP</a> · <a href="lyft-experimentation.html">Lyft</a> <span class="why">Why it matters: the lesson every marketplace company learns the hard way.</span></p>
+  </section>
+
+  <section class="term" id="universal-holdout">
+    <h3>Universal holdout</h3>
+    <p>A small, always-on group of users kept out of <em>every</em> launch — usually 1% or less. Provides a continuous counterfactual: what the product would feel like with none of last year's changes. Lets you measure cumulative impact, not just per-feature lift. Uber and most large platforms run one.</p>
+    <p class="first">First seen here: <a href="uber-xp-framework.html">Uber XP</a> <span class="why">Why it matters: catches the "death by a thousand 0.2% wins" problem.</span></p>
+  </section>
+
+  <!-- ============================================================
+       3. PM FRAMEWORKS REFERENCED IN PASSING (no own page)
+       ============================================================ -->
+  <h2 class="sec" id="pm">PM frameworks referenced in passing</h2>
+  <p class="catdesc">These are mentioned across deep-dives but don't have their own page on this site. Short definitions only — most have rich treatments elsewhere on the web.</p>
+
+  <section class="term" id="fake-door-test">
+    <h3>Fake-door test</h3>
+    <p>A fake button, menu item, or landing page for a feature that doesn't actually exist. When users click, they see a "coming soon" screen and the click is logged. Measures real demand for an idea before you build it — typically used to lift <a class="x" href="rice-framework.html">RICE</a> Confidence from a guess to evidence.</p>
+    <p class="first">First seen here: <a href="rice-framework.html">RICE</a> · <a href="north-star-framework.html">North Star</a> <span class="why">Why it matters: the cheapest way to test demand without writing real code.</span></p>
+  </section>
+
+  <section class="term" id="hmw">
+    <h3>HMW <span class="expand">(How Might We)</span></h3>
+    <p>A reframing technique from design thinking: take a problem statement and rephrase it as a "How might we…?" question. Turns "users churn after onboarding" into "How might we get users to a first win in their first session?" — opens the door to multiple solutions instead of locking in one.</p>
+    <p class="first">First seen here: <a href="rice-framework.html">RICE</a> <span class="why">Why it matters: stops solution-first thinking before it kicks in.</span></p>
+  </section>
+
+  <section class="term" id="ice">
+    <h3>ICE <span class="expand">(Impact, Confidence, Ease)</span></h3>
+    <p>RICE's predecessor: score ideas on Impact × Confidence × Ease, pick the highest. Simpler than <a class="x" href="rice-framework.html">RICE</a> (no Reach term, no Effort denominator) and faster to fill in — but easier to game by inflating Confidence on pet ideas. Intercom switched to RICE in 2018 because ICE was producing rankings that "didn't make sense."</p>
+    <p class="first">First seen here: <a href="rice-framework.html">RICE</a> (as the predecessor) <span class="why">Why it matters: when RICE feels heavy, ICE is the lighter version; same trap.</span></p>
+  </section>
+
+  <section class="term" id="jtbd">
+    <h3>JTBD <span class="expand">(Jobs To Be Done)</span></h3>
+    <p>Clayton Christensen's framework for understanding user motivation: people don't buy products, they "hire" them to do a job. The job is the user's underlying outcome (e.g. "feel less stressed about money") not the feature (e.g. "budget categories"). Useful for input modeling: what are users <em>actually</em> trying to do, and is the feature you're scoring with <a class="x" href="rice-framework.html">RICE</a> aligned with that?</p>
+    <p class="first">First seen here: <a href="rice-framework.html">RICE</a> · <a href="north-star-framework.html">North Star</a> <span class="why">Why it matters: stops you from optimising features users never wanted.</span></p>
+  </section>
+
+  <section class="term" id="kanban">
+    <h3>Kanban</h3>
+    <p>A workflow visualisation method: cards (one per task) move left-to-right across columns (typically <em>Backlog → In Progress → Review → Done</em>). Originally from Toyota's manufacturing system; now standard in software via tools like Jira, Trello, Linear. Spotify's <a class="x" href="dibb-framework.html">DIBB</a> uses a Kanban-style "Bets Board."</p>
+    <p class="first">First seen here: <a href="dibb-framework.html">DIBB</a> <span class="why">Why it matters: makes work-in-progress visible so it can't hide.</span></p>
+  </section>
+
+  <section class="term" id="moscow">
+    <h3>MoSCoW</h3>
+    <p>A prioritisation framework: every item is one of <em>Must, Should, Could, Won't</em>. Cheaper than RICE (no math), worse for comparing items within a tier. Useful for scope-negotiation conversations with stakeholders, less useful for sprint-by-sprint sequencing.</p>
+    <p class="first">First seen here: <a href="rice-framework.html">RICE</a> (as an alternative) <span class="why">Why it matters: lower ceremony than RICE; gives you fewer tools to argue with.</span></p>
+  </section>
+
+  <section class="term" id="okr">
+    <h3>OKR <span class="expand">(Objectives and Key Results)</span></h3>
+    <p>A goal-setting framework: an <em>Objective</em> is a qualitative aspiration (e.g. "delight our power users"), supported by 3–5 <em>Key Results</em> that are numeric and time-bound (e.g. "increase weekly active power users from 12k to 18k by Q3"). Popularised by Google via John Doerr's <em>Measure What Matters</em>. Adjacent to <a class="x" href="v2mom-framework.html">V2MOM</a> and <a class="x" href="pyramid-of-clarity-framework.html">Pyramid of Clarity</a> — different shapes for the same problem.</p>
+    <p class="first">First seen here: <a href="north-star-framework.html">North Star</a> · <a href="v2mom-framework.html">V2MOM</a> <span class="why">Why it matters: the most common goal-setting language in modern PM.</span></p>
+  </section>
+
+  <section class="term" id="prd">
+    <h3>PRD <span class="expand">(Product Requirements Document)</span></h3>
+    <p>The classic PM artefact: a written spec listing every requirement, edge case, and acceptance criterion for a feature. Anthropic's <a class="x" href="anthropic-side-quest-framework.html">side-quest model</a> explicitly discards PRDs in favour of working prototypes ("demos over docs"); other companies (Amazon, Stripe) replace them with narrative documents (<a class="x" href="pr-faq-framework.html">PR-FAQ</a>, <a class="x" href="stripe-shaping-framework.html">deep-dive memos</a>).</p>
+    <p class="first">First seen here: <a href="anthropic-side-quest-framework.html">Anthropic side quests</a> (as the thing being discarded) <span class="why">Why it matters: the default that other frameworks are reacting against.</span></p>
+  </section>
+
+  <section class="term" id="silent-read">
+    <h3>6-pager / silent-read meeting</h3>
+    <p>Amazon's meeting style: instead of slides, the author distributes a 6-page narrative document. The first 15–20 minutes of the meeting are spent in silent reading. Then discussion happens. Forces the author to write clearly (no hiding behind bullets) and forces attendees to actually engage with the argument before reacting.</p>
+    <p class="first">First seen here: <a href="pr-faq-framework.html">PR-FAQ</a> <span class="why">Why it matters: kills the "I'll skim it in the meeting" failure mode.</span></p>
+  </section>
+
+  <section class="term" id="working-backwards">
+    <h3>Working Backwards</h3>
+    <p>Amazon's product-definition method: start from the customer's perspective by writing the press release for the feature before it exists, then a customer FAQ, then build to match. Forces the team to articulate the user-facing outcome before designing the implementation. <a class="x" href="pr-faq-framework.html">PR-FAQ</a> is the artefact this method produces.</p>
+    <p class="first">First seen here: <a href="pr-faq-framework.html">PR-FAQ</a> <span class="why">Why it matters: makes the team write the customer-facing story before the engineering plan.</span></p>
+  </section>
+
+  <!-- ============================================================
+       4. AI-LAB SAFETY & RELEASE
+       ============================================================ -->
+  <h2 class="sec" id="ai-safety">AI-lab safety &amp; release</h2>
+  <p class="catdesc">Concepts specific to releasing AI capabilities (OpenAI, Anthropic, others). Newer vocabulary, evolving fast.</p>
+
+  <section class="term" id="capability-ceiling">
+    <h3>Capability ceiling</h3>
+    <p>The limit of what the current model can actually do, regardless of how well the product is designed. A feature shaped against today's ceiling may suddenly become viable when a new model ships — that's why Anthropic re-tests parked <a class="x" href="anthropic-side-quest-framework.html">side quests</a> on every model release.</p>
+    <p class="first">First seen here: <a href="anthropic-side-quest-framework.html">Anthropic side quests</a> <span class="why">Why it matters: AI roadmaps are determined by the model layer, not the product layer.</span></p>
+  </section>
+
+  <section class="term" id="content-policy">
+    <h3>Content policy</h3>
+    <p>The set of rules — typically published — governing what an AI model is allowed to generate. Distinguishes allowed, restricted, and refused use cases. <a class="x" href="#preparedness-framework">Preparedness Framework</a> tiers reference content policy violations as one of the harm categories.</p>
+    <p class="first">First seen here: <a href="openai-iterative-deployment-framework.html">OpenAI iterative deployment</a> <span class="why">Why it matters: defines the line between "feature" and "policy violation."</span></p>
+  </section>
+
+  <section class="term" id="dogfooding">
+    <h3>Dogfooding</h3>
+    <p>The team using its own product internally — drinking your own dog food. At Anthropic, "engagement signal" is largely measured by whether the team can't stop using a prototype themselves. The hidden cost: teams whose own context isn't representative of users get false positives.</p>
+    <p class="first">First seen here: <a href="anthropic-side-quest-framework.html">Anthropic side quests</a> · also <a href="stripe-shaping-framework.html">Stripe shaping</a> <span class="why">Why it matters: a strong proxy for "will users actually want this" when usage data doesn't exist yet.</span></p>
+  </section>
+
+  <section class="term" id="engagement-signal">
+    <h3>Engagement signal</h3>
+    <p>Anthropic's substitute for a pre-declared <a class="x" href="#oec">OEC</a> when shipping early prototypes — a qualitative + behavioural read on whether the team and a small set of users actually keep coming back. Not a number; an editorial judgement supported by telemetry.</p>
+    <p class="first">First seen here: <a href="anthropic-side-quest-framework.html">Anthropic side quests</a> <span class="why">Why it matters: when the product is too new for a numeric OEC, this is what you use instead.</span></p>
+  </section>
+
+  <section class="term" id="iterative-deployment">
+    <h3>Iterative deployment</h3>
+    <p>OpenAI's staged-release strategy: ship to a small internal/research group first, then research preview, then limited rollout, then broad rollout, then embed into the default model. Each "rung" has a safety gate and a rollback path. <a href="openai-iterative-deployment-framework.html">Has its own deep-dive page →</a></p>
+    <p class="first">First seen here: <a href="openai-iterative-deployment-framework.html">OpenAI iterative deployment</a> (own page) <span class="why">Why it matters: makes release a controlled escalation instead of a single launch event.</span></p>
+  </section>
+
+  <section class="term" id="park">
+    <h3>Park (verdict)</h3>
+    <p>Anthropic's verdict when a <a class="x" href="anthropic-side-quest-framework.html">side quest</a> works conceptually but the model can't yet support it. The work is shelved (not killed) and re-tested when the next model ships. Distinguishes "this idea is bad" from "this idea is early."</p>
+    <p class="first">First seen here: <a href="anthropic-side-quest-framework.html">Anthropic side quests</a> <span class="why">Why it matters: makes "wait for the model" an explicit, trackable status.</span></p>
+  </section>
+
+  <section class="term" id="preparedness-framework">
+    <h3>Preparedness Framework</h3>
+    <p>OpenAI's safety-evaluation gate for releasing new capabilities. Each capability is scored against tracked risk categories (e.g. Bio, Cyber, AI Self-Improvement); each category has tiers (Low → Medium → High → Critical). Anything rated Critical can't ship; High requires specific mitigations. The framework determines whether a model gets to advance to the next deployment rung.</p>
+    <p class="first">First seen here: <a href="openai-iterative-deployment-framework.html">OpenAI iterative deployment</a> <span class="why">Why it matters: reframes release as a safety decision, not just a product decision.</span></p>
+  </section>
+
+  <section class="term" id="preparedness-tier">
+    <h3>Preparedness tier (Critical / High)</h3>
+    <p>The severity classification within the <a class="x" href="#preparedness-framework">Preparedness Framework</a>. <em>Critical</em> = could create new severe-harm pathways that didn't exist before. <em>High</em> = could amplify existing pathways to severe harm. A capability scored Critical (post-mitigation) cannot ship. High requires explicit mitigations approved by the safety advisory group.</p>
+    <p class="first">First seen here: <a href="openai-iterative-deployment-framework.html">OpenAI iterative deployment</a> <span class="why">Why it matters: the actual go/no-go criterion at the highest tiers.</span></p>
+  </section>
+
+  <section class="term" id="red-team">
+    <h3>Red-team / red-teaming</h3>
+    <p>Proactive adversarial testing of a system to find misuse pathways before release. For AI, this typically means a team trying to elicit harmful, deceptive, or out-of-policy outputs using every trick they can think of — jailbreaks, indirect injection, role-play, edge-case inputs. Findings shape mitigations and <a class="x" href="#system-card">system-card</a> disclosures.</p>
+    <p class="first">First seen here: <a href="openai-iterative-deployment-framework.html">OpenAI iterative deployment</a> <span class="why">Why it matters: finds failure modes <em>before</em> users (or adversaries) do.</span></p>
+  </section>
+
+  <section class="term" id="research-preview">
+    <h3>Research preview / limited rollout / broad rollout</h3>
+    <p>OpenAI's named rungs on the deployment ladder. <em>Research preview</em> = small external group on gated waitlist (research partners, hand-picked users). <em>Limited rollout</em> = gated wider release (Plus subscribers, API allowlist). <em>Broad rollout</em> = full public release, default-on for new users. Each rung has its own safety gate.</p>
+    <p class="first">First seen here: <a href="openai-iterative-deployment-framework.html">OpenAI iterative deployment</a> <span class="why">Why it matters: shared vocabulary for "how exposed is this thing right now?"</span></p>
+  </section>
+
+  <section class="term" id="rollback-path">
+    <h3>Rollback path</h3>
+    <p>The verified mechanism to pull a capability back one or more deployment rungs without breaking dependent systems. Required as a precondition for advancing to the next rung — you can't ship something you can't unship. The hidden engineering work that makes <a class="x" href="#iterative-deployment">iterative deployment</a> actually safe.</p>
+    <p class="first">First seen here: <a href="openai-iterative-deployment-framework.html">OpenAI iterative deployment</a> <span class="why">Why it matters: the "unship" button is what makes ship-fast safe.</span></p>
+  </section>
+
+  <section class="term" id="side-quest">
+    <h3>Side quest</h3>
+    <p>Anthropic's term for a short, self-directed prototype experiment — sized to an afternoon, built outside the official roadmap. The team ships the prototype to themselves first, judges by <a class="x" href="#engagement-signal">engagement signal</a>, and either promotes it, parks it, or kills it. <a href="anthropic-side-quest-framework.html">Has its own deep-dive page →</a></p>
+    <p class="first">First seen here: <a href="anthropic-side-quest-framework.html">Anthropic side quests</a> (own page) <span class="why">Why it matters: inverts "decide what to build then build it" to "build then decide."</span></p>
+  </section>
+
+  <section class="term" id="system-card">
+    <h3>System card</h3>
+    <p>A public document accompanying a model or capability release, disclosing what it can do, known failure modes, <a class="x" href="#red-team">red-team</a> findings, and the mitigations in place. Originally from the ML-fairness community ("model cards"); now standard at OpenAI, Anthropic, and Google for major model launches.</p>
+    <p class="first">First seen here: <a href="openai-iterative-deployment-framework.html">OpenAI iterative deployment</a> · also <a href="anthropic-side-quest-framework.html">Anthropic side quests</a> <span class="why">Why it matters: makes safety claims auditable instead of marketing copy.</span></p>
+  </section>
+
+  <!-- ============================================================
+       5. STRIPE SHAPING
+       ============================================================ -->
+  <h2 class="sec" id="stripe">Stripe shaping vocabulary</h2>
+  <p class="catdesc">Concepts specific to Stripe's written-discipline product process. Mostly load-bearing on one page but worth pulling out because the terms are non-obvious.</p>
+
+  <section class="term" id="concrete-user-problem">
+    <h3>Concrete user problem</h3>
+    <p>Ken Norton's antidote to abstract personas: instead of "merchants want better refund tools," name the actual customer (Acme Coffee Roasters), the actual situation (returning beans went stale in transit), and the actual cost ($840 written off, 14 hours of support time). Force the shaping conversation to start from a named real bad day, not a general persona.</p>
+    <p class="first">First seen here: <a href="stripe-shaping-framework.html">Stripe shaping</a> <span class="why">Why it matters: stops solutions from drifting into hypothetical comfort.</span></p>
+  </section>
+
+  <section class="term" id="deep-dive-memo">
+    <h3>Deep-dive memo / long-form document</h3>
+    <p>Stripe's primary artefact for product decisions: a long-form written document (not slides) that walks through the problem, the constraints, the option space, and the recommendation — engaging with edge cases, history, and what's been tried before. Distributed in advance, read silently before the meeting (similar to Amazon's <a class="x" href="#silent-read">6-pager</a>), then discussed.</p>
+    <p class="first">First seen here: <a href="stripe-shaping-framework.html">Stripe shaping</a> <span class="why">Why it matters: forces the author to write through the argument, not present around it.</span></p>
+  </section>
+
+  <section class="term" id="multi-decade">
+    <h3>Multi-decade abstractions / 30-year filter</h3>
+    <p>Stripe's screening question for product decisions: "Will this still matter if the company is around in 30 years?" Acts as a forcing function to focus on durable abstractions (programmable money movement, developer API as a product surface) over short-term feature races. Originated from Patrick Collison's published thinking; Ken Norton put it in writing.</p>
+    <p class="first">First seen here: <a href="stripe-shaping-framework.html">Stripe shaping</a> <span class="why">Why it matters: a calibration tool against quarterly-thinking drift.</span></p>
+  </section>
+
+  <section class="term" id="shaping">
+    <h3>Shaping</h3>
+    <p>Stripe's term for the rough-solution-design phase: <em>"creating a rough solution to a concrete user problem — it fills the space between the broad strategy and the detailed product specification."</em> Sits between "what's the goal?" and "what's the engineering spec?" and is the phase Stripe argues most teams skip. <a href="stripe-shaping-framework.html">Has its own deep-dive page →</a></p>
+    <p class="first">First seen here: <a href="stripe-shaping-framework.html">Stripe shaping</a> (own page) <span class="why">Why it matters: the missing middle between strategy and spec.</span></p>
+  </section>
+
+  <!-- ============================================================
+       6. METRICS, ACRONYMS, & NUMBERS
+       ============================================================ -->
+  <h2 class="sec" id="metrics">Metrics, acronyms, and numbers you'll see</h2>
+  <p class="catdesc">The shorthand product analytics, growth, and finance teams use when comparing products. Mostly straightforward once you've seen them once.</p>
+
+  <section class="term" id="arpu">
+    <h3>ARPU <span class="expand">(Average Revenue Per User)</span></h3>
+    <p>Total revenue ÷ total users, usually per month. The simplest unit-economics number; useful for comparing pricing changes but doesn't account for who pays (10 users at $100 = 100 users at $10).</p>
+    <p class="first">First seen here: <a href="dibb-framework.html">DIBB</a> <span class="why">Why it matters: the most common "how much is each user worth?" number.</span></p>
+  </section>
+
+  <section class="term" id="cpm">
+    <h3>CPM <span class="expand">(Cost Per Mille / per-thousand impressions)</span></h3>
+    <p>The advertising industry's pricing unit: cost to show an ad 1,000 times. A $5 CPM = $0.005 per impression. Lets ad inventory be compared apples-to-apples across publishers and formats.</p>
+    <p class="first">First seen here: <a href="dibb-framework.html">DIBB</a> <span class="why">Why it matters: the price of attention, standardised.</span></p>
+  </section>
+
+  <section class="term" id="cta">
+    <h3>CTA <span class="expand">(Call-To-Action)</span></h3>
+    <p>The button, link, or prompt asking the user to do the thing — "Sign up," "Buy now," "Add to cart." When PMs talk about "the primary CTA," they mean the most important action on the page. CTA copy and placement are common A/B-test variables.</p>
+    <p class="first">First seen here: <a href="microsoft-exp-framework.html">Microsoft ExP</a> <span class="why">Why it matters: small CTA changes routinely produce large measurable lifts.</span></p>
+  </section>
+
+  <section class="term" id="dn-activation">
+    <h3>D7 / D14 / Dn activation</h3>
+    <p>"Day N activation" — the percentage of new sign-ups still actively using the product N days after signup. <em>D7</em> = day 7, <em>D14</em> = day 14, and so on. Standard retention shorthand in growth analytics. A D14 of 40% means 40% of users from any given cohort are still active two weeks in.</p>
+    <p class="first">First seen here: <a href="pyramid-of-clarity-framework.html">Pyramid of Clarity</a> · <a href="dibb-framework.html">DIBB</a> <span class="why">Why it matters: the canonical way to compare retention across cohorts and products.</span></p>
+  </section>
+
+  <section class="term" id="eta">
+    <h3>ETA <span class="expand">(Estimated Time of Arrival)</span></h3>
+    <p>Generic acronym for "when will it get there?" In Uber/Lyft context, ETA is a load-bearing product surface — the rider sees an ETA promise, books or cancels based on it, and rates the trip partly on whether the promise was kept. ETA accuracy is itself a guardrail metric.</p>
+    <p class="first">First seen here: <a href="uber-xp-framework.html">Uber XP</a> <span class="why">Why it matters: a rideshare ETA isn't a number, it's a contract with the user.</span></p>
+  </section>
+
+  <section class="term" id="ltv">
+    <h3>LTV <span class="expand">(Lifetime Value)</span></h3>
+    <p>Total revenue a single user generates across their entire time on the product — typically modelled, not measured (you don't know how long they'll stay). The standard unit-economics number paired with <a class="x" href="#arpu">ARPU</a> and CAC (customer acquisition cost). A healthy business has LTV &gt; 3× CAC, roughly.</p>
+    <p class="first">First seen here: <a href="dibb-framework.html">DIBB</a> <span class="why">Why it matters: tells you how much you can spend to acquire each user without losing money.</span></p>
+  </section>
+
+  <section class="term" id="nps">
+    <h3>NPS <span class="expand">(Net Promoter Score)</span></h3>
+    <p>A satisfaction score from one question: "How likely are you to recommend us to a friend?" (0–10). Responses split into Promoters (9–10), Passives (7–8), Detractors (0–6). NPS = % Promoters − % Detractors, on a −100 to +100 scale. Widely criticised for over-interpretation but ubiquitous in enterprise reporting.</p>
+    <p class="first">First seen here: <a href="heart-framework.html">HEART</a> · <a href="v2mom-framework.html">V2MOM</a> <span class="why">Why it matters: the single most-quoted user-satisfaction number in enterprise.</span></p>
+  </section>
+
+  <section class="term" id="p95">
+    <h3>p95 / percentile latency</h3>
+    <p>The slowest response time experienced by the fastest 95% of requests — i.e. 5% of users had a worse experience. Performance engineers prefer percentile latency to average latency because averages hide tail outliers ("p95 = 800ms" tells you something; "average = 200ms" is misleading if 5% wait 4s).</p>
+    <p class="first">First seen here: <a href="experiment-trustworthiness.html">Trustworthiness</a> <span class="why">Why it matters: the metric that catches the slow-tail user experience averages hide.</span></p>
+  </section>
+
+  <section class="term" id="qoe">
+    <h3>QoE <span class="expand">(Quality of Experience)</span></h3>
+    <p>Streaming's composite metric: a weighted blend of startup time, buffering rate, average video quality, and stall count. Netflix's primary guardrail for any experiment that touches the playback path — a UI win that degrades QoE will not ship.</p>
+    <p class="first">First seen here: <a href="netflix-experimentation.html">Netflix</a> <span class="why">Why it matters: the all-up "is the video experience getting better?" number.</span></p>
+  </section>
+
+  <section class="term" id="tam">
+    <h3>TAM <span class="expand">(Total Addressable Market)</span></h3>
+    <p>The maximum revenue a product could generate if it captured 100% of its potential market. Used in PR-FAQ size-of-prize sections and in funding pitches. Often a soft number — different methodologies (top-down vs bottom-up) can produce TAMs that differ by 10×.</p>
+    <p class="first">First seen here: <a href="pr-faq-framework.html">PR-FAQ</a> <span class="why">Why it matters: the headline "how big is this?" number for new-product debates.</span></p>
+  </section>
+
+  <section class="term" id="ttfi">
+    <h3>TTFI <span class="expand">(Time-To-First-Insight)</span></h3>
+    <p>How long it takes a user to get their first useful piece of value out of a product — for an analytics tool, the time from signup to seeing a chart that answers their question. Common North-Star-adjacent metric for tools where the user has to set up data before the product can be useful.</p>
+    <p class="first">First seen here: <a href="v2mom-framework.html">V2MOM</a> <span class="why">Why it matters: the "are we wasting their first hour?" metric.</span></p>
+  </section>
+
+  <section class="term" id="wau-dau-mau">
+    <h3>WAU / DAU / MAU</h3>
+    <p><em>Daily / Weekly / Monthly Active Users</em>. The standard usage cadence metrics. <em>DAU/MAU</em> is the classic engagement ratio — if 40% of monthly users come back daily, you have a habitual product; if 5%, you have an occasional one. Definitions of "active" vary widely (any session vs meaningful action), so cross-company comparisons need a footnote.</p>
+    <p class="first">First seen here: <a href="heart-framework.html">HEART</a> · <a href="dibb-framework.html">DIBB</a> <span class="why">Why it matters: the universal language of product usage.</span></p>
+  </section>
+
+  <!-- ============================================================
+       7. INFRA & WEB TERMS
+       ============================================================ -->
+  <h2 class="sec" id="infra">Infra &amp; web terms</h2>
+  <p class="catdesc">Engineering and security acronyms used in passing. If you've shipped enterprise software you've seen them; if you haven't, here's what they mean.</p>
+
+  <section class="term" id="a11y">
+    <h3>a11y</h3>
+    <p>Numeronym for <em>accessibility</em> — "a," 11 letters, "y." Refers to designing products so people with disabilities (visual, motor, cognitive) can use them: screen-reader compatibility, keyboard navigation, sufficient contrast, alt text, etc. Often a guardrail in experimentation (a UI change that breaks screen-reader users won't ship even if the OEC wins).</p>
+    <p class="first">First seen here: <a href="microsoft-exp-framework.html">Microsoft ExP</a> <span class="why">Why it matters: the standard short-hand for accessibility work.</span></p>
+  </section>
+
+  <section class="term" id="cdn">
+    <h3>CDN <span class="expand">(Content Delivery Network)</span></h3>
+    <p>A globally distributed network of servers that caches a website's static assets (images, video, CSS) close to users — so a viewer in Tokyo loads a Netflix thumbnail from a Tokyo server, not from Los Angeles. The reason modern websites feel fast everywhere.</p>
+    <p class="first">First seen here: <a href="netflix-experimentation.html">Netflix</a> <span class="why">Why it matters: the architectural reason streaming and global apps work at all.</span></p>
+  </section>
+
+  <section class="term" id="dsl">
+    <h3>DSL <span class="expand">(Domain-Specific Language)</span></h3>
+    <p>A small programming language designed for one specific job — e.g. SQL for queries, regex for text matching, Airbnb's ERF config DSL for experiment definitions. The opposite of a general-purpose language like Python. The point is to make the common case trivially easy at the cost of being useless for anything else.</p>
+    <p class="first">First seen here: <a href="airbnb-erf-framework.html">Airbnb ERF</a> <span class="why">Why it matters: how big platforms let non-engineers configure complex systems safely.</span></p>
+  </section>
+
+  <section class="term" id="kdd">
+    <h3>KDD <span class="expand">(Knowledge Discovery and Data Mining)</span></h3>
+    <p>The annual academic conference where most foundational experimentation papers are published — including Google's 2010 <a class="x" href="#layered-randomization">overlapping experiment infrastructure</a> paper that defined how all major platforms run tests today. Run by ACM since 1995.</p>
+    <p class="first">First seen here: <a href="linkedin-xlnt-framework.html">LinkedIn T-REX</a> · <a href="experiment-trustworthiness.html">Trustworthiness</a> <span class="why">Why it matters: where the canonical sources for this whole field were published.</span></p>
+  </section>
+
+  <section class="term" id="scim">
+    <h3>SCIM <span class="expand">(System for Cross-domain Identity Management)</span></h3>
+    <p>The standard protocol enterprises use to sync user accounts between their identity provider (Okta, Azure AD) and SaaS products. When IT adds a new employee, SCIM provisions them into Slack/Jira/etc. automatically; when they leave, SCIM removes them. Procurement gate at most enterprises &gt; 500 employees.</p>
+    <p class="first">First seen here: <a href="v2mom-framework.html">V2MOM</a> <span class="why">Why it matters: enterprise customers won't buy your SaaS without it.</span></p>
+  </section>
+
+  <section class="term" id="soc2">
+    <h3>SOC2</h3>
+    <p>An audited security-and-controls certification — a third-party auditor verifies that you've implemented documented controls around security, availability, processing integrity, confidentiality, and privacy. Two flavours: <em>Type 1</em> = controls exist on a date; <em>Type 2</em> = controls operated effectively over 6–12 months. SOC2 Type 2 is the table-stakes for selling to mid-market and enterprise.</p>
+    <p class="first">First seen here: <a href="pyramid-of-clarity-framework.html">Pyramid of Clarity</a> <span class="why">Why it matters: a required procurement gate; takes 6–12 months from start to issued report.</span></p>
+  </section>
+
+  <section class="term" id="sso">
+    <h3>SSO <span class="expand">(Single Sign-On)</span></h3>
+    <p>Lets users log in to multiple apps using one set of corporate credentials (typically via SAML or OIDC against an identity provider like Okta or Azure AD). Procurement gate at most enterprises; usually paired with <a class="x" href="#scim">SCIM</a>. Often gated behind a "Business" or "Enterprise" pricing tier, which is its own controversy ("the SSO tax").</p>
+    <p class="first">First seen here: <a href="v2mom-framework.html">V2MOM</a> <span class="why">Why it matters: a required procurement gate; absence kills enterprise deals.</span></p>
+  </section>
+
+  <section class="term" id="yaml">
+    <h3>YAML <span class="expand">(YAML Ain't Markup Language)</span></h3>
+    <p>A human-readable file format for configuration — indent-based, designed to be easier to read and write than JSON or XML. Standard for CI configs (GitHub Actions, GitLab CI), Kubernetes manifests, and most modern infra-as-code. Airbnb's ERF uses YAML for experiment definitions because non-engineers can edit it without breaking it.</p>
+    <p class="first">First seen here: <a href="airbnb-erf-framework.html">Airbnb ERF</a> <span class="why">Why it matters: the lingua franca for "configuration humans should be able to read."</span></p>
+  </section>
+
+  <footer>
+    <p>Glossary built 2026-05-26 as a companion to the 20 framework deep-dives. Each entry's "First seen here" link points to the page where the term originally appears on this site — that's where you'll find the long version with worked examples, source quotes, and the citation.</p>
+    <p>Missing a term you'd want here? Tell whoever maintains this — the goal is "skim any page without getting stuck on jargon," so anything that trips you up is worth adding.</p>
+    <p>Companion to <a href="index.html">← Home</a> · <a href="methodologies-comparison.html">All methods compared</a> · <a href="experiment-trustworthiness.html">How 40k tests work</a></p>
+  </footer>
+</div>
+</body>
+</html>

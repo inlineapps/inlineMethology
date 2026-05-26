@@ -33,6 +33,7 @@
 <a href="impact-consumer-companies.html">Consumer-tech field study</a>
 <a href="methodologies-comparison.html"><b>All methods compared →</b></a>
 <a href="experiment-trustworthiness.html">How 40k tests actually work →</a>
+<a href="jargon.html">Jargon (glossary)</a>
 </div>
 <div class="navgrp"><h4>Scoring &amp; Input modeling</h4>
 <a href="rice-framework.html">RICE (Intercom)</a>
@@ -103,7 +104,7 @@
   <div class="problem">
     <h3>Why naive A/B fails on a marketplace</h3>
     <p style="margin:6px 0">Imagine you ship a new "Surge pricing" algorithm to 50% of customers in San Francisco. The other 50% still see the old algorithm. <em>But all 100% of customers compete for the same Dashers.</em> The treatment group's higher prices pull Dashers away from control-group orders, making control orders slower — which makes <em>control</em> look worse, inflating treatment's measured lift. Or vice versa. Either way, the A/B result is biased and you don't know by how much.</p>
-    <p style="margin:6px 0;font-size:13.5px;color:var(--ink-soft)">The technical name: <b>SUTVA violation</b> (Stable Unit Treatment Value Assumption). It applies to any marketplace, two-sided platform, or shared-resource feature.</p>
+    <p style="margin:6px 0;font-size:13.5px;color:var(--ink-soft)">The technical name: <b>SUTVA violation</b> (<a class="j" href="jargon.html#sutva">Stable Unit Treatment Value Assumption</a>). It applies to any marketplace, two-sided platform, or shared-resource feature.</p>
   </div>
 
   <!-- ANATOMY -->
@@ -127,7 +128,7 @@
       <div class="cell c">Control</div>
       <div class="cell c">Control</div>
     </div>
-    <p style="font-size:12.5px;color:var(--ink-soft);margin:12px 0 0">Each cell = the entire region runs that algorithm for that time window. Treatment/control assignment is randomised across the (region × window) grid. Effect is estimated by comparing aggregate metrics in treatment cells vs control cells, with cluster-robust standard errors.</p>
+    <p style="font-size:12.5px;color:var(--ink-soft);margin:12px 0 0">Each cell = the entire region runs that algorithm for that time window. Treatment/control assignment is randomised across the (region × window) grid. Effect is estimated by comparing aggregate metrics in treatment cells vs control cells, with <a class="j" href="jargon.html#cluster-robust-se">cluster-robust standard errors</a>.</p>
   </div>
   <div class="src">Sources: <a class="cite" href="https://doordash.engineering/2018/02/13/switchback-tests-and-randomized-experimentation-under-network-effects-at-doordash/">DoorDash Engineering — "Switchback Tests and Randomized Experimentation Under Network Effects at DoorDash" (February 13, 2018)</a> · <a class="cite" href="https://careersatdoordash.com/blog/meet-dash-ab-the-statistics-engine-of-experimentation-at-doordash/">"Meet Dash-AB — DoorDash's Experimentation Statistics Engine"</a> · Academic follow-up: <a class="cite" href="https://arxiv.org/abs/2009.00148">Bojinov, Simchi-Levi &amp; Zhao — "Design and Analysis of Switchback Experiments" (2020)</a>.</div>
 

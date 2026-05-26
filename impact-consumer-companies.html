@@ -13,10 +13,14 @@
     --shadow:0 1px 2px rgba(28,34,48,.06),0 8px 24px rgba(28,34,48,.06);
   }
   *{box-sizing:border-box}
+  html{scroll-padding-top:56px}
   body{margin:0;background:var(--paper);color:var(--ink);
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     line-height:1.62;font-size:16px;-webkit-font-smoothing:antialiased}
   .wrap{max-width:980px;margin:0 auto;padding:0 24px 96px}
+  /* Jargon link-out — subtle, hover reveals accent. Mirror of framework.css a.j */
+  a.j{color:var(--ink);text-decoration:none;border-bottom:1px dotted var(--ink-soft)}
+  a.j:hover{color:var(--accent);border-bottom:1px solid var(--accent)}
   header.masthead{border-bottom:3px solid var(--ink);margin-bottom:8px;padding:48px 0 22px}
   .kicker{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);font-weight:700;margin:0 0 10px}
   h1{font-family:Georgia,"Times New Roman",serif;font-size:40px;line-height:1.08;margin:0 0 12px;letter-spacing:-.01em}
@@ -88,6 +92,7 @@
 <a class="cur" href="impact-consumer-companies.html">Consumer-tech field study</a>
 <a href="methodologies-comparison.html"><b>All methods compared →</b></a>
 <a href="experiment-trustworthiness.html">How 40k tests actually work →</a>
+<a href="jargon.html">Jargon (glossary)</a>
 </div>
 <div class="navgrp"><h4>Scoring &amp; Input modeling</h4>
 <a href="rice-framework.html">RICE (Intercom)</a>
@@ -157,7 +162,7 @@
 
   <div class="co define">
     <div class="co-head"><h3><span class="n">01</span>Amazon</h3><span class="tag define">Define first</span></div>
-    <div class="fw">Framework: <b>Working Backwards / PR-FAQ</b> &nbsp;·&nbsp; <a href="pr-faq-framework.html" style="color:var(--gold);font-weight:700;border-bottom:1px solid var(--gold);text-decoration:none">Deep-dive →</a></div>
+    <div class="fw">Framework: <b><a href="pr-faq-framework.html">Working Backwards</a> / PR-FAQ</b> &nbsp;·&nbsp; <a href="pr-faq-framework.html" style="color:var(--gold);font-weight:700;border-bottom:1px solid var(--gold);text-decoration:none">Deep-dive →</a></div>
     <ul>
       <li>Most major products since ~2004 begin from the customer experience and work back to what to build.</li>
       <li>Principal artifact: a mock <strong>press release</strong> (&lt;1 page) + <strong>FAQ</strong> (≤5 pages) — a forcing function to define customer value before any code.</li>
@@ -170,7 +175,7 @@
 
   <div class="co define">
     <div class="co-head"><h3><span class="n">02</span>Google</h3><span class="tag define">Define first</span></div>
-    <div class="fw">Framework: <b>HEART + Goals-Signals-Metrics</b> (+ OKRs, experiments) &nbsp;·&nbsp; <a href="heart-framework.html" style="color:var(--gold);font-weight:700;border-bottom:1px solid var(--gold);text-decoration:none">Deep-dive →</a></div>
+    <div class="fw">Framework: <b>HEART + Goals-Signals-Metrics</b> (+ <a class="j" href="jargon.html#okr">OKRs</a>, experiments) &nbsp;·&nbsp; <a href="heart-framework.html" style="color:var(--gold);font-weight:700;border-bottom:1px solid var(--gold);text-decoration:none">Deep-dive →</a></div>
     <ul>
       <li>HEART — Happiness, Engagement, Adoption, Retention, Task-success — a UX metric framework (Rodden, Hutchinson &amp; Fu).</li>
       <li>GSM ladders each goal → observable signal → measurable metric, keeping metrics tied to intent.</li>
@@ -186,7 +191,7 @@
     <div class="fw">Framework: <b>DIBB + Bets Board</b> — Data → Insight → Belief → Bet &nbsp;·&nbsp; <a href="dibb-framework.html" style="color:var(--gold);font-weight:700;border-bottom:1px solid var(--gold);text-decoration:none">Deep-dive →</a></div>
     <ul>
       <li>Aligns the org around a consistent path from observed data to committed bets.</li>
-      <li>Company Bets (large, cross-org, 6–12 mo) tracked on a Kanban "Bets Board"; each bet has a 2-page doc with sponsor, stakeholders, and success metrics.</li>
+      <li>Company Bets (large, cross-org, 6–12 mo) tracked on a <a class="j" href="jargon.html#kanban">Kanban</a> "Bets Board"; each bet has a 2-page doc with sponsor, stakeholders, and success metrics.</li>
     </ul>
     <div class="impact"><b>How they handle impact</b>
       A <em>qualitative/strategic</em> prioritization model: bets are justified by a belief derived from data, with success metrics defined per bet, then validated in execution — not a quantitative estimator.</div>
@@ -202,17 +207,17 @@
     <div class="co-head"><h3><span class="n">04</span>Netflix</h3><span class="tag measure">Measure</span></div>
     <div class="fw">Framework: <b>Experimentation &amp; Causal Inference</b> (ABlaze platform) &nbsp;·&nbsp; <a href="netflix-experimentation.html" style="color:var(--blue);font-weight:700;border-bottom:1px solid var(--blue);text-decoration:none">Deep-dive →</a></div>
     <ul>
-      <li>Nearly every product/business decision is guided by member behavior observed in tests, not opinion.</li>
-      <li>Where A/B tests are infeasible, uses quasi-experiments and causal ML (interrupted time series, IPW).</li>
+      <li>Published norm: <em>"nothing ships without a measured causal effect"</em> (paraphrased across the Netflix TechBlog and Research-area posts) — experimentation is the default even where A/B isn't possible.</li>
+      <li>Where A/B tests are infeasible, uses quasi-experiments and causal ML (interrupted time series, <a class="j" href="jargon.html#ipw">IPW</a>).</li>
     </ul>
     <div class="impact"><b>How they handle impact</b>
-      Post-hoc <em>measurement</em>, not pre-build estimation — measures causal lift via controlled experiments, using sequential testing and CUPED-style variance reduction to detect effects faster.</div>
+      Post-hoc <em>measurement</em>, not pre-build estimation — measures causal lift via controlled experiments, using <a class="j" href="jargon.html#sequential-testing">sequential testing</a> and <a class="j" href="jargon.html#cuped">CUPED</a>-style variance reduction to detect effects faster.</div>
     <div class="src"><span class="lbl">Source</span><a href="https://research.netflix.com/research-area/experimentation-and-causal-inference">Netflix Research — Experimentation</a><a href="https://netflixtechblog.com/sequential-a-b-testing-keeps-the-world-streaming-netflix-part-1-continuous-data-cba6c7ed49df">TechBlog — Sequential A/B testing</a></div>
   </div>
 
   <div class="co measure">
     <div class="co-head"><h3><span class="n">05</span>Booking.com</h3><span class="tag measure">Measure</span></div>
-    <div class="fw">Practice: <b>Democratized large-scale experimentation</b> (OEC + SRM guardrails) &nbsp;·&nbsp; <a href="booking-experimentation.html" style="color:var(--blue);font-weight:700;border-bottom:1px solid var(--blue);text-decoration:none">Deep-dive →</a></div>
+    <div class="fw">Practice: <b>Democratized large-scale experimentation</b> (OEC + <a class="j" href="jargon.html#srm">SRM</a> guardrails) &nbsp;·&nbsp; <a href="booking-experimentation.html" style="color:var(--blue);font-weight:700;border-bottom:1px solid var(--blue);text-decoration:none">Deep-dive →</a></div>
     <ul>
       <li>Any employee can launch an experiment on millions of users without management sign-off.</li>
       <li>Central platform enforces guardrails: standard randomization, automatic Sample-Ratio-Mismatch checks, pre-defined metrics, hypothesis templates.</li>
@@ -246,7 +251,7 @@
     <div class="co-head"><h3><span class="n">07</span>Uber</h3><span class="tag measure">Measure</span></div>
     <div class="fw">Framework: <b>Experimentation Platform (XP)</b> &nbsp;·&nbsp; <a href="uber-xp-framework.html" style="color:var(--blue);font-weight:700;border-bottom:1px solid var(--blue);text-decoration:none">Deep-dive →</a></div>
     <ul>
-      <li>Combines staged feature rollout with analytics; flags, monitoring, and a "universal holdout" to measure long-term cumulative effects.</li>
+      <li>Combines staged feature rollout with analytics; flags, monitoring, and a "<a class="j" href="jargon.html#universal-holdout">universal holdout</a>" to measure long-term cumulative effects.</li>
       <li>Monitors treatment effects to prevent regressions on key metrics.</li>
     </ul>
     <div class="impact"><b>How they handle impact</b>
@@ -263,12 +268,12 @@
     <div class="fw">Framework: <b>Switchback experiments</b> (Dash-AB engine) &nbsp;·&nbsp; <a href="doordash-switchback-framework.html" style="color:var(--blue);font-weight:700;border-bottom:1px solid var(--blue);text-decoration:none">Deep-dive →</a></div>
     <ul>
       <li>A marketplace breaks standard A/B independence (orders share a Dasher fleet → network effects).</li>
-      <li>Solution: switchback tests randomizing treatment/control by region × time-window, not by user.</li>
+      <li>Solution: <a href="doordash-switchback-framework.html">switchback tests</a> randomizing treatment/control by region × time-window, not by user.</li>
       <li>Dash-AB standardizes A/B, switchback, CUPED/CUPAC and interaction analysis.</li>
     </ul>
     <div class="impact"><b>How they handle impact</b>
-      Measure-not-estimate, with marketplace-specific <em>design</em> (switchbacks, cluster-robust standard errors) to get unbiased causal estimates despite interference.</div>
-    <div class="src"><span class="lbl">Source</span><a href="https://careersatdoordash.com/blog/switchback-tests-and-randomized-experimentation-under-network-effects-at-doordash/">DoorDash — Switchback tests</a><a href="https://careersatdoordash.com/blog/meet-dash-ab-the-statistics-engine-of-experimentation-at-doordash/">Meet Dash-AB</a></div>
+      Measure-not-estimate, with marketplace-specific <em>design</em> (switchbacks, <a class="j" href="jargon.html#cluster-robust-se">cluster-robust standard errors</a>) to get unbiased causal estimates despite interference.</div>
+    <div class="src"><span class="lbl">Source</span><a href="https://doordash.engineering/2018/02/13/switchback-tests-and-randomized-experimentation-under-network-effects-at-doordash/">DoorDash Engineering — Switchback tests (Feb 13, 2018)</a><a href="https://careersatdoordash.com/blog/meet-dash-ab-the-statistics-engine-of-experimentation-at-doordash/">Meet Dash-AB</a></div>
   </div>
 
   <div class="co measure">
@@ -277,7 +282,7 @@
     <ul>
       <li>Strong norm to test every product change; causal data informs strategic direction.</li>
       <li>Most common test = rider/driver A/B; second = time-split tests to handle network-effect interference.</li>
-      <li>Investing in adaptive/always-on experimentation (contextual bandits).</li>
+      <li>Investing in adaptive/always-on experimentation (<a class="j" href="jargon.html#contextual-bandits">contextual bandits</a>).</li>
     </ul>
     <div class="impact"><b>How they handle impact</b>
       Measure-not-estimate; marketplace interference handled via time/region splits rather than naive A/B.</div>

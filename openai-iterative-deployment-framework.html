@@ -49,6 +49,7 @@
 <a href="impact-consumer-companies.html">Consumer-tech field study</a>
 <a href="methodologies-comparison.html"><b>All methods compared →</b></a>
 <a href="experiment-trustworthiness.html">How 40k tests actually work →</a>
+<a href="jargon.html">Jargon (glossary)</a>
 </div>
 <div class="navgrp"><h4>Scoring &amp; Input modeling</h4>
 <a href="rice-framework.html">RICE (Intercom)</a>
@@ -90,7 +91,7 @@
     <p class="kicker">Methods · Deep-dive · AI-lab process (OpenAI)</p>
     <h1>OpenAI iterative deployment — staged release as the decision unit <span class="srcyr">2019</span></h1>
     <p class="sub">OpenAI has not published a method for <em>ranking which features to build</em>. What it has published — extensively — is how it <strong>releases</strong> capabilities: in widening rings of scope, with a Preparedness-Framework safety gate between each ring.</p>
-    <p class="sub">The "feature" sheet for this method is really a <strong>release queue</strong>, not a backlog. Foundational source: the GPT-2 staged release (February → November 2019) plus the August 2019 report <em>"Release Strategies and the Social Impacts of Language Models."</em> Codified later in "Planning for AGI and Beyond" (2023) and the Preparedness Framework (v1 December 2023, v2 April 15, 2025).</p>
+    <p class="sub">The "feature" sheet for this method is really a <strong>release queue</strong>, not a backlog. Foundational source: the GPT-2 staged release (February → November 2019) plus the August 2019 report <em>"Release Strategies and the Social Impacts of Language Models."</em> Codified later in "Planning for AGI and Beyond" (2023) and the <a class="j" href="jargon.html#preparedness-framework">Preparedness Framework</a> (v1 December 2023, v2 April 15, 2025).</p>
     <div class="goal"><span>Goal</span><br>Decide how widely (and how fast) to expose a capability — using real-world signal at each ring, not pre-release estimates.</div>
   </header>
 
@@ -111,7 +112,7 @@
 
   <div class="finding" id="headline">
     <h2>The honest headline: this is a release method, not a feature-selection method</h2>
-    <p>If you came here looking for OpenAI's RICE-equivalent or PR-FAQ-equivalent — there isn't one. The chief product officer's published process notes describe quarterly roadmapping, "plans over plan," and strong bottom-up autonomy, but no public scoring formula or kill criteria. <b>What OpenAI <em>has</em> codified, in actual published documents, is the deployment ladder</b> — the stages a capability moves through from internal red-team to broad release, and the safety thresholds that gate each move.</p>
+    <p>If you came here looking for OpenAI's RICE-equivalent or PR-FAQ-equivalent — there isn't one. The chief product officer's published process notes describe quarterly roadmapping, "plans over plan," and strong bottom-up autonomy, but no public scoring formula or kill criteria. <b>What OpenAI <em>has</em> codified, in actual published documents, is the deployment ladder</b> — the stages a capability moves through from internal <a class="j" href="jargon.html#red-team">red-team</a> to broad release, and the safety thresholds that gate each move.</p>
     <p>The unit of decision is <b>"this capability, at this scope, with these mitigations"</b> — not "this feature, this quarter, this priority." If you adopt this approach, you're adopting a release discipline, not a prioritisation discipline. Pair it with one of the other methods on this site (Scoring or Define-first) for what to build in the first place.</p>
   </div>
 
@@ -123,10 +124,10 @@
     <div class="rung r1">
       <div class="scope">Internal</div>
       <div class="body"><h3>Researchers + red-team only</h3><p>The capability is exercised inside OpenAI. Red-team probes for misuse before any external exposure.</p></div>
-      <div class="gate"><b>Gate to next</b>Preparedness scorecard run; system card draft started; no Critical-tier risk surfaced.</div>
+      <div class="gate"><b>Gate to next</b>Preparedness scorecard run; <a class="j" href="jargon.html#system-card">system card</a> draft started; no Critical-tier risk surfaced.</div>
     </div>
     <div class="rung r2">
-      <div class="scope">Research preview</div>
+      <div class="scope"><a class="j" href="jargon.html#research-preview">Research preview</a></div>
       <div class="body"><h3>Small external group, gated waitlist</h3><p>Researchers, alpha partners, hand-picked safety-aware users. The point is real use at low blast radius.</p></div>
       <div class="gate"><b>Gate to next</b>No new Critical-tier capability discovered in use; misuse rate measurable; mitigations holding.</div>
     </div>
@@ -138,7 +139,7 @@
     <div class="rung r4">
       <div class="scope">Broad rollout</div>
       <div class="body"><h3>Generally available, default-on</h3><p>Free tier or full API; default-on for new users. Real volume; real harm-surface; full system-card disclosure.</p></div>
-      <div class="gate"><b>Gate to next</b>Production-grade monitoring; rollback path verified; quarterly Preparedness re-evaluation.</div>
+      <div class="gate"><b>Gate to next</b>Production-grade monitoring; <a class="j" href="jargon.html#rollback-path">rollback path</a> verified; quarterly Preparedness re-evaluation.</div>
     </div>
     <div class="rung r5">
       <div class="scope">Embedded / API-default</div>

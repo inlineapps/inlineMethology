@@ -38,6 +38,7 @@
 <a href="impact-consumer-companies.html">Consumer-tech field study</a>
 <a href="methodologies-comparison.html"><b>All methods compared →</b></a>
 <a href="experiment-trustworthiness.html">How 40k tests actually work →</a>
+<a href="jargon.html">Jargon (glossary)</a>
 </div>
 <div class="navgrp"><h4>Scoring &amp; Input modeling</h4>
 <a href="rice-framework.html">RICE (Intercom)</a>
@@ -78,7 +79,7 @@
   <header class="masthead">
     <p class="kicker">Methods · Deep-dive · Experimentation</p>
     <h1>Microsoft ExP — OEC, CUPED, and trustworthy experiments at scale <span class="srcyr">2013</span></h1>
-    <p class="sub">Pioneered by Ron Kohavi and team across Bing, Office, Windows, and Azure. Three pieces — a <b>platform</b> that runs experiments cheaply, a single agreed success metric per test (<b>OEC</b>), and a variance-reduction technique (<b>CUPED</b>) that gets the same answer from far fewer users.</p>
+    <p class="sub">Pioneered by Ron Kohavi and team across Bing, Office, Windows, and Azure. Three pieces — a <b>platform</b> that runs experiments cheaply, a single agreed success metric per test (<b>OEC</b>), and a variance-reduction technique (<b><a class="j" href="jargon.html#cuped">CUPED</a></b>) that gets the same answer from far fewer users.</p>
     <p class="sub">Earliest canonical publication: the CUPED paper (Deng, Xu, Kohavi, Walker — 2013). Codified at book length in <em>Trustworthy Online Controlled Experiments</em> (Kohavi, Tang, Xu — 2020).</p>
     <div class="goal"><span>Goal</span><br>Decide features by data-backed expected impact — choose by outcome, not by to-do list or opinion.</div>
   </header>
@@ -168,7 +169,7 @@
 
   <div class="note" style="background:var(--teal-soft);border-left-color:var(--teal)"><b>Try it Monday morning (30 minutes).</b> Pick the most recently-shipped feature on your team. Write its post-hoc experiment design: what was the <em>OEC</em> (the one number that defined winning)? What <em>guardrails</em> should not have regressed? What <em>MDE</em> would have justified the build? If you can't answer those for a feature you already shipped, you've found the discipline gap — your team is shipping ideas faster than you're learning from them. Next sprint: pick one upcoming feature and write those three lines <em>before</em> any code goes in.</div>
 
-  <div class="note" style="background:var(--blue-soft);border-left-color:var(--blue);font-size:13.5px"><b>Quick glossary for the columns below.</b> <b>OEC</b> = Overall Evaluation Criterion (the one agreed success metric). <b>MDE</b> = Minimum Detectable Effect (the smallest change the test is powered to spot). <b>SRM</b> = Sample-Ratio Mismatch (when your 50/50 split came out 51/49 by accident — a sign the experiment is broken). <b>A/A test</b> = both arms get the same variant; if you see "winning" results, the platform is lying to you. <b>CI</b> = Confidence Interval. <b>CTA</b> = Call-To-Action (the button you want clicked). <b>a11y</b> = accessibility.</div>
+  <div class="note" style="background:var(--blue-soft);border-left-color:var(--blue);font-size:13.5px"><b>Quick glossary for the columns below.</b> <b>OEC</b> = <a class="j" href="jargon.html#oec">Overall Evaluation Criterion</a> (the one agreed success metric). <b>MDE</b> = <a class="j" href="jargon.html#mde">Minimum Detectable Effect</a> (the smallest change the test is powered to spot). <b>SRM</b> = <a class="j" href="jargon.html#srm">Sample-Ratio Mismatch</a> (when your 50/50 split came out 51/49 by accident — a sign the experiment is broken). <b><a class="j" href="jargon.html#aa-test">A/A test</a></b> = both arms get the same variant; if you see "winning" results, the platform is lying to you. <b>CI</b> = Confidence Interval. <b>CTA</b> = Call-To-Action (the button you want clicked). <b><a class="j" href="jargon.html#a11y">a11y</a></b> = accessibility.</div>
 
   <div class="extable">
     <table class="ex">
@@ -199,7 +200,7 @@
         <tr class="top"><td>Headline color &amp; font tweak (Bing-style)</td><td>Revenue / session</td><td>Latency, abandon</td><td>0.5%</td><td>200k</td><td>50/50 · 2 wk</td><td>OEC +1.2% sig · guards held</td><td class="score">Ship</td></tr>
         <tr class="top"><td>Recommendation algo v2</td><td>Sessions / user / wk</td><td>CTR, latency</td><td>0.3%</td><td>150k</td><td>25/25/50 · 2 wk</td><td>OEC +0.4% sig · guards held</td><td class="score">Ship</td></tr>
         <tr class="top"><td>Bigger CTA buttons on landing</td><td>Conversion to signup</td><td>Bounce rate, a11y</td><td>0.5%</td><td>120k</td><td>50/50 · 1 wk</td><td>OEC +0.6% sig · bounce -0.3%</td><td class="score">Ship</td></tr>
-        <tr><td>New onboarding tutorial</td><td>D7 retention</td><td>Completion, errors</td><td>1.0%</td><td>80k</td><td>1→5→25→50%</td><td>OEC flat · guards OK</td><td class="score" style="color:var(--gold)">Iterate — try v2</td></tr>
+        <tr><td>New onboarding tutorial</td><td><a class="j" href="jargon.html#dn-activation">D7</a> retention</td><td>Completion, errors</td><td>1.0%</td><td>80k</td><td>1→5→25→50%</td><td>OEC flat · guards OK</td><td class="score" style="color:var(--gold)">Iterate — try v2</td></tr>
         <tr><td>AI suggestion panel</td><td>Tasks completed / session</td><td>Page load, opt-out rate</td><td>1.5%</td><td>60k</td><td>1→5→25%</td><td>OEC +0.2% NOT sig (under-powered)</td><td class="score" style="color:var(--gold)">Iterate — extend run</td></tr>
         <tr><td>Aggressive paywall variant</td><td>Trial → paid</td><td>Post-paid churn, support tickets</td><td>3.0%</td><td>20k</td><td>5% · halted</td><td>OEC +8% BUT tickets +40%</td><td class="score" style="color:var(--accent)">Kill — guardrail breach</td></tr>
         <tr><td>Auto-translate UI for new locales</td><td>Locale activation rate</td><td>Tickets, error rate</td><td>2.0%</td><td>40k</td><td>25/25/50</td><td>OEC -2.1% sig</td><td class="score" style="color:var(--accent)">Kill</td></tr>

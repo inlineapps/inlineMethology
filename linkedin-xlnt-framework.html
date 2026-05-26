@@ -35,6 +35,7 @@
 <a href="impact-consumer-companies.html">Consumer-tech field study</a>
 <a href="methodologies-comparison.html"><b>All methods compared →</b></a>
 <a href="experiment-trustworthiness.html">How 40k tests actually work →</a>
+<a href="jargon.html">Jargon (glossary)</a>
 </div>
 <div class="navgrp"><h4>Scoring &amp; Input modeling</h4>
 <a href="rice-framework.html">RICE (Intercom)</a>
@@ -95,7 +96,7 @@
   </nav>
 
   <div style="background:#fbf6e7;border:1px dashed #d8c98f;border-left:5px solid var(--gold);border-radius:10px;padding:14px 20px;margin:0 0 22px;font-size:14.5px;color:#5b4708">
-    <b style="color:#7a5a08">Skeptical of the "40k/day" claim?</b> &nbsp;Good — it deserves scrutiny. The answer (orthogonal layered randomization from Google's KDD 2010 paper, plus 1-week-minimum read windows) is its own deep-dive: <a href="experiment-trustworthiness.html" style="color:#7a5a08;font-weight:700;border-bottom:1px solid #7a5a08;text-decoration:none">How 40k tests actually work → trustworthiness mechanics</a>.
+    <b style="color:#7a5a08">Skeptical of the "40k/day" claim?</b> &nbsp;Good — it deserves scrutiny. The answer (orthogonal <a class="j" href="jargon.html#layered-randomization">layered randomization</a> from Google's <a class="j" href="jargon.html#kdd">KDD</a> 2010 paper, plus 1-week-minimum read windows) is its own deep-dive: <a href="experiment-trustworthiness.html" style="color:#7a5a08;font-weight:700;border-bottom:1px solid #7a5a08;text-decoration:none">How 40k tests actually work → trustworthiness mechanics</a>.
   </div>
 
   <div class="finding" id="headline">
@@ -153,11 +154,11 @@
 
   <!-- APPLY TO A SHEET -->
   <h2 class="sec" id="apply">Apply to a feature sheet</h2>
-  <p class="secsub">XLNT/T-REX discipline turns the backlog into a live <strong>experiment ledger</strong> — every release carries its test. The columns mirror Microsoft ExP (OEC, guardrails, MDE, N, ramp, result, decision), with the LinkedIn-specific addition of a <em>network-interference check</em> (triangle test) because connection-based features can leak across treatment/control.</p>
+  <p class="secsub">XLNT/T-REX discipline turns the backlog into a live <strong>experiment ledger</strong> — every release carries its test. The columns mirror Microsoft ExP (OEC, guardrails, <a class="j" href="jargon.html#mde">MDE</a>, N, ramp, result, decision), with the LinkedIn-specific addition of a <em>network-interference check</em> (<a class="j" href="jargon.html#triangle-test">triangle test</a>) because connection-based features can leak across treatment/control.</p>
 
   <div class="note" style="background:var(--teal-soft);border-left-color:var(--teal)"><b>Try it Monday morning (30 minutes).</b> You probably don't have a LinkedIn-scale platform. That's fine — the discipline is what matters. Pick your team's release process. Walk it backwards: where in the flow is the <em>1% ramp</em>? Where is the <em>pre-declared OEC</em>? Where is the <em>guardrail check</em>? If any of those isn't a defined step, that's the gap. Add it once, in writing. You don't need 40k experiments/day — you need <em>every</em> release to declare what would make it a win, before it ships.</div>
 
-  <div class="note" style="background:var(--blue-soft);border-left-color:var(--blue);font-size:13.5px"><b>Quick glossary for the columns below.</b> <b>OEC</b> = Overall Evaluation Criterion (the agreed success metric, set <em>before</em> the test). <b>Triangle test / network-interference check</b> = a randomization check used when a feature can spread between users via the social graph (a connection accepts a suggestion → their feed changes too) — without this check, treatment can "leak" into control and inflate the result. <b>SRM</b> = Sample-Ratio Mismatch (when the 50/50 split came out wrong by accident — a sign the experiment is broken). <b>NS</b> = not statistically significant.</div>
+  <div class="note" style="background:var(--blue-soft);border-left-color:var(--blue);font-size:13.5px"><b>Quick glossary for the columns below.</b> <b>OEC</b> = <a class="j" href="jargon.html#oec">Overall Evaluation Criterion</a> (the agreed success metric, set <em>before</em> the test). <b>Triangle test / network-interference check</b> = a randomization check used when a feature can spread between users via the social graph (a connection accepts a suggestion → their feed changes too) — without this check, treatment can "leak" into control and inflate the result. <b>SRM</b> = <a class="j" href="jargon.html#srm">Sample-Ratio Mismatch</a> (when the 50/50 split came out wrong by accident — a sign the experiment is broken). <b>NS</b> = not statistically significant.</div>
 
   <h3 style="font-family:Georgia,serif;font-size:18px;margin:18px 0 8px">Worked example — an experiment ledger snapshot (LinkedIn-style)</h3>
   <p style="font-size:13.5px;color:var(--ink-soft);margin:0 0 12px">Eight experiments. OECs drawn from LinkedIn's published preference: <em>sessions per visitor per week</em> + downstream engagement. Numbers illustrative.</p>

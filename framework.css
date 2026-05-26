@@ -124,6 +124,16 @@ h2.sec {
   padding-top: 18px;
   border-top: 2px solid var(--line);
 }
+
+/* ===== Anchor-target offset =====
+   The sticky nav.toc covers an element when you anchor-jump to it.
+   scroll-padding-top on the scroll container (html) is the most robust fix:
+   it applies to EVERY anchor jump regardless of the target selector, so it
+   handles same-page #links AND cross-page jargon.html#term jumps uniformly.
+   80px = nav.toc (~46px) + breathing room. Belt-and-suspenders: also set
+   scroll-margin-top on common targets in case scroll-padding-top is ignored. */
+html { scroll-padding-top: 56px; }
+.wrap [id], h2.sec, .term, .finding { scroll-margin-top: 56px; }
 .secsub { color: var(--ink-soft); font-size: 14.5px; margin: 0 0 18px; max-width: 68ch }
 p { margin: 0 0 14px }
 
@@ -211,6 +221,13 @@ p { margin: 0 0 14px }
 a.cite { color: var(--teal); text-decoration: none; border-bottom: 1px solid var(--teal) }
 a.cite:hover { color: var(--accent); border-color: var(--accent) }
 .src { font-size: 13px; color: var(--ink-soft); margin-top: 10px }
+
+/* ===== Jargon link-outs (body-text glossary cross-references) =====
+   Subtle: reads as annotated body text, not a competing call-to-action. The
+   dotted underline signals "click for a definition." Hover reveals the page
+   accent so it matches the rest of the page's color identity. */
+a.j { color: var(--ink); text-decoration: none; border-bottom: 1px dotted var(--ink-soft); }
+a.j:hover { color: var(--page-accent); border-bottom: 1px solid var(--page-accent); }
 
 /* ===== Blockquote (used in AI lab pages) ===== */
 blockquote {

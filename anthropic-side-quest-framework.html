@@ -51,6 +51,7 @@
 <a href="impact-consumer-companies.html">Consumer-tech field study</a>
 <a href="methodologies-comparison.html"><b>All methods compared →</b></a>
 <a href="experiment-trustworthiness.html">How 40k tests actually work →</a>
+<a href="jargon.html">Jargon (glossary)</a>
 </div>
 <div class="navgrp"><h4>Scoring &amp; Input modeling</h4>
 <a href="rice-framework.html">RICE (Intercom)</a>
@@ -91,7 +92,7 @@
   <header class="masthead">
     <p class="kicker">Methods · Deep-dive · AI-lab process (Anthropic)</p>
     <h1>Anthropic side quests — prototype first, let engagement decide <span class="srcyr">2026</span></h1>
-    <p class="sub">Anthropic's published product approach is, deliberately, <em>not</em> a ranking method. There is no score, no PRD, no quarterly stack-rank. Features are built as <strong>"side quests"</strong> — afternoon prototypes shipped inside the company; the ones that get used get promoted.</p>
+    <p class="sub">Anthropic's published product approach is, deliberately, <em>not</em> a ranking method. There is no score, no <a class="j" href="jargon.html#prd">PRD</a>, no quarterly stack-rank. Features are built as <strong>"side quests"</strong> — afternoon prototypes shipped inside the company; the ones that get used get promoted.</p>
     <p class="sub">The judgement is downstream, not upstream. Canonical source: Cat Wu (Head of Product for Claude Code) — <a class="cite" href="https://claude.com/blog/product-management-on-the-ai-exponential">"Product management on the AI exponential"</a>, claude.com blog, March 19, 2026.</p>
     <div class="goal"><span>Goal</span><br>Decide what to ship by <em>seeing what works in real use</em>, not by scoring what might.</div>
   </header>
@@ -183,7 +184,7 @@
       <ul>
         <li>Prototype-first ("demos over docs")</li>
         <li>Side-quest queue, refreshed continuously</li>
-        <li>Engagement signal from internal dogfood</li>
+        <li><a class="j" href="jargon.html#engagement-signal">Engagement signal</a> from internal <a class="j" href="jargon.html#dogfooding">dogfood</a></li>
         <li>"Capability first" — over-spend tokens, optimise later</li>
         <li>"Do the simple thing that works" — newer models will close the gap</li>
         <li>Re-test old prototypes when a new model drops</li>
@@ -210,7 +211,7 @@
 
   <div class="note" style="background:var(--teal-soft);border-left-color:var(--teal)"><b>Try it Monday morning (30 minutes).</b> Pick one idea from your team's "we should try this someday" list. Ignore the doc, the spec, the planning meeting. Ask: <em>can a single person build a rough version in one afternoon</em> using whatever AI tools are at hand? If yes — that's a side quest. Schedule the afternoon. If no — you've found the line where Anthropic's approach doesn't apply to your team (yet); start there. The 30-minute version isn't to build the prototype; it's to identify <em>one</em> idea on your roadmap that could collapse from "quarter of planning" to "one afternoon" with the right tools.</div>
 
-  <div class="note" style="background:#e6f4f1;border-left-color:var(--teal);font-size:13.5px"><b>Quick glossary for the columns below.</b> <b>Side quest</b> = a short self-directed experiment outside the official roadmap, sized to an afternoon. <b>Dogfooding</b> = the team using its own product internally. <b>Engagement signal</b> = qualitative + light telemetric read of "did anyone keep using this past the novelty stage?" (no pre-declared OEC). <b>Capability ceiling</b> = the model-level limit on what's currently possible — re-tested when a new model ships. <b>Park</b> = a verdict meaning "the model can't yet do this; revisit next release" — not a kill.</div>
+  <div class="note" style="background:#e6f4f1;border-left-color:var(--teal);font-size:13.5px"><b>Quick glossary for the columns below.</b> <b>Side quest</b> = a short self-directed experiment outside the official roadmap, sized to an afternoon. <b>Dogfooding</b> = the team using its own product internally. <b>Engagement signal</b> = qualitative + light telemetric read of "did anyone keep using this past the novelty stage?" (no pre-declared OEC). <b><a class="j" href="jargon.html#capability-ceiling">Capability ceiling</a></b> = the model-level limit on what's currently possible — re-tested when a new model ships. <b>Park</b> = a verdict meaning "the model can't yet do this; revisit next release" — not a kill.</div>
 
   <div class="extable">
     <table class="ex">
@@ -257,7 +258,7 @@
     <b>It needs an internal dogfood pool of the right shape.</b> The engagement signal only works because Anthropic's staff <em>are</em> the target user (technical, AI-native, willing to try half-built things). A consumer team with no proxy user inside the building gets zero signal from internal ship.<br><br>
     <b>It abdicates upstream prioritisation.</b> The method works for AI-product features Anthropic is going to discover one way or the other. It doesn't help when there's a <em>strategic</em> choice between unrelated bets — that decision is made elsewhere (the post explicitly says "clear strategy and goals let everyone prioritize autonomously"), and the side-quest loop doesn't address how that strategy is set.<br><br>
     <b>It is structurally biased toward the discoverable.</b> A side quest is, by definition, prototype-able in an afternoon. Multi-quarter infrastructure work, regulatory work, and anything contract-shaped doesn't fit the loop. Anthropic's RSP (separate document) is what handles the high-cost-of-wrong items.<br><br>
-    <b>The "anti-method" framing is overstated outside Claude Code.</b> Cat Wu's post is specifically about how <em>her</em> team works on a developer-tools product. The public PM plugin (<a class="cite" href="https://github.com/anthropics/knowledge-work-plugins/tree/main/product-management">anthropics/knowledge-work-plugins</a>) ships with RICE, MoSCoW, JTBD and HMW as supported tools — so it's clear that Anthropic's <em>own</em> opinion is "use a framework if it helps; we don't need one for this product."
+    <b>The "anti-method" framing is overstated outside Claude Code.</b> Cat Wu's post is specifically about how <em>her</em> team works on a developer-tools product. The public PM plugin (<a class="cite" href="https://github.com/anthropics/knowledge-work-plugins/tree/main/product-management">anthropics/knowledge-work-plugins</a>) ships with RICE, MoSCoW, <a class="j" href="jargon.html#jtbd">JTBD</a> and <a class="j" href="jargon.html#hmw">HMW</a> as supported tools — so it's clear that Anthropic's <em>own</em> opinion is "use a framework if it helps; we don't need one for this product."
   </div>
 
   <div class="note"><b>Why it's on the list.</b> Two reasons. First, the user asked specifically whether AI labs have published a feature-decision method — and this is the one direct on-the-record publication from either lab. Second, the &quot;cost of a wrong bet is an afternoon&quot; cost-structure claim is the load-bearing assumption every traditional method makes <em>opposite</em>; seeing the inversion stated plainly is useful for our own decision about how much pre-build estimation to do.</div>

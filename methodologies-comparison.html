@@ -13,10 +13,14 @@
     --shadow:0 1px 2px rgba(28,34,48,.06),0 8px 24px rgba(28,34,48,.06);
   }
   *{box-sizing:border-box}
+  html{scroll-padding-top:56px}
   body{margin:0;background:var(--paper);color:var(--ink);
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     line-height:1.62;font-size:16px;-webkit-font-smoothing:antialiased}
   .wrap{max-width:1200px;margin:0 auto;padding:0 24px 96px}
+  /* Jargon link-out — subtle, hover reveals accent. Mirror of framework.css a.j */
+  a.j{color:var(--ink);text-decoration:none;border-bottom:1px dotted var(--ink-soft)}
+  a.j:hover{color:var(--accent);border-bottom:1px solid var(--accent)}
   header.masthead{border-bottom:3px solid var(--ink);margin-bottom:8px;padding:48px 0 22px}
   .kicker{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);font-weight:700;margin:0 0 10px}
   h1{font-family:Georgia,"Times New Roman",serif;font-size:40px;line-height:1.08;margin:0 0 12px;letter-spacing:-.01em}
@@ -115,6 +119,7 @@
 <a href="impact-consumer-companies.html">Consumer-tech field study</a>
 <a class="cur" href="methodologies-comparison.html"><b>All methods compared →</b></a>
 <a href="experiment-trustworthiness.html">How 40k tests actually work →</a>
+<a href="jargon.html">Jargon (glossary)</a>
 </div>
 <div class="navgrp"><h4>Scoring &amp; Input modeling</h4>
 <a href="rice-framework.html">RICE (Intercom)</a>
@@ -210,7 +215,7 @@
         <tr>
           <td class="method">RICE<div class="from">Intercom</div><div class="badges"><span class="tag saas">SaaS</span></div></td>
           <td><span class="tag scoring">Scoring</span></td>
-          <td>Intercom growth team blog post (Sean McBride, 2016)</td>
+          <td>Intercom growth team blog post (Sean McBride, January 5, 2018)</td>
           <td>Ranks candidate ideas with one formula: <code>R×I×C÷E</code>. Reveals weakest input as low Confidence.</td>
           <td class="not">Pick the goal. Estimate the lift. Replace experiments.</td>
           <td>Long candidate lists where every idea is "kind of good." Cheap weekly use.</td>
@@ -245,7 +250,7 @@
 
         <!-- EXPERIMENTATION -->
         <tr>
-          <td class="method">ExP + OEC + CUPED<div class="from">Microsoft</div><div class="badges"><span class="tag saas">SaaS</span></div></td>
+          <td class="method">ExP + OEC + <a class="j" href="jargon.html#cuped">CUPED</a><div class="from">Microsoft</div><div class="badges"><span class="tag saas">SaaS</span></div></td>
           <td><span class="tag experiment">Experimentation</span></td>
           <td>exp-platform.com · Kohavi, Tang, Xu book · CUPED paper (2013)</td>
           <td>Measures causal impact via controlled tests; OEC = the one success metric; CUPED halves required sample.</td>
@@ -281,7 +286,7 @@
           <td class="method">Democratised experimentation<div class="from">Booking.com</div><div class="badges"><span class="tag consumer">Consumer</span></div></td>
           <td><span class="tag experiment">Experimentation</span></td>
           <td>HBR Thomke 2020 · Booking democratization paper</td>
-          <td>Any employee can launch a test (no manager gate); auto SRM &amp; shared metric definitions enforce trust.</td>
+          <td>Any employee can launch a test (no manager gate); auto <a class="j" href="jargon.html#srm">SRM</a> &amp; shared metric definitions enforce trust.</td>
           <td class="not">Replace direction-setting. Pick the OEC for you.</td>
           <td>Cultures where ideas are constrained by review bottlenecks, not by hypotheses.</td>
           <td class="cost med">Medium</td>
@@ -292,7 +297,7 @@
           <td class="method">ERF (variance reduction)<div class="from">Airbnb</div><div class="badges"><span class="tag consumer">Consumer</span></div></td>
           <td><span class="tag experiment">Experimentation</span></td>
           <td>Airbnb Engineering blog (ERF posts)</td>
-          <td>Standardised analysis: one metric DSL, automatic variance reduction, templated reports → engineers read tests without analysts.</td>
+          <td>Standardised analysis: one metric <a class="j" href="jargon.html#dsl">DSL</a>, automatic variance reduction, templated reports → engineers read tests without analysts.</td>
           <td class="not">Help if you have no metric library yet.</td>
           <td>Scaling experiment volume past where analyst-per-test is feasible.</td>
           <td class="cost med">Medium</td>
@@ -300,7 +305,7 @@
           <td class="method"><a href="airbnb-erf-framework.html">Airbnb ERF →</a></td>
         </tr>
         <tr>
-          <td class="method">XP + universal holdout<div class="from">Uber</div><div class="badges"><span class="tag consumer">Consumer</span></div></td>
+          <td class="method">XP + <a class="j" href="jargon.html#universal-holdout">universal holdout</a><div class="from">Uber</div><div class="badges"><span class="tag consumer">Consumer</span></div></td>
           <td><span class="tag experiment">Experimentation</span></td>
           <td>Uber Engineering (XP posts)</td>
           <td>Staged ramp with auto-rollback; <strong>universal holdout</strong> measures cumulative quarterly impact (not just per-feature).</td>
@@ -314,7 +319,7 @@
           <td class="method">Switchback (Dash-AB)<div class="from">DoorDash</div><div class="badges"><span class="tag consumer">Consumer</span></div></td>
           <td><span class="tag experiment">Experimentation</span></td>
           <td>DoorDash Engineering blog</td>
-          <td>Marketplace-specific design: randomise <em>region × time window</em>, not users, to avoid interference (SUTVA violation).</td>
+          <td>Marketplace-specific design: randomise <em>region × time window</em>, not users, to avoid interference (<a class="j" href="jargon.html#sutva">SUTVA</a> violation).</td>
           <td class="not">Apply when there's no shared resource — overkill for UI tests.</td>
           <td>Any feature that changes a shared pool (Dasher supply, pricing, slot inventory).</td>
           <td class="cost med">Medium</td>
@@ -346,7 +351,7 @@
 
         <!-- DEFINE-FIRST / GOAL-LADDERING -->
         <tr>
-          <td class="method">PR-FAQ / Working Backwards<div class="from">Amazon</div><div class="badges"><span class="tag consumer">Consumer</span></div></td>
+          <td class="method">PR-FAQ / <a href="pr-faq-framework.html">Working Backwards</a><div class="from">Amazon</div><div class="badges"><span class="tag consumer">Consumer</span></div></td>
           <td><span class="tag define">Define-first</span></td>
           <td>About Amazon · Bryar &amp; Carr <em>Working Backwards</em></td>
           <td>Mock press release + FAQ written <em>before</em> code. Forces customer value &amp; success metrics into writing.</td>
@@ -403,7 +408,7 @@
 
         <!-- WRITTEN DISCIPLINE -->
         <tr>
-          <td class="method">Shaping + Deep-dives + LT filter<div class="from">Stripe</div><div class="badges"><span class="tag saas">SaaS</span></div></td>
+          <td class="method"><a href="stripe-shaping-framework.html">Shaping</a> + Deep-dives + LT filter<div class="from">Stripe</div><div class="badges"><span class="tag saas">SaaS</span></div></td>
           <td><span class="tag qual">Written discipline</span></td>
           <td>Ken Norton essay · Stripe Atlas · Berkeley Haas</td>
           <td>Qualitative: shape the problem, write long-form, filter through multi-decade direction.</td>
@@ -416,23 +421,23 @@
 
         <!-- AI LABS -->
         <tr>
-          <td class="method">Side quests<div class="from">Anthropic (Claude Code)</div><div class="badges"><span class="tag saas">SaaS</span></div></td>
+          <td class="method"><a href="anthropic-side-quest-framework.html">Side quests</a><div class="from">Anthropic (Claude Code)</div><div class="badges"><span class="tag saas">SaaS</span></div></td>
           <td><span class="tag ailab">AI lab</span></td>
           <td>Cat Wu — claude.com blog (Mar 2026)</td>
           <td>Prototype-first loop: build in an afternoon, ship internally, let engagement decide promote / iterate / drop.</td>
-          <td class="not">Rank features pre-build. Provide a score. Handle non-dogfood-able work.</td>
+          <td class="not">Rank features pre-build. Provide a score. Handle non-<a class="j" href="jargon.html#dogfooding">dogfood</a>-able work.</td>
           <td>AI-native product teams whose staff are the target user; fast-moving capability-led products.</td>
           <td class="cost low">Low (per quest)</td>
           <td>1st-party</td>
           <td class="method"><a href="anthropic-side-quest-framework.html">Anthropic →</a></td>
         </tr>
         <tr>
-          <td class="method">Iterative deployment<div class="from">OpenAI</div><div class="badges"><span class="tag consumer">Consumer</span></div></td>
+          <td class="method"><a href="openai-iterative-deployment-framework.html">Iterative deployment</a><div class="from">OpenAI</div><div class="badges"><span class="tag consumer">Consumer</span></div></td>
           <td><span class="tag ailab">AI lab</span></td>
-          <td>Planning for AGI &amp; Beyond · Preparedness Framework v2 · system cards</td>
+          <td>Planning for AGI &amp; Beyond · <a class="j" href="jargon.html#preparedness-framework">Preparedness Framework</a> v2 · <a class="j" href="jargon.html#system-card">system cards</a></td>
           <td>Widening release rings (Internal → Preview → Limited → Broad → Embedded) with a Preparedness safety gate between each.</td>
           <td class="not">Decide which capability to build. Replace a feature-prioritisation method upstream.</td>
-          <td>Release discipline for capabilities with real-world risk surface; staged rollouts with a documented rollback path.</td>
+          <td>Release discipline for capabilities with real-world risk surface; <a class="j" href="jargon.html#ramp">staged rollouts</a> with a documented <a class="j" href="jargon.html#rollback-path">rollback path</a>.</td>
           <td class="cost high">High (safety org)</td>
           <td>1st-party</td>
           <td class="method"><a href="openai-iterative-deployment-framework.html">OpenAI →</a></td>
@@ -521,7 +526,7 @@
 
   <footer>
     From: <a href="impact-saas-companies.html">SaaS / B2B case studies</a> · <a href="impact-consumer-companies.html">Consumer-tech case studies</a><br>
-    All 19 methods link to their own deep-dive page. Every "What it decides / doesn't do" claim traces to that company's published material; caveats noted on the deep-dive pages where sourcing is secondary. The "Three coherent stacks" framing is editorial, not a sourced framework recommendation.
+    20 methods in the table; 19 of them link to a dedicated deep-dive page (Atlassian's Weighted Scoring is covered as a row in the SaaS field study rather than a separate page). Every "What it decides / doesn't do" claim traces to that company's published material; caveats noted on the deep-dive pages where sourcing is secondary. The "Three coherent stacks" framing is editorial, not a sourced framework recommendation.
   </footer>
 </div>
 </body>

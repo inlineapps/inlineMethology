@@ -41,6 +41,7 @@
 <a href="impact-consumer-companies.html">Consumer-tech field study</a>
 <a href="methodologies-comparison.html"><b>All methods compared →</b></a>
 <a href="experiment-trustworthiness.html">How 40k tests actually work →</a>
+<a href="jargon.html">Jargon (glossary)</a>
 </div>
 <div class="navgrp"><h4>Scoring &amp; Input modeling</h4>
 <a href="rice-framework.html">RICE (Intercom)</a>
@@ -81,7 +82,7 @@
   <header class="masthead">
     <p class="kicker">Methods · Deep-dive · Experimentation</p>
     <h1>Uber XP — staged rollout + universal holdout for long-term effects <span class="srcyr">2017</span></h1>
-    <p class="sub">Uber's experimentation platform (XP) combines <strong>flag-based staged rollout</strong> with a distinctive <strong>universal holdout</strong> — a small group permanently excluded from all new features to measure cumulative long-term impact.</p>
+    <p class="sub">Uber's experimentation platform (XP) combines <strong>flag-based <a class="j" href="jargon.html#ramp">staged rollout</a></strong> with a distinctive <strong><a class="j" href="jargon.html#universal-holdout">universal holdout</a></strong> — a small group permanently excluded from all new features to measure cumulative long-term impact.</p>
     <p class="sub">First publicly described by Zhenyu Zhao &amp; Eva Feng in <a class="cite" href="https://www.uber.com/blog/experimentation-platform/">"Building an Intelligent Experimentation Platform with Uber Engineering" (May 4, 2017)</a>. A separate 2023 engineering post documents a 100× speedup in the experiment-evaluation engine.</p>
     <div class="goal"><span>Goal</span><br>Decide features by data-backed expected impact — choose by outcome, not by to-do list or opinion.</div>
   </header>
@@ -162,7 +163,7 @@
   <h2 class="sec" id="apply">Apply to a feature sheet</h2>
   <p class="secsub">Uber XP adds two Uber-specific columns to the standard experiment ledger: <em>two-sided OEC</em> (a feature must clear rider <em>and</em> driver metrics) and <em>universal-holdout check</em> (the quarterly causal confirmation that the cumulative product is better, not just each individual test). The staged 1%→5%→25%→50%→100% ramp is the standard layer underneath.</p>
 
-  <div class="note" style="background:var(--teal-soft);border-left-color:var(--teal)"><b>Try it Monday morning (30 minutes).</b> You probably don't have a "universal holdout" running. Set up a primitive version: list every shipped feature from last quarter on a doc. For each one, write the OEC delta it claimed. Now ask: if all those wins were real, would the headline business metric (DAU, revenue, NPS) be visibly better this quarter vs last? If yes — great, your wins compound. If no — you have a holdout-shaped problem: your per-feature OECs are picking up local noise that doesn't aggregate. The universal holdout is the institutional version of this exercise.</div>
+  <div class="note" style="background:var(--teal-soft);border-left-color:var(--teal)"><b>Try it Monday morning (30 minutes).</b> You probably don't have a "universal holdout" running. Set up a primitive version: list every shipped feature from last quarter on a doc. For each one, write the OEC delta it claimed. Now ask: if all those wins were real, would the headline business metric (<a class="j" href="jargon.html#wau-dau-mau">DAU</a>, revenue, <a class="j" href="jargon.html#nps">NPS</a>) be visibly better this quarter vs last? If yes — great, your wins compound. If no — you have a holdout-shaped problem: your per-feature OECs are picking up local noise that doesn't aggregate. The universal holdout is the institutional version of this exercise.</div>
 
   <div class="note" style="background:var(--blue-soft);border-left-color:var(--blue);font-size:13.5px"><b>Quick glossary for the columns below.</b> <b>Two-sided OEC</b> = a marketplace metric pair (rider + driver) where a feature must help one side without harming the other. <b>Universal holdout</b> = a small slice of users (typically 1–5%) who never see <em>any</em> new feature for a fixed period (e.g. a quarter); comparing them to everyone else measures the cumulative product change in a causal way no roll-up of individual tests can. <b>Auto-rollback</b> = the platform unwinds a flag automatically if a guardrail breaches during ramp — no human required.</div>
 

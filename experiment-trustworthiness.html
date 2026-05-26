@@ -70,6 +70,7 @@
 <a href="impact-consumer-companies.html">Consumer-tech field study</a>
 <a href="methodologies-comparison.html"><b>All methods compared →</b></a>
 <a class="cur" href="experiment-trustworthiness.html">How 40k tests actually work →</a>
+<a href="jargon.html">Jargon (glossary)</a>
 </div>
 <div class="navgrp"><h4>Scoring &amp; Input modeling</h4>
 <a href="rice-framework.html">RICE (Intercom)</a>
@@ -111,7 +112,7 @@
     <p class="kicker">Methods · Deep-dive · The skeptic's answer</p>
     <h1>How big tech actually runs 40,000 A/B tests per day — without drowning in noise <span class="srcyr">2010</span></h1>
     <p class="sub">A grounded answer to three reasonable challenges to the "experimentation works" story: <strong>what does 40k/day really count?</strong> <strong>How is interference between concurrent tests handled?</strong> <strong>How long does a real decision actually take?</strong></p>
-    <p class="sub">No magic — the answers are public, well-cited, and older than most people realise. Foundational source: Google's <em>Overlapping Experiment Infrastructure</em> (Tang, Agarwal, O'Brien &amp; Meyer — KDD 2010), with later work from Microsoft (Kohavi/Tang/Xu, 2013–2020) and LinkedIn (2020+).</p>
+    <p class="sub">No magic — the answers are public, well-cited, and older than most people realise. Foundational source: Google's <em>Overlapping Experiment Infrastructure</em> (Tang, Agarwal, O'Brien &amp; Meyer — <a class="j" href="jargon.html#kdd">KDD</a> 2010), with later work from Microsoft (Kohavi/Tang/Xu, 2013–2020) and LinkedIn (2020+).</p>
     <div class="goal"><span>Goal</span><br>Decide features by data-backed expected impact — choose by outcome, not by to-do list or opinion.</div>
   </header>
 
@@ -159,7 +160,7 @@
 
   <!-- SECTION 2: INTERFERENCE -->
   <h2 class="sec" id="interference">2. The interference problem — and the layered-randomization trick that solves it</h2>
-  <p class="secsub">Your concern in your words: "if test A and test B both affect metric A, you can't say A caused the lift." Exactly right. This is a real, well-documented problem. The published solution is one of the most important ideas in modern experimentation: <strong>orthogonal layered randomization</strong>.</p>
+  <p class="secsub">Your concern in your words: "if test A and test B both affect metric A, you can't say A caused the lift." Exactly right. This is a real, well-documented problem. The published solution is one of the most important ideas in modern experimentation: <strong>orthogonal <a class="j" href="jargon.html#layered-randomization">layered randomization</a></strong>.</p>
 
   <div class="quote">"The infrastructure had been used in Google since around 2007 … key concepts include <b>domains</b> (a segmentation of traffic), <b>layers</b> (corresponding to a subset of the system parameters), and <b>experiments</b> (a segmentation of traffic where zero or more system parameters can be given alternate values)."
     <span class="att">— Tang, Agarwal, O'Brien &amp; Meyer, <em>Overlapping Experiment Infrastructure: More, Better, Faster Experimentation</em>, KDD 2010 (pp. 17–26).</span>
@@ -199,7 +200,7 @@
   <ul style="margin:8px 0 14px;padding-left:22px">
     <li><b>Put them in the same layer</b> — mutually exclusive. One at a time. Cost: queueing; benefit: zero contamination. <em>(LaunchDarkly, Optimizely, AB Tasty all implement this as "mutually exclusive experiments" — standard third-party feature.)</em></li>
     <li><b>Run a full factorial</b> — A/B × C/D = four arms, measure interaction explicitly. Kohavi: "If you suspect interaction between two tests, the answer is to run a multivariate test, not two parallel ones."</li>
-    <li><b>Ghosting</b> (Booking.com's published practice) — log the counterfactual model score / UI state the user <em>would</em> have seen alongside the served version, so you can study interactions before committing to a live factorial.</li>
+    <li><b><a class="j" href="jargon.html#ghosting">Ghosting</a></b> (Booking.com's published practice) — log the counterfactual model score / UI state the user <em>would</em> have seen alongside the served version, so you can study interactions before committing to a live factorial.</li>
   </ul>
 
   <div class="skeptic">
@@ -216,8 +217,8 @@
     <table>
       <tr><td><b>Hard minimum</b> — full <code style="font-family:'SF Mono',ui-monospace,Menlo,Consolas,monospace;background:#f6f4ee;padding:1px 5px;border-radius:3px">7 days</code> so day-of-week effects are absorbed (weekend behaviour ≠ weekday)</td><td class="n">7d</td></tr>
       <tr><td><b>Typical at Microsoft / Bing</b> — most experiments run 1–2 weeks (Kohavi/Tang/Xu, 2020)</td><td class="n">7–14d</td></tr>
-      <tr><td><b>If novelty effect suspected</b> — initial 1–2 week spike fades, so read at week 2–3 not week 1</td><td class="n">14–21d</td></tr>
-      <tr><td><b>If primacy effect suspected</b> — habituated users need weeks to adapt; long-term holdout (Uber) or 4+ weeks</td><td class="n">28d+</td></tr>
+      <tr><td><b>If <a class="j" href="jargon.html#novelty-effect">novelty effect</a> suspected</b> — initial 1–2 week spike fades, so read at week 2–3 not week 1</td><td class="n">14–21d</td></tr>
+      <tr><td><b>If <a class="j" href="jargon.html#primacy-effect">primacy effect</a> suspected</b> — habituated users need weeks to adapt; long-term holdout (Uber) or 4+ weeks</td><td class="n">28d+</td></tr>
       <tr><td><b>Power-determined</b> — duration must hit a pre-computed sample-size threshold; underpowered tests are not "shorter" — they're inconclusive</td><td class="n">N-driven</td></tr>
     </table>
   </div>
@@ -228,15 +229,15 @@
   <h2 class="sec" id="variance">4. Variance, standard deviation &amp; "is it actually different?"</h2>
   <p class="secsub">"Up by 2%" might be inside the daily noise. The discipline is to ask: <em>is the observed lift larger than the metric's known variance at this sample size?</em></p>
 
-  <p>For each metric the team computes a baseline <b>standard deviation</b> from pre-experiment data. The required sample size to detect a desired minimum effect (MDE) is roughly:</p>
+  <p>For each metric the team computes a baseline <b>standard deviation</b> from pre-experiment data. The required sample size to detect a desired minimum effect (<a class="j" href="jargon.html#mde">MDE</a>) is roughly:</p>
   <p style="text-align:center;background:#f6f4ee;border:1px solid var(--line);border-radius:8px;padding:14px;font-family:'SF Mono',ui-monospace,Menlo,Consolas,monospace;font-size:14px;color:var(--ink)">N ≈ 16 × (σ ÷ MDE)<sup>2</sup>   <span style="color:var(--ink-soft);font-style:italic;font-size:12.5px;font-family:inherit">(rough rule-of-thumb for two-sample 80% power, α=0.05)</span></p>
   <p>So smaller effects need quadratically more users — the reason "we'll just test it small" doesn't fly for subtle changes. The discipline of <strong>pre-declaring</strong> the MDE, the OEC, and the duration before launching is what stops the "the number's up, let's ship" failure mode.</p>
 
   <h3 style="font-family:Georgia,serif;font-size:18px;margin:18px 0 6px">Three published tricks that don't change duration much but make reads more honest</h3>
   <ul style="margin:8px 0 14px;padding-left:22px">
-    <li><b>CUPED</b> (Microsoft, 2013) — use each user's pre-experiment behaviour as a covariate; shrinks confidence interval ~50% → same answer from ~half the sample size.</li>
-    <li><b>Sequential testing</b> (Netflix, Optimizely, others) — peek continuously but with adjusted significance thresholds (mSPRT, group-sequential designs) so the false-positive rate stays controlled. Lets you stop early on clear winners or losers <em>without</em> the classic "p-hacking by repeated peeking" problem.</li>
-    <li><b>SRM check (Sample Ratio Mismatch)</b> — if treatment / control end up 51% / 49% instead of 50/50, the platform <b>refuses to read out</b>. A skewed split means the randomization was broken — and ~70% of "interesting" early results turn out to be SRM artifacts on first inspection (Kohavi).</li>
+    <li><b><a class="j" href="jargon.html#cuped">CUPED</a></b> (Microsoft, 2013) — use each user's pre-experiment behaviour as a covariate; shrinks confidence interval ~50% → same answer from ~half the sample size.</li>
+    <li><b><a class="j" href="jargon.html#sequential-testing">Sequential testing</a></b> (Netflix, Optimizely, others) — peek continuously but with adjusted significance thresholds (<a class="j" href="jargon.html#msprt">mSPRT</a>, group-sequential designs) so the false-positive rate stays controlled. Lets you stop early on clear winners or losers <em>without</em> the classic "<a class="j" href="jargon.html#p-hacking">p-hacking</a> by repeated peeking" problem.</li>
+    <li><b>SRM check (<a class="j" href="jargon.html#srm">Sample Ratio Mismatch</a>)</b> — if treatment / control end up 51% / 49% instead of 50/50, the platform <b>refuses to read out</b>. A skewed split means the randomization was broken — and ~70% of "interesting" early results turn out to be SRM artifacts on first inspection (Kohavi).</li>
   </ul>
 
   <!-- SECTION 5: WORKED EXAMPLE -->
@@ -259,7 +260,7 @@
       <thead><tr><th>Metric</th><th>Treatment vs Control</th><th>95% Confidence Interval</th><th>Verdict</th></tr></thead>
       <tbody>
         <tr><td>OEC — primary success metric</td><td>+1.8%</td><td>[+0.6%, +3.0%]</td><td class="good">Significant ✓</td></tr>
-        <tr><td>Guardrail — latency (p95)</td><td>+2 ms</td><td>[0, +5 ms]</td><td class="good">Within tolerance ✓</td></tr>
+        <tr><td>Guardrail — latency (<a class="j" href="jargon.html#p95">p95</a>)</td><td>+2 ms</td><td>[0, +5 ms]</td><td class="good">Within tolerance ✓</td></tr>
         <tr><td>Guardrail — support tickets</td><td>−0.4%</td><td>[−1.1%, +0.3%]</td><td class="good">Not worse ✓</td></tr>
         <tr><td>Sanity — sample ratio</td><td>50.04% / 49.96%</td><td>—</td><td class="good">No SRM ✓</td></tr>
       </tbody>
@@ -267,7 +268,7 @@
     <p style="font-size:13px;color:var(--ink-soft);margin:10px 0 0">Because the 95% CI on the OEC does not include 0 (the lower bound is +0.6%), we say the lift is statistically significant. Guardrails held. SRM clean. <b>→ Decision: ship to 100%.</b> If the OEC's CI had been <code style="font-family:'SF Mono',ui-monospace,Menlo,Consolas,monospace;background:#fbeae4;padding:1px 5px;border-radius:3px">[−0.2%, +1.4%]</code>, the lift would be <em>inconclusive</em> (CI includes 0) — you'd extend the test, not ship.</p>
   </div>
 
-  <div class="note" style="background:var(--accent-soft);border-left-color:var(--accent)"><b>The most important reading skill on this page.</b> Look at the Day-15 readout table. The OEC moved +1.8%. Most teams would call this a win and move on. But the load-bearing column is the <b>95% confidence interval</b>: <code>[+0.6%, +3.0%]</code>. The lower bound is +0.6% — barely above zero. If we'd hit "ship" the moment the headline showed positive, we'd be acting on a number whose <em>real</em> effect could plausibly be as small as 0.6%. The discipline isn't reading the central estimate; it's checking whether the <em>entire confidence interval</em> sits where you'd ship. The CI is the honest signal; the point estimate is the marketing pitch. A team that ships off the point estimate alone is shipping noise as often as signal.</div>
+  <div class="note" style="background:var(--accent-soft);border-left-color:var(--accent)"><b>The most important reading skill on this page.</b> Look at the Day-15 readout table. The OEC moved +1.8%. Most teams would call this a win and move on. But the load-bearing column is the <b>95% confidence interval</b>: <code>[+0.6%, +3.0%]</code>. The lower bound is +0.6% — barely above zero. If we'd hit "ship" the moment the headline showed positive, we'd be acting on a number whose <em>real</em> effect could plausibly be as small as 0.6%. The discipline isn't reading the central estimate; it's checking whether the <em>entire confidence interval</em> sits where you'd ship. The CI is the honest signal; the <a class="j" href="jargon.html#point-estimate">point estimate</a> is the marketing pitch. A team that ships off the point estimate alone is shipping noise as often as signal.</div>
 
   <div class="note"><b>Why two weeks is the floor, not the ceiling.</b> Day-of-week effects alone require a full 7 days. Adding a second week is the cheapest insurance against a Day-8 reversal (novelty effect tailing off, marketing campaign ending, weekend traffic mix shifting). Kohavi et al. recommend 1–2 weeks as the default at Microsoft; longer for novelty-prone surfaces.</div>
 

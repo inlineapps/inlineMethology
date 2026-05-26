@@ -34,6 +34,7 @@
 <a href="impact-consumer-companies.html">Consumer-tech field study</a>
 <a href="methodologies-comparison.html"><b>All methods compared →</b></a>
 <a href="experiment-trustworthiness.html">How 40k tests actually work →</a>
+<a href="jargon.html">Jargon (glossary)</a>
 </div>
 <div class="navgrp"><h4>Scoring &amp; Input modeling</h4>
 <a href="rice-framework.html">RICE (Intercom)</a>
@@ -129,14 +130,14 @@
   <div class="step"><div class="num">1</div><div><h3>Engineer / PM defines the experiment in code</h3><p>Hypothesis, OEC, sample-size estimate. Metrics referenced by name from the shared config — no bespoke calculations.</p></div></div>
   <div class="step"><div class="num">2</div><div><h3>Platform assigns randomization and starts the test</h3><p>Flag-based deploy. Variance-reduction covariates picked automatically from pre-experiment data for each user.</p></div></div>
   <div class="step"><div class="num">3</div><div><h3>Auto-generated report reads the OEC + guardrails</h3><p>Same report template every time. Standardisation is the trust mechanism — readers know exactly where to look.</p></div></div>
-  <div class="step"><div class="num">4</div><div><h3>Ship, kill, or iterate — author decides</h3><p>No analyst gate. The author is on the hook for reading the report honestly; the report itself flags caveats (insufficient sample, SRM, etc.).</p></div></div>
+  <div class="step"><div class="num">4</div><div><h3>Ship, kill, or iterate — author decides</h3><p>No analyst gate. The author is on the hook for reading the report honestly; the report itself flags caveats (insufficient sample, <a class="j" href="jargon.html#srm">SRM</a>, etc.).</p></div></div>
   <div class="step"><div class="num">5</div><div><h3>Cumulative metric library improves the next test</h3><p>Every new metric added to the config becomes available to every future experiment. The framework <em>compounds</em>.</p></div></div>
 
   <!-- STATS -->
   <h2 class="sec" id="stats">Scale</h2>
   <div class="stats">
     <div class="stat"><div class="n">~500</div><div class="l">concurrent experiments (up from a few dozen in 2014)</div></div>
-    <div class="stat"><div class="n">1 framework</div><div class="l">one shared metric DSL, all teams</div></div>
+    <div class="stat"><div class="n">1 framework</div><div class="l">one shared metric <a class="j" href="jargon.html#dsl">DSL</a>, all teams</div></div>
     <div class="stat"><div class="n">~0</div><div class="l">analyst hours per standard experiment</div></div>
   </div>
 
@@ -146,7 +147,7 @@
 
   <div class="note" style="background:var(--teal-soft);border-left-color:var(--teal)"><b>Try it Monday morning (30 minutes).</b> Pick the last A/B test your team shipped. Find the result. Now answer two questions: was the metric defined in a <em>shared</em> place where another team would use the exact same definition? Did anyone check whether the lift could be explained by <em>seasonality</em> (was there a holiday weekend in the test window)? If either answer is "no," your team is at the pre-ERF stage Airbnb was at in 2013 — and the ERF leverage is in those two specific gaps, not in more sophisticated stats.</div>
 
-  <div class="note" style="background:var(--blue-soft);border-left-color:var(--blue);font-size:13.5px"><b>Quick glossary for the columns below.</b> <b>Raw lift</b> = the OEC delta straight from the test, as if no adjustments were needed. <b>ERF-adjusted lift</b> = the same delta after accounting for novelty effects (users react to anything new), seasonality (lift may be calendar-driven), and network effects (users in treatment can affect users in control). <b>Novelty effect</b> = the temporary engagement bump that fades after users get used to the change. <b>Seasonality</b> = systematic time-of-week / time-of-year demand patterns that exist independent of the test. The gap between raw and adjusted is the lie ERF prevents you from believing.</div>
+  <div class="note" style="background:var(--blue-soft);border-left-color:var(--blue);font-size:13.5px"><b>Quick glossary for the columns below.</b> <b>Raw lift</b> = the OEC delta straight from the test, as if no adjustments were needed. <b>ERF-adjusted lift</b> = the same delta after accounting for novelty effects (users react to anything new), seasonality (lift may be calendar-driven), and network effects (users in treatment can affect users in control). <b><a class="j" href="jargon.html#novelty-effect">Novelty effect</a></b> = the temporary engagement bump that fades after users get used to the change. <b>Seasonality</b> = systematic time-of-week / time-of-year demand patterns that exist independent of the test. The gap between raw and adjusted is the lie ERF prevents you from believing.</div>
 
   <h3 style="font-family:Georgia,serif;font-size:18px;margin:18px 0 8px">Worked example — an experiment ledger snapshot (Airbnb-style)</h3>
   <p style="font-size:13.5px;color:var(--ink-soft);margin:0 0 12px">Eight tests. Note the gap between raw and ERF-adjusted lift — that gap is the lie ERF prevents you from believing.</p>
@@ -171,10 +172,10 @@
 
   <div class="note"><b>Decision rule.</b> Decide on the <em>ERF-adjusted</em> lift, not the raw. The instant-book row is the canonical trap: raw +2.0% would look like a clean ship, but ERF reveals it as entirely seasonal demand the team would have taken credit for. The wishlist row shows the inverse — ERF can <em>increase</em> lift when a real network effect was being masked. Without standardised reporting, every team interprets their own numbers and trust collapses; with it, the whole company reads the same shape every time.</div>
 
-  <div class="note"><b>The transferable insight: standardisation, not statistics.</b> The Airbnb story is sometimes told as a CUPED variance-reduction story. The deeper lesson is that <b>the platform's product is the standardised analysis</b>. Without ERF, every team builds their own analysis and the results aren't comparable. With it, the team can ship 10× more tests because each one costs the same fixed (low) effort to read.</div>
+  <div class="note"><b>The transferable insight: standardisation, not statistics.</b> The Airbnb story is sometimes told as a <a class="j" href="jargon.html#cuped">CUPED</a> variance-reduction story. The deeper lesson is that <b>the platform's product is the standardised analysis</b>. Without ERF, every team builds their own analysis and the results aren't comparable. With it, the team can ship 10× more tests because each one costs the same fixed (low) effort to read.</div>
   <footer>
     Companion to <a href="impact-consumer-companies.html#measure">← Consumer case studies · Measure don't estimate</a> · <a href="methodologies-comparison.html">All methods compared</a> · siblings: <a href="microsoft-exp-framework.html">Microsoft ExP / CUPED</a><br>
-    <b>Grounded in</b> <a href="https://medium.com/airbnb-engineering/experiment-reporting-framework-4e3fcd29e6c0">Will Moss, "Experiment Reporting Framework" (Airbnb Engineering, May 29, 2014)</a> and <a href="https://medium.com/airbnb-engineering/https-medium-com-jonathan-parks-scaling-erf-23fd17c91166">Jonathan Parks, "Scaling ERF"</a>. <b>Verbatim from Moss's 2014 post:</b> the "hiding all the pitfalls and automating the analytical heavy lifting" framing; the YAML-based experiment declaration; nightly automated analysis; treatment-assignment via lambda functions in Ruby/JavaScript. <b>Attribution timing:</b> the original 2014 ERF focused on standardisation and report templating; CUPED-style variance reduction was a later addition documented in follow-up posts (not Moss's original). <b>Added by us, not in Airbnb's posts:</b> the 8-row experiment-ledger worked example with raw-vs-adjusted lift gaps, the verdict labels, the in-page glossary, and the "Try it Monday" exercise. The ~500-concurrent / "dozens in 2014" figures are reasonable estimates from across Airbnb's published posts but should be re-verified against current Airbnb engineering writing before quoting.
+    <b>Grounded in</b> <a href="https://medium.com/airbnb-engineering/experiment-reporting-framework-4e3fcd29e6c0">Will Moss, "Experiment Reporting Framework" (Airbnb Engineering, May 29, 2014)</a> and <a href="https://medium.com/airbnb-engineering/https-medium-com-jonathan-parks-scaling-erf-23fd17c91166">Jonathan Parks, "Scaling ERF"</a>. <b>Verbatim from Moss's 2014 post:</b> the "hiding all the pitfalls and automating the analytical heavy lifting" framing; the <a class="j" href="jargon.html#yaml">YAML</a>-based experiment declaration; nightly automated analysis; treatment-assignment via lambda functions in Ruby/JavaScript. <b>Attribution timing:</b> the original 2014 ERF focused on standardisation and report templating; CUPED-style variance reduction was a later addition documented in follow-up posts (not Moss's original). <b>Added by us, not in Airbnb's posts:</b> the 8-row experiment-ledger worked example with raw-vs-adjusted lift gaps, the verdict labels, the in-page glossary, and the "Try it Monday" exercise. The ~500-concurrent / "dozens in 2014" figures are reasonable estimates from across Airbnb's published posts but should be re-verified against current Airbnb engineering writing before quoting.
   </footer>
 </div>
 </body>

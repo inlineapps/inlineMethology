@@ -29,6 +29,7 @@
 <a href="impact-consumer-companies.html">Consumer-tech field study</a>
 <a href="methodologies-comparison.html"><b>All methods compared →</b></a>
 <a href="experiment-trustworthiness.html">How 40k tests actually work →</a>
+<a href="jargon.html">Jargon (glossary)</a>
 </div>
 <div class="navgrp"><h4>Scoring &amp; Input modeling</h4>
 <a href="rice-framework.html">RICE (Intercom)</a>
@@ -70,7 +71,7 @@
     <p class="kicker">Methods · Deep-dive · Experimentation</p>
     <h1>Netflix — ABlaze, sequential testing, and causal inference for the unexperimentable <span class="srcyr">2016</span></h1>
     <p class="sub">Netflix's published method: most product decisions ship behind a measured causal effect, run on a platform called <strong>ABlaze</strong> (first publicly described in the April 29, 2016 TechBlog post <em>"It's All A/Bout Testing"</em>).</p>
-    <p class="sub">Their distinct contribution to the field — <strong>sequential testing</strong> (read results continuously without inflating false positives) and <strong>causal inference</strong> for decisions where A/B is infeasible (content investments, pricing, regional rollouts).</p>
+    <p class="sub">Their distinct contribution to the field — <strong><a class="j" href="jargon.html#sequential-testing">sequential testing</a></strong> (read results continuously without inflating false positives) and <strong>causal inference</strong> for decisions where A/B is infeasible (content investments, pricing, regional rollouts).</p>
     <div class="goal"><span>Goal</span><br>Decide features by data-backed expected impact — choose by outcome, not by to-do list or opinion.</div>
   </header>
 
@@ -111,7 +112,7 @@
     <div class="concept">
       <div class="ab">Causal</div>
       <h3>Causal inference for non-A/B-able decisions</h3>
-      <p>For things you can't randomize (content slate, pricing changes, regional rollouts) Netflix uses interrupted time-series, IPW, double-ML. Result: a defensible <em>causal</em> estimate even without a clean experiment.</p>
+      <p>For things you can't randomize (content slate, pricing changes, regional rollouts) Netflix uses interrupted time-series, IPW, <a class="j" href="jargon.html#double-ml">double-ML</a>. Result: a defensible <em>causal</em> estimate even without a clean experiment.</p>
     </div>
   </div>
   <div class="src">Sources: <a class="cite" href="https://netflixtechblog.com/its-all-a-bout-testing-the-netflix-experimentation-platform-4e1ca458c15">Netflix TechBlog — "It's All A/Bout Testing: The Netflix Experimentation Platform" (April 29, 2016)</a> — the canonical ABlaze post · <a class="cite" href="https://research.netflix.com/research-area/experimentation-and-causal-inference">Netflix Research — Experimentation &amp; Causal Inference area</a> · <a class="cite" href="https://netflixtechblog.com/sequential-a-b-testing-keeps-the-world-streaming-netflix-part-1-continuous-data-cba6c7ed49df">TechBlog — "Sequential A/B Testing Keeps the World Streaming Netflix" (Part 1, continuous data)</a>.</div>
@@ -130,9 +131,9 @@
   <h2 class="sec" id="apply">Apply to a feature sheet</h2>
   <p class="secsub">Netflix's discipline turns the backlog into an experiment ledger where every change ships behind a causal estimate. The columns mirror Microsoft ExP, with Netflix-specific extras: <em>design type</em> (A/B / sequential / quasi-experimental) and <em>QoE guardrails</em> (rebuffer, startup time) that can kill a feature whose OEC moved.</p>
 
-  <div class="note" style="background:var(--teal-soft);border-left-color:var(--teal)"><b>Try it Monday morning (30 minutes).</b> List your team's last 5 decisions (features shipped, prices changed, partnerships signed, vendor swaps). For each one, write what design <em>could</em> have measured its causal effect — A/B, sequential, or quasi-experimental (interrupted time-series, synthetic control). For decisions where the honest answer is "none — we just decided," that's the gap. Netflix's lesson isn't "test everything"; it's "for every decision that mattered, there <em>was</em> a design — we just didn't bother."</div>
+  <div class="note" style="background:var(--teal-soft);border-left-color:var(--teal)"><b>Try it Monday morning (30 minutes).</b> List your team's last 5 decisions (features shipped, prices changed, partnerships signed, vendor swaps). For each one, write what design <em>could</em> have measured its causal effect — A/B, sequential, or quasi-experimental (interrupted time-series, <a class="j" href="jargon.html#synthetic-control">synthetic control</a>). For decisions where the honest answer is "none — we just decided," that's the gap. Netflix's lesson isn't "test everything"; it's "for every decision that mattered, there <em>was</em> a design — we just didn't bother."</div>
 
-  <div class="note" style="background:var(--blue-soft);border-left-color:var(--blue);font-size:13.5px"><b>Quick glossary for the columns below.</b> <b>OEC</b> = Overall Evaluation Criterion (agreed success metric). <b>QoE</b> = Quality of Experience — Netflix's video-streaming-specific guardrails (rebuffering, startup time, bitrate, CDN cost). <b>ITS</b> = Interrupted Time Series — a quasi-experimental design that uses a step-change in a metric at a known intervention date as the causal signal. <b>Synthetic control</b> = constructs a "fake" control group from a weighted average of similar units (e.g. other countries) to compare against the treated one. <b>IPW</b> = Inverse Probability Weighting — re-weights observed outcomes so treated and untreated groups look comparable. <b>Double-ML</b> = double machine learning, a causal inference method that uses ML to control for confounders.</div>
+  <div class="note" style="background:var(--blue-soft);border-left-color:var(--blue);font-size:13.5px"><b>Quick glossary for the columns below.</b> <b>OEC</b> = <a class="j" href="jargon.html#oec">Overall Evaluation Criterion</a> (agreed success metric). <b>QoE</b> = <a class="j" href="jargon.html#qoe">Quality of Experience</a> — Netflix's video-streaming-specific guardrails (rebuffering, startup time, bitrate, <a class="j" href="jargon.html#cdn">CDN</a> cost). <b>ITS</b> = <a class="j" href="jargon.html#its">Interrupted Time Series</a> — a quasi-experimental design that uses a step-change in a metric at a known intervention date as the causal signal. <b>Synthetic control</b> = constructs a "fake" control group from a weighted average of similar units (e.g. other countries) to compare against the treated one. <b>IPW</b> = <a class="j" href="jargon.html#ipw">Inverse Probability Weighting</a> — re-weights observed outcomes so treated and untreated groups look comparable. <b>Double-ML</b> = double machine learning, a causal inference method that uses ML to control for confounders.</div>
 
   <h3 style="font-family:Georgia,serif;font-size:18px;margin:18px 0 8px">Worked example — an experiment ledger snapshot (Netflix-style)</h3>
   <p style="font-size:13.5px;color:var(--ink-soft);margin:0 0 12px">Eight tests. OEC = a proxy metric (hours watched, completion rate, retention) with long-run retention as the eventual check. Numbers illustrative.</p>

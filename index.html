@@ -47,10 +47,15 @@
   .pg.s{border-left-color:var(--accent)}.pg.i{border-left-color:var(--teal)}
   .pg.e{border-left-color:var(--blue)}.pg.g{border-left-color:var(--gold)}.pg.q{border-left-color:var(--purple)}
   .pg.ailab{border-left-color:#3a6859}
-  .pg a{color:var(--ink);text-decoration:none;font-weight:700;font-size:15.5px;display:block}
-  .pg a:hover{color:var(--accent)}
+  /* Card title link — only the direct-child <a> gets the bold block treatment.
+     Nested jargon links inside .pg .what would otherwise inherit display:block. */
+  .pg > a{color:var(--ink);text-decoration:none;font-weight:700;font-size:15.5px;display:block}
+  .pg > a:hover{color:var(--accent)}
   .pg .from{font-size:12.5px;color:var(--ink-soft);margin-top:3px;letter-spacing:.02em}
   .pg .what{font-size:13.5px;color:var(--ink-soft);margin-top:4px}
+  /* Jargon link-out — subtle, hover reveals accent. Mirror of framework.css a.j */
+  a.j{color:var(--ink);text-decoration:none;border-bottom:1px dotted var(--ink-soft)}
+  a.j:hover{color:var(--accent);border-bottom:1px solid var(--accent)}
 
   .keyshelf{background:var(--gold-soft);border:1px solid #d8c98f;border-left:5px solid var(--gold);border-radius:10px;padding:18px 22px;margin:22px 0 0}
   .keyshelf b{color:#7a5a08}
@@ -90,6 +95,7 @@
 <a href="impact-consumer-companies.html">Consumer-tech field study</a>
 <a href="methodologies-comparison.html"><b>All methods compared →</b></a>
 <a href="experiment-trustworthiness.html">How 40k tests actually work →</a>
+<a href="jargon.html">Jargon (glossary)</a>
 </div>
 <div class="navgrp"><h4>Scoring &amp; Input modeling</h4>
 <a href="rice-framework.html">RICE (Intercom)</a>
@@ -130,7 +136,7 @@
   <header class="masthead">
     <p class="kicker">Methodology research · for team review</p>
     <h1>How to rank features and define metrics — a methodology survey</h1>
-    <p class="sub">A field study of how 20 of the most-studied software companies actually rank features and decide which metrics matter. The point is to compare the published methods side-by-side so the team can pick (or mix) the one that suits us.</p>
+    <p class="sub">A field study of how 19 of the most-studied software companies (plus the two AI labs) actually rank features and decide which metrics matter. The point is to compare the published methods side-by-side so the team can pick (or mix) the one that suits us.</p>
     <div class="goal">
       <span class="lbl">Goal of this research</span>
       <h2>Find a suitable method — to rank features and define metrics — that we can apply across the whole company.</h2>
@@ -180,7 +186,7 @@
     <h3><span class="pill i">Input Modeling</span> Map work to a single output metric</h3>
     <p class="gdesc">Build a tree from a "North Star" outcome down to the inputs teams can move. Helps every team see whether their work moves the company-level metric or not.</p>
     <div class="pgs">
-      <div class="pg i"><a href="north-star-framework.html">North Star metric &amp; input model</a><div class="from">From: Amplitude, Slack, Atlassian</div><div class="what">One number for the whole company; inputs cascade down to team-level OKRs.</div></div>
+      <div class="pg i"><a href="north-star-framework.html">North Star metric &amp; input model</a><div class="from">From: Amplitude, Slack, Atlassian</div><div class="what">One number for the whole company; inputs cascade down to team-level <a class="j" href="jargon.html#okr">OKRs</a>.</div></div>
     </div>
   </div>
 
@@ -188,13 +194,13 @@
     <h3><span class="pill e">Experimentation</span> Measure, don't estimate</h3>
     <p class="gdesc">Ship a controlled test and let the data decide. The only category that produces a <em>causal</em> answer; pays for that rigour in infrastructure cost and slower decisions.</p>
     <div class="pgs">
-      <div class="pg e"><a href="microsoft-exp-framework.html">ExP · OEC · CUPED</a><div class="from">From: Microsoft (Bing, Office, Azure)</div><div class="what">The classic platform — single Overall Evaluation Criterion + variance reduction.</div></div>
+      <div class="pg e"><a href="microsoft-exp-framework.html">ExP · OEC · CUPED</a><div class="from">From: Microsoft (Bing, Office, Azure)</div><div class="what">The classic platform — single <a class="j" href="jargon.html#oec">Overall Evaluation Criterion</a> + variance reduction.</div></div>
       <div class="pg e"><a href="linkedin-xlnt-framework.html">LiX → XLNT → T-REX</a><div class="from">From: LinkedIn</div><div class="what">Same discipline as Microsoft, told as a platform-investment story.</div></div>
       <div class="pg e"><a href="netflix-experimentation.html">ABlaze + Causal Inference</a><div class="from">From: Netflix</div><div class="what">A/B for what's randomizable; quasi-experiments for what isn't.</div></div>
-      <div class="pg e"><a href="booking-experimentation.html">Booking's democratized experimentation</a><div class="from">From: Booking.com</div><div class="what">~25,000 tests/year. Hypothesis-first, SRM-checked, standard metric library.</div></div>
-      <div class="pg e"><a href="airbnb-erf-framework.html">ERF — Experimentation Reporting Framework</a><div class="from">From: Airbnb</div><div class="what">Shared metric DSL + standard reports + variance reduction.</div></div>
+      <div class="pg e"><a href="booking-experimentation.html">Booking's democratized experimentation</a><div class="from">From: Booking.com</div><div class="what">~25,000 tests/year. Hypothesis-first, <a class="j" href="jargon.html#srm">SRM</a>-checked, standard metric library.</div></div>
+      <div class="pg e"><a href="airbnb-erf-framework.html">ERF — Experimentation Reporting Framework</a><div class="from">From: Airbnb</div><div class="what">Shared metric <a class="j" href="jargon.html#dsl">DSL</a> + standard reports + variance reduction.</div></div>
       <div class="pg e"><a href="uber-xp-framework.html">XP + universal holdout</a><div class="from">From: Uber</div><div class="what">Staged ramp 1→5→25→50→100% + quarterly cumulative-effect measurement.</div></div>
-      <div class="pg e"><a href="doordash-switchback-framework.html">Switchback experiments</a><div class="from">From: DoorDash</div><div class="what">For marketplace SUTVA violations — randomize region × time-window cells.</div></div>
+      <div class="pg e"><a href="doordash-switchback-framework.html">Switchback experiments</a><div class="from">From: DoorDash</div><div class="what">For marketplace <a class="j" href="jargon.html#sutva">SUTVA</a> violations — randomize region × time-window cells.</div></div>
       <div class="pg e"><a href="lyft-experimentation.html">A/B + time-split + bandits</a><div class="from">From: Lyft</div><div class="what">Three designs for three kinds of marketplace problem.</div></div>
       <div class="pg e"><a href="pinterest-ab-framework.html">Pinterest's A/B platform</a><div class="from">From: Pinterest</div><div class="what">Lightweight config + cross-platform consistency + real-time monitoring.</div></div>
     </div>
@@ -224,8 +230,8 @@
     <h3><span class="pill ailab">AI Labs</span> Capability-led, no published pre-build score</h3>
     <p class="gdesc">Neither lab has published a feature-<em>ranking</em> method. What they have published is the <em>shipping</em> half of the loop — and at opposite ends: Anthropic builds first &amp; lets internal engagement decide; OpenAI ladders capabilities through safety-gated release rings. Useful as a pair, not as a substitute for upstream prioritisation.</p>
     <div class="pgs">
-      <div class="pg ailab"><a href="anthropic-side-quest-framework.html">Side quests · prototype-first loop</a><div class="from">From: Anthropic (Claude Code)</div><div class="what">No PRDs, no roadmap. Build in an afternoon, ship internally, promote what gets used.</div></div>
-      <div class="pg ailab"><a href="openai-iterative-deployment-framework.html">Iterative deployment · scope ladder</a><div class="from">From: OpenAI</div><div class="what">Widening release rings gated by the Preparedness Framework's safety tiers (High / Critical).</div></div>
+      <div class="pg ailab"><a href="anthropic-side-quest-framework.html">Side quests · prototype-first loop</a><div class="from">From: Anthropic (Claude Code)</div><div class="what">No <a class="j" href="jargon.html#prd">PRDs</a>, no roadmap. Build in an afternoon, ship internally, promote what gets used.</div></div>
+      <div class="pg ailab"><a href="openai-iterative-deployment-framework.html">Iterative deployment · scope ladder</a><div class="from">From: OpenAI</div><div class="what">Widening release rings gated by the <a class="j" href="jargon.html#preparedness-framework">Preparedness Framework</a>'s safety tiers (High / Critical).</div></div>
     </div>
   </div>
 
@@ -233,7 +239,7 @@
   <p class="secsub">Two foundational pages that aren't methods themselves but help interpret the rest.</p>
   <div class="pgs" style="grid-template-columns:1fr 1fr">
     <div class="pg" style="border-left-color:var(--ink-soft)"><a href="methodologies-comparison.html">All 20 methods compared — side-by-side</a><div class="what">9-column table: what each method decides, what it doesn't do, where it's from, where the evidence is. The most useful single page for reviewers.</div></div>
-    <div class="pg" style="border-left-color:var(--ink-soft)"><a href="experiment-trustworthiness.html">How "40,000 tests a day" actually works</a><div class="what">Grounded answer to the obvious skepticism about high-volume experimentation. Covers interference (Google KDD 2010), duration, variance.</div></div>
+    <div class="pg" style="border-left-color:var(--ink-soft)"><a href="experiment-trustworthiness.html">How "40,000 tests a day" actually works</a><div class="what">Grounded answer to the obvious skepticism about high-volume experimentation. Covers interference (Google <a class="j" href="jargon.html#kdd">KDD</a> 2010), duration, variance.</div></div>
   </div>
 
   <div class="note">
