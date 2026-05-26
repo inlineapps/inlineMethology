@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Google in 2026 — "Customer zero" and the agentic-era velocity story</title>
+<link rel="stylesheet" href="framework.css">
+<style>
+  :root{--page-accent:var(--blue);--page-accent-soft:var(--blue-soft)}
+  .claim{background:#fff;border:1px solid var(--line);border-left:4px solid var(--page-accent);border-radius:10px;padding:18px 20px;margin:14px 0;box-shadow:var(--shadow)}
+  .claim h3{margin:0 0 8px;font-family:Georgia,serif;font-size:17px;color:var(--page-accent)}
+  .claim p{margin:6px 0;font-size:14px;color:var(--ink-soft);line-height:1.55}
+  .claim .pq{margin:10px 0 4px;padding:10px 14px;background:var(--page-accent-soft);border-left:3px solid var(--page-accent);font-style:italic;font-size:13.5px;color:var(--ink);border-radius:0 6px 6px 0}
+  .claim .pq small{display:block;font-style:normal;font-size:11.5px;color:var(--ink-soft);margin-top:5px;letter-spacing:.02em}
+  .rung{background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:10px 0;box-shadow:var(--shadow)}
+  .rung h4{margin:0 0 4px;font-family:Georgia,serif;font-size:15.5px;color:var(--ink)}
+  .rung p{margin:0;font-size:13.5px;color:var(--ink-soft);line-height:1.5}
+  .rung .lvl{display:inline-block;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:var(--page-accent);padding:2px 8px;border-radius:4px;font-weight:700;margin-right:8px;vertical-align:middle}
+  .gap{background:#fff7ed;border:1px solid #fed7aa;border-left:4px solid #c2410c;border-radius:10px;padding:16px 20px;margin:12px 0}
+  .gap h4{margin:0 0 6px;color:#9a3412;font-family:Georgia,serif;font-size:15.5px}
+  .gap p{margin:4px 0;font-size:13.5px;color:var(--ink-soft);line-height:1.55}
+  .kill{background:#fef2f2;border:1px solid #fecaca;border-left:4px solid #991b1b;border-radius:10px;padding:16px 20px;margin:12px 0}
+  .kill h4{margin:0 0 6px;color:#7f1d1d;font-family:Georgia,serif;font-size:15.5px}
+  .kill p{margin:4px 0;font-size:13.5px;color:var(--ink-soft);line-height:1.55}
+  .kill .pq{margin:8px 0 4px;padding:8px 12px;background:#fff;border-left:3px solid #991b1b;font-style:italic;font-size:13px;color:var(--ink);border-radius:0 6px 6px 0}
+</style>
+</head>
+<body>
+<nav class="sitenav">
+<details>
+<summary>📑 Jump to</summary>
+<div class="navmenu">
+<div class="navgrp"><h4>Start here</h4>
+<a href="index.html"><b>← Home (goal &amp; map)</b></a>
+<a href="impact-saas-companies.html">SaaS / B2B field study</a>
+<a href="impact-consumer-companies.html">Consumer-tech field study</a>
+<a href="methodologies-comparison.html"><b>All methods compared →</b></a>
+<a href="experiment-trustworthiness.html">How 40k tests actually work →</a>
+<a href="jargon.html">Jargon (glossary)</a>
+</div>
+<div class="navgrp"><h4>Scoring &amp; Input modeling</h4>
+<a href="rice-framework.html">RICE (Intercom)</a>
+<a href="north-star-framework.html">North Star (Amplitude / Slack)</a>
+</div>
+<div class="navgrp"><h4>Goal-laddering / Define first</h4>
+<a href="v2mom-framework.html">V2MOM (Salesforce)</a>
+<a href="pyramid-of-clarity-framework.html">Pyramid of Clarity (Asana)</a>
+<a href="pr-faq-framework.html">PR-FAQ / Working Backwards (Amazon)</a>
+<a href="heart-framework.html">HEART (Google)</a>
+<a href="dibb-framework.html">DIBB (Spotify)</a>
+</div>
+<div class="navgrp"><h4>Experimentation (SaaS)</h4>
+<a href="microsoft-exp-framework.html">Microsoft ExP / CUPED</a>
+<a href="linkedin-xlnt-framework.html">LinkedIn T-REX</a>
+</div>
+<div class="navgrp"><h4>Experimentation (Consumer)</h4>
+<a href="netflix-experimentation.html">Netflix · ABlaze</a>
+<a href="booking-experimentation.html">Booking.com</a>
+<a href="airbnb-erf-framework.html">Airbnb ERF</a>
+<a href="uber-xp-framework.html">Uber XP</a>
+<a href="doordash-switchback-framework.html">DoorDash switchback</a>
+<a href="lyft-experimentation.html">Lyft</a>
+<a href="pinterest-ab-framework.html">Pinterest</a>
+</div>
+<div class="navgrp"><h4>AI labs</h4>
+<a href="anthropic-pm-on-ai-exponential.html">Anthropic — PM on the AI exponential</a>
+<a class="cur" href="google-customer-zero-2026.html">Google — "Customer zero" (2026)</a>
+</div>
+<div class="navgrp"><h4>Written discipline</h4>
+<a href="stripe-shaping-framework.html">Stripe shaping</a>
+</div>
+</div>
+</details>
+</nav>
+
+<div class="wrap">
+  <header class="masthead">
+    <p class="kicker">Methods · Deep-dive · AI-lab study (Google)</p>
+    <h1>Google in 2026 — "Customer zero" and the agentic-era velocity story <span class="srcyr">2026</span></h1>
+    <p class="sub">A study of what Google has actually said in the first half of 2026 about how AI coding agents have changed product work. The honest read of the public record: Google has published a great deal about <strong>how they now build</strong> — and almost nothing about <strong>how they now decide what to build, keep, or kill.</strong> This page documents both: the velocity claims (with verbatim Sundar Pichai quotes from Cloud Next 2026 and I/O 2026) and the gaps (no published feature-decision methodology; the one recent kill — Project Mariner — was made without public rationale).</p>
+    <p class="sub">Canonical sources: Sundar Pichai — <a class="cite" href="https://blog.google/innovation-and-ai/infrastructure-and-cloud/google-cloud/cloud-next-2026-sundar-pichai/">"Sundar Pichai shares news from Google Cloud Next 2026"</a>, April&nbsp;22,&nbsp;2026; <a class="cite" href="https://blog.google/innovation-and-ai/sundar-pichai-io-2026/">"I/O 2026: Welcome to the agentic Gemini era"</a>, May&nbsp;19,&nbsp;2026.</p>
+    <div class="goal"><span>What this page is</span><br>A grounded snapshot — verbatim quotes only — of Google's 2026 public statements on the build-side impact of coding agents. It is <em>not</em> a feature-prioritisation framework, because Google has not published one for the agentic era.</div>
+  </header>
+
+  <div class="eli">
+    <div class="lbl">🎓 8th-grade version</div>
+    The question the team asked: "now that AI coding agents are everywhere in 2026, did Google change how they decide which features to build?" The honest answer from Google's own blog posts and keynotes: Google has talked a lot about how AI agents have made their engineers <em>build</em> much faster — Sundar Pichai says 75% of their new code is now AI-written-and-engineer-approved, that a recent code migration was 6× faster than a year ago, that they're processing 6× more AI-developer-tool tokens than two months ago, and that they built the Gemini macOS app from idea to working Swift prototype in days. But Google has <em>not</em> publicly described a new way of deciding what to build, what to keep, or what to kill. The one thing they killed recently — Project Mariner, a web-browsing AI agent — was shut down on May 4, 2026 without any formal public announcement. So: yes on velocity changes, no on a published decision methodology. The closest framing Google uses is "customer zero" — they build it for themselves first.
+  </div>
+
+  <nav class="toc">
+    <a href="#thesis">The thesis</a>
+    <a href="#velocity">Four velocity claims (verbatim)</a>
+    <a href="#example">The Gemini-on-macOS worked example</a>
+    <a href="#ladder">The agent ladder (for customers, not internal)</a>
+    <a href="#mariner">Project Mariner — the one recent kill</a>
+    <a href="#absent">What the public record does <em>not</em> contain</a>
+    <a href="#applies">What to take from this</a>
+    <a href="methodologies-comparison.html" style="color:var(--blue);font-weight:700">All methods compared →</a>
+  </nav>
+
+  <div class="finding" id="thesis">
+    <h2>The thesis — Google has published the build side, not the decide side</h2>
+    <p>Across the two big keynote moments of 2026 so far — <a class="cite" href="https://blog.google/innovation-and-ai/infrastructure-and-cloud/google-cloud/cloud-next-2026-sundar-pichai/">Cloud Next 2026 (April 22)</a> and <a class="cite" href="https://blog.google/innovation-and-ai/sundar-pichai-io-2026/">I/O 2026 (May 19)</a> — Sundar Pichai's on-the-record story about coding agents follows one consistent shape: <em>here is how much faster we are now building</em>. The metrics are concrete. The frame Google uses for itself is <strong>"customer zero"</strong> — they build with their own agents first.</p>
+    <blockquote>"Staying on the cutting-edge as 'customer zero.'"<span class="cred">— section header in Sundar Pichai, <a class="cite" href="https://blog.google/innovation-and-ai/infrastructure-and-cloud/google-cloud/cloud-next-2026-sundar-pichai/">Cloud Next 2026 blog</a>, April 22, 2026</span></blockquote>
+    <p>What you will <em>not</em> find in either post: a feature-prioritisation rubric, a kill criterion, a scoring formula, a post-launch verification gate, or any other artefact answering "<em>how does the agentic era change the way Google decides what to ship?</em>" That absence is itself the finding. The page below records what Google did say — and is careful not to invent what it didn't.</p>
+  </div>
+
+  <h2 class="sec" id="velocity">Four velocity claims, verbatim from Sundar Pichai (2026)</h2>
+  <p class="secsub">These are the only numerical or near-numerical claims about internal velocity in either keynote blog post. Each is quoted in full and attributed to its exact post.</p>
+
+  <div class="claim">
+    <h3>1 · 75% of new code is AI-generated and engineer-approved</h3>
+    <p>The strongest single number Sundar has given publicly in 2026. The <em>"approved by engineers"</em> qualifier matters — it isn't autonomous code, it's AI-authored code that a human accepted into the codebase. The comparison baseline ("up from 50% last fall") is also part of the original quote.</p>
+    <p class="pq">"75% of all new code at Google is now AI-generated and approved by engineers, up from 50% last fall."<small>— Sundar Pichai, <a class="cite" href="https://blog.google/innovation-and-ai/infrastructure-and-cloud/google-cloud/cloud-next-2026-sundar-pichai/">Cloud Next 2026 blog</a>, April 22, 2026 (section "Staying on the cutting-edge as 'customer zero'")</small></p>
+  </div>
+
+  <div class="claim">
+    <h3>2 · A complex code migration, 6× faster with agents</h3>
+    <p>Used as an example of agent-assisted engineering. Sundar does <em>not</em> name the migration, what was migrated, or how many engineers were involved — so the figure should be read as one anecdote, not a benchmark.</p>
+    <p class="pq">"A particularly complex code migration done by agents and engineers working together was completed six times faster than was possible a year ago with engineers alone."<small>— Sundar Pichai, <a class="cite" href="https://blog.google/innovation-and-ai/infrastructure-and-cloud/google-cloud/cloud-next-2026-sundar-pichai/">Cloud Next 2026 blog</a>, April 22, 2026</small></p>
+  </div>
+
+  <div class="claim">
+    <h3>3 · 6× more AI-developer-tool tokens processed in ~2 months</h3>
+    <p>The strongest indicator of internal agent adoption growth. Half a trillion → three trillion tokens per day across Google's internal AI developer tools in roughly two months. This is volume <em>processed</em>, not value produced — it's a usage signal, not an outcome metric — but the growth rate is the point.</p>
+    <p class="pq">"In March we were processing half a trillion tokens a day internally across our AI developer tools, and we've been doubling every few weeks. Now, we're processing more than three trillion tokens a day."<small>— Sundar Pichai, <a class="cite" href="https://blog.google/innovation-and-ai/sundar-pichai-io-2026/">I/O 2026 keynote blog</a>, May 19, 2026</small></p>
+  </div>
+
+  <div class="claim">
+    <h3>4 · Training large models in <em>weeks</em>, not months</h3>
+    <p>Forward-looking claim about how agentic tooling collapses the model-builder loop itself. Sundar attributes this to the same agent-first development platform (Antigravity) Google now uses internally.</p>
+    <p class="pq">"For model builders, this means training larger, more capable models in weeks rather than months."<small>— Sundar Pichai, <a class="cite" href="https://blog.google/innovation-and-ai/sundar-pichai-io-2026/">I/O 2026 keynote blog</a>, May 19, 2026</small></p>
+    <p class="pq">"The new model has been a game changer for us internally at Google. We've been using 3.5 Flash with a reimagined version of our agent-first development platform Antigravity, and it's dramatically accelerated how we build."<small>— same source</small></p>
+  </div>
+
+  <h2 class="sec" id="example">The one named worked example — Gemini app on macOS</h2>
+  <p class="secsub">The only specific product Sundar names in 2026 as having been built with the agent-first stack.</p>
+
+  <div class="claim">
+    <h3>Idea → native Swift app prototype in a few days</h3>
+    <p>Sundar uses the Gemini-on-macOS launch as the concrete demonstration of "customer zero." It is the only such example in either 2026 keynote post. The <a class="cite" href="https://blog.google/innovation-and-ai/products/gemini-app/gemini-app-now-on-mac-os/">macOS-launch blog post itself</a> covers user-facing features only and does <em>not</em> mention Antigravity or Swift — the build-side claim lives only in Sundar's own bylined Cloud Next post.</p>
+    <p class="pq">"And with our recent launch of the Gemini app on MacOS, the team built the initial release with our agentic development platform Antigravity, going from an idea to a native Swift app prototype in a few days."<small>— Sundar Pichai, <a class="cite" href="https://blog.google/innovation-and-ai/infrastructure-and-cloud/google-cloud/cloud-next-2026-sundar-pichai/">Cloud Next 2026 blog</a>, April 22, 2026</small></p>
+    <p>"Prototype in a few days" is the verifiable claim. Time-to-public-launch isn't given.</p>
+  </div>
+
+  <h2 class="sec" id="ladder">The published agent-development framework — for <em>customers</em></h2>
+  <p class="secsub">Google's most explicit 2026 framework is the "four rungs" model — but read carefully: it's the prescribed path for <strong>customers building agents on Google Cloud</strong>, not Google's own internal feature-decision process. Putting it here so the boundary is clear.</p>
+
+  <div class="rung"><h4><span class="lvl">Rung 1</span>Agent Studio</h4><p>Low-code visual workspace. "You discover models in Model Garden, engineer prompts, wire up tools, and ship an agent without writing code." Aimed at business-facing teams and rapid prototyping.</p></div>
+  <div class="rung"><h4><span class="lvl">Rung 2</span>Managed Agents API</h4><p>"Manage the mission, not the machine." Agent-as-a-service: package instructions, skills, tools; POST them; Gemini builds and runs the agent.</p></div>
+  <div class="rung"><h4><span class="lvl">Rung 3</span>Antigravity (and friends)</h4><p>Google's primary agentic-coding IDE / desktop app / CLI, used internally (per Sundar) and offered externally. Custom development loops, multi-agent orchestration.</p></div>
+  <div class="rung"><h4><span class="lvl">Rung 4</span>Agent Development Kit (ADK 2.0)</h4><p>"Code-first, low floor, high ceiling." Engineering-first; build custom agent meshes from the ground up — any architecture, any model.</p></div>
+  <p class="src">Source: <a class="cite" href="https://cloud.google.com/blog/topics/developers-practitioners/io26-news-for-agent-developers-on-google-cloud">"I/O '26 news for agent developers on Google Cloud"</a>, Google Cloud blog, May 2026. All four rungs run on the shared <strong>A2A protocol</strong>; Google states the rungs are "deliberately additive" so starting low never blocks graduating up.</p>
+  <p style="font-size:13.5px;color:var(--ink-soft)"><b>What this is — and isn't.</b> The ladder is a <em>build-and-deploy</em> framework. It tells customers which Google product to start with. It is <strong>not</strong> a feature-prioritisation method (no scoring), <strong>not</strong> a kill criterion (no threshold), and <strong>not</strong> a verification recipe (no metric). The slot it fills is roughly Google's customer-facing equivalent of "pick the right IDE and runtime for your team." Do not confuse it with a product-decision methodology.</p>
+
+  <h2 class="sec" id="mariner">The one recent feature kill — Project Mariner</h2>
+  <p class="secsub">May 2026's one publicly observable Google-product shutdown. The shutdown matters because it's the only natural experiment we have in <em>"what gets killed in the agentic era at Google."</em></p>
+
+  <div class="kill">
+    <h4>Shut down on May 4, 2026 — without public announcement</h4>
+    <p>Project Mariner was Google DeepMind's experimental autonomous web-browsing AI agent, announced at I/O 2024 (then demoed further at I/O 2025). On May 4, 2026 — two weeks before I/O 2026 — the project's landing page was quietly replaced with a farewell. <strong>Google issued no press release.</strong> The shutdown was first reported by <em>Wired</em>'s Maxwell Zeff after the landing-page change was noticed.</p>
+    <p class="pq">"Thank you for using Project Mariner. It was shut down on May 4th, 2026 and its technology voyaged to other Google products."<small>— Project Mariner landing-page message, retrieved May 2026</small></p>
+    <p><b>What's publicly known:</b> the underlying technology was folded into Gemini Agent and Chrome's auto-browse features. <b>What's <em>not</em> publicly known:</b> the criteria for the decision — usage thresholds, retention numbers, strategic-fit verdict, internal-engagement signal, or anything else. There is no Google blog post explaining the kill rationale. Industry commentary (secondary, not Google's voice) has framed it as "the browser is the wrong battlefield for AI agents" and a pivot to API-first / developer-centric agents — but that is interpretation, not Google's stated reason.</p>
+    <p style="font-size:13px;color:var(--ink-soft);margin-top:8px">If you were hoping the Mariner shutdown would expose Google's 2026 feature-kill methodology, the disappointing honest answer is: it doesn't — because Google didn't disclose one.</p>
+  </div>
+
+  <h2 class="sec" id="absent">What the public record does <em>not</em> contain</h2>
+  <p class="secsub">Naming the gaps matters. Several reasonable questions a reader might bring to this page have no Google 2026 answer.</p>
+
+  <div class="gap">
+    <h4>No published criteria for what to ship, keep, or kill</h4>
+    <p>Neither the Cloud Next nor I/O keynote blog posts — nor any other 2026 Google publication this study found — describes a feature-prioritisation rubric, scoring formula, kill threshold, or post-launch verification gate updated for the agentic era. Google's <a href="heart-framework.html">HEART framework</a> remains the canonical published Google method, but it dates to 2010 and is silent on AI-coding-agent impact.</p>
+  </div>
+
+  <div class="gap">
+    <h4>No statement of how PMs now work differently</h4>
+    <p>Anthropic published Cat Wu's <a href="anthropic-pm-on-ai-exponential.html">PM-on-the-AI-exponential essay</a> as one PM lead's account of habits her team uses. Google has no equivalent published essay from any PM leader on how product management has changed. (DeepMind safety publications, where they exist, are about model safety — not product-decision process.)</p>
+  </div>
+
+  <div class="gap">
+    <h4>No methodology for the Mariner-style decision</h4>
+    <p>The Mariner shutdown happened without published rationale. We do not know whether the decision was made by usage data, strategic fit, leadership judgement, cost-of-maintenance, or some combination — and we do not know whether the process Google now uses for such decisions differs from the process it would have used in 2023.</p>
+  </div>
+
+  <div class="gap">
+    <h4>"Customer zero" is a framing, not a method</h4>
+    <p>Sundar's section header is striking and useful as a description — "we use it ourselves first, then ship it to others." But the public posts do not specify what counts as enough internal usage to graduate a feature, how Google handles internal-usage failure, or how it weighs Googler-engagement signal against external-user signal. Internal dogfooding is described, not operationalised.</p>
+  </div>
+
+  <h2 class="sec" id="applies">What to take from this</h2>
+  <div class="warn">
+    <b>For the team's research question — "did Google do or plan things differently due to maturity of AI coding agents?" — the honest answer in two lines:</b><br><br>
+    <b>1. On <em>building</em>, yes — dramatically, and with concrete numbers.</b> 75% AI-generated-and-approved code, 6× faster migration, 6× more developer-tool tokens in 2 months, training in weeks not months, idea-to-Swift-prototype in days. These are first-party Sundar Pichai quotes, both from 2026.<br><br>
+    <b>2. On <em>deciding</em> what to build, keep, or kill, no published change.</b> Google has not put out a feature-prioritisation rubric, kill criterion, post-launch gate, or PM-process essay for the agentic era. The closest framing — "customer zero" — is rhetorical, not operational. The one recent kill (Project Mariner) was quiet and unexplained.<br><br>
+    <b>What to use from Google in the team's own methodology decision:</b> the build-side claims are useful as context for <em>"how fast can our own development cycle become if we lean into agentic coding tooling?"</em> — but they are not transferable as a feature-decision method. For feature decisions, the team's existing options are still the right shelf: <a href="rice-framework.html">RICE</a>, <a href="north-star-framework.html">North Star</a>, the experimentation methods, or <a href="pr-faq-framework.html">PR-FAQ</a> — all of which remain useful in a world where the build cost has dropped, because the question of <em>which</em> build to commit to is, if anything, more important when builds get cheap.
+  </div>
+
+  <div class="note"><b>Why this page exists.</b> The team's open question was whether the maturity of AI coding agents in 2026 had changed how a frontier AI lab (Google with Gemini) decides what features to build. To answer it honestly, the study has to record both what Google did publish (a lot, about build velocity) and what they didn't (nothing about decision criteria). The "customer zero" framing is genuinely Google's own — but it should not be over-read as a methodology. If Google publishes a feature-decision methodology later this year, this page will be updated; until then, the gap is the finding.</div>
+
+  <footer>
+    Methodology research · AI-lab study · Google in 2026.<br>
+    <b>Grounded in</b> two first-party Sundar Pichai blog posts: <a href="https://blog.google/innovation-and-ai/infrastructure-and-cloud/google-cloud/cloud-next-2026-sundar-pichai/">"Sundar Pichai shares news from Google Cloud Next 2026"</a> (April 22, 2026) and <a href="https://blog.google/innovation-and-ai/sundar-pichai-io-2026/">"I/O 2026: Welcome to the agentic Gemini era"</a> (May 19, 2026). Plus <a href="https://cloud.google.com/blog/topics/developers-practitioners/io26-news-for-agent-developers-on-google-cloud">"I/O '26 news for agent developers on Google Cloud"</a> for the four-rung ladder, and the Project Mariner landing page (May 2026) for the shutdown notice. <b>Verbatim quotes</b> are inside the indented bubbles on each claim card. <b>Out-of-source notes:</b> the Mariner shutdown date and the absence of a Google press release were first reported by <em>Wired</em>'s Maxwell Zeff (secondary source) — Google's own voice on the kill is only the landing-page sentence quoted above.<br>
+    <em>Note: this page was created 2026-05-26 to answer a specific team research question — "did Google do or plan things differently due to AI-coding-agent maturity?" — with grounded sources only. If the public record changes, the page will be updated. No claim on this page extrapolates beyond what Google's own 2026 publications explicitly state.</em>
+  </footer>
+</div>
+</body>
+</html>
