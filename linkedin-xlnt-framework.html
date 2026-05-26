@@ -4,87 +4,28 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LinkedIn XLNT → T-REX — democratised experimentation at platform scale</title>
+<link rel="stylesheet" href="framework.css">
 <style>
-  :root{
-    --ink:#1c2230; --ink-soft:#465065; --line:#e3ddd0; --paper:#faf7f0;
-    --card:#ffffff; --accent:#b5482e; --accent-soft:#fbeae4;
-    --gold:#9a7b2e; --gold-soft:#f6efdc; --teal:#1f6f6b; --teal-soft:#e2f0ee;
-    --blue:#2d4a7c; --blue-soft:#e6ecf6; --purple:#5b3b78; --purple-soft:#efe6f6;
-    --shadow:0 1px 2px rgba(28,34,48,.06),0 8px 24px rgba(28,34,48,.06);
-  }
-  *{box-sizing:border-box}
-  body{margin:0;background:var(--paper);color:var(--ink);
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    line-height:1.62;font-size:16px;-webkit-font-smoothing:antialiased}
-  .wrap{max-width:920px;margin:0 auto;padding:0 24px 96px}
-  header.masthead{border-bottom:3px solid var(--ink);margin-bottom:8px;padding:48px 0 22px}
-  .kicker{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);font-weight:700;margin:0 0 10px}
-  h1{font-family:Georgia,"Times New Roman",serif;font-size:40px;line-height:1.08;margin:0 0 12px;letter-spacing:-.01em}
-  .sub{color:var(--ink-soft);margin:0;max-width:64ch}
-  .goal{margin-top:18px;background:var(--accent-soft);border:1px solid #f2c9bd;border-left:5px solid var(--accent);border-radius:10px;padding:13px 18px;font-size:15px}
-  .goal span{color:var(--accent);text-transform:uppercase;letter-spacing:.08em;font-size:11px;font-weight:800}
-  nav.toc{position:sticky;top:0;background:rgba(250,247,240,.92);backdrop-filter:blur(6px);
-    border-bottom:1px solid var(--line);padding:12px 0;margin-bottom:34px;z-index:5;font-size:14px}
-  nav.toc a{color:var(--ink-soft);text-decoration:none;margin-right:16px;white-space:nowrap}
-  nav.toc a:hover{color:var(--blue)}
-  .finding{background:var(--ink);color:#f3efe6;border-radius:14px;padding:24px 28px;margin:0 0 36px;box-shadow:var(--shadow)}
-  .finding h2{color:#fff;margin:0 0 8px;font-family:Georgia,serif;font-size:21px}
-  .finding p{margin:0 0 10px;color:#cfc9bb}
-  .finding p:last-child{margin:0}
-  .finding b{color:#9bc7ef}
-  h2.sec{font-family:Georgia,serif;font-size:26px;margin:40px 0 6px;padding-top:18px;border-top:2px solid var(--line)}
-  .secsub{color:var(--ink-soft);font-size:14.5px;margin:0 0 18px;max-width:68ch}
-  p{margin:0 0 14px}
+  /* Page-accent — overrides framework.css fallback */
+  :root{--page-accent:var(--blue);--page-accent-soft:var(--blue-soft)}
   /* timeline */
-  .timeline{background:#fff;border:1px solid var(--line);border-radius:12px;padding:22px;box-shadow:var(--shadow);margin:14px 0}
+.timeline{background:#fff;border:1px solid var(--line);border-radius:12px;padding:22px;box-shadow:var(--shadow);margin:14px 0}
   .tline{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
   .era{border:1px solid var(--line);border-radius:10px;padding:14px;background:#faf7f0}
-  .era .y{font-family:Georgia,serif;font-size:14px;color:var(--blue);font-weight:700;letter-spacing:.05em;text-transform:uppercase}
+  .era .y{font-family:Georgia,serif;font-size:14px;color:var(--page-accent);font-weight:700;letter-spacing:.05em;text-transform:uppercase}
   .era .nm{font-family:Georgia,serif;font-size:20px;font-weight:700;margin:4px 0 6px;color:var(--ink)}
   .era .ds{font-size:13px;color:var(--ink-soft);line-height:1.5}
-  /* steps */
-  .step{display:flex;gap:16px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:12px 0;box-shadow:var(--shadow);border-left:5px solid var(--blue)}
-  .step .num{font-family:Georgia,serif;font-size:28px;font-weight:700;color:var(--blue);line-height:1;min-width:30px}
-  .step h3{margin:0 0 5px;font-size:17px}
-  .step p{margin:0;font-size:14.5px;color:var(--ink-soft)}
-  .step p b{color:var(--ink)}
   /* stats */
-  .stats{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
+.stats{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
   .stat{flex:1 1 150px;background:#f6f4ee;border:1px solid var(--line);border-radius:8px;padding:12px 14px;text-align:center}
-  .stat .n{font-family:Georgia,serif;font-size:22px;color:var(--blue);font-weight:700;line-height:1.1}
+  .stat .n{font-family:Georgia,serif;font-size:22px;color:var(--page-accent);font-weight:700;line-height:1.1}
   .stat .l{font-size:11.5px;color:var(--ink-soft);margin-top:4px;line-height:1.35}
-  /* ours */
-  .ours{background:var(--teal-soft);border-left:5px solid var(--teal);border-radius:10px;padding:18px 22px;margin:18px 0}
-  .ours h3{margin:0 0 8px;color:var(--teal);font-size:18px;font-family:Georgia,serif}
-  .ours .draft{font-size:11px;background:var(--teal);color:#fff;padding:3px 9px;border-radius:5px;text-transform:uppercase;letter-spacing:.06em;font-weight:700}
-  .ours code{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;font-size:13px;background:#fff;border:1px solid #bcdcd8;border-radius:5px;padding:2px 7px}
-  a.cite{color:var(--teal);text-decoration:none;border-bottom:1px solid var(--teal)}
-  a.cite:hover{color:var(--accent);border-color:var(--accent)}
-  .note{background:var(--blue-soft);border-left:4px solid var(--blue);border-radius:8px;padding:14px 18px;margin:18px 0;font-size:14.5px}
-  .note b{color:var(--blue)}
   .caveat{font-size:12.5px;color:#8a6d2e;background:#fbf6e7;border:1px dashed #d8c98f;border-radius:6px;padding:7px 11px;margin-top:10px}
-  .src{font-size:13px;color:var(--ink-soft);margin-top:10px}
-  footer{border-top:1px solid var(--line);padding-top:20px;color:var(--ink-soft);font-size:13px;margin-top:44px}
-  footer a{color:var(--teal)}
-  @media(max-width:680px){.tline{grid-template-columns:1fr}h1{font-size:30px}}
+  @media(max-width:680px){.tline{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <nav class="sitenav">
-<style>
-  .sitenav{position:fixed;top:12px;right:16px;z-index:100;font-size:13px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
-  .sitenav details{background:#1c2230;color:#f3efe6;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.22)}
-  .sitenav summary{list-style:none;cursor:pointer;padding:8px 14px;font-weight:700;letter-spacing:.04em;user-select:none}
-  .sitenav summary::-webkit-details-marker{display:none}
-  .sitenav summary::after{content:" \25BE";color:#cfc9bb;font-size:10px;margin-left:2px}
-  .sitenav details[open] summary::after{content:" \25B4"}
-  .sitenav .navmenu{position:absolute;top:calc(100% + 6px);right:0;background:#fff;color:#1c2230;border:1px solid #e3ddd0;border-radius:10px;padding:16px 18px;box-shadow:0 8px 28px rgba(28,34,48,.22);display:grid;grid-template-columns:repeat(2,minmax(180px,1fr));gap:14px 26px;min-width:400px;max-width:92vw;max-height:80vh;overflow-y:auto}
-  .sitenav .navgrp h4{margin:0 0 5px;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:#465065;font-weight:700;border-bottom:1px solid #e3ddd0;padding-bottom:4px}
-  .sitenav .navgrp a{display:block;color:#1c2230;text-decoration:none;font-size:13px;padding:2px 0;line-height:1.5}
-  .sitenav .navgrp a:hover{color:#b5482e}
-  .sitenav .navgrp a.cur{font-weight:700;color:#b5482e}
-  @media(max-width:600px){.sitenav .navmenu{grid-template-columns:1fr;min-width:240px;max-width:88vw}.sitenav{top:8px;right:8px}}
-</style>
 <details>
 <summary>📑 Jump to</summary>
 <div class="navmenu">
@@ -133,10 +74,16 @@
 <div class="wrap">
   <header class="masthead">
     <p class="kicker">Methods · Deep-dive · Experimentation</p>
-    <h1>LinkedIn XLNT → T-REX — democratised experimentation at platform scale</h1>
-    <p class="sub">LinkedIn's internal A/B platform has had three names across a decade — <strong>LiX → XLNT → T-REX</strong>. The story is less about the framework and more about what it costs to make experimentation <em>so cheap and trustworthy</em> that every team uses it by default.</p>
+    <h1>LinkedIn XLNT → T-REX — democratised experimentation at platform scale <span class="srcyr">2020</span></h1>
+    <p class="sub">LinkedIn's internal A/B platform has had three names across a decade — <strong>LiX → XLNT → T-REX</strong>. The story is less about a unique framework and more about what it costs to make experimentation <em>so cheap and trustworthy</em> that every team uses it by default.</p>
+    <p class="sub">Canonical citation: <em>"Making the LinkedIn experimentation engine 20x faster"</em> (Alexander Ivaniuk &amp; Jingbang Liu, LinkedIn Engineering Blog, January 3, 2020) — the post documenting the current T-REX engine.</p>
     <div class="goal"><span>Goal</span><br>Decide features by data-backed expected impact — choose by outcome, not by to-do list or opinion.</div>
   </header>
+
+  <div class="eli">
+    <div class="lbl">🎓 8th-grade version</div>
+    LinkedIn doesn't have a special idea about <em>how</em> to test features — they use the same rules as Microsoft (declare what "winning" means before you start, look at the number after, ship if it moved). What's special is the <b>tool they built for it</b>. They invested so much in their A/B testing platform that an engineer can run a real experiment on hundreds of millions of users in minutes — no permission, no special meeting. The result: they run <b>40,000 experiments every single day</b>. The lesson for smaller teams isn't to build your own platform; it's to remove every step that makes testing feel hard, so testing becomes the default verb instead of a rare event.
+  </div>
 
   <nav class="toc">
     <a href="#headline">Honest headline</a>
@@ -176,11 +123,11 @@
       <div class="era">
         <div class="y">~2020+</div>
         <div class="nm">T-REX</div>
-        <div class="ds">Current evolution — a 20× speed-up in the experimentation engine, "fast variant assignment," and the architecture that now serves the 40k experiments/day load.</div>
+        <div class="ds">Current evolution — Ivaniuk &amp; Liu's January 2020 rewrite replaced the 2012 Clojure engine, delivering <b>20× faster sequential</b> and <b>14.7× faster concurrent</b> evaluation. The architecture now serves the 40k experiments/day load.</div>
       </div>
     </div>
   </div>
-  <div class="src">Source: <a class="cite" href="https://engineering.linkedin.com/blog/topic/t-rex">LinkedIn Engineering — T-REX article series</a> · <a class="cite" href="https://www.linkedin.com/blog/engineering/ab-testing-experimentation/our-evolution-towards-t-rex-the-prehistory-of-experimentation-i">Evolution towards T-REX</a> · <a class="cite" href="https://engineering.linkedin.com/blog/2020/making-the-linkedin-experimentation-engine-20x-faster">Making the engine 20× faster</a>.</div>
+  <div class="src">Sources: <a class="cite" href="https://engineering.linkedin.com/blog/topic/t-rex">LinkedIn Engineering — T-REX article series</a> · <a class="cite" href="https://www.linkedin.com/blog/engineering/ab-testing-experimentation/our-evolution-towards-t-rex-the-prehistory-of-experimentation-i">"Our evolution towards T-REX: the prehistory of experimentation infrastructure at LinkedIn"</a> · <a class="cite" href="https://www.linkedin.com/blog/engineering/ab-testing-experimentation/making-the-linkedin-experimentation-engine-20x-faster">"Making the LinkedIn experimentation engine 20x faster" (Ivaniuk &amp; Liu, January 3, 2020)</a>.</div>
 
   <!-- MECHANISM -->
   <h2 class="sec" id="mechanism">How a LinkedIn-style platform actually decides what ships</h2>
@@ -198,15 +145,19 @@
 
   <div class="stats">
     <div class="stat"><div class="n">40,000+</div><div class="l">experiments per day (current T-REX figure)</div></div>
-    <div class="stat"><div class="n">~8,000</div><div class="l">metrics measured per experiment</div></div>
-    <div class="stat"><div class="n">20×</div><div class="l">speed-up in the engine (2020 rewrite)</div></div>
+    <div class="stat"><div class="n">~8,000</div><div class="l">metrics computed across those experiments</div></div>
+    <div class="stat"><div class="n">20× / 14.7×</div><div class="l">sequential / concurrent speedup in the 2020 engine rewrite</div></div>
     <div class="stat"><div class="n">700M+</div><div class="l">members in scope of every test</div></div>
   </div>
-  <div class="caveat">Caveat: the 40k/day and 8k-metrics figures are from LinkedIn's own engineering blog (T-REX series, 2020+); confirm on the linked posts before quoting. They're the published claim, not an external audit.</div>
+  <div class="caveat">Caveat: all figures are from LinkedIn's own engineering blog (T-REX series, 2020+); they are the published claim, not an external audit. The 20× headline is for <em>sequential</em> evaluation specifically — concurrent evaluation improved 14.7×. The 35,000-concurrent-experiments figure from the 2020 rewrite post is consistent with "40,000+ per day" reported in later T-REX posts.</div>
 
   <!-- APPLY TO A SHEET -->
   <h2 class="sec" id="apply">Apply to a feature sheet</h2>
   <p class="secsub">XLNT/T-REX discipline turns the backlog into a live <strong>experiment ledger</strong> — every release carries its test. The columns mirror Microsoft ExP (OEC, guardrails, MDE, N, ramp, result, decision), with the LinkedIn-specific addition of a <em>network-interference check</em> (triangle test) because connection-based features can leak across treatment/control.</p>
+
+  <div class="note" style="background:var(--teal-soft);border-left-color:var(--teal)"><b>Try it Monday morning (30 minutes).</b> You probably don't have a LinkedIn-scale platform. That's fine — the discipline is what matters. Pick your team's release process. Walk it backwards: where in the flow is the <em>1% ramp</em>? Where is the <em>pre-declared OEC</em>? Where is the <em>guardrail check</em>? If any of those isn't a defined step, that's the gap. Add it once, in writing. You don't need 40k experiments/day — you need <em>every</em> release to declare what would make it a win, before it ships.</div>
+
+  <div class="note" style="background:var(--blue-soft);border-left-color:var(--blue);font-size:13.5px"><b>Quick glossary for the columns below.</b> <b>OEC</b> = Overall Evaluation Criterion (the agreed success metric, set <em>before</em> the test). <b>Triangle test / network-interference check</b> = a randomization check used when a feature can spread between users via the social graph (a connection accepts a suggestion → their feed changes too) — without this check, treatment can "leak" into control and inflate the result. <b>SRM</b> = Sample-Ratio Mismatch (when the 50/50 split came out wrong by accident — a sign the experiment is broken). <b>NS</b> = not statistically significant.</div>
 
   <h3 style="font-family:Georgia,serif;font-size:18px;margin:18px 0 8px">Worked example — an experiment ledger snapshot (LinkedIn-style)</h3>
   <p style="font-size:13.5px;color:var(--ink-soft);margin:0 0 12px">Eight experiments. OECs drawn from LinkedIn's published preference: <em>sessions per visitor per week</em> + downstream engagement. Numbers illustrative.</p>
@@ -227,12 +178,14 @@
     </table>
   </div>
 
+  <div class="note" style="background:var(--accent-soft);border-left-color:var(--accent)"><b>The most important reading skill on this page.</b> Notice that the "Aggressive notification frequency" row's verdict — <b>Kill</b> — looks like a paradox. Engagement went <em>up</em> 5%, the actual metric the team set out to lift. Why kill it? Because unsubscribes went up <em>15%</em>, which means the win is borrowed against future engagement. Guardrails are the price of the OEC moving. The smaller-team takeaway: <em>your guardrail metrics are not optional supplements</em>. The day you ship a feature with no guardrail because "you're in a hurry" is the day you're set up to make exactly this kind of mistake — and you won't see the cost until users start churning.</div>
+
   <div class="note"><b>Decision rule.</b> Same OEC + guardrails rule as Microsoft ExP, with one LinkedIn twist: any feature that touches the social graph (suggestions, content reach, notifications) must pass a <em>network-interference check</em> before the result is trusted. The notification-frequency row shows why guardrails matter — engagement up means nothing if unsubscribes spike harder. The cover-photo row is invalidated by SRM (sample-ratio mismatch), the trust check that catches assignment bugs before they read as wins.</div>
 
   <div class="note"><b>The transferable insight.</b> LinkedIn proves you don't need a unique <em>method</em> to win — same OEC + ramp discipline as Microsoft. What you need is <b>tooling so cheap that no one has to ask permission to run a test</b>. For a smaller team, that "tooling" doesn't need to be a custom platform; it can be a feature-flag service + a shared metrics dashboard + a written norm that every release ramps 1%→10%→50%→100% behind a pre-declared OEC.</div>
   <footer>
     Companion to <a href="impact-saas-companies.html#exp">← SaaS case studies · Experimentation</a> · <a href="methodologies-comparison.html">All methods compared</a> · sibling: <a href="microsoft-exp-framework.html">Microsoft ExP</a> (the same decision rule, different platform story)<br>
-    Grounded in: LinkedIn Engineering Blog's T-REX series, the original <a href="https://engineering.linkedin.com/ab-testing/xlnt-platform-driving-ab-testing-linkedin">XLNT introduction</a>, and the <a href="https://engineering.linkedin.com/blog/2020/making-the-linkedin-experimentation-engine-20x-faster">2020 engine rewrite post</a>. Numbers are LinkedIn-published.
+    <b>Grounded in</b> LinkedIn Engineering Blog's T-REX series, the original <a href="https://engineering.linkedin.com/ab-testing/xlnt-platform-driving-ab-testing-linkedin">XLNT introduction</a>, and <a href="https://www.linkedin.com/blog/engineering/ab-testing-experimentation/making-the-linkedin-experimentation-engine-20x-faster">"Making the LinkedIn experimentation engine 20x faster" by Alexander Ivaniuk &amp; Jingbang Liu, January 3, 2020</a>. <b>Verbatim from LinkedIn:</b> the speedup figure (20× sequential / 14.7× concurrent), the platform-name evolution (LiX = "LinkedIn eXperimentation", XLNT = "eXperimentation framework", T-REX = current generation), and the 40k experiments/day, ~8k metrics, 700M+ members claims. <b>Note on naming:</b> in the 2020 rewrite post, "T-REX" is the team that built the new engine; in other LinkedIn posts T-REX names the platform itself — the page uses the more common platform sense. <b>Added by us, not in LinkedIn's posts:</b> the 8-row experiment ledger worked example, the verdict labels (Ship/Iterate/Kill/Invalid), the "Try it Monday" exercise, and the in-page glossary.
   </footer>
 </div>
 </body>

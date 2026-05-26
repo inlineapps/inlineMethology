@@ -4,88 +4,26 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Stripe — product shaping, written deep-dives, long-term-direction filter</title>
+<link rel="stylesheet" href="framework.css">
 <style>
-  :root{
-    --ink:#1c2230; --ink-soft:#465065; --line:#e3ddd0; --paper:#faf7f0;
-    --card:#ffffff; --accent:#b5482e; --accent-soft:#fbeae4;
-    --gold:#9a7b2e; --gold-soft:#f6efdc; --teal:#1f6f6b; --teal-soft:#e2f0ee;
-    --blue:#2d4a7c; --blue-soft:#e6ecf6; --purple:#5b3b78; --purple-soft:#efe6f6;
-    --shadow:0 1px 2px rgba(28,34,48,.06),0 8px 24px rgba(28,34,48,.06);
-  }
-  *{box-sizing:border-box}
-  body{margin:0;background:var(--paper);color:var(--ink);
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    line-height:1.62;font-size:16px;-webkit-font-smoothing:antialiased}
-  .wrap{max-width:920px;margin:0 auto;padding:0 24px 96px}
-  header.masthead{border-bottom:3px solid var(--ink);margin-bottom:8px;padding:48px 0 22px}
-  .kicker{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--teal);font-weight:700;margin:0 0 10px}
-  h1{font-family:Georgia,"Times New Roman",serif;font-size:40px;line-height:1.08;margin:0 0 12px;letter-spacing:-.01em}
-  .sub{color:var(--ink-soft);margin:0;max-width:64ch}
-  .goal{margin-top:18px;background:var(--accent-soft);border:1px solid #f2c9bd;border-left:5px solid var(--accent);border-radius:10px;padding:13px 18px;font-size:15px}
-  .goal span{color:var(--accent);text-transform:uppercase;letter-spacing:.08em;font-size:11px;font-weight:800}
-  nav.toc{position:sticky;top:0;background:rgba(250,247,240,.92);backdrop-filter:blur(6px);
-    border-bottom:1px solid var(--line);padding:12px 0;margin-bottom:34px;z-index:5;font-size:14px}
-  nav.toc a{color:var(--ink-soft);text-decoration:none;margin-right:16px;white-space:nowrap}
-  nav.toc a:hover{color:var(--teal)}
-  .finding{background:var(--ink);color:#f3efe6;border-radius:14px;padding:24px 28px;margin:0 0 36px;box-shadow:var(--shadow)}
-  .finding h2{color:#fff;margin:0 0 8px;font-family:Georgia,serif;font-size:21px}
-  .finding p{margin:0 0 10px;color:#cfc9bb}
-  .finding p:last-child{margin:0}
-  .finding b{color:#9ad6cf}
-  h2.sec{font-family:Georgia,serif;font-size:26px;margin:40px 0 6px;padding-top:18px;border-top:2px solid var(--line)}
-  .secsub{color:var(--ink-soft);font-size:14.5px;margin:0 0 18px;max-width:68ch}
-  p{margin:0 0 14px}
+  /* Page-accent — overrides framework.css fallback */
+  :root{--page-accent:var(--teal);--page-accent-soft:var(--teal-soft)}
   /* three practices */
-  .three{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:14px 0}
-  .practice{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;box-shadow:var(--shadow);border-top:5px solid var(--teal)}
-  .practice .lbl{font-family:Georgia,serif;font-size:13px;color:var(--teal);font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:4px}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:14px 0}
+  .practice{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;box-shadow:var(--shadow);border-top:5px solid var(--page-accent)}
+  .practice .lbl{font-family:Georgia,serif;font-size:13px;color:var(--page-accent);font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:4px}
   .practice h3{margin:0 0 8px;font-size:17px;font-family:Georgia,serif}
   .practice p{margin:0;font-size:13.5px;color:var(--ink-soft);line-height:1.55}
   .practice p b{color:var(--ink)}
   /* quote */
-  .quotebig{background:var(--teal-soft);border-left:5px solid var(--teal);border-radius:10px;padding:18px 22px;margin:14px 0;font-style:italic;color:var(--ink);font-size:15px}
+.quotebig{background:var(--page-accent-soft);border-left:5px solid var(--page-accent);border-radius:10px;padding:18px 22px;margin:14px 0;font-style:italic;color:var(--ink);font-size:15px}
   .quotebig .att{display:block;font-style:normal;font-size:12.5px;color:var(--ink-soft);margin-top:8px;letter-spacing:.02em}
-  /* steps */
-  .step{display:flex;gap:16px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:12px 0;box-shadow:var(--shadow);border-left:5px solid var(--teal)}
-  .step .num{font-family:Georgia,serif;font-size:28px;font-weight:700;color:var(--teal);line-height:1;min-width:30px}
-  .step h3{margin:0 0 5px;font-size:17px}
-  .step p{margin:0;font-size:14.5px;color:var(--ink-soft)}
-  .step p b{color:var(--ink)}
-  /* warn */
-  .warn{background:#f7e9d6;border-left:4px solid #c97f1a;border-radius:8px;padding:14px 18px;margin:18px 0;font-size:14.5px;color:#5b3b08}
-  .warn b{color:#9a4e08}
-  /* ours */
-  .ours{background:var(--teal-soft);border-left:5px solid var(--teal);border-radius:10px;padding:18px 22px;margin:18px 0}
-  .ours h3{margin:0 0 8px;color:var(--teal);font-size:18px;font-family:Georgia,serif}
-  .ours .draft{font-size:11px;background:var(--teal);color:#fff;padding:3px 9px;border-radius:5px;text-transform:uppercase;letter-spacing:.06em;font-weight:700}
-  .ours code{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;font-size:13px;background:#fff;border:1px solid #bcdcd8;border-radius:5px;padding:2px 7px}
-  a.cite{color:var(--teal);text-decoration:none;border-bottom:1px solid var(--teal)}
-  a.cite:hover{color:var(--accent);border-color:var(--accent)}
-  .note{background:var(--blue-soft);border-left:4px solid var(--blue);border-radius:8px;padding:14px 18px;margin:18px 0;font-size:14.5px}
-  .note b{color:var(--blue)}
   .caveat{font-size:12.5px;color:#8a6d2e;background:#fbf6e7;border:1px dashed #d8c98f;border-radius:6px;padding:7px 11px;margin-top:10px}
-  .src{font-size:13px;color:var(--ink-soft);margin-top:10px}
-  footer{border-top:1px solid var(--line);padding-top:20px;color:var(--ink-soft);font-size:13px;margin-top:44px}
-  footer a{color:var(--teal)}
-  @media(max-width:680px){.three{grid-template-columns:1fr}h1{font-size:30px}}
+  @media(max-width:680px){.three{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <nav class="sitenav">
-<style>
-  .sitenav{position:fixed;top:12px;right:16px;z-index:100;font-size:13px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
-  .sitenav details{background:#1c2230;color:#f3efe6;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.22)}
-  .sitenav summary{list-style:none;cursor:pointer;padding:8px 14px;font-weight:700;letter-spacing:.04em;user-select:none}
-  .sitenav summary::-webkit-details-marker{display:none}
-  .sitenav summary::after{content:" \25BE";color:#cfc9bb;font-size:10px;margin-left:2px}
-  .sitenav details[open] summary::after{content:" \25B4"}
-  .sitenav .navmenu{position:absolute;top:calc(100% + 6px);right:0;background:#fff;color:#1c2230;border:1px solid #e3ddd0;border-radius:10px;padding:16px 18px;box-shadow:0 8px 28px rgba(28,34,48,.22);display:grid;grid-template-columns:repeat(2,minmax(180px,1fr));gap:14px 26px;min-width:400px;max-width:92vw;max-height:80vh;overflow-y:auto}
-  .sitenav .navgrp h4{margin:0 0 5px;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:#465065;font-weight:700;border-bottom:1px solid #e3ddd0;padding-bottom:4px}
-  .sitenav .navgrp a{display:block;color:#1c2230;text-decoration:none;font-size:13px;padding:2px 0;line-height:1.5}
-  .sitenav .navgrp a:hover{color:#b5482e}
-  .sitenav .navgrp a.cur{font-weight:700;color:#b5482e}
-  @media(max-width:600px){.sitenav .navmenu{grid-template-columns:1fr;min-width:240px;max-width:88vw}.sitenav{top:8px;right:8px}}
-</style>
 <details>
 <summary>📑 Jump to</summary>
 <div class="navmenu">
@@ -134,10 +72,16 @@
 <div class="wrap">
   <header class="masthead">
     <p class="kicker">Methods · Deep-dive · Written discipline</p>
-    <h1>Stripe — product shaping, written deep-dives, long-term-direction filter</h1>
-    <p class="sub">Stripe deliberately does <em>not</em> publish a quantitative prioritisation framework. The discipline is qualitative: shape the problem before scoring it, argue in long-form writing, and filter every bet through a multi-decade direction. Important to study precisely because it's the honest "no scoring formula" exemplar.</p>
+    <h1>Stripe — product shaping, written deep-dives, multi-decade abstractions <span class="srcyr">2021</span></h1>
+    <p class="sub">Stripe deliberately does <em>not</em> publish a quantitative prioritisation framework. The discipline is qualitative: shape the problem before scoring it, argue in long-form writing, and filter every bet through a multi-decade direction.</p>
+    <p class="sub">Canonical secondary source: Ken Norton's <a class="cite" href="https://www.bringthedonuts.com/essays/building-products-at-stripe/">"Building Products at Stripe"</a> essay (May 18, 2021), based on his time working at the company. Important to study precisely because it's the honest "no scoring formula" exemplar.</p>
     <div class="goal"><span>Goal</span><br>Decide features by data-backed expected impact — choose by outcome, not by to-do list or opinion.</div>
   </header>
+
+  <div class="eli">
+    <div class="lbl">🎓 8th-grade version</div>
+    Most companies decide what to build by giving each idea a number (a score) and ranking. Stripe doesn't. Instead, they make people <b>write a long document</b> arguing why an idea matters — covering the problem, the customers it affects, what could go wrong, and what's been tried. If the writing isn't strong, the idea doesn't get built. They also ask: "<em>would this still matter if our company is around in 30 years?</em>" — and use that to throw away short-term-only ideas. The hard truth: this only works if your company has people who can read and judge those long documents well. Most teams can't, so they should probably score things instead. But for Stripe, careful writing + a long-term filter has produced a remarkably right rate of decisions.
+  </div>
 
   <nav class="toc">
     <a href="#headline">Honest headline</a>
@@ -162,20 +106,20 @@
     <div class="practice">
       <div class="lbl">1 · Shaping</div>
       <h3>Shape the problem before scoring it</h3>
-      <p>PMs work the <b>problem definition</b> until it's so specific that "what to build" becomes obvious. The qualitative log-line Norton quotes — <em>"users having a bad day"</em> — is a shaping artifact. Most teams skip this and jump to features.</p>
+      <p>Norton's verbatim definition: <em>"Shaping is the process of creating a rough solution to a concrete user problem — it fills the space between the broad strategy and the detailed product specification."</em> PMs work the <b>problem definition</b> until "what to build" becomes obvious. Most teams skip this and jump to features.</p>
     </div>
     <div class="practice">
       <div class="lbl">2 · Deep-dives</div>
       <h3>Written, long-form, footnoted memos</h3>
-      <p>Proposals are <b>long documents, not slides</b>. Patrick Collison's emails reportedly carry footnotes. A weak proposal is exposed by the prose; a strong one has to engage with edge cases and history — no slide can hide.</p>
+      <p>Norton verbatim: <em>"Stripe runs on written long-form documents in a way that I haven't seen before. So that means somebody can go deep, like all the way down, and then distill it back out to everybody else."</em> Patrick Collison's emails reportedly carry footnotes. A weak proposal is exposed by the prose; no slide can hide.</p>
     </div>
     <div class="practice">
-      <div class="lbl">3 · Long-term filter</div>
-      <h3>Multi-decade direction screen</h3>
-      <p>Every candidate is filtered through "<b>does this still make sense if we are around in 30 years?</b>" — a direction screen, not a quarter-by-quarter score. The famous "first five years on payments" focus is this filter in action.</p>
+      <div class="lbl">3 · Multi-decade filter</div>
+      <h3>"Multi-decade abstractions" as the screen</h3>
+      <p>Norton verbatim: <em>"We talk a lot about building multi-decade abstractions. I personally like to think 10 to 30 years to get out of the three- to five-year mode, but generally here people do say 'multi-decade' a lot."</em> A direction screen, not a quarter-by-quarter score. The famous early focus on payments was this filter in action.</p>
     </div>
   </div>
-  <div class="src">Source: <a class="cite" href="https://www.bringthedonuts.com/essays/building-products-at-stripe/">Ken Norton — Building Products at Stripe</a> · <a class="cite" href="https://stripe.com/guides/atlas/building-a-great-pm-org">Stripe Atlas — Building a great PM org</a> · <a class="cite" href="https://haas.berkeley.edu/culture/culture-kit-podcast/posts/bonus-episode-3-stripe-ceo-patrick-collison-on-crafting-a-culture-that-prizes-details/">UC Berkeley Haas — Patrick Collison on detail culture</a>.</div>
+  <div class="src">Sources: <a class="cite" href="https://www.bringthedonuts.com/essays/building-products-at-stripe/">Ken Norton — "Building Products at Stripe" (May 18, 2021)</a> · <a class="cite" href="https://stripe.com/guides/atlas/building-a-great-pm-org">Stripe Atlas — "Building a great PM org"</a> · <a class="cite" href="https://haas.berkeley.edu/culture/culture-kit-podcast/posts/bonus-episode-3-stripe-ceo-patrick-collison-on-crafting-a-culture-that-prizes-details/">UC Berkeley Haas Culture Kit Podcast — Patrick Collison on detail culture</a>.</div>
 
   <div class="quotebig">
     "The Collison brothers insisted on long-form memos and carefully argued proposals. The first emails I saw from our CEO literally had footnotes."
@@ -187,7 +131,7 @@
   <h2 class="sec" id="mechanism">How Stripe actually picks the work — five steps inferred from the published practices</h2>
   <p class="secsub">Reconstructed from the sources above. The mechanism is judgement-driven and writing-mediated. There is <em>no</em> public step that says "compute a number."</p>
 
-  <div class="step"><div class="num">1</div><div><h3>Identify a user-having-a-bad-day moment</h3><p>Start from a specific, narrow problem felt by a real customer (e.g. "merchants in Brazil can't accept Pix"). Not a feature, not an opportunity — a <em>bad day</em>.</p></div></div>
+  <div class="step"><div class="num">1</div><div><h3>Identify a "concrete user problem" — a real customer's bad day</h3><p>Per Norton's shaping definition, you start from a <em>concrete user problem</em>: a specific, narrow pain felt by a real customer (e.g. "merchants in Brazil can't accept Pix"). Not a feature, not an opportunity — a problem in customer language. ("Users having a bad day" is a common shaping-culture shorthand; Norton's own framing in the essay is "concrete user problem.")</p></div></div>
   <div class="step"><div class="num">2</div><div><h3>Write the deep-dive — long-form, edge-cases included</h3><p>What is the problem, why is it hard, what's been tried, what could we ship, what would change for the user, what's the second-order risk? Until the writer themselves believes the argument, it doesn't go forward.</p></div></div>
   <div class="step"><div class="num">3</div><div><h3>Filter it through the multi-decade direction</h3><p>"Does this still make sense in 10–30 years?" If a feature only matters in this quarter, it loses to one that compounds. This is why Stripe spent <em>five years going deep on payments</em> before launching adjacent products.</p></div></div>
   <div class="step"><div class="num">4</div><div><h3>Decision is made on the written case + judgement of senior leaders</h3><p>No score, no ranking spreadsheet (publicly). The bet is taken by whoever owns the decision, on the strength of the doc and the long-term filter.</p></div></div>
@@ -203,7 +147,11 @@
 
   <!-- APPLY TO A SHEET -->
   <h2 class="sec" id="apply">Apply to a feature sheet</h2>
-  <p class="secsub">Stripe's discipline doesn't produce a score — it produces a <strong>readiness checklist</strong>. If you adopt it, every backlog row tracks whether the bad-day moment is named, the deep-dive is written, the 30-year filter passes, and a senior decision-maker has been assigned. No build starts until every cell is green and the doc has been read.</p>
+  <p class="secsub">Stripe's discipline doesn't produce a score — it produces a <strong>readiness checklist</strong>. If you adopt it, every backlog row tracks whether the concrete user problem is named, the deep-dive is written, the multi-decade filter passes, and a senior decision-maker has been assigned. No build starts until every cell is green and the doc has been read.</p>
+
+  <div class="note" style="background:var(--teal-soft);border-left-color:var(--teal)"><b>Try it Monday morning (30 minutes).</b> Pick the highest-priority item on your roadmap. Open a doc. Write the <em>concrete user problem</em> in one sentence — naming a real customer (not a persona) and a specific bad moment. Then write three honest edge cases your team would rather not talk about. If you can't fill in either, you're at the shaping stage Stripe is good at and most teams skip. You don't need to adopt the whole culture; the shaping question alone (<em>"whose concrete problem am I actually solving?"</em>) is the cheap part of Stripe's discipline.</div>
+
+  <div class="note" style="background:#e6f4f1;border-left-color:var(--teal);font-size:13.5px"><b>Quick glossary for the columns below.</b> <b>Bad-day moment</b> = a named real customer in a specific painful situation; the shorthand for Norton's "concrete user problem." <b>Deep-dive</b> = a long-form written memo (not slides) that engages with edge cases and history. <b>30-year filter</b> = Norton's "multi-decade abstractions" framing — does this still matter if the company is around in 30 years? <b>Defer</b> = a verdict that's neither yes nor no; "not now, doc isn't ready or direction is unclear."</div>
 
   <div style="overflow-x:auto;margin:14px 0">
     <table style="border-collapse:collapse;width:100%;font-size:13.5px;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden">
@@ -239,12 +187,14 @@
     </table>
   </div>
 
+  <div class="note" style="background:var(--accent-soft);border-left-color:var(--accent);margin-top:18px"><b>The most important reading skill on this page.</b> Look at the <em>Crypto on-ramp</em> row. The deep-dive is approved (9 edge cases — high quality). The bad-day moment is real (customers are asking). But the verdict is <b>Defer</b>, not Build. Why? The <em>30-year filter</em> failed — volatility and regulatory flux make this look short-term-only, even though it would probably win on a RICE score today. This is the gate that distinguishes Stripe's discipline from "build what customers ask for." A team without an explicit multi-decade filter would ship Crypto on-ramp and discover the regulatory cost over the following years. The filter only does work when it <em>actually kills tempting things</em> — otherwise it's just a phrase.</div>
+
   <div class="note" style="margin-top:18px"><b>Decision rule.</b> Four gates, all must pass. <b>(1)</b> Real bad-day moment named in customer terms (not "modernise" or "improve")? <b>(2)</b> Deep-dive written, reviewed, edge cases engaged? <b>(3)</b> 30-year filter passes — short-term-only wins fail this even if they're tempting. <b>(4)</b> Single named decision-maker assigned? <b>Build</b> when all pass. <b>Re-draft</b> when the doc is thin or the bad-day is vague — go back to writing. <b>Defer</b> when the 30-yr filter fails or the doc isn't ready — neither a yes nor a no, just "not now." <b>Kill</b> when there's no bad-day moment after iteration; that means the feature was a wishlist item, not a customer problem. This method does not score; it filters by argument quality. The price of no formula is heavier reliance on the decision-maker's judgement — that trade-off is the discipline.</div>
 
   <div class="note"><b>Why it belongs on the list anyway.</b> Stripe is a $90B+ private company whose product decisions have been right at a remarkable rate. If a team concludes "we'll just score things with RICE and ship," Stripe is the counter-example: <em>great product judgement can come from disciplined writing and a long-term direction, no scoring formula required</em>. The discipline transfers; the absence of a scoring formula is the trade-off accepted.</div>
   <footer>
     Companion to <a href="impact-saas-companies.html#qual">← SaaS case studies · Written Discipline</a> · <a href="methodologies-comparison.html">All methods compared</a> · contrast with: <a href="rice-framework.html">RICE</a> (scoring) · <a href="microsoft-exp-framework.html">Microsoft ExP</a> (measure)<br>
-    Grounded in: <a href="https://www.bringthedonuts.com/essays/building-products-at-stripe/">Ken Norton's "Building Products at Stripe"</a>, <a href="https://stripe.com/guides/atlas/building-a-great-pm-org">Stripe's Atlas PM org guide</a>, and secondary analyses of Stripe's writing culture. Long-term direction quote is Stripe-published policy; "footnotes" anecdote is secondary.
+    <b>Grounded in</b> <a href="https://www.bringthedonuts.com/essays/building-products-at-stripe/">Ken Norton, "Building Products at Stripe" (May 18, 2021)</a>, <a href="https://stripe.com/guides/atlas/building-a-great-pm-org">Stripe Atlas's PM org guide</a>, and secondary analyses of Stripe's writing culture. <b>Verbatim from Norton's essay:</b> the definition of shaping ("creating a rough solution to a concrete user problem — it fills the space between the broad strategy and the detailed product specification"), the long-form-documents quote ("Stripe runs on written long-form documents in a way that I haven't seen before"), and the multi-decade framing ("We talk a lot about building multi-decade abstractions. I personally like to think 10 to 30 years"). <b>Corrected from earlier draft:</b> the "users having a bad day" phrasing is a shaping-culture shorthand, not a verbatim Norton quote — the essay's actual wording is "concrete user problem." <b>Secondary-published:</b> the Patrick Collison "footnotes" anecdote (Berkeley Haas podcast / Stripe culture analyses). <b>Added by us, not in the sources:</b> the 8-row backlog worked example, the four-gate Build/Re-draft/Defer/Kill verdict rule, the in-page glossary, and the "Try it Monday" exercise.
   </footer>
 </div>
 </body>

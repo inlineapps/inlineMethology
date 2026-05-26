@@ -4,94 +4,37 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The North Star Framework — How It Actually Drives Priority</title>
+<link rel="stylesheet" href="framework.css">
 <style>
-  :root{
-    --ink:#1c2230; --ink-soft:#465065; --line:#e3ddd0; --paper:#faf7f0;
-    --card:#ffffff; --accent:#b5482e; --accent-soft:#fbeae4;
-    --gold:#9a7b2e; --gold-soft:#f6efdc; --teal:#1f6f6b; --teal-soft:#e2f0ee;
-    --blue:#2d4a7c; --blue-soft:#e6ecf6; --purple:#5b3b78; --purple-soft:#efe6f6;
-    --shadow:0 1px 2px rgba(28,34,48,.06),0 8px 24px rgba(28,34,48,.06);
-  }
-  *{box-sizing:border-box}
-  body{margin:0;background:var(--paper);color:var(--ink);
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    line-height:1.62;font-size:16px;-webkit-font-smoothing:antialiased}
-  .wrap{max-width:920px;margin:0 auto;padding:0 24px 96px}
-  header.masthead{border-bottom:3px solid var(--ink);margin-bottom:8px;padding:48px 0 22px}
-  .kicker{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--purple);font-weight:700;margin:0 0 10px}
-  h1{font-family:Georgia,"Times New Roman",serif;font-size:40px;line-height:1.08;margin:0 0 12px;letter-spacing:-.01em}
-  .sub{color:var(--ink-soft);margin:0;max-width:64ch}
-  .goal{margin-top:18px;background:var(--accent-soft);border:1px solid #f2c9bd;border-left:5px solid var(--accent);border-radius:10px;padding:13px 18px;font-size:15px}
-  .goal span{color:var(--accent);text-transform:uppercase;letter-spacing:.08em;font-size:11px;font-weight:800}
-  nav.toc{position:sticky;top:0;background:rgba(250,247,240,.92);backdrop-filter:blur(6px);
-    border-bottom:1px solid var(--line);padding:12px 0;margin-bottom:34px;z-index:5;font-size:14px}
-  nav.toc a{color:var(--ink-soft);text-decoration:none;margin-right:16px;white-space:nowrap}
-  nav.toc a:hover{color:var(--purple)}
-  .finding{background:var(--ink);color:#f3efe6;border-radius:14px;padding:24px 28px;margin:0 0 36px;box-shadow:var(--shadow)}
-  .finding h2{color:#fff;margin:0 0 8px;font-family:Georgia,serif;font-size:21px}
-  .finding p{margin:0 0 10px;color:#cfc9bb}
-  .finding p:last-child{margin:0}
-  .finding b{color:#f3d9a0}
-  h2.sec{font-family:Georgia,serif;font-size:26px;margin:40px 0 6px;padding-top:18px;border-top:2px solid var(--line)}
-  .secsub{color:var(--ink-soft);font-size:14.5px;margin:0 0 18px;max-width:68ch}
-  p{margin:0 0 14px}
+  /* Page-accent — overrides framework.css fallback */
+  :root{--page-accent:var(--purple);--page-accent-soft:var(--purple-soft)}
   /* anatomy diagram */
-  .anatomy{background:#fff;border:1px solid var(--line);border-radius:14px;padding:26px;box-shadow:var(--shadow);margin:18px 0;text-align:center}
-  .nsm{display:inline-block;background:var(--purple);color:#fff;border-radius:10px;padding:13px 24px;font-weight:700;font-size:16px}
+.anatomy{background:#fff;border:1px solid var(--line);border-radius:14px;padding:26px;box-shadow:var(--shadow);margin:18px 0;text-align:center}
+  .nsm{display:inline-block;background:var(--page-accent);color:#fff;border-radius:10px;padding:13px 24px;font-weight:700;font-size:16px}
   .nsm small{display:block;font-weight:400;font-size:12px;color:#e0d2ee;letter-spacing:.03em}
   .down{color:var(--gold);font-size:22px;margin:8px 0;font-weight:700}
   .inputs{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:4px 0}
-  .inputs .ip{background:var(--purple-soft);border:1px solid #d9c7ea;border-radius:9px;padding:10px 16px;font-weight:600;font-size:14px;color:var(--purple)}
+  .inputs .ip{background:var(--page-accent-soft);border:1px solid #d9c7ea;border-radius:9px;padding:10px 16px;font-weight:600;font-size:14px;color:var(--page-accent)}
   .work{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:4px 0}
   .work .wk{background:#fff;border:1px dashed var(--line);border-radius:8px;padding:8px 13px;font-size:13px;color:var(--ink-soft)}
   .lbl-row{font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);font-weight:700;margin:14px 0 4px}
-  /* steps */
-  .step{display:flex;gap:16px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:12px 0;box-shadow:var(--shadow);border-left:5px solid var(--purple)}
-  .step .num{font-family:Georgia,serif;font-size:28px;font-weight:700;color:var(--purple);line-height:1;min-width:30px}
-  .step h3{margin:0 0 5px;font-size:17px}
-  .step p{margin:0;font-size:14.5px;color:var(--ink-soft)}
-  .step p b{color:var(--ink)}
   /* equation */
-  .eq{background:var(--gold-soft);border:1px solid #e6d8a8;border-radius:12px;padding:18px 22px;margin:18px 0;font-size:15px}
+.eq{background:var(--gold-soft);border:1px solid #e6d8a8;border-radius:12px;padding:18px 22px;margin:18px 0;font-size:15px}
   .eq code{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;font-size:14px;background:#fff;border:1px solid #e6d8a8;border-radius:6px;padding:3px 8px;display:inline-block;margin:4px 0;color:var(--ink)}
   .eq b{color:var(--gold)}
   /* company cards */
-  .cos{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:18px 0}
-  .co{border-radius:14px;padding:22px;box-shadow:var(--shadow);border:1px solid var(--line);background:#fff;border-top:5px solid var(--purple)}
+.cos{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:18px 0}
+  .co{border-radius:14px;padding:22px;box-shadow:var(--shadow);border:1px solid var(--line);background:#fff;border-top:5px solid var(--page-accent)}
   .co h3{font-family:Georgia,serif;font-size:21px;margin:0 0 4px}
-  .co .nsm-tag{font-size:12px;color:var(--purple);font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px}
-  .co ul{margin:8px 0;padding-left:20px}.co li{font-size:14px;margin:6px 0}
+  .co .nsm-tag{font-size:12px;color:var(--page-accent);font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px}
+  .co ul{margin:8px 0;padding-left:20px}
+  .co li{font-size:14px;margin:6px 0}
   .co .cav{font-size:12.5px;color:var(--ink-soft);font-style:italic;border-top:1px dashed var(--line);padding-top:8px;margin-top:10px}
-  /* ours */
-  .ours{background:var(--teal-soft);border-left:5px solid var(--teal);border-radius:10px;padding:18px 22px;margin:18px 0}
-  .ours h3{margin:0 0 8px;color:var(--teal);font-size:18px;font-family:Georgia,serif}
-  .ours .draft{font-size:11px;background:var(--teal);color:#fff;padding:3px 9px;border-radius:5px;text-transform:uppercase;letter-spacing:.06em;font-weight:700}
-  .ours code{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;font-size:13px;background:#fff;border:1px solid #bcdcd8;border-radius:5px;padding:2px 7px}
-  a.cite{color:var(--teal);text-decoration:none;border-bottom:1px solid var(--teal)}
-  a.cite:hover{color:var(--accent);border-color:var(--accent)}
-  .note{background:var(--blue-soft);border-left:4px solid var(--blue);border-radius:8px;padding:14px 18px;margin:18px 0;font-size:14.5px}
-  .note b{color:var(--blue)}
-  footer{border-top:1px solid var(--line);padding-top:20px;color:var(--ink-soft);font-size:13px;margin-top:44px}
-  footer a{color:var(--teal)}
-  @media(max-width:680px){.cos{grid-template-columns:1fr}h1{font-size:30px}}
+  @media(max-width:680px){.cos{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <nav class="sitenav">
-<style>
-  .sitenav{position:fixed;top:12px;right:16px;z-index:100;font-size:13px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
-  .sitenav details{background:#1c2230;color:#f3efe6;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.22)}
-  .sitenav summary{list-style:none;cursor:pointer;padding:8px 14px;font-weight:700;letter-spacing:.04em;user-select:none}
-  .sitenav summary::-webkit-details-marker{display:none}
-  .sitenav summary::after{content:" \25BE";color:#cfc9bb;font-size:10px;margin-left:2px}
-  .sitenav details[open] summary::after{content:" \25B4"}
-  .sitenav .navmenu{position:absolute;top:calc(100% + 6px);right:0;background:#fff;color:#1c2230;border:1px solid #e3ddd0;border-radius:10px;padding:16px 18px;box-shadow:0 8px 28px rgba(28,34,48,.22);display:grid;grid-template-columns:repeat(2,minmax(180px,1fr));gap:14px 26px;min-width:400px;max-width:92vw;max-height:80vh;overflow-y:auto}
-  .sitenav .navgrp h4{margin:0 0 5px;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:#465065;font-weight:700;border-bottom:1px solid #e3ddd0;padding-bottom:4px}
-  .sitenav .navgrp a{display:block;color:#1c2230;text-decoration:none;font-size:13px;padding:2px 0;line-height:1.5}
-  .sitenav .navgrp a:hover{color:#b5482e}
-  .sitenav .navgrp a.cur{font-weight:700;color:#b5482e}
-  @media(max-width:600px){.sitenav .navmenu{grid-template-columns:1fr;min-width:240px;max-width:88vw}.sitenav{top:8px;right:8px}}
-</style>
 <details>
 <summary>📑 Jump to</summary>
 <div class="navmenu">
@@ -140,10 +83,16 @@
 <div class="wrap">
   <header class="masthead">
     <p class="kicker">Methods · Deep-dive companion</p>
-    <h1>The North Star Framework — and how it <em>actually</em> sets priority</h1>
+    <h1>The North Star Framework — and how it <em>actually</em> sets priority <span class="srcyr">2019</span></h1>
     <p class="sub">Slack's "2,000 messages" and Amplitude's "Weekly Learning Users" are <em>metrics</em> — not a way to score a feature. This page closes that gap: what the framework is, and the real mechanism by which it decides what to build first.</p>
     <div class="goal"><span>Goal</span><br>Decide features by data-backed expected impact — choose by outcome, not by to-do list or opinion.</div>
   </header>
+
+  <div class="eli">
+    <span class="lbl">🎓 8th-grade version</span>
+    <p>Most teams build whatever ideas sound good. North Star says: pick <b>one number</b> that means "our customers are getting value" (Slack picked <em>teams sending lots of messages</em>). Then list the <b>3–5 things teams can directly do</b> to move that number — call those the "inputs." Each cycle, pick the weakest input and <em>only</em> fund ideas that touch it; everything else waits its turn.</p>
+    <p>It's a <b>filter</b>, not a score. Once features are filtered in, you still rank them with RICE or a real experiment.</p>
+  </div>
 
   <nav class="toc">
     <a href="#headline">The honest headline</a>
@@ -162,7 +111,7 @@
 
   <!-- ANATOMY -->
   <h2 class="sec" id="anatomy">Anatomy: three layers, one causal claim</h2>
-  <p class="secsub">The framework is a <strong>causal model</strong> — John Cutler (ex-Amplitude, Playbook co-author) calls it "a belief map / driver diagram." Read it top-down as a claim: <em>"if we move these inputs, this North Star rises, and the business grows."</em></p>
+  <p class="secsub">The framework is a <strong>causal model</strong> — Cutler and others describe it as a belief map or driver diagram: a written claim about how value is produced. Read it top-down as: <em>"if we move these inputs, this North Star rises, and the business grows."</em></p>
 
   <div class="anatomy">
     <div class="lbl-row">North Star Metric — the one outcome of customer value</div>
@@ -183,16 +132,16 @@
       <span class="wk">Search</span>
       <span class="wk">Notifications</span>
     </div>
-    <p style="font-size:12.5px;color:var(--ink-soft);margin:14px 0 0">Illustrative composition of the Slack-style model. The Playbook's rule: if you can move the North Star <em>directly</em> with one feature, it's too shallow to be a real North Star — it must sit "one level out of reach," forced through inputs.</p>
+    <p style="font-size:12.5px;color:var(--ink-soft);margin:14px 0 0">Illustrative composition of the Slack-style model. A widely-cited principle (paraphrased from the Playbook): if a single feature can move the North Star directly, the North Star is too shallow — it should sit far enough out of reach that all work has to go through the inputs.</p>
   </div>
-  <p style="font-size:13px;color:var(--ink-soft)">Source: <a class="cite" href="https://amplitude.com/books/north-star/about-north-star-framework">Amplitude — About the North Star Framework</a> · <a class="cite" href="https://blog.doubleloop.app/the-deep-value-of-the-north-star-framework-is-not-a-north-star-metric/">DoubleLoop — the deep value is the model, not the metric</a></p>
+  <p style="font-size:13px;color:var(--ink-soft)">Source: <a class="cite" href="https://amplitude.com/books/north-star/about-north-star-framework">Amplitude — About the North Star Framework</a> (Archana Madhavan &amp; John Cutler, December 4, 2019) · <a class="cite" href="https://blog.doubleloop.app/the-deep-value-of-the-north-star-framework-is-not-a-north-star-metric/">DoubleLoop — the deep value is the model, not the metric</a> (Daniel Schmidt, May 29, 2023)</p>
 
   <!-- MECHANISM -->
   <h2 class="sec" id="mechanism">How the framework actually picks the work</h2>
   <p class="secsub">This is the part that's usually skipped. DoubleLoop's blunt line: <em>"most companies completely skip the step of making a model,"</em> which is why a North Star metric alone changes nothing. The mechanism is five steps.</p>
 
   <div class="step"><div class="num">1</div><div><h3>Build the model</h3><p>Write the causal map: <b>North Star = f(input₁, input₂, …)</b>. Each input is something a team can move directly. This is the step everyone skips — without it the metric is just a poster.</p></div></div>
-  <div class="step"><div class="num">2</div><div><h3>Find the leverage point</h3><p>Ask which input is <b>most movable and most underperforming right now</b>. "A great product strategy identifies points of leverage to focus resources around." That input becomes this cycle's focus — not all of them.</p></div></div>
+  <div class="step"><div class="num">2</div><div><h3>Find the leverage point</h3><p>Ask which input is <b>most movable and most underperforming right now</b> — the one where a small push produces the biggest move on the North Star. That input becomes this cycle's focus, not all of them. (The Playbook frames good strategy as picking <em>where</em> to focus, not what to do — the leverage point is the <em>where</em>.)</p></div></div>
   <div class="step"><div class="num">3</div><div><h3>Set a time-boxed target on it (OKR)</h3><p>Turn the chosen input into a goal: move <em>this input</em> to <em>this value</em> by <em>this date</em>. The roadmap is now "bets aimed at that one input," not a wishlist.</p></div></div>
   <div class="step"><div class="num">4</div><div><h3>Map each candidate feature to the input it claims to move</h3><p>For every idea, the question becomes: <b>which input does this move, and by how much?</b> An idea that doesn't touch the focus input is out of scope this cycle — that is the filter doing its job.</p></div></div>
   <div class="step"><div class="num">5</div><div><h3>Ship, then track input <em>and</em> output</h3><p>Measure whether the input actually moved (did the feature work?) <b>and</b> whether the North Star followed (was the input the right lever?). Both can fail — and that feedback corrects the model for next cycle.</p></div></div>
@@ -207,7 +156,7 @@
     <span style="font-size:13.5px;color:var(--ink-soft)">Example: "Onboarding revamp → we believe it lifts <b>% of teams reaching 2,000 messages</b> from 40%→55%; that input is the strongest driver of Weekly Active Teams, so it's high-impact <em>this cycle</em>." Notice the claim is testable, scoped to one input, and time-bound.</span>
   </div>
 
-  <div class="note"><b>The framework does not replace RICE / ICE — it feeds them.</b> The North Star model narrows 50 ideas down to "the handful that move the focus input," and gives each a sharper Reach/Impact basis (lift-on-input instead of gut feel). You then rank that short list with a scoring method, or — Route B — fake-door / experiment to <em>measure</em> the lift instead of estimating it. See .</div>
+  <div class="note"><b>The framework does not replace RICE / ICE — it feeds them.</b> The North Star model narrows 50 ideas down to the handful that move the focus input, and gives each a sharper Reach/Impact basis (lift-on-input instead of gut feel). You then rank that short list with a scoring method, or run a <em>fake-door test</em> (a fake button or landing page for a feature that doesn't yet exist, used to measure real interest) or controlled experiment to <em>measure</em> the lift instead of estimating it. See the <a class="cite" href="methodologies-comparison.html#stacks">three coherent stacks</a> on the comparison page for how teams pair this with RICE or experimentation.</div>
 
   <!-- COMPANIES -->
   <h2 class="sec" id="cos">Slack vs Amplitude — same framework, different maturity of evidence</h2>
@@ -240,6 +189,8 @@
   <!-- APPLY TO A SHEET -->
   <h2 class="sec" id="apply">Apply to a feature sheet</h2>
   <p class="secsub">North Star doesn't score features — it filters them. If you adopt it, your backlog gains columns that force every idea to declare <strong>which input it claims to move</strong>. Features that don't touch this cycle's <em>focus input</em> aren't ranked low — they're out of scope, full stop.</p>
+
+  <div class="note" style="background:var(--teal-soft);border-left-color:var(--teal)"><b style="color:var(--teal)">Try it Monday morning (30 minutes).</b> Write your team's North Star at the top of a sheet. List the 3–5 inputs that move it. Pick the one input you'd most want to lift this cycle and circle it. Now go through your last 10 backlog items and write the input each claims to move next to its title. Items that name nothing — or name a different input — are this cycle's "out of scope." That's the framework working. The hardest part is naming the inputs honestly; everything else follows.</div>
 
   <div class="extable">
     <table class="ex">
@@ -275,11 +226,13 @@
     </table>
   </div>
 
-  <div class="note"><b>Decision rule.</b> Three gates, in order: <b>(1)</b> does the feature name an input it moves? If "none," it's a vanity request — out. <b>(2)</b> Is that input <em>this cycle's focus</em>? If no, queue for a future cycle when that input becomes the focus. <b>(3)</b> Is the projected lift plausible — backed by data, analogy, or at minimum a fake-door test plan? Only features passing all three enter the ranked build queue, where you score them with RICE/ICE or run experiments. Illustrative numbers; the framework is the filter, not the scoreboard.</div>
+  <div class="note" style="background:var(--accent-soft);border-left-color:var(--accent)"><b style="color:var(--accent)">The most important reading skill for this sheet.</b> <strong>Out · queue ≠ bad idea.</strong> Re-engagement, integrations, and search above are all reasonable bets — they just don't touch <em>this cycle's</em> focus input (Depth). They sit in queue, fully credited, until a future cycle's focus shifts to Retention/Breadth/Efficiency. The <em>only</em> rows that get killed outright are the ones that name no input at all (here: Dark mode). That distinction — "wrong cycle" vs "wrong idea" — is what protects the framework from feeling like a kill-list.</div>
+
+  <div class="note"><b>Decision rule.</b> Three gates, in order: <b>(1)</b> does the feature name an input it moves? If "none," it's a vanity request — out. <b>(2)</b> Is that input <em>this cycle's focus</em>? If no, queue for a future cycle when that input becomes the focus — not a cut. <b>(3)</b> Is the projected lift plausible — backed by data, analogy, or at minimum a fake-door test plan? Only features passing all three enter the ranked build queue, where you score them with RICE/ICE or run experiments. Illustrative numbers; the framework is the filter, not the scoreboard.</div>
 
   <footer>
     Companion to <a href="impact-saas-companies.html#input">← SaaS case studies · Input Modeling</a><br>
-    Grounded in: Amplitude North Star Playbook, John Cutler's framing, DoubleLoop's "model not metric" essay, and the First Round interview with Slack's Stewart Butterfield.
+    Grounded in: <a href="https://amplitude.com/books/north-star/about-north-star-framework">Amplitude North Star Playbook</a> (Archana Madhavan &amp; John Cutler, December 4, 2019); <a href="https://blog.doubleloop.app/the-deep-value-of-the-north-star-framework-is-not-a-north-star-metric/">DoubleLoop — "the deep value is the model, not the metric"</a> (Daniel Schmidt, May 29, 2023); <a href="https://review.firstround.com/from-0-to-1b-slacks-founder-shares-their-epic-launch-strategy/">First Round interview with Stewart Butterfield</a>. Butterfield's "after 2,000 messages, 93% of those customers are still using Slack today" is verbatim from the interview; the DoubleLoop "most companies skip the step of making a model" is verbatim from the essay. Phrases like "belief map / driver diagram" and "one level out of reach" are paraphrased from the Playbook's framing — the canonical source is linked above but the exact chapter wording was not re-verified during this review.
   </footer>
 </div>
 </body>

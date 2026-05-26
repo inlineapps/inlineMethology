@@ -4,87 +4,30 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pyramid of Clarity — Asana's mission-to-tasks ladder</title>
+<link rel="stylesheet" href="framework.css">
 <style>
-  :root{
-    --ink:#1c2230; --ink-soft:#465065; --line:#e3ddd0; --paper:#faf7f0;
-    --card:#ffffff; --accent:#b5482e; --accent-soft:#fbeae4;
-    --gold:#9a7b2e; --gold-soft:#f6efdc; --teal:#1f6f6b; --teal-soft:#e2f0ee;
-    --blue:#2d4a7c; --blue-soft:#e6ecf6; --purple:#5b3b78; --purple-soft:#efe6f6;
-    --shadow:0 1px 2px rgba(28,34,48,.06),0 8px 24px rgba(28,34,48,.06);
-  }
-  *{box-sizing:border-box}
-  body{margin:0;background:var(--paper);color:var(--ink);
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    line-height:1.62;font-size:16px;-webkit-font-smoothing:antialiased}
-  .wrap{max-width:920px;margin:0 auto;padding:0 24px 96px}
-  header.masthead{border-bottom:3px solid var(--ink);margin-bottom:8px;padding:48px 0 22px}
-  .kicker{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:700;margin:0 0 10px}
-  h1{font-family:Georgia,"Times New Roman",serif;font-size:40px;line-height:1.08;margin:0 0 12px;letter-spacing:-.01em}
-  .sub{color:var(--ink-soft);margin:0;max-width:64ch}
-  .goal{margin-top:18px;background:var(--accent-soft);border:1px solid #f2c9bd;border-left:5px solid var(--accent);border-radius:10px;padding:13px 18px;font-size:15px}
-  .goal span{color:var(--accent);text-transform:uppercase;letter-spacing:.08em;font-size:11px;font-weight:800}
-  nav.toc{position:sticky;top:0;background:rgba(250,247,240,.92);backdrop-filter:blur(6px);
-    border-bottom:1px solid var(--line);padding:12px 0;margin-bottom:34px;z-index:5;font-size:14px}
-  nav.toc a{color:var(--ink-soft);text-decoration:none;margin-right:16px;white-space:nowrap}
-  nav.toc a:hover{color:var(--gold)}
-  .finding{background:var(--ink);color:#f3efe6;border-radius:14px;padding:24px 28px;margin:0 0 36px;box-shadow:var(--shadow)}
-  .finding h2{color:#fff;margin:0 0 8px;font-family:Georgia,serif;font-size:21px}
-  .finding p{margin:0 0 10px;color:#cfc9bb}
-  .finding p:last-child{margin:0}
-  .finding b{color:#f3d9a0}
-  h2.sec{font-family:Georgia,serif;font-size:26px;margin:40px 0 6px;padding-top:18px;border-top:2px solid var(--line)}
-  .secsub{color:var(--ink-soft);font-size:14.5px;margin:0 0 18px;max-width:68ch}
-  p{margin:0 0 14px}
+  /* Page-accent — overrides framework.css fallback */
+  :root{--page-accent:var(--gold);--page-accent-soft:var(--gold-soft)}
   /* pyramid */
-  .pyramid{background:#fff;border:1px solid var(--line);border-radius:14px;padding:30px;box-shadow:var(--shadow);margin:14px 0;text-align:center}
+.pyramid{background:#fff;border:1px solid var(--line);border-radius:14px;padding:30px;box-shadow:var(--shadow);margin:14px 0;text-align:center}
   .level{display:inline-block;margin:5px auto;padding:11px 22px;font-weight:700;color:#fff;border-radius:8px;font-size:15px;text-align:center}
   .level small{display:block;font-size:11.5px;font-weight:500;color:rgba(255,255,255,.85);margin-top:3px;letter-spacing:.02em}
-  .l1{background:#8a6919;width:240px} .l2{background:#9a7b2e;width:340px} .l3{background:#b18e3a;width:440px} .l4{background:#c5a655;width:540px;max-width:90%} .l5{background:#d8be77;width:640px;max-width:95%;color:#3c2f10} .l5 small{color:#3c2f10;opacity:.85}
-  /* steps */
-  .step{display:flex;gap:16px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:12px 0;box-shadow:var(--shadow);border-left:5px solid var(--gold)}
-  .step .num{font-family:Georgia,serif;font-size:28px;font-weight:700;color:var(--gold);line-height:1;min-width:30px}
-  .step h3{margin:0 0 5px;font-size:17px}
-  .step p{margin:0;font-size:14.5px;color:var(--ink-soft)}
-  .step p b{color:var(--ink)}
+  .l1{background:#8a6919;width:240px}
+  .l2{background:#9a7b2e;width:340px}
+  .l3{background:#b18e3a;width:440px}
+  .l4{background:#c5a655;width:540px;max-width:90%}
+  .l5{background:#d8be77;width:640px;max-width:95%;color:#3c2f10}
+  .l5 small{color:#3c2f10;opacity:.85}
   /* compare with V2MOM */
-  .compare{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
-  .compcard{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;box-shadow:var(--shadow);border-top:5px solid var(--gold)}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
+  .compcard{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;box-shadow:var(--shadow);border-top:5px solid var(--page-accent)}
   .compcard h3{margin:0 0 8px;font-size:17px;font-family:Georgia,serif}
   .compcard ul{margin:6px 0;padding-left:20px;font-size:13.5px;color:var(--ink-soft)}
-  /* warn */
-  .warn{background:#f7e9d6;border-left:4px solid #c97f1a;border-radius:8px;padding:14px 18px;margin:18px 0;font-size:14.5px;color:#5b3b08}
-  .warn b{color:#9a4e08}
-  /* ours */
-  .ours{background:var(--teal-soft);border-left:5px solid var(--teal);border-radius:10px;padding:18px 22px;margin:18px 0}
-  .ours h3{margin:0 0 8px;color:var(--teal);font-size:18px;font-family:Georgia,serif}
-  .ours .draft{font-size:11px;background:var(--teal);color:#fff;padding:3px 9px;border-radius:5px;text-transform:uppercase;letter-spacing:.06em;font-weight:700}
-  .ours code{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;font-size:13px;background:#fff;border:1px solid #bcdcd8;border-radius:5px;padding:2px 7px}
-  a.cite{color:var(--teal);text-decoration:none;border-bottom:1px solid var(--teal)}
-  a.cite:hover{color:var(--accent);border-color:var(--accent)}
-  .note{background:var(--blue-soft);border-left:4px solid var(--blue);border-radius:8px;padding:14px 18px;margin:18px 0;font-size:14.5px}
-  .note b{color:var(--blue)}
-  .src{font-size:13px;color:var(--ink-soft);margin-top:10px}
-  footer{border-top:1px solid var(--line);padding-top:20px;color:var(--ink-soft);font-size:13px;margin-top:44px}
-  footer a{color:var(--teal)}
-  @media(max-width:680px){.compare{grid-template-columns:1fr}.level{font-size:13px;padding:9px 14px}h1{font-size:30px}}
+  @media(max-width:680px){.compare{grid-template-columns:1fr}.level{font-size:13px;padding:9px 14px}}
 </style>
 </head>
 <body>
 <nav class="sitenav">
-<style>
-  .sitenav{position:fixed;top:12px;right:16px;z-index:100;font-size:13px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
-  .sitenav details{background:#1c2230;color:#f3efe6;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.22)}
-  .sitenav summary{list-style:none;cursor:pointer;padding:8px 14px;font-weight:700;letter-spacing:.04em;user-select:none}
-  .sitenav summary::-webkit-details-marker{display:none}
-  .sitenav summary::after{content:" \25BE";color:#cfc9bb;font-size:10px;margin-left:2px}
-  .sitenav details[open] summary::after{content:" \25B4"}
-  .sitenav .navmenu{position:absolute;top:calc(100% + 6px);right:0;background:#fff;color:#1c2230;border:1px solid #e3ddd0;border-radius:10px;padding:16px 18px;box-shadow:0 8px 28px rgba(28,34,48,.22);display:grid;grid-template-columns:repeat(2,minmax(180px,1fr));gap:14px 26px;min-width:400px;max-width:92vw;max-height:80vh;overflow-y:auto}
-  .sitenav .navgrp h4{margin:0 0 5px;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:#465065;font-weight:700;border-bottom:1px solid #e3ddd0;padding-bottom:4px}
-  .sitenav .navgrp a{display:block;color:#1c2230;text-decoration:none;font-size:13px;padding:2px 0;line-height:1.5}
-  .sitenav .navgrp a:hover{color:#b5482e}
-  .sitenav .navgrp a.cur{font-weight:700;color:#b5482e}
-  @media(max-width:600px){.sitenav .navmenu{grid-template-columns:1fr;min-width:240px;max-width:88vw}.sitenav{top:8px;right:8px}}
-</style>
 <details>
 <summary>📑 Jump to</summary>
 <div class="navmenu">
@@ -133,10 +76,16 @@
 <div class="wrap">
   <header class="masthead">
     <p class="kicker">Methods · Deep-dive · Goal-laddering</p>
-    <h1>Pyramid of Clarity — Asana's mission-to-tasks ladder</h1>
-    <p class="sub">Five layers, top to bottom: <strong>Mission → Strategy → Objectives → Key Results → Projects</strong> (with tasks underneath). Asana built it because they found classical OKRs hard to apply consistently — the Pyramid is their simpler version that still ladders every task to the mission.</p>
+    <h1>Pyramid of Clarity — Asana's mission-to-tasks ladder <span class="srcyr">2020</span></h1>
+    <p class="sub">Five layers, top to bottom: <strong>Mission → Strategy → Objectives → Key Results → Projects</strong> (with tasks underneath). Developed internally at Asana and named publicly in their <em>Inside Asana</em> post (Team Asana, August 21, 2020) launching the Goals product.</p>
+    <p class="sub">Asana built it as a lighter alternative to classical OKRs that still ladders every task all the way up to the company mission.</p>
     <div class="goal"><span>Goal</span><br>Decide features by data-backed expected impact — choose by outcome, not by to-do list or opinion.</div>
   </header>
+
+  <div class="eli">
+    <div class="lbl">🎓 8th-grade version</div>
+    Picture a pyramid. At the very top, the company's <b>mission</b> (one sentence — why it exists). Below that, the <b>strategy</b> (how it'll get there). Below that, this period's <b>objectives</b>. Below that, the <b>key results</b> — the numbers that prove the objectives are happening. At the bottom, all the <b>projects</b> (and the tasks inside them) people are actually doing. The rule: every task you work on should connect upward, all the way to the mission. If your task doesn't connect, you've spotted a problem — either fix the connection, or stop doing the task.
+  </div>
 
   <nav class="toc">
     <a href="#headline">Honest headline</a>
@@ -151,7 +100,7 @@
   <div class="finding" id="headline">
     <h2>The honest headline: alignment by traceability, not by scoring</h2>
     <p>The Pyramid of Clarity answers one question: <b>"Why are we doing this task?"</b> If you can trace any task <em>upward</em> through Projects → Key Results → Objectives → Strategy → Mission, the work is justified. If the trace breaks anywhere, it's a flag to either reshape the task or — more honestly — drop it.</p>
-    <p>Like Salesforce's <a class="cite" href="v2mom-framework.html">V2MOM</a>, it is <b>not a feature-impact estimator</b>. It tells you whether work <em>aligns</em>, not whether it will <em>succeed</em>. Asana's own claim: it "creates clear and complete alignment so you can make better decisions and <strong>prioritize work that drives measurable impact</strong>" — alignment <em>plus</em> measurable KRs is the priority signal.</p>
+    <p>Like Salesforce's <a class="cite" href="v2mom-framework.html">V2MOM</a>, it is <b>not a feature-impact estimator</b>. It tells you whether work <em>aligns</em>, not whether it will <em>succeed</em>. The Pyramid's contribution is the alignment trace itself; the priority signal comes from pairing that trace with measurable Key Results at the middle layer.</p>
   </div>
 
   <!-- ANATOMY -->
@@ -165,8 +114,8 @@
     <div class="level l4">Key Results<small>Measurable outcomes that say the Objective happened.</small></div><br>
     <div class="level l5">Projects (then Tasks)<small>The actual work that moves the KRs.</small></div>
   </div>
-  <p style="font-size:13px;color:var(--ink-soft);margin-top:14px">Asana's framing: <em>"Complete a task, you make progress on a project. Complete the project, you advance a goal. Advance enough goals, you move toward the mission."</em></p>
-  <div class="src">Source: <a class="cite" href="https://asana.com/inside-asana/pyramid-of-clarity">Asana — Pyramid of Clarity (Dustin Moskovitz)</a> · <a class="cite" href="https://wavelength.asana.com/pyramid-clarity-strategic-alignment/">Wavelength — Pyramid of Clarity</a>.</div>
+  <p style="font-size:13px;color:var(--ink-soft);margin-top:14px">Asana's framing (verbatim): <em>"Complete a task, and you're making progress on a project. Complete the project, and you're advancing a goal. Advance enough goals, and you're moving toward the mission."</em></p>
+  <div class="src">Source: <a class="cite" href="https://asana.com/inside-asana/pyramid-of-clarity">Asana — "Inside Asana" (Team Asana, August 21, 2020)</a>. Dustin Moskovitz wrote about related goal-alignment ideas on Asana's Wavelength blog, which has since been retired.</div>
 
   <!-- MECHANISM -->
   <h2 class="sec" id="mechanism">How the Pyramid actually picks work</h2>
@@ -213,11 +162,13 @@
   <h2 class="sec" id="apply">Apply to a feature sheet</h2>
   <p class="secsub">The Pyramid doesn't rank — it <strong>enforces upward traceability</strong>. If you adopt it, every Project on the backlog must declare its parent KR (which traces to an Objective, then Strategy, then Mission). Orphan Projects — those with no KR parent — are flagged for either re-shaping or dropping. No score, just a trace.</p>
 
+  <div class="note" style="background:var(--teal-soft);border-left-color:var(--teal)"><b>Try it Monday morning (30 minutes).</b> Open your team's current backlog. Add one column: <em>Parent KR</em>. For each item, fill in which Key Result it moves — and be strict. "Engineering hygiene" / "user request" / "the CEO mentioned it" are not KRs. Any row you can't fill in is an orphan. Count the orphans. That number is your honest signal of how much of your roadmap exists because it's on the roadmap, not because it serves a measurable outcome.</div>
+
   <p style="font-size:13.5px;color:var(--ink-soft);margin:0 0 12px">For the worked example below, assume this team's pyramid:<br>
   <b>Mission:</b> "Help product teams work together effortlessly." &nbsp;
   <b>Strategy:</b> "Become the system-of-record for cross-team work." &nbsp;
   <b>Objective Q3:</b> "Lift activation &amp; collaboration depth in mid-market."<br>
-  <b>KRs:</b> <code style="background:#f6efdc;padding:2px 6px;border-radius:4px;font-size:12.5px">KR1 — D14 activation 38% → 50%</code> · <code style="background:#f6efdc;padding:2px 6px;border-radius:4px;font-size:12.5px">KR2 — Avg cross-team projects/workspace 1.2 → 2.5</code> · <code style="background:#f6efdc;padding:2px 6px;border-radius:4px;font-size:12.5px">KR3 — SOC2 attestation by Q4</code></p>
+  <b>KRs:</b> <code style="background:#f6efdc;padding:2px 6px;border-radius:4px;font-size:12.5px">KR1 — D14 activation 38% → 50% (D14 = % of new sign-ups still active on day 14)</code> · <code style="background:#f6efdc;padding:2px 6px;border-radius:4px;font-size:12.5px">KR2 — Avg cross-team projects/workspace 1.2 → 2.5</code> · <code style="background:#f6efdc;padding:2px 6px;border-radius:4px;font-size:12.5px">KR3 — SOC2 attestation by Q4 (SOC2 = a security &amp; compliance audit that enterprise buyers require)</code></p>
 
   <div style="overflow-x:auto;margin:14px 0">
     <table style="border-collapse:collapse;width:100%;font-size:13.5px;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden">
@@ -252,12 +203,14 @@
     </table>
   </div>
 
+  <div class="note" style="background:var(--accent-soft);border-left-color:var(--accent);margin-top:18px"><b>The most important reading skill on this page.</b> Notice the difference between the <em>"AI insights panel"</em> row and the four <em>In</em> rows above it. All five claim a parent KR. The difference is the <b>Expected contribution</b> column: the In rows state a number ("+4 pp D14 activation"); the AI row says "helps activation — no number." A parent KR you can't quantify against is a <em>vanity trace</em>, not a real one. The Pyramid only filters out the obvious orphans; the harder discipline is forcing a number into the contribution column — because that's where features stop hiding behind their parent goal.</div>
+
   <div class="note" style="margin-top:18px"><b>Decision rule.</b> Three gates. <b>(1)</b> Does the Project trace to a KR? Orphans fail the Pyramid — drop or wait for a parent. <b>(2)</b> Is the expected contribution an <em>outcome</em> (a measurable KR move) or just an <em>output</em> (a thing that gets shipped)? Outputs disguised as outcomes are the AI-panel pattern — re-shape until you can state the lift. <b>(3)</b> Once in-scope, rank Projects against each other inside the same KR by Effort / contribution. The Pyramid filters; you still need <a class="cite" href="rice-framework.html">RICE</a> or <a class="cite" href="microsoft-exp-framework.html">experiments</a> to choose between two Projects that both ladder up.</div>
 
   <div class="note"><b>Why the Pyramid is on the list anyway.</b> It is the most concrete artifact of "every task must explain itself." That alone catches the common planning failure mode — items that are on the roadmap because they were on last sprint's roadmap, never asked <em>which</em> outcome they're meant to move.</div>
   <footer>
     Companion to <a href="impact-saas-companies.html#goal">← SaaS case studies · Goal-laddering</a> · <a href="methodologies-comparison.html">All methods compared</a> · sibling: <a href="v2mom-framework.html">V2MOM</a> (Salesforce's variant)<br>
-    Grounded in: <a href="https://asana.com/inside-asana/pyramid-of-clarity">Asana's own Pyramid of Clarity post</a> by Dustin Moskovitz and the Wavelength explainer.
+    <b>Grounded in</b> <a href="https://asana.com/inside-asana/pyramid-of-clarity">Asana's "Inside Asana" post (Team Asana, August 21, 2020)</a>. <b>Verbatim from Asana:</b> the cascade quote ("Complete a task, and you're making progress on a project. Complete the project, and you're advancing a goal. Advance enough goals, and you're moving toward the mission."). <b>Synthesised from Asana's published framing:</b> the 5-layer Mission → Strategy → Objectives → Key Results → Projects pedagogical pyramid (Asana's own product today represents this as Mission → Goals → Portfolios → Projects → Tasks → Milestones → Subtasks; the 5-layer pyramid unwraps the "Goals" tier into its OKR-style components for teaching). The Wavelength blog where Dustin Moskovitz wrote about related goal-alignment ideas has been retired by Asana, so secondary sources were used to triangulate. <b>Added by us, not in Asana's writing:</b> the "KR1/KR2/KR3" sheet column convention, the three-gate decision rule, the SaaS analytics-team worked example (illustrative).
   </footer>
 </div>
 </body>

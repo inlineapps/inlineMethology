@@ -4,86 +4,26 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DoorDash switchback experiments — handling marketplace interference</title>
+<link rel="stylesheet" href="framework.css">
 <style>
-  :root{
-    --ink:#1c2230; --ink-soft:#465065; --line:#e3ddd0; --paper:#faf7f0;
-    --card:#ffffff; --accent:#b5482e; --accent-soft:#fbeae4;
-    --gold:#9a7b2e; --gold-soft:#f6efdc; --teal:#1f6f6b; --teal-soft:#e2f0ee;
-    --blue:#2d4a7c; --blue-soft:#e6ecf6; --purple:#5b3b78; --purple-soft:#efe6f6;
-    --shadow:0 1px 2px rgba(28,34,48,.06),0 8px 24px rgba(28,34,48,.06);
-  }
-  *{box-sizing:border-box}
-  body{margin:0;background:var(--paper);color:var(--ink);
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    line-height:1.62;font-size:16px;-webkit-font-smoothing:antialiased}
-  .wrap{max-width:920px;margin:0 auto;padding:0 24px 96px}
-  header.masthead{border-bottom:3px solid var(--ink);margin-bottom:8px;padding:48px 0 22px}
-  .kicker{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);font-weight:700;margin:0 0 10px}
-  h1{font-family:Georgia,"Times New Roman",serif;font-size:40px;line-height:1.08;margin:0 0 12px;letter-spacing:-.01em}
-  .sub{color:var(--ink-soft);margin:0;max-width:64ch}
-  .goal{margin-top:18px;background:var(--accent-soft);border:1px solid #f2c9bd;border-left:5px solid var(--accent);border-radius:10px;padding:13px 18px;font-size:15px}
-  .goal span{color:var(--accent);text-transform:uppercase;letter-spacing:.08em;font-size:11px;font-weight:800}
-  nav.toc{position:sticky;top:0;background:rgba(250,247,240,.92);backdrop-filter:blur(6px);
-    border-bottom:1px solid var(--line);padding:12px 0;margin-bottom:34px;z-index:5;font-size:14px}
-  nav.toc a{color:var(--ink-soft);text-decoration:none;margin-right:16px;white-space:nowrap}
-  nav.toc a:hover{color:var(--blue)}
-  .finding{background:var(--ink);color:#f3efe6;border-radius:14px;padding:24px 28px;margin:0 0 36px;box-shadow:var(--shadow)}
-  .finding h2{color:#fff;margin:0 0 8px;font-family:Georgia,serif;font-size:21px}
-  .finding p{margin:0 0 10px;color:#cfc9bb}
-  .finding p:last-child{margin:0}
-  .finding b{color:#9bc7ef}
-  .finding code{background:#2a3247;color:#9bc7ef;padding:2px 7px;border-radius:5px;font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;font-size:14px}
-  h2.sec{font-family:Georgia,serif;font-size:26px;margin:40px 0 6px;padding-top:18px;border-top:2px solid var(--line)}
-  .secsub{color:var(--ink-soft);font-size:14.5px;margin:0 0 18px;max-width:68ch}
-  p{margin:0 0 14px}
+  /* Page-accent — overrides framework.css fallback */
+  :root{--page-accent:var(--blue);--page-accent-soft:var(--blue-soft)}
   /* problem diagram */
-  .problem{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px 24px;margin:14px 0;box-shadow:var(--shadow);border-left:5px solid var(--blue)}
+.problem{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px 24px;margin:14px 0;box-shadow:var(--shadow);border-left:5px solid var(--page-accent)}
   .problem h3{margin:0 0 6px;font-family:Georgia,serif;font-size:17px}
   /* switchback grid */
-  .switch{background:#fff;border:1px solid var(--line);border-radius:12px;padding:22px;box-shadow:var(--shadow);margin:14px 0;text-align:center}
+.switch{background:#fff;border:1px solid var(--line);border-radius:12px;padding:22px;box-shadow:var(--shadow);margin:14px 0;text-align:center}
   .swgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:10px auto;max-width:520px}
   .swrow-h{font-size:11.5px;color:var(--ink-soft);font-weight:700;letter-spacing:.04em;text-transform:uppercase}
   .cell{padding:11px 6px;border-radius:6px;font-size:12.5px;font-weight:700;color:#fff}
-  .cell.t{background:var(--blue)}
+  .cell.t{background:var(--page-accent)}
   .cell.c{background:#7a8aa3}
   .axislbl{font-size:11.5px;color:var(--ink-soft);font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin:8px 0}
-  /* steps */
-  .step{display:flex;gap:16px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:12px 0;box-shadow:var(--shadow);border-left:5px solid var(--blue)}
-  .step .num{font-family:Georgia,serif;font-size:28px;font-weight:700;color:var(--blue);line-height:1;min-width:30px}
-  .step h3{margin:0 0 5px;font-size:17px}
-  .step p{margin:0;font-size:14.5px;color:var(--ink-soft)}
-  .step p b{color:var(--ink)}
-  /* ours */
-  .ours{background:var(--teal-soft);border-left:5px solid var(--teal);border-radius:10px;padding:18px 22px;margin:18px 0}
-  .ours h3{margin:0 0 8px;color:var(--teal);font-size:18px;font-family:Georgia,serif}
-  .ours .draft{font-size:11px;background:var(--teal);color:#fff;padding:3px 9px;border-radius:5px;text-transform:uppercase;letter-spacing:.06em;font-weight:700}
-  .ours code{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;font-size:13px;background:#fff;border:1px solid #bcdcd8;border-radius:5px;padding:2px 7px}
-  a.cite{color:var(--teal);text-decoration:none;border-bottom:1px solid var(--teal)}
-  a.cite:hover{color:var(--accent);border-color:var(--accent)}
-  .note{background:var(--blue-soft);border-left:4px solid var(--blue);border-radius:8px;padding:14px 18px;margin:18px 0;font-size:14.5px}
-  .note b{color:var(--blue)}
-  .src{font-size:13px;color:var(--ink-soft);margin-top:10px}
-  footer{border-top:1px solid var(--line);padding-top:20px;color:var(--ink-soft);font-size:13px;margin-top:44px}
-  footer a{color:var(--teal)}
-  @media(max-width:680px){.swgrid{grid-template-columns:repeat(3,1fr);max-width:340px}h1{font-size:30px}}
+  @media(max-width:680px){.swgrid{grid-template-columns:repeat(3,1fr);max-width:340px}}
 </style>
 </head>
 <body>
 <nav class="sitenav">
-<style>
-  .sitenav{position:fixed;top:12px;right:16px;z-index:100;font-size:13px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
-  .sitenav details{background:#1c2230;color:#f3efe6;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.22)}
-  .sitenav summary{list-style:none;cursor:pointer;padding:8px 14px;font-weight:700;letter-spacing:.04em;user-select:none}
-  .sitenav summary::-webkit-details-marker{display:none}
-  .sitenav summary::after{content:" \25BE";color:#cfc9bb;font-size:10px;margin-left:2px}
-  .sitenav details[open] summary::after{content:" \25B4"}
-  .sitenav .navmenu{position:absolute;top:calc(100% + 6px);right:0;background:#fff;color:#1c2230;border:1px solid #e3ddd0;border-radius:10px;padding:16px 18px;box-shadow:0 8px 28px rgba(28,34,48,.22);display:grid;grid-template-columns:repeat(2,minmax(180px,1fr));gap:14px 26px;min-width:400px;max-width:92vw;max-height:80vh;overflow-y:auto}
-  .sitenav .navgrp h4{margin:0 0 5px;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:#465065;font-weight:700;border-bottom:1px solid #e3ddd0;padding-bottom:4px}
-  .sitenav .navgrp a{display:block;color:#1c2230;text-decoration:none;font-size:13px;padding:2px 0;line-height:1.5}
-  .sitenav .navgrp a:hover{color:#b5482e}
-  .sitenav .navgrp a.cur{font-weight:700;color:#b5482e}
-  @media(max-width:600px){.sitenav .navmenu{grid-template-columns:1fr;min-width:240px;max-width:88vw}.sitenav{top:8px;right:8px}}
-</style>
 <details>
 <summary>📑 Jump to</summary>
 <div class="navmenu">
@@ -131,11 +71,17 @@
 
 <div class="wrap">
   <header class="masthead">
-    <p class="kicker">Methods · Deep-dive · Experimentation (Consumer)</p>
-    <h1>DoorDash switchback experiments — measuring causally on a shared marketplace</h1>
-    <p class="sub">In a marketplace, users share resources (Dashers, restaurants, supply). A normal A/B test gets <strong>contaminated</strong>: changing one user's experience affects others. DoorDash's published answer — <strong>switchback testing</strong> on region × time blocks — gives unbiased causal estimates despite the interference.</p>
+    <p class="kicker">Methods · Deep-dive · Experimentation</p>
+    <h1>DoorDash switchback experiments — measuring causally on a shared marketplace <span class="srcyr">2018</span></h1>
+    <p class="sub">In a marketplace, users share resources (Dashers, restaurants, supply). A normal A/B test gets <strong>contaminated</strong>: changing one user's experience affects others.</p>
+    <p class="sub">DoorDash's published answer — <strong>switchback testing</strong> on region × time blocks — gives unbiased causal estimates despite the interference. First publicly described in the <a class="cite" href="https://doordash.engineering/2018/02/13/switchback-tests-and-randomized-experimentation-under-network-effects-at-doordash/">DoorDash Engineering blog post of February 13, 2018</a>.</p>
     <div class="goal"><span>Goal</span><br>Decide features by data-backed expected impact — choose by outcome, not by to-do list or opinion.</div>
   </header>
+
+  <div class="eli">
+    <div class="lbl">🎓 8th-grade version</div>
+    Normally an A/B test gives half of users the new thing and half the old thing, then compares. But on DoorDash, the half with a "new pricing" idea pulls Dashers away from the other half — so the "old" half is also affected by the new pricing, and the test is lying about how much the new thing actually helped. DoorDash's trick: <b>switch the whole region</b> on for 30 minutes, then off for 30 minutes, then on again, etc. — so everyone in the region has the same experience at any given moment, and you can compare "on" windows to "off" windows. This is a <b>switchback</b> test, and it's how you get honest answers when everyone shares the same pool of resources.
+  </div>
 
   <nav class="toc">
     <a href="#headline">Honest headline</a>
@@ -183,7 +129,7 @@
     </div>
     <p style="font-size:12.5px;color:var(--ink-soft);margin:12px 0 0">Each cell = the entire region runs that algorithm for that time window. Treatment/control assignment is randomised across the (region × window) grid. Effect is estimated by comparing aggregate metrics in treatment cells vs control cells, with cluster-robust standard errors.</p>
   </div>
-  <div class="src">Source: <a class="cite" href="https://careersatdoordash.com/blog/switchback-tests-and-randomized-experimentation-under-network-effects-at-doordash/">DoorDash Engineering — Switchback tests under network effects</a> · <a class="cite" href="https://careersatdoordash.com/blog/meet-dash-ab-the-statistics-engine-of-experimentation-at-doordash/">Meet Dash-AB — DoorDash's experimentation statistics engine</a>.</div>
+  <div class="src">Sources: <a class="cite" href="https://doordash.engineering/2018/02/13/switchback-tests-and-randomized-experimentation-under-network-effects-at-doordash/">DoorDash Engineering — "Switchback Tests and Randomized Experimentation Under Network Effects at DoorDash" (February 13, 2018)</a> · <a class="cite" href="https://careersatdoordash.com/blog/meet-dash-ab-the-statistics-engine-of-experimentation-at-doordash/">"Meet Dash-AB — DoorDash's Experimentation Statistics Engine"</a> · Academic follow-up: <a class="cite" href="https://arxiv.org/abs/2009.00148">Bojinov, Simchi-Levi &amp; Zhao — "Design and Analysis of Switchback Experiments" (2020)</a>.</div>
 
   <!-- MECHANISM -->
   <h2 class="sec" id="mechanism">How DoorDash's switchback decisions get made</h2>
@@ -197,6 +143,10 @@
   <!-- APPLY TO A SHEET -->
   <h2 class="sec" id="apply">Apply to a feature sheet</h2>
   <p class="secsub">Switchback adds two DoorDash-specific columns to the standard experiment ledger: <em>marketplace flag</em> (does this change a shared resource? routes the design) and <em>switchback grid</em> (region × time-window cells, with cluster-robust SE). User-level features go through ordinary A/B; marketplace-level features must use switchback or the lift estimate is biased.</p>
+
+  <div class="note" style="background:var(--teal-soft);border-left-color:var(--teal)"><b>Try it Monday morning (30 minutes).</b> List your team's last 5 shipped experiments. For each one, ask: <em>could a user in the treatment group affect a user in the control group through any shared resource</em> — supply, ranking, inventory, support queue, social graph, ads inventory? If yes for any, your A/B test was likely biased — and you don't know in which direction. You don't need to immediately switch to switchback; the first step is just <em>tagging</em> these experiments so future readouts mark the bias risk on the spreadsheet.</div>
+
+  <div class="note" style="background:var(--blue-soft);border-left-color:var(--blue);font-size:13.5px"><b>Quick glossary for the columns below.</b> <b>SUTVA</b> = Stable Unit Treatment Value Assumption — the textbook A/B requirement that one user's outcome can't depend on another user's treatment. Marketplaces, social graphs, and shared inventories routinely break this. <b>Switchback</b> = randomization at the <em>(region × time-window)</em> level rather than the user level, so the shared resource is part of the unit being tested. <b>Cluster-robust SE</b> = a standard-error correction that accounts for observations inside a cell not being independent of each other (DoorDash uses these because lots of orders happen in one region-window). <b>Cell</b> = one (region × time-window) combination.</div>
 
   <h3 style="font-family:Georgia,serif;font-size:18px;margin:18px 0 8px">Worked example — an experiment ledger snapshot (DoorDash-style)</h3>
   <p style="font-size:13.5px;color:var(--ink-soft);margin:0 0 12px">Eight tests, mostly marketplace-shared. The first column tags whether interference matters; the rest follows.</p>
@@ -217,11 +167,13 @@
     </table>
   </div>
 
+  <div class="note" style="background:var(--accent-soft);border-left-color:var(--accent)"><b>The most important reading skill on this page.</b> Look at the <em>"Marketplace?"</em> column. Of the 8 features, 7 are "Yes" and one is "No" (the AI ETA promise — pure UI display). The "No" row uses ordinary A/B and works fine. The 7 "Yes" rows all require switchback — and for each, the alternative wasn't "do A/B with a footnote about bias"; it was "use the wrong design and silently believe the wrong number." The transferable insight isn't switchback as a technique; it's the <em>routing decision in the first column</em>. A team that doesn't ask "does this share a resource?" routinely mis-measures features for years and never knows.</div>
+
   <div class="note"><b>Decision rule.</b> The first decision is <em>which design</em>, not which feature. Anything that changes a shared resource (dispatch, surge, Dasher allocation, batching) <strong>must</strong> use switchback or the lift estimate is biased — likely by enough to flip ship/kill. The aggressive-batching row shows the dual-OEC pattern (delivery throughput up, customer delay up — the second guardrail kills the win). The two-zone pilot's "Extend" verdict is the under-powered case: not a fail, just not enough cells yet.</div>
 
   <div class="note"><b>The transferable insight: design before stats.</b> The wrong analysis can't rescue the wrong experimental design. The DoorDash lesson is to <b>diagnose interference first</b> — most teams don't, and quietly mis-measure marketplace features for years. Even at small scale, asking "does this change a shared resource between users?" is free, and it changes the design.</div>
   <footer>
     Companion to <a href="impact-consumer-companies.html#measure">← Consumer case studies · Measure don't estimate</a> · <a href="methodologies-comparison.html">All methods compared</a> · siblings: <a href="uber-xp-framework.html">Uber XP</a> · <a href="lyft-experimentation.html">Lyft marketplace experiments</a> (the other published marketplace approaches)<br>
-    Grounded in: <a href="https://careersatdoordash.com/blog/switchback-tests-and-randomized-experimentation-under-network-effects-at-doordash/">DoorDash's switchback post</a> and <a href="https://careersatdoordash.com/blog/meet-dash-ab-the-statistics-engine-of-experimentation-at-doordash/">Dash-AB engine post</a>. The switchback grid here is an illustrative reconstruction of DoorDash's published design.
+    <b>Grounded in</b> the original <a href="https://doordash.engineering/2018/02/13/switchback-tests-and-randomized-experimentation-under-network-effects-at-doordash/">DoorDash Engineering post "Switchback Tests and Randomized Experimentation Under Network Effects at DoorDash" (February 13, 2018)</a>, the <a href="https://careersatdoordash.com/blog/meet-dash-ab-the-statistics-engine-of-experimentation-at-doordash/">Dash-AB engine post</a>, and the academic follow-up <a href="https://arxiv.org/abs/2009.00148">Bojinov, Simchi-Levi &amp; Zhao (2020)</a>. <b>Verbatim from DoorDash:</b> the switchback concept, the SUTVA-violation diagnosis for marketplaces, randomization at the (region × time-window) level, and the use of cluster-robust standard errors. <b>Added by us, not in DoorDash's posts:</b> the specific 4×3 grid visualization (illustrative — actual DoorDash grid sizes vary by metric cadence), the 8-row worked-example ledger, the Ship/Iterate/Kill/Extend verdict labels, the in-page glossary, and the "Try it Monday" exercise. The careersatdoordash.com URL the page formerly cited is a republished version (April 2025) of the same content.
   </footer>
 </div>

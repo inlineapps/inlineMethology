@@ -4,81 +4,22 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Netflix Experimentation — ABlaze, sequential testing, causal inference</title>
+<link rel="stylesheet" href="framework.css">
 <style>
-  :root{
-    --ink:#1c2230; --ink-soft:#465065; --line:#e3ddd0; --paper:#faf7f0;
-    --card:#ffffff; --accent:#b5482e; --accent-soft:#fbeae4;
-    --gold:#9a7b2e; --gold-soft:#f6efdc; --teal:#1f6f6b; --teal-soft:#e2f0ee;
-    --blue:#2d4a7c; --blue-soft:#e6ecf6; --purple:#5b3b78; --purple-soft:#efe6f6;
-    --shadow:0 1px 2px rgba(28,34,48,.06),0 8px 24px rgba(28,34,48,.06);
-  }
-  *{box-sizing:border-box}
-  body{margin:0;background:var(--paper);color:var(--ink);
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    line-height:1.62;font-size:16px;-webkit-font-smoothing:antialiased}
-  .wrap{max-width:920px;margin:0 auto;padding:0 24px 96px}
-  header.masthead{border-bottom:3px solid var(--ink);margin-bottom:8px;padding:48px 0 22px}
-  .kicker{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);font-weight:700;margin:0 0 10px}
-  h1{font-family:Georgia,"Times New Roman",serif;font-size:40px;line-height:1.08;margin:0 0 12px;letter-spacing:-.01em}
-  .sub{color:var(--ink-soft);margin:0;max-width:64ch}
-  .goal{margin-top:18px;background:var(--accent-soft);border:1px solid #f2c9bd;border-left:5px solid var(--accent);border-radius:10px;padding:13px 18px;font-size:15px}
-  .goal span{color:var(--accent);text-transform:uppercase;letter-spacing:.08em;font-size:11px;font-weight:800}
-  nav.toc{position:sticky;top:0;background:rgba(250,247,240,.92);backdrop-filter:blur(6px);
-    border-bottom:1px solid var(--line);padding:12px 0;margin-bottom:34px;z-index:5;font-size:14px}
-  nav.toc a{color:var(--ink-soft);text-decoration:none;margin-right:16px;white-space:nowrap}
-  nav.toc a:hover{color:var(--blue)}
-  .finding{background:var(--ink);color:#f3efe6;border-radius:14px;padding:24px 28px;margin:0 0 36px;box-shadow:var(--shadow)}
-  .finding h2{color:#fff;margin:0 0 8px;font-family:Georgia,serif;font-size:21px}
-  .finding p{margin:0 0 10px;color:#cfc9bb}
-  .finding p:last-child{margin:0}
-  .finding b{color:#9bc7ef}
-  h2.sec{font-family:Georgia,serif;font-size:26px;margin:40px 0 6px;padding-top:18px;border-top:2px solid var(--line)}
-  .secsub{color:var(--ink-soft);font-size:14.5px;margin:0 0 18px;max-width:68ch}
-  p{margin:0 0 14px}
+  /* Page-accent — overrides framework.css fallback */
+  :root{--page-accent:var(--blue);--page-accent-soft:var(--blue-soft)}
   /* three concepts */
-  .three{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:14px 0}
-  .concept{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;box-shadow:var(--shadow);border-top:5px solid var(--blue)}
-  .concept .ab{font-family:Georgia,serif;font-size:13px;color:var(--blue);font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:4px}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:14px 0}
+  .concept{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;box-shadow:var(--shadow);border-top:5px solid var(--page-accent)}
+  .concept .ab{font-family:Georgia,serif;font-size:13px;color:var(--page-accent);font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:4px}
   .concept h3{margin:0 0 8px;font-size:17px;font-family:Georgia,serif}
   .concept p{margin:0;font-size:13.5px;color:var(--ink-soft);line-height:1.5}
   .concept p b{color:var(--ink)}
-  /* steps */
-  .step{display:flex;gap:16px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:12px 0;box-shadow:var(--shadow);border-left:5px solid var(--blue)}
-  .step .num{font-family:Georgia,serif;font-size:28px;font-weight:700;color:var(--blue);line-height:1;min-width:30px}
-  .step h3{margin:0 0 5px;font-size:17px}
-  .step p{margin:0;font-size:14.5px;color:var(--ink-soft)}
-  .step p b{color:var(--ink)}
-  /* ours */
-  .ours{background:var(--teal-soft);border-left:5px solid var(--teal);border-radius:10px;padding:18px 22px;margin:18px 0}
-  .ours h3{margin:0 0 8px;color:var(--teal);font-size:18px;font-family:Georgia,serif}
-  .ours .draft{font-size:11px;background:var(--teal);color:#fff;padding:3px 9px;border-radius:5px;text-transform:uppercase;letter-spacing:.06em;font-weight:700}
-  .ours code{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;font-size:13px;background:#fff;border:1px solid #bcdcd8;border-radius:5px;padding:2px 7px}
-  a.cite{color:var(--teal);text-decoration:none;border-bottom:1px solid var(--teal)}
-  a.cite:hover{color:var(--accent);border-color:var(--accent)}
-  .note{background:var(--blue-soft);border-left:4px solid var(--blue);border-radius:8px;padding:14px 18px;margin:18px 0;font-size:14.5px}
-  .note b{color:var(--blue)}
-  .src{font-size:13px;color:var(--ink-soft);margin-top:10px}
-  footer{border-top:1px solid var(--line);padding-top:20px;color:var(--ink-soft);font-size:13px;margin-top:44px}
-  footer a{color:var(--teal)}
-  @media(max-width:680px){.three{grid-template-columns:1fr}h1{font-size:30px}}
+  @media(max-width:680px){.three{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <nav class="sitenav">
-<style>
-  .sitenav{position:fixed;top:12px;right:16px;z-index:100;font-size:13px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
-  .sitenav details{background:#1c2230;color:#f3efe6;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.22)}
-  .sitenav summary{list-style:none;cursor:pointer;padding:8px 14px;font-weight:700;letter-spacing:.04em;user-select:none}
-  .sitenav summary::-webkit-details-marker{display:none}
-  .sitenav summary::after{content:" \25BE";color:#cfc9bb;font-size:10px;margin-left:2px}
-  .sitenav details[open] summary::after{content:" \25B4"}
-  .sitenav .navmenu{position:absolute;top:calc(100% + 6px);right:0;background:#fff;color:#1c2230;border:1px solid #e3ddd0;border-radius:10px;padding:16px 18px;box-shadow:0 8px 28px rgba(28,34,48,.22);display:grid;grid-template-columns:repeat(2,minmax(180px,1fr));gap:14px 26px;min-width:400px;max-width:92vw;max-height:80vh;overflow-y:auto}
-  .sitenav .navgrp h4{margin:0 0 5px;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:#465065;font-weight:700;border-bottom:1px solid #e3ddd0;padding-bottom:4px}
-  .sitenav .navgrp a{display:block;color:#1c2230;text-decoration:none;font-size:13px;padding:2px 0;line-height:1.5}
-  .sitenav .navgrp a:hover{color:#b5482e}
-  .sitenav .navgrp a.cur{font-weight:700;color:#b5482e}
-  @media(max-width:600px){.sitenav .navmenu{grid-template-columns:1fr;min-width:240px;max-width:88vw}.sitenav{top:8px;right:8px}}
-</style>
 <details>
 <summary>📑 Jump to</summary>
 <div class="navmenu">
@@ -126,11 +67,17 @@
 
 <div class="wrap">
   <header class="masthead">
-    <p class="kicker">Methods · Deep-dive · Experimentation (Consumer)</p>
-    <h1>Netflix — ABlaze, sequential testing, and causal inference for the unexperimentable</h1>
-    <p class="sub">Netflix's published method: <strong>almost every product decision is an experiment</strong>, run on a platform called ABlaze. Their distinct contribution to the field — <strong>sequential testing</strong> (read results continuously without inflating false positives) and <strong>causal inference</strong> for decisions where A/B is infeasible (content investments, pricing).</p>
+    <p class="kicker">Methods · Deep-dive · Experimentation</p>
+    <h1>Netflix — ABlaze, sequential testing, and causal inference for the unexperimentable <span class="srcyr">2016</span></h1>
+    <p class="sub">Netflix's published method: most product decisions ship behind a measured causal effect, run on a platform called <strong>ABlaze</strong> (first publicly described in the April 29, 2016 TechBlog post <em>"It's All A/Bout Testing"</em>).</p>
+    <p class="sub">Their distinct contribution to the field — <strong>sequential testing</strong> (read results continuously without inflating false positives) and <strong>causal inference</strong> for decisions where A/B is infeasible (content investments, pricing, regional rollouts).</p>
     <div class="goal"><span>Goal</span><br>Decide features by data-backed expected impact — choose by outcome, not by to-do list or opinion.</div>
   </header>
+
+  <div class="eli">
+    <div class="lbl">🎓 8th-grade version</div>
+    Netflix tests almost every change before deciding whether to keep it. They built a platform called <b>ABlaze</b> that runs these tests. Two clever extras: (1) <b>Sequential testing</b> lets them check results <em>while</em> a test is running and stop early when the answer is obvious — most companies have to wait for a fixed end date. (2) For things you can't randomly assign — like "should we make this show?" or "what should we charge in Brazil?" — they use <b>causal inference</b>: math that simulates what would have happened in a controlled experiment, using historical data and lookalike groups. The whole point: even when a clean A/B test isn't possible, you can still get a defensible answer about cause and effect — so the discipline of "measure before you commit" never has to be skipped.
+  </div>
 
   <nav class="toc">
     <a href="#headline">Honest headline</a>
@@ -167,7 +114,7 @@
       <p>For things you can't randomize (content slate, pricing changes, regional rollouts) Netflix uses interrupted time-series, IPW, double-ML. Result: a defensible <em>causal</em> estimate even without a clean experiment.</p>
     </div>
   </div>
-  <div class="src">Source: <a class="cite" href="https://research.netflix.com/research-area/experimentation-and-causal-inference">Netflix Research — Experimentation &amp; Causal Inference</a> · <a class="cite" href="https://netflixtechblog.com/sequential-a-b-testing-keeps-the-world-streaming-netflix-part-1-continuous-data-cba6c7ed49df">TechBlog — Sequential A/B testing (Part 1)</a>.</div>
+  <div class="src">Sources: <a class="cite" href="https://netflixtechblog.com/its-all-a-bout-testing-the-netflix-experimentation-platform-4e1ca458c15">Netflix TechBlog — "It's All A/Bout Testing: The Netflix Experimentation Platform" (April 29, 2016)</a> — the canonical ABlaze post · <a class="cite" href="https://research.netflix.com/research-area/experimentation-and-causal-inference">Netflix Research — Experimentation &amp; Causal Inference area</a> · <a class="cite" href="https://netflixtechblog.com/sequential-a-b-testing-keeps-the-world-streaming-netflix-part-1-continuous-data-cba6c7ed49df">TechBlog — "Sequential A/B Testing Keeps the World Streaming Netflix" (Part 1, continuous data)</a>.</div>
 
   <!-- MECHANISM -->
   <h2 class="sec" id="mechanism">How Netflix actually picks the work</h2>
@@ -182,6 +129,10 @@
   <!-- APPLY TO A SHEET -->
   <h2 class="sec" id="apply">Apply to a feature sheet</h2>
   <p class="secsub">Netflix's discipline turns the backlog into an experiment ledger where every change ships behind a causal estimate. The columns mirror Microsoft ExP, with Netflix-specific extras: <em>design type</em> (A/B / sequential / quasi-experimental) and <em>QoE guardrails</em> (rebuffer, startup time) that can kill a feature whose OEC moved.</p>
+
+  <div class="note" style="background:var(--teal-soft);border-left-color:var(--teal)"><b>Try it Monday morning (30 minutes).</b> List your team's last 5 decisions (features shipped, prices changed, partnerships signed, vendor swaps). For each one, write what design <em>could</em> have measured its causal effect — A/B, sequential, or quasi-experimental (interrupted time-series, synthetic control). For decisions where the honest answer is "none — we just decided," that's the gap. Netflix's lesson isn't "test everything"; it's "for every decision that mattered, there <em>was</em> a design — we just didn't bother."</div>
+
+  <div class="note" style="background:var(--blue-soft);border-left-color:var(--blue);font-size:13.5px"><b>Quick glossary for the columns below.</b> <b>OEC</b> = Overall Evaluation Criterion (agreed success metric). <b>QoE</b> = Quality of Experience — Netflix's video-streaming-specific guardrails (rebuffering, startup time, bitrate, CDN cost). <b>ITS</b> = Interrupted Time Series — a quasi-experimental design that uses a step-change in a metric at a known intervention date as the causal signal. <b>Synthetic control</b> = constructs a "fake" control group from a weighted average of similar units (e.g. other countries) to compare against the treated one. <b>IPW</b> = Inverse Probability Weighting — re-weights observed outcomes so treated and untreated groups look comparable. <b>Double-ML</b> = double machine learning, a causal inference method that uses ML to control for confounders.</div>
 
   <h3 style="font-family:Georgia,serif;font-size:18px;margin:18px 0 8px">Worked example — an experiment ledger snapshot (Netflix-style)</h3>
   <p style="font-size:13.5px;color:var(--ink-soft);margin:0 0 12px">Eight tests. OEC = a proxy metric (hours watched, completion rate, retention) with long-run retention as the eventual check. Numbers illustrative.</p>
@@ -202,12 +153,14 @@
     </table>
   </div>
 
+  <div class="note" style="background:var(--accent-soft);border-left-color:var(--accent)"><b>The most important reading skill on this page.</b> Compare the top seven rows to the bottom row. The top seven use a textbook A/B design — that's the easy case. The bottom row (Regional pricing change in LATAM) <em>can't</em> use A/B; you can't randomly assign individual users to different prices. So Netflix uses <b>interrupted time series + synthetic control</b> instead — and still gets a causal estimate ("adds +2.3% vs synthetic, churn +0.4%"). The transferable insight isn't the math; it's that <em>"we couldn't A/B test it"</em> is not a valid excuse for shipping without a causal estimate. There's almost always a quasi-experimental design that works.</div>
+
   <div class="note"><b>Decision rule.</b> <b>Promote</b> when OEC moves with significance AND QoE guardrails hold (the profile-picker row shows the kill condition — hours up means nothing if startup time degrades 200ms). <b>Iterate</b> when OEC is flat but guardrails are fine. <b>Kill</b> on guardrail breach. Note the bottom row: not all decisions can be A/B tested (pricing, regional rollouts) — Netflix uses interrupted time-series + synthetic control to get a causal estimate anyway. The methodology adapts to what's randomisable; the discipline of <em>causal estimate before commitment</em> does not.</div>
 
   <div class="note"><b>The transferable insight: experimentation isn't just A/B.</b> Most teams equate "experimentation" with "split-test the button colour." Netflix's contribution is showing that the <em>discipline</em> (causal estimate of expected impact) is portable to decisions that can't be randomized — by using time-series, regional, and quasi-experimental designs. That means even "non-A/B-able" items (a partnership integration, a one-off campaign, a pricing change) can still be evaluated causally with the right design.</div>
   <footer>
     Companion to <a href="impact-consumer-companies.html#measure">← Consumer case studies · Measure don't estimate</a> · <a href="methodologies-comparison.html">All methods compared</a> · sibling: <a href="microsoft-exp-framework.html">Microsoft ExP</a> (same discipline, different domain)<br>
-    Grounded in: <a href="https://research.netflix.com/research-area/experimentation-and-causal-inference">Netflix Research's Experimentation &amp; Causal Inference area</a> and the <a href="https://netflixtechblog.com/sequential-a-b-testing-keeps-the-world-streaming-netflix-part-1-continuous-data-cba6c7ed49df">Sequential A/B post</a>. ABlaze name appears across multiple Netflix engineering posts.
+    <b>Grounded in</b> <a href="https://netflixtechblog.com/its-all-a-bout-testing-the-netflix-experimentation-platform-4e1ca458c15">Netflix TechBlog — "It's All A/Bout Testing: The Netflix Experimentation Platform" (April 29, 2016)</a>, the <a href="https://research.netflix.com/research-area/experimentation-and-causal-inference">Netflix Research Experimentation &amp; Causal Inference area</a>, and the <a href="https://netflixtechblog.com/sequential-a-b-testing-keeps-the-world-streaming-netflix-part-1-continuous-data-cba6c7ed49df">"Sequential A/B Testing Keeps the World Streaming Netflix"</a> series. <b>Verbatim from Netflix:</b> the "ABlaze" platform name and the published existence of sequential-testing and causal-inference methods. <b>Paraphrased:</b> the framing that "most product decisions are an experiment" (well-supported across Netflix posts but not a single literal quote), and the proxy-metric-to-retention chain (Netflix discusses this in talks; the specific phrasing here is our restatement). <b>Added by us, not in Netflix's posts:</b> the 8-row experiment-ledger worked example, the four-verdict logic (Promote / Iterate / Kill / Invalid), the in-page glossary, and the "Try it Monday" exercise.
   </footer>
 </div>
 </body>

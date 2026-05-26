@@ -4,86 +4,27 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Airbnb ERF — variance reduction as the platform's product</title>
+<link rel="stylesheet" href="framework.css">
 <style>
-  :root{
-    --ink:#1c2230; --ink-soft:#465065; --line:#e3ddd0; --paper:#faf7f0;
-    --card:#ffffff; --accent:#b5482e; --accent-soft:#fbeae4;
-    --gold:#9a7b2e; --gold-soft:#f6efdc; --teal:#1f6f6b; --teal-soft:#e2f0ee;
-    --blue:#2d4a7c; --blue-soft:#e6ecf6; --purple:#5b3b78; --purple-soft:#efe6f6;
-    --shadow:0 1px 2px rgba(28,34,48,.06),0 8px 24px rgba(28,34,48,.06);
-  }
-  *{box-sizing:border-box}
-  body{margin:0;background:var(--paper);color:var(--ink);
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    line-height:1.62;font-size:16px;-webkit-font-smoothing:antialiased}
-  .wrap{max-width:920px;margin:0 auto;padding:0 24px 96px}
-  header.masthead{border-bottom:3px solid var(--ink);margin-bottom:8px;padding:48px 0 22px}
-  .kicker{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);font-weight:700;margin:0 0 10px}
-  h1{font-family:Georgia,"Times New Roman",serif;font-size:40px;line-height:1.08;margin:0 0 12px;letter-spacing:-.01em}
-  .sub{color:var(--ink-soft);margin:0;max-width:64ch}
-  .goal{margin-top:18px;background:var(--accent-soft);border:1px solid #f2c9bd;border-left:5px solid var(--accent);border-radius:10px;padding:13px 18px;font-size:15px}
-  .goal span{color:var(--accent);text-transform:uppercase;letter-spacing:.08em;font-size:11px;font-weight:800}
-  nav.toc{position:sticky;top:0;background:rgba(250,247,240,.92);backdrop-filter:blur(6px);
-    border-bottom:1px solid var(--line);padding:12px 0;margin-bottom:34px;z-index:5;font-size:14px}
-  nav.toc a{color:var(--ink-soft);text-decoration:none;margin-right:16px;white-space:nowrap}
-  nav.toc a:hover{color:var(--blue)}
-  .finding{background:var(--ink);color:#f3efe6;border-radius:14px;padding:24px 28px;margin:0 0 36px;box-shadow:var(--shadow)}
-  .finding h2{color:#fff;margin:0 0 8px;font-family:Georgia,serif;font-size:21px}
-  .finding p{margin:0 0 10px;color:#cfc9bb}
-  .finding p:last-child{margin:0}
-  .finding b{color:#9bc7ef}
-  h2.sec{font-family:Georgia,serif;font-size:26px;margin:40px 0 6px;padding-top:18px;border-top:2px solid var(--line)}
-  .secsub{color:var(--ink-soft);font-size:14.5px;margin:0 0 18px;max-width:68ch}
-  p{margin:0 0 14px}
+  /* Page-accent — overrides framework.css fallback */
+  :root{--page-accent:var(--blue);--page-accent-soft:var(--blue-soft)}
   /* three things */
-  .three{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:14px 0}
-  .concept{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;box-shadow:var(--shadow);border-top:5px solid var(--blue)}
-  .concept .ab{font-family:Georgia,serif;font-size:13px;color:var(--blue);font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:4px}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:14px 0}
+  .concept{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;box-shadow:var(--shadow);border-top:5px solid var(--page-accent)}
+  .concept .ab{font-family:Georgia,serif;font-size:13px;color:var(--page-accent);font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:4px}
   .concept h3{margin:0 0 8px;font-size:17px;font-family:Georgia,serif}
   .concept p{margin:0;font-size:13.5px;color:var(--ink-soft);line-height:1.5}
   .concept p b{color:var(--ink)}
-  /* steps */
-  .step{display:flex;gap:16px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:12px 0;box-shadow:var(--shadow);border-left:5px solid var(--blue)}
-  .step .num{font-family:Georgia,serif;font-size:28px;font-weight:700;color:var(--blue);line-height:1;min-width:30px}
-  .step h3{margin:0 0 5px;font-size:17px}
-  .step p{margin:0;font-size:14.5px;color:var(--ink-soft)}
-  .step p b{color:var(--ink)}
   /* stats */
-  .stats{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
+.stats{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
   .stat{flex:1 1 150px;background:#f6f4ee;border:1px solid var(--line);border-radius:8px;padding:12px 14px;text-align:center}
-  .stat .n{font-family:Georgia,serif;font-size:22px;color:var(--blue);font-weight:700;line-height:1.1}
+  .stat .n{font-family:Georgia,serif;font-size:22px;color:var(--page-accent);font-weight:700;line-height:1.1}
   .stat .l{font-size:11.5px;color:var(--ink-soft);margin-top:4px;line-height:1.35}
-  /* ours */
-  .ours{background:var(--teal-soft);border-left:5px solid var(--teal);border-radius:10px;padding:18px 22px;margin:18px 0}
-  .ours h3{margin:0 0 8px;color:var(--teal);font-size:18px;font-family:Georgia,serif}
-  .ours .draft{font-size:11px;background:var(--teal);color:#fff;padding:3px 9px;border-radius:5px;text-transform:uppercase;letter-spacing:.06em;font-weight:700}
-  .ours code{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;font-size:13px;background:#fff;border:1px solid #bcdcd8;border-radius:5px;padding:2px 7px}
-  a.cite{color:var(--teal);text-decoration:none;border-bottom:1px solid var(--teal)}
-  a.cite:hover{color:var(--accent);border-color:var(--accent)}
-  .note{background:var(--blue-soft);border-left:4px solid var(--blue);border-radius:8px;padding:14px 18px;margin:18px 0;font-size:14.5px}
-  .note b{color:var(--blue)}
-  .src{font-size:13px;color:var(--ink-soft);margin-top:10px}
-  footer{border-top:1px solid var(--line);padding-top:20px;color:var(--ink-soft);font-size:13px;margin-top:44px}
-  footer a{color:var(--teal)}
-  @media(max-width:680px){.three{grid-template-columns:1fr}h1{font-size:30px}}
+  @media(max-width:680px){.three{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <nav class="sitenav">
-<style>
-  .sitenav{position:fixed;top:12px;right:16px;z-index:100;font-size:13px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
-  .sitenav details{background:#1c2230;color:#f3efe6;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.22)}
-  .sitenav summary{list-style:none;cursor:pointer;padding:8px 14px;font-weight:700;letter-spacing:.04em;user-select:none}
-  .sitenav summary::-webkit-details-marker{display:none}
-  .sitenav summary::after{content:" \25BE";color:#cfc9bb;font-size:10px;margin-left:2px}
-  .sitenav details[open] summary::after{content:" \25B4"}
-  .sitenav .navmenu{position:absolute;top:calc(100% + 6px);right:0;background:#fff;color:#1c2230;border:1px solid #e3ddd0;border-radius:10px;padding:16px 18px;box-shadow:0 8px 28px rgba(28,34,48,.22);display:grid;grid-template-columns:repeat(2,minmax(180px,1fr));gap:14px 26px;min-width:400px;max-width:92vw;max-height:80vh;overflow-y:auto}
-  .sitenav .navgrp h4{margin:0 0 5px;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:#465065;font-weight:700;border-bottom:1px solid #e3ddd0;padding-bottom:4px}
-  .sitenav .navgrp a{display:block;color:#1c2230;text-decoration:none;font-size:13px;padding:2px 0;line-height:1.5}
-  .sitenav .navgrp a:hover{color:#b5482e}
-  .sitenav .navgrp a.cur{font-weight:700;color:#b5482e}
-  @media(max-width:600px){.sitenav .navmenu{grid-template-columns:1fr;min-width:240px;max-width:88vw}.sitenav{top:8px;right:8px}}
-</style>
 <details>
 <summary>📑 Jump to</summary>
 <div class="navmenu">
@@ -131,11 +72,17 @@
 
 <div class="wrap">
   <header class="masthead">
-    <p class="kicker">Methods · Deep-dive · Experimentation (Consumer)</p>
-    <h1>Airbnb ERF — variance reduction as the platform's product</h1>
-    <p class="sub">Airbnb's <strong>Experimentation Reporting Framework</strong> (ERF) was built when their experiment volume outgrew bespoke analysis. The framework's distinctive contribution: a common metric configuration language, automatic variance reduction, and tooling that makes valid experiments the default — not a heroic act.</p>
+    <p class="kicker">Methods · Deep-dive · Experimentation</p>
+    <h1>Airbnb ERF — standardised analysis as the platform's product <span class="srcyr">2014</span></h1>
+    <p class="sub">Airbnb's <strong>Experiment Reporting Framework</strong> (ERF) was built by Will Moss and team when their experiment volume outgrew bespoke analysis. First publicly described in his <a class="cite" href="https://medium.com/airbnb-engineering/experiment-reporting-framework-4e3fcd29e6c0">Airbnb Engineering post on May 29, 2014</a>.</p>
+    <p class="sub">The framework's distinctive contribution: a common metric configuration language and a standardised report per experiment that makes valid analysis the default — not a heroic act per test. Moss's own framing (verbatim): a tool to <em>"make running experiments easier by hiding all the pitfalls and automating the analytical heavy lifting."</em></p>
     <div class="goal"><span>Goal</span><br>Decide features by data-backed expected impact — choose by outcome, not by to-do list or opinion.</div>
   </header>
+
+  <div class="eli">
+    <div class="lbl">🎓 8th-grade version</div>
+    Airbnb used to test ideas by having a data scientist look at the numbers from each experiment by hand. That works for a few tests — but Airbnb had hundreds running at once. So they built a tool called <b>ERF</b> that does the analysis automatically and prints the same kind of report every time. Two clever things: (1) every team uses the <em>same definition</em> of metrics like "bookings" so no one can argue about whose number is right; (2) the report tells you not just "the number went up" but "the number went up <em>after subtracting the noise</em>" — because sometimes a feature looks like a win but is actually just seasonal traffic the team would have gotten anyway.
+  </div>
 
   <nav class="toc">
     <a href="#headline">Honest headline</a>
@@ -165,7 +112,7 @@
     <div class="concept">
       <div class="ab">Variance</div>
       <h3>Automatic variance reduction (CUPED-style)</h3>
-      <p>The platform applies <b>pre-experiment-data covariates</b> by default to shrink confidence intervals. The same statistical trick that <a class="cite" href="microsoft-exp-framework.html">Microsoft's CUPED</a> uses — built in so engineers don't have to think about it.</p>
+      <p>Later iterations of ERF applied <b>pre-experiment-data covariates</b> by default to shrink confidence intervals — the same statistical trick that <a class="cite" href="microsoft-exp-framework.html">Microsoft's CUPED</a> (2013 paper) uses. The original 2014 ERF post focuses on standardisation; variance-reduction features appeared in later "Scaling ERF" follow-ups.</p>
     </div>
     <div class="concept">
       <div class="ab">Reports</div>
@@ -173,7 +120,7 @@
       <p>One templated output per test: OEC, supporting metrics, guardrails, significance, confidence interval. Engineers and PMs read it without a data scientist on call.</p>
     </div>
   </div>
-  <div class="src">Source: <a class="cite" href="https://medium.com/airbnb-engineering/experiment-reporting-framework-4e3fcd29e6c0">Airbnb Engineering — ERF (original 2014 post)</a> · <a class="cite" href="https://medium.com/airbnb-engineering/https-medium-com-jonathan-parks-scaling-erf-23fd17c91166">Scaling ERF</a>.</div>
+  <div class="src">Sources: <a class="cite" href="https://medium.com/airbnb-engineering/experiment-reporting-framework-4e3fcd29e6c0">Will Moss — "Experiment Reporting Framework" (Airbnb Engineering, May 29, 2014)</a> — the original ERF post · <a class="cite" href="https://medium.com/airbnb-engineering/https-medium-com-jonathan-parks-scaling-erf-23fd17c91166">Jonathan Parks — "Scaling ERF"</a> follow-up.</div>
 
   <!-- MECHANISM -->
   <h2 class="sec" id="mechanism">How an Airbnb-style experiment actually picks the winner</h2>
@@ -197,6 +144,10 @@
   <h2 class="sec" id="apply">Apply to a feature sheet</h2>
   <p class="secsub">ERF doesn't change the columns much — it changes the <strong>number you read</strong>. The sheet's <em>Result</em> column has two values: raw lift and ERF-adjusted lift (corrected for novelty, seasonality, network effects). Decisions are made on the adjusted number. The classic trap ERF prevents: shipping a feature whose "lift" was actually seasonal demand or a novelty bump.</p>
 
+  <div class="note" style="background:var(--teal-soft);border-left-color:var(--teal)"><b>Try it Monday morning (30 minutes).</b> Pick the last A/B test your team shipped. Find the result. Now answer two questions: was the metric defined in a <em>shared</em> place where another team would use the exact same definition? Did anyone check whether the lift could be explained by <em>seasonality</em> (was there a holiday weekend in the test window)? If either answer is "no," your team is at the pre-ERF stage Airbnb was at in 2013 — and the ERF leverage is in those two specific gaps, not in more sophisticated stats.</div>
+
+  <div class="note" style="background:var(--blue-soft);border-left-color:var(--blue);font-size:13.5px"><b>Quick glossary for the columns below.</b> <b>Raw lift</b> = the OEC delta straight from the test, as if no adjustments were needed. <b>ERF-adjusted lift</b> = the same delta after accounting for novelty effects (users react to anything new), seasonality (lift may be calendar-driven), and network effects (users in treatment can affect users in control). <b>Novelty effect</b> = the temporary engagement bump that fades after users get used to the change. <b>Seasonality</b> = systematic time-of-week / time-of-year demand patterns that exist independent of the test. The gap between raw and adjusted is the lie ERF prevents you from believing.</div>
+
   <h3 style="font-family:Georgia,serif;font-size:18px;margin:18px 0 8px">Worked example — an experiment ledger snapshot (Airbnb-style)</h3>
   <p style="font-size:13.5px;color:var(--ink-soft);margin:0 0 12px">Eight tests. Note the gap between raw and ERF-adjusted lift — that gap is the lie ERF prevents you from believing.</p>
 
@@ -216,12 +167,14 @@
     </table>
   </div>
 
+  <div class="note" style="background:var(--accent-soft);border-left-color:var(--accent)"><b>The most important reading skill on this page.</b> Compare the "Instant-book promotion" row with the "Wishlist sharing" row. Instant-book: raw <em>+2.0%</em>, adjusted <em>−0.1%</em>. Wishlist: raw <em>+0.4%</em>, adjusted <em>+0.7%</em>. Both gaps are large — but they point in <em>opposite</em> directions. Adjustment doesn't always shrink the lift; sometimes it grows the lift because the raw number was masking a real network effect. This is why ERF is a <em>standardisation</em> tool, not a "make numbers smaller" tool. A team using raw lifts ships the instant-book feature (wrong) and under-ships the wishlist feature (also wrong). Both errors disappear when the analysis is consistent and the report is the same shape every time.</div>
+
   <div class="note"><b>Decision rule.</b> Decide on the <em>ERF-adjusted</em> lift, not the raw. The instant-book row is the canonical trap: raw +2.0% would look like a clean ship, but ERF reveals it as entirely seasonal demand the team would have taken credit for. The wishlist row shows the inverse — ERF can <em>increase</em> lift when a real network effect was being masked. Without standardised reporting, every team interprets their own numbers and trust collapses; with it, the whole company reads the same shape every time.</div>
 
   <div class="note"><b>The transferable insight: standardisation, not statistics.</b> The Airbnb story is sometimes told as a CUPED variance-reduction story. The deeper lesson is that <b>the platform's product is the standardised analysis</b>. Without ERF, every team builds their own analysis and the results aren't comparable. With it, the team can ship 10× more tests because each one costs the same fixed (low) effort to read.</div>
   <footer>
     Companion to <a href="impact-consumer-companies.html#measure">← Consumer case studies · Measure don't estimate</a> · <a href="methodologies-comparison.html">All methods compared</a> · siblings: <a href="microsoft-exp-framework.html">Microsoft ExP / CUPED</a><br>
-    Grounded in: <a href="https://medium.com/airbnb-engineering/experiment-reporting-framework-4e3fcd29e6c0">Airbnb Engineering's ERF post</a> and the follow-up <em>Scaling ERF</em>. Numbers (~500 concurrent, dozens-in-2014) are Airbnb-published.
+    <b>Grounded in</b> <a href="https://medium.com/airbnb-engineering/experiment-reporting-framework-4e3fcd29e6c0">Will Moss, "Experiment Reporting Framework" (Airbnb Engineering, May 29, 2014)</a> and <a href="https://medium.com/airbnb-engineering/https-medium-com-jonathan-parks-scaling-erf-23fd17c91166">Jonathan Parks, "Scaling ERF"</a>. <b>Verbatim from Moss's 2014 post:</b> the "hiding all the pitfalls and automating the analytical heavy lifting" framing; the YAML-based experiment declaration; nightly automated analysis; treatment-assignment via lambda functions in Ruby/JavaScript. <b>Attribution timing:</b> the original 2014 ERF focused on standardisation and report templating; CUPED-style variance reduction was a later addition documented in follow-up posts (not Moss's original). <b>Added by us, not in Airbnb's posts:</b> the 8-row experiment-ledger worked example with raw-vs-adjusted lift gaps, the verdict labels, the in-page glossary, and the "Try it Monday" exercise. The ~500-concurrent / "dozens in 2014" figures are reasonable estimates from across Airbnb's published posts but should be re-verified against current Airbnb engineering writing before quoting.
   </footer>
 </div>
 </body>

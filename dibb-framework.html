@@ -4,93 +4,31 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Spotify DIBB + Bets Board — Data → Insight → Belief → Bet</title>
+<link rel="stylesheet" href="framework.css">
 <style>
-  :root{
-    --ink:#1c2230; --ink-soft:#465065; --line:#e3ddd0; --paper:#faf7f0;
-    --card:#ffffff; --accent:#b5482e; --accent-soft:#fbeae4;
-    --gold:#9a7b2e; --gold-soft:#f6efdc; --teal:#1f6f6b; --teal-soft:#e2f0ee;
-    --blue:#2d4a7c; --blue-soft:#e6ecf6; --purple:#5b3b78; --purple-soft:#efe6f6;
-    --shadow:0 1px 2px rgba(28,34,48,.06),0 8px 24px rgba(28,34,48,.06);
-  }
-  *{box-sizing:border-box}
-  body{margin:0;background:var(--paper);color:var(--ink);
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    line-height:1.62;font-size:16px;-webkit-font-smoothing:antialiased}
-  .wrap{max-width:920px;margin:0 auto;padding:0 24px 96px}
-  header.masthead{border-bottom:3px solid var(--ink);margin-bottom:8px;padding:48px 0 22px}
-  .kicker{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:700;margin:0 0 10px}
-  h1{font-family:Georgia,"Times New Roman",serif;font-size:40px;line-height:1.08;margin:0 0 12px;letter-spacing:-.01em}
-  .sub{color:var(--ink-soft);margin:0;max-width:64ch}
-  .goal{margin-top:18px;background:var(--accent-soft);border:1px solid #f2c9bd;border-left:5px solid var(--accent);border-radius:10px;padding:13px 18px;font-size:15px}
-  .goal span{color:var(--accent);text-transform:uppercase;letter-spacing:.08em;font-size:11px;font-weight:800}
-  nav.toc{position:sticky;top:0;background:rgba(250,247,240,.92);backdrop-filter:blur(6px);
-    border-bottom:1px solid var(--line);padding:12px 0;margin-bottom:34px;z-index:5;font-size:14px}
-  nav.toc a{color:var(--ink-soft);text-decoration:none;margin-right:16px;white-space:nowrap}
-  nav.toc a:hover{color:var(--gold)}
-  .finding{background:var(--ink);color:#f3efe6;border-radius:14px;padding:24px 28px;margin:0 0 36px;box-shadow:var(--shadow)}
-  .finding h2{color:#fff;margin:0 0 8px;font-family:Georgia,serif;font-size:21px}
-  .finding p{margin:0 0 10px;color:#cfc9bb}
-  .finding p:last-child{margin:0}
-  .finding b{color:#f3d9a0}
-  h2.sec{font-family:Georgia,serif;font-size:26px;margin:40px 0 6px;padding-top:18px;border-top:2px solid var(--line)}
-  .secsub{color:var(--ink-soft);font-size:14.5px;margin:0 0 18px;max-width:68ch}
-  p{margin:0 0 14px}
+  /* Page-accent — overrides framework.css fallback */
+  :root{--page-accent:var(--gold);--page-accent-soft:var(--gold-soft)}
   /* DIBB chain */
-  .chain{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0;align-items:stretch}
-  .ch{background:#fff;border:1px solid var(--line);border-top:5px solid var(--gold);border-radius:10px;padding:16px 14px;text-align:center;position:relative}
-  .ch .big{font-family:Georgia,serif;font-size:30px;color:var(--gold);font-weight:700;line-height:1}
+.chain{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0;align-items:stretch}
+  .ch{background:#fff;border:1px solid var(--line);border-top:5px solid var(--page-accent);border-radius:10px;padding:16px 14px;text-align:center;position:relative}
+  .ch .big{font-family:Georgia,serif;font-size:30px;color:var(--page-accent);font-weight:700;line-height:1}
   .ch .nm{font-weight:700;font-size:14px;margin:6px 0 4px}
   .ch .ds{font-size:12.5px;color:var(--ink-soft);line-height:1.5}
-  .ch::after{content:"→";position:absolute;right:-10px;top:50%;transform:translateY(-50%);color:var(--gold);font-weight:700;font-size:18px;z-index:1}
+  .ch::after{content:"→";position:absolute;right:-10px;top:50%;transform:translateY(-50%);color:var(--page-accent);font-weight:700;font-size:18px;z-index:1}
   .ch:last-child::after{display:none}
   /* bets board */
-  .board{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 22px;margin:14px 0;box-shadow:var(--shadow);border-left:5px solid var(--gold)}
+.board{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 22px;margin:14px 0;box-shadow:var(--shadow);border-left:5px solid var(--page-accent)}
   .lanes{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:10px}
-  .lane{background:var(--gold-soft);border:1px solid #e6d8a8;border-radius:8px;padding:10px 12px;font-size:12.5px}
-  .lane .h{font-weight:700;color:var(--gold);font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;margin-bottom:6px}
+  .lane{background:var(--page-accent-soft);border:1px solid #e6d8a8;border-radius:8px;padding:10px 12px;font-size:12.5px}
+  .lane .h{font-weight:700;color:var(--page-accent);font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;margin-bottom:6px}
   .lane .card-bet{background:#fff;border:1px solid var(--line);border-radius:6px;padding:6px 9px;margin:4px 0;font-size:12px}
-  /* steps */
-  .step{display:flex;gap:16px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:12px 0;box-shadow:var(--shadow);border-left:5px solid var(--gold)}
-  .step .num{font-family:Georgia,serif;font-size:28px;font-weight:700;color:var(--gold);line-height:1;min-width:30px}
-  .step h3{margin:0 0 5px;font-size:17px}
-  .step p{margin:0;font-size:14.5px;color:var(--ink-soft)}
-  .step p b{color:var(--ink)}
   /* caveat */
-  .caveat{font-size:12.5px;color:#8a6d2e;background:#fbf6e7;border:1px dashed #d8c98f;border-radius:6px;padding:7px 11px;margin-top:10px}
-  /* warn */
-  .warn{background:#f7e9d6;border-left:4px solid #c97f1a;border-radius:8px;padding:14px 18px;margin:18px 0;font-size:14.5px;color:#5b3b08}
-  .warn b{color:#9a4e08}
-  /* ours */
-  .ours{background:var(--teal-soft);border-left:5px solid var(--teal);border-radius:10px;padding:18px 22px;margin:18px 0}
-  .ours h3{margin:0 0 8px;color:var(--teal);font-size:18px;font-family:Georgia,serif}
-  .ours .draft{font-size:11px;background:var(--teal);color:#fff;padding:3px 9px;border-radius:5px;text-transform:uppercase;letter-spacing:.06em;font-weight:700}
-  .ours code{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;font-size:13px;background:#fff;border:1px solid #bcdcd8;border-radius:5px;padding:2px 7px}
-  a.cite{color:var(--teal);text-decoration:none;border-bottom:1px solid var(--teal)}
-  a.cite:hover{color:var(--accent);border-color:var(--accent)}
-  .note{background:var(--blue-soft);border-left:4px solid var(--blue);border-radius:8px;padding:14px 18px;margin:18px 0;font-size:14.5px}
-  .note b{color:var(--blue)}
-  .src{font-size:13px;color:var(--ink-soft);margin-top:10px}
-  footer{border-top:1px solid var(--line);padding-top:20px;color:var(--ink-soft);font-size:13px;margin-top:44px}
-  footer a{color:var(--teal)}
-  @media(max-width:680px){.chain{grid-template-columns:1fr 1fr}.lanes{grid-template-columns:1fr 1fr}h1{font-size:30px}}
+.caveat{font-size:12.5px;color:#8a6d2e;background:#fbf6e7;border:1px dashed #d8c98f;border-radius:6px;padding:7px 11px;margin-top:10px}
+  @media(max-width:680px){.chain{grid-template-columns:1fr 1fr}.lanes{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>
 <nav class="sitenav">
-<style>
-  .sitenav{position:fixed;top:12px;right:16px;z-index:100;font-size:13px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
-  .sitenav details{background:#1c2230;color:#f3efe6;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.22)}
-  .sitenav summary{list-style:none;cursor:pointer;padding:8px 14px;font-weight:700;letter-spacing:.04em;user-select:none}
-  .sitenav summary::-webkit-details-marker{display:none}
-  .sitenav summary::after{content:" \25BE";color:#cfc9bb;font-size:10px;margin-left:2px}
-  .sitenav details[open] summary::after{content:" \25B4"}
-  .sitenav .navmenu{position:absolute;top:calc(100% + 6px);right:0;background:#fff;color:#1c2230;border:1px solid #e3ddd0;border-radius:10px;padding:16px 18px;box-shadow:0 8px 28px rgba(28,34,48,.22);display:grid;grid-template-columns:repeat(2,minmax(180px,1fr));gap:14px 26px;min-width:400px;max-width:92vw;max-height:80vh;overflow-y:auto}
-  .sitenav .navgrp h4{margin:0 0 5px;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:#465065;font-weight:700;border-bottom:1px solid #e3ddd0;padding-bottom:4px}
-  .sitenav .navgrp a{display:block;color:#1c2230;text-decoration:none;font-size:13px;padding:2px 0;line-height:1.5}
-  .sitenav .navgrp a:hover{color:#b5482e}
-  .sitenav .navgrp a.cur{font-weight:700;color:#b5482e}
-  @media(max-width:600px){.sitenav .navmenu{grid-template-columns:1fr;min-width:240px;max-width:88vw}.sitenav{top:8px;right:8px}}
-</style>
 <details>
 <summary>📑 Jump to</summary>
 <div class="navmenu">
@@ -138,11 +76,17 @@
 
 <div class="wrap">
   <header class="masthead">
-    <p class="kicker">Methods · Deep-dive · Define impact before building (Consumer)</p>
-    <h1>Spotify DIBB + Bets Board — chain a bet to evidence</h1>
-    <p class="sub">DIBB = <strong>Data → Insight → Belief → Bet</strong>. A four-step chain that says: <em>before committing to a bet, prove there's data behind the insight, the insight is real, and the belief follows from it.</em> Paired with a "Bets Board" that limits how many big bets the company runs concurrently.</p>
+    <p class="kicker">Methods · Deep-dive · Define impact before building</p>
+    <h1>Spotify DIBB + Bets Board — chain a bet to evidence <span class="srcyr">2016</span></h1>
+    <p class="sub">DIBB = <strong>Data → Insight → Belief → Bet</strong>. A four-step chain that says: <em>before committing to a bet, prove there's data behind the insight, the insight is real, and the belief follows from it.</em></p>
+    <p class="sub">Paired with a "Bets Board" — a company-level Kanban with <em>Now / Next / Later</em> lanes — that limits how many big bets run at once.</p>
     <div class="goal"><span>Goal</span><br>Decide features by data-backed expected impact — choose by outcome, not by to-do list or opinion.</div>
   </header>
+
+  <div class="eli">
+    <div class="lbl">🎓 8th-grade version</div>
+    Before Spotify makes a big move, four things have to fit together in a row. <b>D</b>ata: a real number we saw (not a feeling). <b>I</b>nsight: what that number actually means. <b>B</b>elief: what we now think will work because of it. <b>B</b>et: the thing we'll actually do about it. Each arrow has to make sense — if the Belief doesn't follow from the Insight, we're just guessing. And there's a rule: you can only have a small number of big bets in motion at once, so picking matters. Most bets fail not at the Bet stage, but at the arrow between Insight and Belief.
+  </div>
 
   <nav class="toc">
     <a href="#headline">Honest headline</a>
@@ -172,16 +116,16 @@
 
   <div class="board">
     <h3 style="margin:0 0 4px;font-family:Georgia,serif;font-size:17px">The Bets Board — a Kanban for big company bets</h3>
-    <p style="margin:0;font-size:13.5px;color:var(--ink-soft)">Each bet is a card. The board <b>limits work-in-progress</b> — a bet can't move to "Now" until something leaves it. Each card carries a 2-page DIBB doc + sponsor + success metrics.</p>
+    <p style="margin:0;font-size:13.5px;color:var(--ink-soft)">Each bet is a card. The board <b>limits work-in-progress</b> — a bet can't move to "Now" until something leaves it. Kniberg's published Spotify board uses three lanes — <b>Now / Next / Later</b>; the "Won't do" lane shown below is a common Kanban add-on, not in Kniberg's original.</p>
     <div class="lanes">
       <div class="lane"><div class="h">Now</div><div class="card-bet">Free-tier expansion (6-mo)</div><div class="card-bet">Podcast monetisation</div></div>
       <div class="lane"><div class="h">Next</div><div class="card-bet">Improved discovery</div></div>
       <div class="lane"><div class="h">Later</div><div class="card-bet">Family-plan revamp</div><div class="card-bet">Live audio</div></div>
-      <div class="lane"><div class="h">Won't do</div><div class="card-bet">Hardware speaker</div></div>
+      <div class="lane"><div class="h">Won't do <sup style="font-size:8px;color:var(--ink-soft)">+</sup></div><div class="card-bet">Hardware speaker</div></div>
     </div>
-    <p style="margin:10px 0 0;font-size:12px;color:var(--ink-soft)"><em>Illustrative bets; actual Spotify bets are not public. The shape is what's published.</em></p>
+    <p style="margin:10px 0 0;font-size:12px;color:var(--ink-soft)"><em>Illustrative bets; actual Spotify bets are not public. <sup>+</sup>"Won't do" is the page's addition; Kniberg's source uses Now / Next / Later only.</em></p>
   </div>
-  <div class="src">Source: <a class="cite" href="https://blog.crisp.se/2016/06/08/henrikkniberg/spotify-rhythm">Henrik Kniberg — Spotify Rhythm</a> (best second-party account; Kniberg was a long-time Spotify agile coach) · <a class="cite" href="https://www.product-frameworks.com/DIBB.html">Product Frameworks — DIBB</a>.</div>
+  <div class="src">Source: <a class="cite" href="https://blog.crisp.se/2016/06/08/henrikkniberg/spotify-rhythm">Henrik Kniberg — "Spotify Rhythm" (Crisp blog, June 8, 2016)</a>. Kniberg was a long-time Spotify agile coach; this is the best publicly-available account of DIBB. No first-party Spotify documentation of DIBB exists.</div>
 
   <!-- MECHANISM -->
   <h2 class="sec" id="mechanism">How DIBB actually picks the bets</h2>
@@ -190,7 +134,7 @@
   <div class="step"><div class="num">1</div><div><h3>Start from observed Data</h3><p>Hard numbers from product analytics, customer research, or market data. Not "we noticed" — a specific data point with a source.</p></div></div>
   <div class="step"><div class="num">2</div><div><h3>Extract an Insight</h3><p>What does the data <em>mean</em>? A surprise, a gap, a behavioural pattern. If multiple plausible insights, name them — the choice is part of the argument.</p></div></div>
   <div class="step"><div class="num">3</div><div><h3>State the Belief explicitly</h3><p>"We now believe …" — a single-sentence claim about cause-and-effect or user behaviour. The Belief must follow from the Insight; if it doesn't, you're guessing.</p></div></div>
-  <div class="step"><div class="num">4</div><div><h3>Make the Bet — sized, sponsored, success metrics declared</h3><p>The Bet inherits the Belief. A 2-page doc names: sponsor, stakeholders, expected outcome, success metric, deadline. Cards go onto the Bets Board, one per active bet.</p></div></div>
+  <div class="step"><div class="num">4</div><div><h3>Make the Bet — sized, sponsored, success metrics declared</h3><p>The Bet inherits the Belief. A short doc names: sponsor, stakeholders, expected outcome, success metric, deadline. Cards go onto the Bets Board, one per active bet. (Kniberg's source doesn't specify a doc length; the practice in community writing varies from one paragraph to a few pages.)</p></div></div>
   <div class="step"><div class="num">5</div><div><h3>Validate the bet — track the success metric, re-evaluate quarterly</h3><p>Bets aren't fire-and-forget. The board is reviewed; cards move (Won, Lost, Won't Do) so the org learns which Beliefs were right.</p></div></div>
 
   <!-- SOURCING -->
@@ -203,6 +147,8 @@
   <!-- APPLY TO A SHEET -->
   <h2 class="sec" id="apply">Apply to a feature sheet</h2>
   <p class="secsub">DIBB doesn't rank bets by score — it <strong>refuses to fund bets that can't fill all four cells</strong>. If you adopt it, your bets board becomes a sheet where every row has D / I / B / B columns plus the success metric, sponsor, board lane, and verdict. A bet missing any cell isn't ranked low — it's sent back for re-shaping.</p>
+
+  <div class="note" style="background:var(--teal-soft);border-left-color:var(--teal)"><b>Try it Monday morning (30 minutes).</b> Pick the most-funded bet your team is currently working on. On a doc, write its four DIBB cells from memory — Data, Insight, Belief, Bet — one sentence each. Then test each arrow: does the Insight follow from the Data? Does the Belief follow from the Insight? If you can't answer those two questions cleanly, you've found the link that needs evidence. That's the failure mode DIBB exists to surface — and it's almost always between Insight and Belief.</div>
 
   <div class="extable" style="overflow-x:auto;margin:14px 0">
     <table style="border-collapse:collapse;width:100%;font-size:13.5px;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden">
@@ -239,12 +185,14 @@
     </table>
   </div>
 
+  <div class="note" style="background:var(--accent-soft);border-left-color:var(--accent);margin-top:18px"><b>The most important reading skill on this page.</b> Look at the two <em>Re-shape</em> rows. The "AI workout playlists" row fails between <b>Belief</b> and <b>Bet</b> — the Belief is fine ("mood-context listening growing"), but the specific Bet ("BPM-matched AI playlists") doesn't obviously follow from it. The "Live audio" row fails one link earlier, between <b>Data</b> and <b>Insight</b> — the Data is about a <em>competitor</em>'s users, not ours, so any Insight derived from it is borrowed. DIBB's leverage is forcing you to point at <em>which arrow</em> is bending. "We just feel this is right" can't survive that pointing exercise.</div>
+
   <div class="note" style="margin-top:18px"><b>Decision rule.</b> <b>Approved</b> only when all four DIBB cells contain concrete content, a single-named sponsor exists, a numeric success metric is committed, and a board lane is assigned. <b>Re-shape</b> when any link in the chain doesn't follow — most commonly Belief→Bet (workout AI row) or Insight→Belief (live audio row, where the Insight came from a competitor not from your users). <b>Reject</b> when Data is anecdotal, no sponsor exists, or there's no plausible success metric — this is what stops the "Hardware speaker" pattern of strategic-sounding bets without commercial backing. WIP-limit at "Now": a new bet can't enter "Now" until something leaves it.</div>
 
   <div class="note"><b>Why DIBB is on the list anyway.</b> The narrative chain — every bet must trace back through Belief → Insight → Data — is the single best antidote to the common planning failure mode of "we just feel like this is right." Even if the framework name varies inside Spotify, the discipline transfers cleanly.</div>
   <footer>
     Companion to <a href="impact-consumer-companies.html#define">← Consumer case studies · Define impact first</a> · <a href="methodologies-comparison.html">All methods compared</a> · related: <a href="north-star-framework.html">North Star</a> (different question — direction vs evidence)<br>
-    Grounded in: <a href="https://blog.crisp.se/2016/06/08/henrikkniberg/spotify-rhythm">Henrik Kniberg — Spotify Rhythm</a>, <a href="https://www.product-frameworks.com/DIBB.html">Product Frameworks — DIBB</a>. No first-party Spotify post defines DIBB; treat as second-party-but-credible.
+    <b>Grounded in</b> <a href="https://blog.crisp.se/2016/06/08/henrikkniberg/spotify-rhythm">Henrik Kniberg, "Spotify Rhythm" (Crisp blog, June 8, 2016)</a> — the canonical publicly-available DIBB source. <b>Verbatim from Kniberg:</b> the DIBB acronym (Data → Insight → Belief → Bet) and the Bets Board lane labels (Now / Next / Later). <b>Added by us, not in Kniberg's published account:</b> the "Won't do" lane (common Kanban add-on), the Won/Lost/Won't-Do verdict labels, the 8-row example bets board (illustrative; actual Spotify bets are not public), and the three-gate Approved/Re-shape/Rejected decision rule. <b>Sourcing caveat:</b> no first-party Spotify documentation of DIBB exists — Kniberg was a long-time Spotify agile coach (not a Spotify spokesperson), and his post is the strongest second-party account. The discipline is well-evidenced as a real Spotify practice; the framework's formal name and exact mechanics live primarily in community writing.
   </footer>
 </div>
 </body>

@@ -4,91 +4,31 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Microsoft ExP — OEC, CUPED, and trustworthy experiments</title>
+<link rel="stylesheet" href="framework.css">
 <style>
-  :root{
-    --ink:#1c2230; --ink-soft:#465065; --line:#e3ddd0; --paper:#faf7f0;
-    --card:#ffffff; --accent:#b5482e; --accent-soft:#fbeae4;
-    --gold:#9a7b2e; --gold-soft:#f6efdc; --teal:#1f6f6b; --teal-soft:#e2f0ee;
-    --blue:#2d4a7c; --blue-soft:#e6ecf6; --purple:#5b3b78; --purple-soft:#efe6f6;
-    --shadow:0 1px 2px rgba(28,34,48,.06),0 8px 24px rgba(28,34,48,.06);
-  }
-  *{box-sizing:border-box}
-  body{margin:0;background:var(--paper);color:var(--ink);
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    line-height:1.62;font-size:16px;-webkit-font-smoothing:antialiased}
-  .wrap{max-width:920px;margin:0 auto;padding:0 24px 96px}
-  header.masthead{border-bottom:3px solid var(--ink);margin-bottom:8px;padding:48px 0 22px}
-  .kicker{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);font-weight:700;margin:0 0 10px}
-  h1{font-family:Georgia,"Times New Roman",serif;font-size:40px;line-height:1.08;margin:0 0 12px;letter-spacing:-.01em}
-  .sub{color:var(--ink-soft);margin:0;max-width:64ch}
-  .goal{margin-top:18px;background:var(--accent-soft);border:1px solid #f2c9bd;border-left:5px solid var(--accent);border-radius:10px;padding:13px 18px;font-size:15px}
-  .goal span{color:var(--accent);text-transform:uppercase;letter-spacing:.08em;font-size:11px;font-weight:800}
-  nav.toc{position:sticky;top:0;background:rgba(250,247,240,.92);backdrop-filter:blur(6px);
-    border-bottom:1px solid var(--line);padding:12px 0;margin-bottom:34px;z-index:5;font-size:14px}
-  nav.toc a{color:var(--ink-soft);text-decoration:none;margin-right:16px;white-space:nowrap}
-  nav.toc a:hover{color:var(--blue)}
-  .finding{background:var(--ink);color:#f3efe6;border-radius:14px;padding:24px 28px;margin:0 0 36px;box-shadow:var(--shadow)}
-  .finding h2{color:#fff;margin:0 0 8px;font-family:Georgia,serif;font-size:21px}
-  .finding p{margin:0 0 10px;color:#cfc9bb}
-  .finding p:last-child{margin:0}
-  .finding b{color:#9bc7ef}
-  .finding code{background:#2a3247;color:#9bc7ef;padding:2px 7px;border-radius:5px;font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;font-size:14px}
-  h2.sec{font-family:Georgia,serif;font-size:26px;margin:40px 0 6px;padding-top:18px;border-top:2px solid var(--line)}
-  .secsub{color:var(--ink-soft);font-size:14.5px;margin:0 0 18px;max-width:68ch}
-  p{margin:0 0 14px}
+  /* Page-accent — overrides framework.css fallback */
+  :root{--page-accent:var(--blue);--page-accent-soft:var(--blue-soft)}
   /* three-concept layout */
-  .three{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:14px 0}
-  .concept{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;box-shadow:var(--shadow);border-top:5px solid var(--blue)}
-  .concept .ab{font-family:Georgia,serif;font-size:14px;color:var(--blue);font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:4px}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:14px 0}
+  .concept{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;box-shadow:var(--shadow);border-top:5px solid var(--page-accent)}
+  .concept .ab{font-family:Georgia,serif;font-size:14px;color:var(--page-accent);font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:4px}
   .concept h3{margin:0 0 8px;font-size:18px;font-family:Georgia,serif}
   .concept p{margin:0;font-size:13.5px;color:var(--ink-soft);line-height:1.5}
   .concept p b{color:var(--ink)}
-  /* steps */
-  .step{display:flex;gap:16px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:12px 0;box-shadow:var(--shadow);border-left:5px solid var(--blue)}
-  .step .num{font-family:Georgia,serif;font-size:28px;font-weight:700;color:var(--blue);line-height:1;min-width:30px}
-  .step h3{margin:0 0 5px;font-size:17px}
-  .step p{margin:0;font-size:14.5px;color:var(--ink-soft)}
-  .step p b{color:var(--ink)}
   /* example */
-  .example{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px 24px;margin:14px 0;box-shadow:var(--shadow);border-left:5px solid var(--blue)}
+.example{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px 24px;margin:14px 0;box-shadow:var(--shadow);border-left:5px solid var(--page-accent)}
   .example h3{margin:0 0 8px;font-size:18px;font-family:Georgia,serif}
   .example .quote{font-style:italic;color:var(--ink-soft);border-left:3px solid var(--line);padding:6px 14px;margin:10px 0;font-size:14.5px}
   .stats{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
   .stat{flex:1 1 150px;background:#f6f4ee;border:1px solid var(--line);border-radius:8px;padding:12px 14px;text-align:center}
-  .stat .n{font-family:Georgia,serif;font-size:22px;color:var(--blue);font-weight:700;line-height:1.1}
+  .stat .n{font-family:Georgia,serif;font-size:22px;color:var(--page-accent);font-weight:700;line-height:1.1}
   .stat .l{font-size:11.5px;color:var(--ink-soft);margin-top:4px;line-height:1.35}
-  /* ours */
-  .ours{background:var(--teal-soft);border-left:5px solid var(--teal);border-radius:10px;padding:18px 22px;margin:18px 0}
-  .ours h3{margin:0 0 8px;color:var(--teal);font-size:18px;font-family:Georgia,serif}
-  .ours .draft{font-size:11px;background:var(--teal);color:#fff;padding:3px 9px;border-radius:5px;text-transform:uppercase;letter-spacing:.06em;font-weight:700}
-  .ours code{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;font-size:13px;background:#fff;border:1px solid #bcdcd8;border-radius:5px;padding:2px 7px}
-  a.cite{color:var(--teal);text-decoration:none;border-bottom:1px solid var(--teal)}
-  a.cite:hover{color:var(--accent);border-color:var(--accent)}
-  .note{background:var(--blue-soft);border-left:4px solid var(--blue);border-radius:8px;padding:14px 18px;margin:18px 0;font-size:14.5px}
-  .note b{color:var(--blue)}
   .caveat{font-size:12.5px;color:#8a6d2e;background:#fbf6e7;border:1px dashed #d8c98f;border-radius:6px;padding:7px 11px;margin-top:10px}
-  .src{font-size:13px;color:var(--ink-soft);margin-top:10px}
-  footer{border-top:1px solid var(--line);padding-top:20px;color:var(--ink-soft);font-size:13px;margin-top:44px}
-  footer a{color:var(--teal)}
-  @media(max-width:680px){.three{grid-template-columns:1fr}h1{font-size:30px}}
+  @media(max-width:680px){.three{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <nav class="sitenav">
-<style>
-  .sitenav{position:fixed;top:12px;right:16px;z-index:100;font-size:13px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
-  .sitenav details{background:#1c2230;color:#f3efe6;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.22)}
-  .sitenav summary{list-style:none;cursor:pointer;padding:8px 14px;font-weight:700;letter-spacing:.04em;user-select:none}
-  .sitenav summary::-webkit-details-marker{display:none}
-  .sitenav summary::after{content:" \25BE";color:#cfc9bb;font-size:10px;margin-left:2px}
-  .sitenav details[open] summary::after{content:" \25B4"}
-  .sitenav .navmenu{position:absolute;top:calc(100% + 6px);right:0;background:#fff;color:#1c2230;border:1px solid #e3ddd0;border-radius:10px;padding:16px 18px;box-shadow:0 8px 28px rgba(28,34,48,.22);display:grid;grid-template-columns:repeat(2,minmax(180px,1fr));gap:14px 26px;min-width:400px;max-width:92vw;max-height:80vh;overflow-y:auto}
-  .sitenav .navgrp h4{margin:0 0 5px;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:#465065;font-weight:700;border-bottom:1px solid #e3ddd0;padding-bottom:4px}
-  .sitenav .navgrp a{display:block;color:#1c2230;text-decoration:none;font-size:13px;padding:2px 0;line-height:1.5}
-  .sitenav .navgrp a:hover{color:#b5482e}
-  .sitenav .navgrp a.cur{font-weight:700;color:#b5482e}
-  @media(max-width:600px){.sitenav .navmenu{grid-template-columns:1fr;min-width:240px;max-width:88vw}.sitenav{top:8px;right:8px}}
-</style>
 <details>
 <summary>📑 Jump to</summary>
 <div class="navmenu">
@@ -137,10 +77,16 @@
 <div class="wrap">
   <header class="masthead">
     <p class="kicker">Methods · Deep-dive · Experimentation</p>
-    <h1>Microsoft ExP — OEC, CUPED, and trustworthy experiments at scale</h1>
-    <p class="sub">Pioneered by Ron Kohavi and team. Three pieces — a platform that runs experiments cheaply, a single agreed success metric per test (OEC), and a variance-reduction technique (CUPED) that gets the same answer from far fewer users.</p>
+    <h1>Microsoft ExP — OEC, CUPED, and trustworthy experiments at scale <span class="srcyr">2013</span></h1>
+    <p class="sub">Pioneered by Ron Kohavi and team across Bing, Office, Windows, and Azure. Three pieces — a <b>platform</b> that runs experiments cheaply, a single agreed success metric per test (<b>OEC</b>), and a variance-reduction technique (<b>CUPED</b>) that gets the same answer from far fewer users.</p>
+    <p class="sub">Earliest canonical publication: the CUPED paper (Deng, Xu, Kohavi, Walker — 2013). Codified at book length in <em>Trustworthy Online Controlled Experiments</em> (Kohavi, Tang, Xu — 2020).</p>
     <div class="goal"><span>Goal</span><br>Decide features by data-backed expected impact — choose by outcome, not by to-do list or opinion.</div>
   </header>
+
+  <div class="eli">
+    <div class="lbl">🎓 8th-grade version</div>
+    Everyone has opinions about whether a feature will work. Microsoft figured out that opinions are mostly wrong — when you actually test ideas on real users by showing the new thing to half of them and the old thing to the other half (an <em>A/B test</em>), only about <b>one in three</b> ideas actually makes the number you cared about go up. One in three changes nothing. One in three makes it <em>worse</em>. So they built a platform (<b>ExP</b>) that makes running these tests cheap, agreed on a single success number per test (<b>OEC</b>) so nobody can cheat by switching what counts as winning, and invented a math trick (<b>CUPED</b>) that gets the same answer from half as many users — so you find out faster. The whole point: stop arguing about whether ideas will work, just test them.
+  </div>
 
   <nav class="toc">
     <a href="#headline">Honest headline</a>
@@ -155,7 +101,7 @@
   <div class="finding" id="headline">
     <h2>The honest headline: this is the only ground-truth method on the list</h2>
     <p>Most frameworks <b>estimate</b> impact (RICE) or <b>model</b> it (North Star). Microsoft's experimentation platform <b>measures</b> it — a controlled A/B test on real users is the only number that's actually causal. The other methods narrow the candidates; this one decides the winner.</p>
-    <p>The cost of that rigour: it requires traffic, infra, instrumentation, and a culture that accepts <code>only ~1 in 3 ideas actually win</code>. The famous Kohavi line: <em>"At Microsoft, of every 100 features we ship, only about a third improve the metrics they were designed to improve."</em> Trustworthy experiments are how you find out which third.</p>
+    <p>The cost of that rigour: it requires traffic, infra, instrumentation, and a culture that accepts <code>only ~1 in 3 ideas actually win</code>. The widely-cited Kohavi finding (paraphrased from his talks and the Kohavi/Tang/Xu book): <em>"When evaluating well-designed and executed experiments that were designed to improve a key metric at Microsoft, only about one-third were successful at improving the key metric."</em> Trustworthy experiments are how you find out which third.</p>
   </div>
 
   <!-- ANATOMY -->
@@ -196,7 +142,7 @@
   <div class="example">
     <h3>Tiny change, enormous OEC movement</h3>
     <p>The most cited Microsoft experiment: a Bing engineer proposed changing the colour and font of result-page headlines. It sat unprioritised for <strong>more than six months</strong> — until someone ran the A/B test.</p>
-    <div class="quote">"It produced one of the best results in Bing's history. Increased revenue by approximately $100 million annually." — Kohavi &amp; Thomke, HBR (Sept 2017)</div>
+    <div class="quote">"The change had increased revenue by an astonishing 12% — which on an annual basis would come to more than $100 million in the United States alone." — Kohavi &amp; Thomke, HBR (Sept–Oct 2017, verbatim)</div>
     <p>The lesson is not "small changes can be big" — it's that <b>without the experiment, no scoring framework would have ranked this above the work it was beating</b>. The team's pre-test estimate was effectively zero. Only measurement found it.</p>
     <div class="src" style="margin-top:8px">Source: <a class="cite" href="https://hbr.org/2017/09/the-surprising-power-of-online-experiments">HBR — The Surprising Power of Online Experiments</a> (Kohavi &amp; Thomke).</div>
   </div>
@@ -207,18 +153,22 @@
 
   <div class="stats">
     <div class="stat"><div class="n">~⅓</div><div class="l">of experiments improve the metric they were designed to improve</div></div>
-    <div class="stat"><div class="n">~½</div><div class="l">are flat (no detectable change)</div></div>
-    <div class="stat"><div class="n">~⅙</div><div class="l">make things <em>worse</em> — caught only because we measured</div></div>
+    <div class="stat"><div class="n">~⅓</div><div class="l">are flat (no statistically significant change)</div></div>
+    <div class="stat"><div class="n">~⅓</div><div class="l">make things <em>worse</em> — statistically significant negatives, caught only because we measured</div></div>
     <div class="stat"><div class="n">~50%</div><div class="l">variance cut by CUPED at Bing → 2× faster decisions</div></div>
     <div class="stat"><div class="n">~$100M</div><div class="l">/yr from one Bing headline-color test alone</div></div>
   </div>
-  <div class="caveat">Caveat: the ⅓ / ½ / ⅙ split is the figure Kohavi quotes in talks and HBR — it's a Microsoft-internal aggregate, not a controlled study. Other companies (Booking, Netflix) cite similar ratios independently. The $100M figure is HBR-published (reputable secondary).</div>
+  <div class="caveat">Caveat: the ⅓ / ⅓ / ⅓ split is the Kohavi-canonical figure (talks, HBR, and the Kohavi/Tang/Xu 2020 book) — a Microsoft-internal aggregate, not a controlled study. <b>Bing's success rate is reportedly lower than the Microsoft-wide ⅓.</b> Other companies (Booking, Netflix) independently cite similar ratios. The $100M Bing figure is HBR-published (reputable secondary).</div>
 
   <div class="note"><b>Why this matters for prioritisation.</b> If only ~1/3 of ideas win, ranking 50 ideas with RICE and shipping the top 10 means you ship ~7 losers and ~3 winners — and you may not know which were which. ExP-style discipline says: <b>ship behind a test, declare the OEC up front, kill what doesn't move it.</b> That's the entire argument for trustworthy experimentation as the layer that finishes what scoring frameworks start.</div>
 
   <!-- APPLY TO A SHEET -->
   <h2 class="sec" id="apply">Apply to a feature sheet</h2>
   <p class="secsub">ExP-style discipline doesn't score features pre-build — it adjudicates them <strong>post-build via experiment</strong>. If you adopt it, your feature sheet evolves from "ideas + scores" into a <em>live experiment ledger</em>: every shipped feature carries the test that earned it the right to stay.</p>
+
+  <div class="note" style="background:var(--teal-soft);border-left-color:var(--teal)"><b>Try it Monday morning (30 minutes).</b> Pick the most recently-shipped feature on your team. Write its post-hoc experiment design: what was the <em>OEC</em> (the one number that defined winning)? What <em>guardrails</em> should not have regressed? What <em>MDE</em> would have justified the build? If you can't answer those for a feature you already shipped, you've found the discipline gap — your team is shipping ideas faster than you're learning from them. Next sprint: pick one upcoming feature and write those three lines <em>before</em> any code goes in.</div>
+
+  <div class="note" style="background:var(--blue-soft);border-left-color:var(--blue);font-size:13.5px"><b>Quick glossary for the columns below.</b> <b>OEC</b> = Overall Evaluation Criterion (the one agreed success metric). <b>MDE</b> = Minimum Detectable Effect (the smallest change the test is powered to spot). <b>SRM</b> = Sample-Ratio Mismatch (when your 50/50 split came out 51/49 by accident — a sign the experiment is broken). <b>A/A test</b> = both arms get the same variant; if you see "winning" results, the platform is lying to you. <b>CI</b> = Confidence Interval. <b>CTA</b> = Call-To-Action (the button you want clicked). <b>a11y</b> = accessibility.</div>
 
   <div class="extable">
     <table class="ex">
@@ -258,11 +208,13 @@
     </table>
   </div>
 
+  <div class="note" style="background:var(--accent-soft);border-left-color:var(--accent)"><b>The most important reading skill on this page.</b> Look at the "Aggressive paywall variant" row. OEC <em>moved</em> (+8%, a huge win on most teams' default metric). Guardrails <em>breached</em> (support tickets +40%). Decision: <b>Kill</b>. This is the row that explains why ExP exists. A team without guardrails ships the +8% feature and discovers the support cost months later, by which point the feature is entrenched. A team with guardrails sees both numbers in the same readout and kills it the same day. The OEC tells you what you wanted; the guardrails tell you what you forgot you needed.</div>
+
   <div class="note"><b>Decision rule.</b> <b>Ship</b> only if (1) OEC moves with statistical significance, (2) <em>every</em> guardrail holds, and (3) no SRM or trust flag was raised. <b>Iterate</b> if OEC is flat but guardrails are clean — change the variant, re-run. <b>Kill</b> immediately when a guardrail breaches, even if the OEC looks great (the paywall row): a feature that lifts conversion but burns support load is a net loss. The point of CUPED is that you can read these verdicts in days, not weeks — speed of decision is what makes the ⅓-win rate survivable.</div>
 
   <footer>
     Companion to <a href="impact-saas-companies.html#exp">← SaaS case studies · Experimentation</a> · <a href="methodologies-comparison.html">All methods compared</a><br>
-    Grounded in: <a href="https://exp-platform.com/">exp-platform.com</a>, the CUPED paper (Deng et al., 2013), the Kohavi/Tang/Xu book <em>Trustworthy Online Controlled Experiments</em>, and Kohavi &amp; Thomke's HBR article. ⅓-win and $100M figures are Microsoft-published in those sources.
+    <b>Grounded in</b> <a href="https://exp-platform.com/">exp-platform.com</a> (Kohavi's hub), the CUPED paper (Deng, Xu, Kohavi, Walker — 2013), the Kohavi/Tang/Xu book <em>Trustworthy Online Controlled Experiments</em> (Cambridge University Press, 2020), and Kohavi &amp; Thomke's HBR article (Sept–Oct 2017). <b>Verbatim from HBR:</b> the Bing-headline quote ("The change had increased revenue by an astonishing 12%..."). <b>Paraphrased from Kohavi's talks/book:</b> the ⅓-win-rate finding. <b>Note on the ⅓/⅓/⅓ split:</b> earlier versions of this page showed ⅓/½/⅙ — the Kohavi-canonical split is ⅓ positive / ⅓ flat / ⅓ negative, corrected here. Bing-specific success rate is reportedly lower. <b>Added by us, not in the sources:</b> the 11-column experiment ledger, the 8-row worked-example readout table, the "Try it Monday" exercise, and the in-page glossary.
   </footer>
 </div>
 </body>

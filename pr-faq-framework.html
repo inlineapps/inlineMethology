@@ -4,87 +4,24 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Amazon Working Backwards / PR-FAQ — define impact before building</title>
+<link rel="stylesheet" href="framework.css">
 <style>
-  :root{
-    --ink:#1c2230; --ink-soft:#465065; --line:#e3ddd0; --paper:#faf7f0;
-    --card:#ffffff; --accent:#b5482e; --accent-soft:#fbeae4;
-    --gold:#9a7b2e; --gold-soft:#f6efdc; --teal:#1f6f6b; --teal-soft:#e2f0ee;
-    --blue:#2d4a7c; --blue-soft:#e6ecf6; --purple:#5b3b78; --purple-soft:#efe6f6;
-    --shadow:0 1px 2px rgba(28,34,48,.06),0 8px 24px rgba(28,34,48,.06);
-  }
-  *{box-sizing:border-box}
-  body{margin:0;background:var(--paper);color:var(--ink);
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    line-height:1.62;font-size:16px;-webkit-font-smoothing:antialiased}
-  .wrap{max-width:920px;margin:0 auto;padding:0 24px 96px}
-  header.masthead{border-bottom:3px solid var(--ink);margin-bottom:8px;padding:48px 0 22px}
-  .kicker{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:700;margin:0 0 10px}
-  h1{font-family:Georgia,"Times New Roman",serif;font-size:40px;line-height:1.08;margin:0 0 12px;letter-spacing:-.01em}
-  .sub{color:var(--ink-soft);margin:0;max-width:64ch}
-  .goal{margin-top:18px;background:var(--accent-soft);border:1px solid #f2c9bd;border-left:5px solid var(--accent);border-radius:10px;padding:13px 18px;font-size:15px}
-  .goal span{color:var(--accent);text-transform:uppercase;letter-spacing:.08em;font-size:11px;font-weight:800}
-  nav.toc{position:sticky;top:0;background:rgba(250,247,240,.92);backdrop-filter:blur(6px);
-    border-bottom:1px solid var(--line);padding:12px 0;margin-bottom:34px;z-index:5;font-size:14px}
-  nav.toc a{color:var(--ink-soft);text-decoration:none;margin-right:16px;white-space:nowrap}
-  nav.toc a:hover{color:var(--gold)}
-  .finding{background:var(--ink);color:#f3efe6;border-radius:14px;padding:24px 28px;margin:0 0 36px;box-shadow:var(--shadow)}
-  .finding h2{color:#fff;margin:0 0 8px;font-family:Georgia,serif;font-size:21px}
-  .finding p{margin:0 0 10px;color:#cfc9bb}
-  .finding p:last-child{margin:0}
-  .finding b{color:#f3d9a0}
-  h2.sec{font-family:Georgia,serif;font-size:26px;margin:40px 0 6px;padding-top:18px;border-top:2px solid var(--line)}
-  .secsub{color:var(--ink-soft);font-size:14.5px;margin:0 0 18px;max-width:68ch}
-  p{margin:0 0 14px}
+  /* Page-accent — overrides framework.css fallback */
+  :root{--page-accent:var(--gold);--page-accent-soft:var(--gold-soft)}
   /* PR-FAQ artifact */
-  .doc{background:#fff;border:1px solid var(--line);border-radius:12px;padding:24px;box-shadow:var(--shadow);margin:14px 0}
-  .doc .pr,.doc .faq{border-left:5px solid var(--gold);padding:14px 18px;background:var(--gold-soft);border-radius:8px;margin:8px 0}
-  .doc .label{font-family:Georgia,serif;font-size:12px;color:var(--gold);font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:5px}
+.doc{background:#fff;border:1px solid var(--line);border-radius:12px;padding:24px;box-shadow:var(--shadow);margin:14px 0}
+  .doc .pr,.doc .faq{border-left:5px solid var(--page-accent);padding:14px 18px;background:var(--page-accent-soft);border-radius:8px;margin:8px 0}
+  .doc .label{font-family:Georgia,serif;font-size:12px;color:var(--page-accent);font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:5px}
   .doc h4{margin:0 0 6px;font-size:15px}
   .doc ul{margin:4px 0;padding-left:20px;font-size:13.5px;color:var(--ink-soft)}
-  /* steps */
-  .step{display:flex;gap:16px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:12px 0;box-shadow:var(--shadow);border-left:5px solid var(--gold)}
-  .step .num{font-family:Georgia,serif;font-size:28px;font-weight:700;color:var(--gold);line-height:1;min-width:30px}
-  .step h3{margin:0 0 5px;font-size:17px}
-  .step p{margin:0;font-size:14.5px;color:var(--ink-soft)}
-  .step p b{color:var(--ink)}
   /* example */
-  .ex{background:#fff;border:1px dashed var(--gold);border-radius:12px;padding:18px 22px;margin:14px 0;font-size:14.5px}
-  .ex h4{margin:0 0 8px;color:var(--gold);font-family:Georgia,serif;font-size:16px}
+.ex{background:#fff;border:1px dashed var(--page-accent);border-radius:12px;padding:18px 22px;margin:14px 0;font-size:14.5px}
+  .ex h4{margin:0 0 8px;color:var(--page-accent);font-family:Georgia,serif;font-size:16px}
   .ex p{margin:6px 0}
-  /* warn */
-  .warn{background:#f7e9d6;border-left:4px solid #c97f1a;border-radius:8px;padding:14px 18px;margin:18px 0;font-size:14.5px;color:#5b3b08}
-  .warn b{color:#9a4e08}
-  /* ours */
-  .ours{background:var(--teal-soft);border-left:5px solid var(--teal);border-radius:10px;padding:18px 22px;margin:18px 0}
-  .ours h3{margin:0 0 8px;color:var(--teal);font-size:18px;font-family:Georgia,serif}
-  .ours .draft{font-size:11px;background:var(--teal);color:#fff;padding:3px 9px;border-radius:5px;text-transform:uppercase;letter-spacing:.06em;font-weight:700}
-  .ours code{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;font-size:13px;background:#fff;border:1px solid #bcdcd8;border-radius:5px;padding:2px 7px}
-  a.cite{color:var(--teal);text-decoration:none;border-bottom:1px solid var(--teal)}
-  a.cite:hover{color:var(--accent);border-color:var(--accent)}
-  .note{background:var(--blue-soft);border-left:4px solid var(--blue);border-radius:8px;padding:14px 18px;margin:18px 0;font-size:14.5px}
-  .note b{color:var(--blue)}
-  .src{font-size:13px;color:var(--ink-soft);margin-top:10px}
-  footer{border-top:1px solid var(--line);padding-top:20px;color:var(--ink-soft);font-size:13px;margin-top:44px}
-  footer a{color:var(--teal)}
-  @media(max-width:680px){h1{font-size:30px}}
 </style>
 </head>
 <body>
 <nav class="sitenav">
-<style>
-  .sitenav{position:fixed;top:12px;right:16px;z-index:100;font-size:13px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
-  .sitenav details{background:#1c2230;color:#f3efe6;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.22)}
-  .sitenav summary{list-style:none;cursor:pointer;padding:8px 14px;font-weight:700;letter-spacing:.04em;user-select:none}
-  .sitenav summary::-webkit-details-marker{display:none}
-  .sitenav summary::after{content:" \25BE";color:#cfc9bb;font-size:10px;margin-left:2px}
-  .sitenav details[open] summary::after{content:" \25B4"}
-  .sitenav .navmenu{position:absolute;top:calc(100% + 6px);right:0;background:#fff;color:#1c2230;border:1px solid #e3ddd0;border-radius:10px;padding:16px 18px;box-shadow:0 8px 28px rgba(28,34,48,.22);display:grid;grid-template-columns:repeat(2,minmax(180px,1fr));gap:14px 26px;min-width:400px;max-width:92vw;max-height:80vh;overflow-y:auto}
-  .sitenav .navgrp h4{margin:0 0 5px;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:#465065;font-weight:700;border-bottom:1px solid #e3ddd0;padding-bottom:4px}
-  .sitenav .navgrp a{display:block;color:#1c2230;text-decoration:none;font-size:13px;padding:2px 0;line-height:1.5}
-  .sitenav .navgrp a:hover{color:#b5482e}
-  .sitenav .navgrp a.cur{font-weight:700;color:#b5482e}
-  @media(max-width:600px){.sitenav .navmenu{grid-template-columns:1fr;min-width:240px;max-width:88vw}.sitenav{top:8px;right:8px}}
-</style>
 <details>
 <summary>📑 Jump to</summary>
 <div class="navmenu">
@@ -132,11 +69,17 @@
 
 <div class="wrap">
   <header class="masthead">
-    <p class="kicker">Methods · Deep-dive · Define impact before building (Consumer)</p>
-    <h1>Amazon Working Backwards / PR-FAQ — write the launch before the code</h1>
-    <p class="sub">A mock <strong>press release</strong> plus an <strong>FAQ</strong> — both written before a line of code is shipped. The discipline of the most influential pre-build estimation method in modern tech: if you can't write a compelling PR for the customer, you don't yet have a feature worth building.</p>
+    <p class="kicker">Methods · Deep-dive · Define impact before building</p>
+    <h1>Amazon Working Backwards / PR-FAQ — write the launch before the code <span class="srcyr">2004</span></h1>
+    <p class="sub">A mock <strong>press release</strong> plus an <strong>FAQ</strong> — both written before a line of code is shipped. Used at Amazon since 2004 across both consumer (Kindle, Prime, Echo) and B2B (AWS) products.</p>
+    <p class="sub">The discipline: if you can't write a compelling PR for the customer, you don't yet have a feature worth building.</p>
     <div class="goal"><span>Goal</span><br>Decide features by data-backed expected impact — choose by outcome, not by to-do list or opinion.</div>
   </header>
+
+  <div class="eli">
+    <div class="lbl">🎓 8th-grade version</div>
+    Before Amazon builds anything, somebody writes the news article announcing it — like it's already done and being sold. One page. Then a list of all the boring questions: how much does it cost, who's it for, what could go wrong, how do we know if it worked? If the news article sounds dumb or fake when people read it, the idea isn't ready — you change the idea, not the writing. Most ideas die at this step, before any code is written. The ones that survive get built, because by then they're worth building.
+  </div>
 
   <nav class="toc">
     <a href="#headline">Honest headline</a>
@@ -150,7 +93,7 @@
 
   <div class="finding" id="headline">
     <h2>The honest headline: the strongest pre-build forcing function on the list</h2>
-    <p>Most "estimation" methods score features after the team has decided what to build. PR-FAQ inverts the order: <b>you write the customer-facing launch first</b>. If the press release reads as boring, irrelevant, or implausible, you re-shape the problem — long before you've sunk engineering effort. Ex-Amazon execs Bryar &amp; Carr (<em>Working Backwards</em>, 2021) call this the single most distinctive part of Amazon's culture.</p>
+    <p>Most "estimation" methods score features after the team has decided what to build. PR-FAQ inverts the order: <b>you write the customer-facing launch first</b>. If the press release reads as boring, irrelevant, or implausible, you re-shape the problem — long before you've sunk engineering effort. Ex-Amazon execs Colin Bryar &amp; Bill Carr describe it (verbatim) as <em>"a systematic way to vet ideas and create new products. Its key tenet is to start by defining the customer experience, then iteratively work backwards from that point until the team achieves clarity of thought around what to build."</em></p>
     <p>It's the only method on this site that produces a <b>readable artifact a non-PM can react to</b>. That's why it travels well — but also why it's hard: writing one good PR-FAQ takes days, not minutes.</p>
   </div>
 
@@ -177,9 +120,9 @@
       <div class="label">FAQ — Internal &amp; external (≤5 pages)</div>
       <h4>The honest part — where edge cases get surfaced</h4>
       <ul>
-        <li><b>External FAQ</b> — questions a customer or journalist would ask: pricing, availability, comparison, limitations.</li>
-        <li><b>Internal FAQ</b> — what the team needs to believe: market size, success metrics, dependencies, risks, who builds it.</li>
-        <li><b>Success metrics live here</b> — explicit numeric outcomes ("we expect X% adoption in 6 months because…"). This is the line that makes PR-FAQ a pre-build impact estimator.</li>
+        <li><b>External FAQ</b> — questions a customer or journalist would ask: <em>price, how it works, support, where to buy</em>.</li>
+        <li><b>Internal FAQ</b> — questions senior leaders and stakeholders would ask. The source lists: <em>competitors, problems solved, TAM (Total Addressable Market), challenges, capabilities needed, dependencies, regulatory issues, unit economics, investment required, payback timeline, success assumptions, failure risks</em>.</li>
+        <li><b>Success metrics live in the Internal FAQ</b> — explicit numeric outcomes ("we expect X% adoption in 6 months because…"). This is the line that makes PR-FAQ a pre-build impact estimator.</li>
       </ul>
     </div>
   </div>
@@ -192,7 +135,7 @@
   <div class="step"><div class="num">1</div><div><h3>Pick the customer and the bad-day moment</h3><p>Start from a real customer in a specific situation. The PR will be written <em>for them</em>, not for the org chart.</p></div></div>
   <div class="step"><div class="num">2</div><div><h3>Draft the PR</h3><p>Write the launch as if it ships tomorrow. If the headline is weak, the product is weak. The team often discovers in this step that the feature they wanted to build isn't compelling to the customer.</p></div></div>
   <div class="step"><div class="num">3</div><div><h3>Write the FAQ — both halves</h3><p>External FAQ surfaces customer objections; Internal FAQ surfaces team disagreements and forces <b>numeric success metrics</b>. This is where "expected impact" becomes a written number.</p></div></div>
-  <div class="step"><div class="num">4</div><div><h3>Review in a silent-read meeting</h3><p>Amazon's distinctive ritual: the room reads the doc for 20 minutes in silence before discussion. No slides, no selling — the doc has to stand on its own. Most bets die here.</p></div></div>
+  <div class="step"><div class="num">4</div><div><h3>Review in a silent-read meeting</h3><p>Amazon's distinctive ritual (verbatim from the source): <em>"The document is circulated at the start of the meeting, followed by 15–20 minutes of silent reading and note-taking."</em> No slides, no selling — the doc has to stand on its own. Most bets die here.</p></div></div>
   <div class="step"><div class="num">5</div><div><h3>Iterate or kill</h3><p>If the doc survives critique, work begins from the PR backwards — what would have to be built to make the PR true? Many candidates iterate the PR for weeks before any code is written.</p></div></div>
 
   <!-- EXAMPLE -->
@@ -204,11 +147,13 @@
     <p><b>Key Internal-FAQ pressure tests it had to answer:</b> Why would a reader pay for a device? How does it work without Wi-Fi (→ became free 3G)? What if publishers won't sign? What does success look like in year 1?</p>
     <p style="color:var(--ink-soft);font-size:13px">The Kindle PR-FAQ went through many iterations before the device was built. The team didn't just <em>design</em> the Kindle from the PR — they kept revising the PR until the customer story was undeniable.</p>
   </div>
-  <p style="font-size:13px;color:var(--ink-soft)">Source for the Kindle PR-FAQ narrative: Bryar &amp; Carr, <em>Working Backwards</em>, Chapter 5. The exact wording above is reconstructed from public retellings, not Amazon-published text — the structure and discipline are the verifiable parts.</p>
+  <p style="font-size:13px;color:var(--ink-soft)">Source for the Kindle PR-FAQ narrative: Bryar &amp; Carr, <em>Working Backwards</em>, Chapter 5. The "every book ever printed... in under 60 seconds" line is Bezos's well-known Kindle vision — used here as a stand-in for the headline. The actual PR-FAQ text was never published by Amazon; the structure and discipline are the verifiable parts. AWS is a more documented example: Bryar &amp; Carr describe the AWS team spending "more than a year writing, revising, debating, and discussing PR/FAQs" between identifying web services in 2004 and launching S3/EC2 in 2006.</p>
 
   <!-- APPLY TO A SHEET -->
   <h2 class="sec" id="apply">Apply to a feature sheet</h2>
   <p class="secsub">PR-FAQ doesn't produce a numeric score either — it produces an <strong>artifact gate</strong>. Your sheet doesn't rank features; it tracks <em>readiness</em>. A feature does not enter build until every cell is green and the silent-read review passes. The columns are a checklist, not a calculation.</p>
+
+  <div class="note" style="background:var(--teal-soft);border-left-color:var(--teal)"><b>Try it Monday morning (30 minutes).</b> Pick your next "big bet" feature. Open a doc. Write only the <em>headline</em> and the <em>subheading</em> of its press release — as if it shipped tomorrow. Don't write the body. Just those two lines. Show them to one person who doesn't know the feature. If they can't tell you who it's for and why they'd care, the bet isn't shaped yet. That's a 30-minute version of the PR-FAQ pain — small enough to do this week, painful enough to surface the truth.</div>
 
   <div class="extable">
     <table class="ex">
@@ -247,6 +192,8 @@
     </table>
   </div>
 
+  <div class="note" style="background:var(--accent-soft);border-left-color:var(--accent)"><b>The most important reading skill on this page.</b> Look at the four "Kill" and "Re-draft" rows. None of them died because the engineering was wrong — they died because the <em>customer story</em> was wrong. AR fitting-room overlay and Crypto checkout died on "no customer-pain story" — they never named who hurts and why. PR-FAQ's whole leverage is moving the death-of-bad-ideas from the post-launch retrospective (expensive) to the pre-build silent-read meeting (cheap). The ratio of Kill+Re-draft to Ready in this table is the framework working as designed.</div>
+
   <div class="note"><b>Decision rule.</b> <b>Ready for build</b> only when <em>every</em> column is green <em>and</em> the silent-read room can't poke a useful hole in the doc. <b>Re-draft</b> if any field is missing or weak — go back to step 2, no engineering effort yet. <b>Kill</b> when the headline can't be made compelling after iteration; that's the PR-FAQ doing its job — most first drafts die at this gate, which is the point. PR-FAQ filters at the bet level; once a bet is built, individual changes still go through <a class="cite" href="microsoft-exp-framework.html">experiment-style A/B</a> readouts.</div>
 
   <!-- LIMITS -->
@@ -260,7 +207,7 @@
   <div class="note"><b>Why PR-FAQ is on the list.</b> It's the only Consumer-side framework that produces an <em>up-front written estimate of customer value</em> rather than relying on post-launch measurement. The closest cousin in the SaaS set is <a class="cite" href="stripe-shaping-framework.html">Stripe's deep-dive memo</a>, but PR-FAQ adds the strict format that makes it teachable.</div>
   <footer>
     Companion to <a href="impact-consumer-companies.html#define">← Consumer case studies · Define impact first</a> · <a href="methodologies-comparison.html">All methods compared</a> · contrast: <a href="stripe-shaping-framework.html">Stripe shaping</a> (the SaaS-side cousin)<br>
-    Grounded in: Bryar &amp; Carr's <em>Working Backwards</em> (HarperBusiness, 2021), Amazon's own culture page, and the publicly-described PR-FAQ process. Kindle PR text is reconstructed from public retellings; the format and discipline are the verifiable parts.
+    <b>Grounded in</b> Bryar &amp; Carr's <em>Working Backwards: Insights, Stories, and Secrets from Inside Amazon</em> (HarperBusiness, 2021) and the official <a href="https://workingbackwards.com/concepts/working-backwards-pr-faq-process/">workingbackwards.com</a> process page. Practice originated at Amazon in 2004. <b>Verbatim from the source:</b> the Working Backwards definition ("a systematic way to vet ideas..."), the silent-read meeting framing ("15–20 minutes of silent reading and note-taking"), and the Internal-FAQ topic list (competitors, problems solved, TAM, dependencies, regulatory issues, unit economics, payback, success assumptions, failure risks). <b>Paraphrased from public retellings:</b> the Kindle headline ("every book ever printed... in under 60 seconds" is Bezos's well-known Kindle vision used as a stand-in — Amazon has not published the actual Kindle PR-FAQ). <b>Added by us, not in the source:</b> the readiness-checklist sheet columns, the eight-row bet-queue worked example, the kill/re-draft/ready verdict logic.
   </footer>
 </div>
 </body>

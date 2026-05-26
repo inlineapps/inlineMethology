@@ -4,106 +4,42 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>OpenAI iterative deployment — staged release as the decision unit</title>
+<link rel="stylesheet" href="framework.css">
 <style>
-  :root{
-    --ink:#1c2230; --ink-soft:#465065; --line:#e3ddd0; --paper:#faf7f0;
-    --card:#ffffff; --accent:#b5482e; --accent-soft:#fbeae4;
-    --gold:#9a7b2e; --gold-soft:#f6efdc; --teal:#1f6f6b; --teal-soft:#e2f0ee;
-    --blue:#2d4a7c; --blue-soft:#e6ecf6; --purple:#5b3b78; --purple-soft:#efe6f6;
-    --shadow:0 1px 2px rgba(28,34,48,.06),0 8px 24px rgba(28,34,48,.06);
-  }
-  *{box-sizing:border-box}
-  body{margin:0;background:var(--paper);color:var(--ink);
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    line-height:1.62;font-size:16px;-webkit-font-smoothing:antialiased}
-  .wrap{max-width:960px;margin:0 auto;padding:0 24px 96px}
-  header.masthead{border-bottom:3px solid var(--ink);margin-bottom:8px;padding:48px 0 22px}
-  .kicker{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);font-weight:700;margin:0 0 10px}
-  h1{font-family:Georgia,"Times New Roman",serif;font-size:40px;line-height:1.08;margin:0 0 12px;letter-spacing:-.01em}
-  .sub{color:var(--ink-soft);margin:0;max-width:66ch}
-  .goal{margin-top:18px;background:var(--blue-soft);border:1px solid #c4d2eb;border-left:5px solid var(--blue);border-radius:10px;padding:13px 18px;font-size:15px}
-  .goal span{color:var(--blue);text-transform:uppercase;letter-spacing:.08em;font-size:11px;font-weight:800}
-  nav.toc{position:sticky;top:0;background:rgba(250,247,240,.92);backdrop-filter:blur(6px);
-    border-bottom:1px solid var(--line);padding:12px 0;margin-bottom:34px;z-index:5;font-size:14px}
-  nav.toc a{color:var(--ink-soft);text-decoration:none;margin-right:16px;white-space:nowrap}
-  nav.toc a:hover{color:var(--blue)}
-  .finding{background:var(--ink);color:#f3efe6;border-radius:14px;padding:24px 28px;margin:0 0 36px;box-shadow:var(--shadow)}
-  .finding h2{color:#fff;margin:0 0 8px;font-family:Georgia,serif;font-size:21px}
-  .finding p{margin:0 0 10px;color:#cfc9bb}
-  .finding p:last-child{margin:0}
-  .finding b{color:#9bc7ef}
-  h2.sec{font-family:Georgia,serif;font-size:26px;margin:40px 0 6px;padding-top:18px;border-top:2px solid var(--line)}
-  .secsub{color:var(--ink-soft);font-size:14.5px;margin:0 0 18px;max-width:68ch}
-  p{margin:0 0 14px}
-
+  /* Page-accent — overrides framework.css fallback */
+  :root{--page-accent:var(--blue);--page-accent-soft:var(--blue-soft)}
   /* SCOPE LADDER — staircase widening, with gates */
-  .ladder{margin:18px 0;padding:24px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow)}
-  .rung{display:grid;grid-template-columns:90px 1fr 200px;align-items:stretch;gap:0;margin:0;border-left:3px solid var(--blue);position:relative}
-  .rung .scope{background:var(--blue);color:#fff;font-family:Georgia,serif;font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;padding:14px 6px;text-align:center;line-height:1.2}
-  .rung .body{background:var(--blue-soft);padding:14px 18px;border-top:1px solid #c4d2eb}
+.ladder{margin:18px 0;padding:24px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow)}
+  .rung{display:grid;grid-template-columns:90px 1fr 200px;align-items:stretch;gap:0;margin:0;border-left:3px solid var(--page-accent);position:relative}
+  .rung .scope{background:var(--page-accent);color:#fff;font-family:Georgia,serif;font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;padding:14px 6px;text-align:center;line-height:1.2}
+  .rung .body{background:var(--page-accent-soft);padding:14px 18px;border-top:1px solid #c4d2eb}
   .rung .body h3{margin:0 0 4px;font-size:15px;font-family:Georgia,serif;color:var(--ink)}
   .rung .body p{margin:0;font-size:13px;color:var(--ink-soft);line-height:1.5}
-  .rung .gate{background:#fff;border-top:1px solid #c4d2eb;border-left:1px dashed var(--blue);padding:14px 14px;font-size:12px;color:var(--ink-soft);line-height:1.5}
-  .rung .gate b{color:var(--blue);text-transform:uppercase;letter-spacing:.06em;font-size:10px;display:block;margin-bottom:3px}
+  .rung .gate{background:#fff;border-top:1px solid #c4d2eb;border-left:1px dashed var(--page-accent);padding:14px 14px;font-size:12px;color:var(--ink-soft);line-height:1.5}
+  .rung .gate b{color:var(--page-accent);text-transform:uppercase;letter-spacing:.06em;font-size:10px;display:block;margin-bottom:3px}
   /* widening — each rung pushes the right edge further */
-  .rung.r1{margin-right:60%}
+.rung.r1{margin-right:60%}
   .rung.r2{margin-right:45%}
   .rung.r3{margin-right:30%}
   .rung.r4{margin-right:15%}
   .rung.r5{margin-right:0}
-  .lcap{margin-top:14px;text-align:center;color:var(--blue);font-size:12.5px;font-style:italic;letter-spacing:.04em}
-
+  .lcap{margin-top:14px;text-align:center;color:var(--page-accent);font-size:12.5px;font-style:italic;letter-spacing:.04em}
   /* PREPAREDNESS BOX */
-  .prepbox{background:#fff;border:1px solid var(--line);border-left:5px solid var(--blue);border-radius:10px;padding:18px 22px;margin:14px 0;box-shadow:var(--shadow)}
-  .prepbox h3{margin:0 0 8px;font-family:Georgia,serif;font-size:17px;color:var(--blue)}
+.prepbox{background:#fff;border:1px solid var(--line);border-left:5px solid var(--page-accent);border-radius:10px;padding:18px 22px;margin:14px 0;box-shadow:var(--shadow)}
+  .prepbox h3{margin:0 0 8px;font-family:Georgia,serif;font-size:17px;color:var(--page-accent)}
   .preprow{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:10px}
-  .preprow .cat{background:var(--blue-soft);border:1px solid #c4d2eb;border-radius:8px;padding:12px 14px}
-  .preprow .cat .lbl{font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin:0 0 4px}
+  .preprow .cat{background:var(--page-accent-soft);border:1px solid #c4d2eb;border-radius:8px;padding:12px 14px}
+  .preprow .cat .lbl{font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--page-accent);margin:0 0 4px}
   .preprow .cat ul{margin:4px 0 0;padding-left:18px;font-size:13px;color:var(--ink);line-height:1.5}
   .preprow .cat li{margin:2px 0}
-
-  /* SHEET TABLE */
-  .extable{margin:14px 0;overflow-x:auto}
-  table.ex{border-collapse:collapse;width:100%;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:13px}
-  table.ex thead th{background:var(--blue);color:#fff;padding:10px 11px;text-align:left;font-size:11px;letter-spacing:.05em;text-transform:uppercase}
   table.ex tbody td{padding:10px 11px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.5}
-  table.ex tbody tr:last-child td{border-bottom:none}
-  table.ex tbody tr:hover{background:#f6f4ee}
-  table.ex td.score{font-weight:700;font-family:Georgia,serif}
-  table.ex tr.top td{background:var(--blue-soft)} table.ex tr.top td.score{color:var(--blue)}
-
-  /* warn / note */
-  .warn{background:#f7e9d6;border-left:4px solid #c97f1a;border-radius:8px;padding:14px 18px;margin:18px 0;font-size:14.5px;color:#5b3b08}
-  .warn b{color:#9a4e08}
-  .note{background:var(--teal-soft);border-left:4px solid var(--teal);border-radius:8px;padding:14px 18px;margin:18px 0;font-size:14.5px}
-  .note b{color:var(--teal)}
-  .src{font-size:13px;color:var(--ink-soft);margin-top:10px}
-  a.cite{color:var(--blue);text-decoration:none;border-bottom:1px solid var(--blue)}
-  a.cite:hover{color:var(--accent);border-color:var(--accent)}
-  blockquote{margin:14px 0;padding:12px 18px;border-left:3px solid var(--blue);background:var(--blue-soft);font-style:italic;color:var(--ink);font-size:15px;border-radius:0 8px 8px 0}
-  blockquote .cred{display:block;margin-top:6px;font-style:normal;font-size:12.5px;color:var(--ink-soft);letter-spacing:.02em}
-
-  footer{border-top:1px solid var(--line);padding-top:20px;color:var(--ink-soft);font-size:13px;margin-top:44px}
-  footer a{color:var(--blue)}
-  @media(max-width:780px){h1{font-size:30px}.rung{grid-template-columns:80px 1fr;margin-right:0!important}.rung .gate{grid-column:1/-1;border-left:none;border-top:1px dashed var(--blue)}.preprow{grid-template-columns:1fr}}
+  table.ex tr.top td{background:var(--page-accent-soft)}
+  table.ex tr.top td.score{color:var(--page-accent)}
+  @media(max-width:780px){.rung{grid-template-columns:80px 1fr;margin-right:0!important}.rung .gate{grid-column:1/-1;border-left:none;border-top:1px dashed var(--page-accent)}.preprow{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <nav class="sitenav">
-<style>
-  .sitenav{position:fixed;top:12px;right:16px;z-index:100;font-size:13px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
-  .sitenav details{background:#1c2230;color:#f3efe6;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.22)}
-  .sitenav summary{list-style:none;cursor:pointer;padding:8px 14px;font-weight:700;letter-spacing:.04em;user-select:none}
-  .sitenav summary::-webkit-details-marker{display:none}
-  .sitenav summary::after{content:" \25BE";color:#cfc9bb;font-size:10px;margin-left:2px}
-  .sitenav details[open] summary::after{content:" \25B4"}
-  .sitenav .navmenu{position:absolute;top:calc(100% + 6px);right:0;background:#fff;color:#1c2230;border:1px solid #e3ddd0;border-radius:10px;padding:16px 18px;box-shadow:0 8px 28px rgba(28,34,48,.22);display:grid;grid-template-columns:repeat(2,minmax(180px,1fr));gap:14px 26px;min-width:400px;max-width:92vw;max-height:80vh;overflow-y:auto}
-  .sitenav .navgrp h4{margin:0 0 5px;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:#465065;font-weight:700;border-bottom:1px solid #e3ddd0;padding-bottom:4px}
-  .sitenav .navgrp a{display:block;color:#1c2230;text-decoration:none;font-size:13px;padding:2px 0;line-height:1.5}
-  .sitenav .navgrp a:hover{color:#b5482e}
-  .sitenav .navgrp a.cur{font-weight:700;color:#b5482e}
-  @media(max-width:600px){.sitenav .navmenu{grid-template-columns:1fr;min-width:240px;max-width:88vw}.sitenav{top:8px;right:8px}}
-</style>
 <details>
 <summary>📑 Jump to</summary>
 <div class="navmenu">
@@ -152,10 +88,16 @@
 <div class="wrap">
   <header class="masthead">
     <p class="kicker">Methods · Deep-dive · AI-lab process (OpenAI)</p>
-    <h1>OpenAI iterative deployment — staged release as the decision unit</h1>
-    <p class="sub">OpenAI has not published a method for <em>ranking which features to build</em>. What it has published — extensively — is how it <strong>releases</strong> capabilities: in widening rings of scope, with a Preparedness-Framework safety gate between each ring. The "feature" sheet for this method is really a <strong>release queue</strong>, not a backlog.</p>
+    <h1>OpenAI iterative deployment — staged release as the decision unit <span class="srcyr">2019</span></h1>
+    <p class="sub">OpenAI has not published a method for <em>ranking which features to build</em>. What it has published — extensively — is how it <strong>releases</strong> capabilities: in widening rings of scope, with a Preparedness-Framework safety gate between each ring.</p>
+    <p class="sub">The "feature" sheet for this method is really a <strong>release queue</strong>, not a backlog. Foundational source: the GPT-2 staged release (February → November 2019) plus the August 2019 report <em>"Release Strategies and the Social Impacts of Language Models."</em> Codified later in "Planning for AGI and Beyond" (2023) and the Preparedness Framework (v1 December 2023, v2 April 15, 2025).</p>
     <div class="goal"><span>Goal</span><br>Decide how widely (and how fast) to expose a capability — using real-world signal at each ring, not pre-release estimates.</div>
   </header>
+
+  <div class="eli">
+    <div class="lbl">🎓 8th-grade version</div>
+    OpenAI doesn't have a famous formula for deciding which features to build. What they <em>do</em> have, in writing, is a careful process for deciding <b>how widely to release a new AI capability</b>. They first show it only to their own researchers. Then to a small outside group. Then to paying subscribers. Then to everyone. Between each step, they check: <em>is anyone misusing this? Is it more dangerous than we thought?</em> If yes, they pause or roll back. They have a separate scorecard — the <b>Preparedness Framework</b> — that checks whether the capability could be used to make bioweapons, do major cyberattacks, or improve AI itself in dangerous ways. The whole idea, first practiced with GPT-2 in 2019: <em>release in small steps so society and the technology can adapt together</em>, instead of dropping the full thing all at once.
+  </div>
 
   <nav class="toc">
     <a href="#headline">Honest headline</a>
@@ -206,7 +148,7 @@
     <div class="lcap">Movement up is irreversible only if nothing escalates — every published release retains a documented rollback path.</div>
   </div>
 
-  <blockquote>"OpenAI's strategy of iterative deployment puts early versions of technology into the world so people can form intuitions and society and the technology can co-evolve."<span class="cred">— paraphrase of OpenAI's stated rationale across <a class="cite" href="https://openai.com/index/planning-for-agi-and-beyond/">Planning for AGI and Beyond</a> and <a class="cite" href="https://openai.com/safety/how-we-think-about-safety-alignment/">How we think about safety and alignment</a></span></blockquote>
+  <blockquote>"OpenAI's strategy of iterative deployment puts early versions of technology into the world so people can form intuitions and society and the technology can co-evolve."<span class="cred">— paraphrase of OpenAI's stated rationale across <a class="cite" href="https://openai.com/index/planning-for-agi-and-beyond/">"Planning for AGI and Beyond"</a> (Feb 2023) and <a class="cite" href="https://openai.com/safety/how-we-think-about-safety-alignment/">"How we think about safety and alignment"</a>. The practice itself was first demonstrated in the GPT-2 staged release (Feb → Nov 2019).</span></blockquote>
 
   <!-- PREPAREDNESS GATE -->
   <h2 class="sec" id="prep">The gate — Preparedness Framework v2 (April 2025)</h2>
@@ -271,6 +213,10 @@
   <h2 class="sec" id="apply">Apply to a feature sheet</h2>
   <p class="secsub">The sheet for this method is a <strong>release queue</strong> — capabilities awaiting promotion to the next rung. Rows aren't ranked by score; they're tracked by current rung, Preparedness status, and whatever real-world signal the current rung is producing.</p>
 
+  <div class="note" style="background:var(--teal-soft);border-left-color:var(--teal)"><b>Try it Monday morning (30 minutes).</b> Pick one feature your team is about to ship. Instead of writing a launch plan, write a <em>scope ladder</em>: which 5% of users would you ship to first? Which 25% next? Which 100% last? For each step, write the one signal that would <em>pause</em> the next promotion. That's a 30-minute version of OpenAI's ladder, stripped of the safety-specific gating. The discipline transfers even when the risk surface isn't bio/cyber/AI-self-improvement — any consumer feature has analogues (complaint rate, refund rate, support ticket spike) that should pause the next rung if they rise.</div>
+
+  <div class="note" style="background:var(--blue-soft);border-left-color:var(--blue);font-size:13.5px"><b>Quick glossary for the columns below.</b> <b>Rung</b> = the current scope of release (Internal → Preview → Limited → Broad → Embedded). <b>Preparedness tier</b> = the post-mitigation severity score in any tracked category (High or Critical in v2). <b>System card</b> = the public document disclosing red-team findings, model behavior, and known risks for a capability; required to advance past Preview. <b>Misuse rate</b> = real-world signal at the current rung (per-1k-requests or similar) — falling/flat/rising. <b>Rollback path</b> = a verified mechanism to pull the capability back one or more rungs without breaking dependent systems.</div>
+
   <div class="extable">
     <table class="ex">
       <thead><tr><th>Column to add</th><th>What it captures</th><th>How you fill it</th></tr></thead>
@@ -306,6 +252,8 @@
     </table>
   </div>
 
+  <div class="note" style="background:var(--accent-soft);border-left-color:var(--accent)"><b>The most important reading skill on this page.</b> Look at the <em>"bio-research assistant"</em> row. Verdict: <b>Don't deploy</b> — even though the team built it, even though they could have shipped it internally. The Preparedness tier ("Critical candidate, Bio") means the gate <em>refuses</em> to let it climb the ladder. The transferable insight: <em>most other methods on this site have no equivalent of "don't deploy at all"</em> — RICE ranks low, A/B fails, but the artifact still tends to exist. OpenAI's published method explicitly carves out a verdict that says <em>some capabilities should be built only to confirm they shouldn't be shipped</em>. That's the part smaller teams should copy first: a written list of risk categories that can <em>kill</em> a feature regardless of how well it scored.</div>
+
   <div class="note"><b>Decision rule.</b> <b>Advance</b> only when (a) Preparedness tier is Low/Medium post-mitigation, (b) system card is published or drafted, (c) the rollback path is verified, and (d) real-world misuse rate at the current rung is flat or falling. <b>Hold</b> when any of those is uncertain — re-evaluate in 30 days. <b>Roll back</b> when misuse-rate is rising and mitigations don't dent it. <b>Don't deploy</b> when post-mitigation score is Critical in any tracked category. This is a release rule, not a build rule — see <a class="cite" href="#limits">Where it breaks</a>.</div>
 
   <!-- LIMITS -->
@@ -321,7 +269,7 @@
 
   <footer>
     Companion to <a href="anthropic-side-quest-framework.html">← Anthropic side quests</a> (the other AI-lab page) · <a href="methodologies-comparison.html">all methods compared</a> · contrast with <a href="uber-xp-framework.html">Uber XP staged ramp</a> (the closest non-AI analogue — same ladder shape, different gate criteria).<br>
-    Grounded in: <a href="https://openai.com/index/planning-for-agi-and-beyond/">"Planning for AGI and Beyond"</a> (OpenAI, 2023, 1st-party); <a href="https://openai.com/safety/how-we-think-about-safety-alignment/">"How we think about safety and alignment"</a> (OpenAI, 1st-party); <a href="https://cdn.openai.com/pdf/18a02b5d-6b67-4cec-ab64-68cdfbddebcd/preparedness-framework-v2.pdf">Preparedness Framework v2 PDF</a> (OpenAI, April 15, 2025, 1st-party); <a href="https://deploymentsafety.openai.com/">OpenAI Deployment Safety Hub</a> (system cards). Kevin Weil's process notes are paraphrased from his Lenny's Podcast appearance (secondary). Illustrative sheet rows are clearly labelled — OpenAI publishes per-category Preparedness scores in system cards, not a single per-capability number.
+    <b>Grounded in</b> the original GPT-2 staged release (February → November 2019) and the August 2019 report <a href="https://cdn.openai.com/GPT_2_August_Report.pdf">"Release Strategies and the Social Impacts of Language Models"</a>; <a href="https://openai.com/index/planning-for-agi-and-beyond/">"Planning for AGI and Beyond"</a> (OpenAI, February 2023, 1st-party); <a href="https://openai.com/safety/how-we-think-about-safety-alignment/">"How we think about safety and alignment"</a> (OpenAI, 1st-party); <a href="https://cdn.openai.com/pdf/18a02b5d-6b67-4cec-ab64-68cdfbddebcd/preparedness-framework-v2.pdf">Preparedness Framework v2 PDF</a> (OpenAI, April 15, 2025, 1st-party); <a href="https://deploymentsafety.openai.com/">OpenAI Deployment Safety Hub</a> (system cards). <b>Verbatim from OpenAI:</b> the Preparedness Framework v2 contents (3 tracked categories, 2 tiers, 5 research categories, 5 tracking criteria), the staged GPT-2 release timeline, and the system-card disclosure practice. <b>Paraphrased:</b> the "iterative deployment puts early versions... so society and the technology can co-evolve" framing — synthesised across the 2023 posts, marked as paraphrase in the page body. <b>From the podcast, not the official posts:</b> Kevin Weil's quarterly-roadmapping description. <b>Added by us, not in the sources:</b> the 5-rung ladder visualization with explicit gate descriptions (OpenAI describes the rungs but the exact labels and gate text are our restatement), the 8-row release-queue worked example with illustrative rows (clearly labeled), the four-verdict Advance/Hold/Roll-back/Don't-deploy rule, the in-page glossary, and the "Try it Monday" exercise. Illustrative Preparedness tiers in the table are not published per-capability scores.
   </footer>
 </div>
 </body>
