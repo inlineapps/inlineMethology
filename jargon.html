@@ -64,8 +64,7 @@
 <a href="pinterest-ab-framework.html">Pinterest</a>
 </div>
 <div class="navgrp"><h4>AI labs</h4>
-<a href="anthropic-side-quest-framework.html">Anthropic side quests</a>
-<a href="openai-iterative-deployment-framework.html">OpenAI iterative deployment</a>
+<a href="anthropic-pm-on-ai-exponential.html">Anthropic · PM on AI exponential</a>
 </div>
 <div class="navgrp"><h4>Written discipline</h4>
 <a href="stripe-shaping-framework.html">Stripe shaping</a>
@@ -294,7 +293,6 @@
   <section class="term" id="ramp">
     <h3>Ramp / staged rollout</h3>
     <p>Releasing a change in graduated percentages — typically 1% → 5% → 25% → 50% → 100% — pausing at each step to check guardrails and the OEC. Each step is a separate "ramp stage." LinkedIn counts every stage as a separate experiment in its 40k/day figure. The pattern lets you catch problems on 1% of users instead of 100%.</p>
-    <p class="first">First seen here: <a href="linkedin-xlnt-framework.html">LinkedIn T-REX</a> · <a href="openai-iterative-deployment-framework.html">OpenAI iterative deployment</a>, most experimentation pages <span class="why">Why it matters: a controlled blast radius for the inevitable bad releases.</span></p>
   </section>
 
   <section class="term" id="switchback">
@@ -365,8 +363,8 @@
 
   <section class="term" id="prd">
     <h3>PRD <span class="expand">(Product Requirements Document)</span></h3>
-    <p>The classic PM artefact: a written spec listing every requirement, edge case, and acceptance criterion for a feature. Anthropic's <a class="x" href="anthropic-side-quest-framework.html">side-quest model</a> explicitly discards PRDs in favour of working prototypes ("demos over docs"); other companies (Amazon, Stripe) replace them with narrative documents (<a class="x" href="pr-faq-framework.html">PR-FAQ</a>, <a class="x" href="stripe-shaping-framework.html">deep-dive memos</a>).</p>
-    <p class="first">First seen here: <a href="anthropic-side-quest-framework.html">Anthropic side quests</a> (as the thing being discarded) <span class="why">Why it matters: the default that other frameworks are reacting against.</span></p>
+    <p>The classic PM artefact: a written spec listing every requirement, edge case, and acceptance criterion for a feature. Cat Wu's <a class="x" href="anthropic-pm-on-ai-exponential.html">"PM on the AI exponential"</a> argues for prototypes <em>before</em> specs ("demos over docs") on her team specifically — not that PRDs are wrong everywhere. Amazon (<a class="x" href="pr-faq-framework.html">PR-FAQ</a>) and Stripe (<a class="x" href="stripe-shaping-framework.html">deep-dive memos</a>) replace PRDs with longer narrative documents rather than dropping the writing step.</p>
+    <p class="first">First seen here: <a href="anthropic-pm-on-ai-exponential.html">Anthropic · PM on AI exponential</a> (deprioritised in favour of prototypes) <span class="why">Why it matters: the default that other frameworks are reacting against.</span></p>
   </section>
 
   <section class="term" id="silent-read">
@@ -385,84 +383,30 @@
        4. AI-LAB SAFETY & RELEASE
        ============================================================ -->
   <h2 class="sec" id="ai-safety">AI-lab safety &amp; release</h2>
-  <p class="catdesc">Concepts specific to releasing AI capabilities (OpenAI, Anthropic, others). Newer vocabulary, evolving fast.</p>
+  <p class="catdesc">Concepts specific to releasing AI capabilities, drawn from Anthropic's published PM essay. (An earlier version of this section catalogued OpenAI-specific terms from <em>"Iterative Deployment"</em> and the <em>Preparedness Framework</em>; that material was removed on 2026-05-26 because the source documents could not be reliably re-fetched from this environment to verify the entries' content.)</p>
 
   <section class="term" id="capability-ceiling">
     <h3>Capability ceiling</h3>
-    <p>The limit of what the current model can actually do, regardless of how well the product is designed. A feature shaped against today's ceiling may suddenly become viable when a new model ships — that's why Anthropic re-tests parked <a class="x" href="anthropic-side-quest-framework.html">side quests</a> on every model release.</p>
-    <p class="first">First seen here: <a href="anthropic-side-quest-framework.html">Anthropic side quests</a> <span class="why">Why it matters: AI roadmaps are determined by the model layer, not the product layer.</span></p>
-  </section>
-
-  <section class="term" id="content-policy">
-    <h3>Content policy</h3>
-    <p>The set of rules — typically published — governing what an AI model is allowed to generate. Distinguishes allowed, restricted, and refused use cases. <a class="x" href="#preparedness-framework">Preparedness Framework</a> tiers reference content policy violations as one of the harm categories.</p>
-    <p class="first">First seen here: <a href="openai-iterative-deployment-framework.html">OpenAI iterative deployment</a> <span class="why">Why it matters: defines the line between "feature" and "policy violation."</span></p>
+    <p>The limit of what the current model can actually do, regardless of how well the product is designed. Cat Wu's essay implies — without using this exact phrase — that a feature impossible on today's model may be trivial on next quarter's, which is why "do the simple thing that works" pairs with "deliberately ask it to do things you think might be too hard" on every new release.</p>
+    <p class="first">First seen here: <a href="anthropic-pm-on-ai-exponential.html">Anthropic · PM on AI exponential</a> <span class="why">Why it matters: AI product roadmaps are pulled by the model layer, not the product layer.</span></p>
   </section>
 
   <section class="term" id="dogfooding">
     <h3>Dogfooding</h3>
     <p>The team using its own product internally — drinking your own dog food. At Anthropic, "engagement signal" is largely measured by whether the team can't stop using a prototype themselves. The hidden cost: teams whose own context isn't representative of users get false positives.</p>
-    <p class="first">First seen here: <a href="anthropic-side-quest-framework.html">Anthropic side quests</a> · also <a href="stripe-shaping-framework.html">Stripe shaping</a> <span class="why">Why it matters: a strong proxy for "will users actually want this" when usage data doesn't exist yet.</span></p>
+    <p class="first">First seen here: <a href="anthropic-pm-on-ai-exponential.html">Anthropic · PM on AI exponential</a> · also <a href="stripe-shaping-framework.html">Stripe shaping</a> <span class="why">Why it matters: a strong proxy for "will users actually want this" when usage data doesn't exist yet.</span></p>
   </section>
 
   <section class="term" id="engagement-signal">
     <h3>Engagement signal</h3>
-    <p>Anthropic's substitute for a pre-declared <a class="x" href="#oec">OEC</a> when shipping early prototypes — a qualitative + behavioural read on whether the team and a small set of users actually keep coming back. Not a number; an editorial judgement supported by telemetry.</p>
-    <p class="first">First seen here: <a href="anthropic-side-quest-framework.html">Anthropic side quests</a> <span class="why">Why it matters: when the product is too new for a numeric OEC, this is what you use instead.</span></p>
-  </section>
-
-  <section class="term" id="iterative-deployment">
-    <h3>Iterative deployment</h3>
-    <p>OpenAI's staged-release strategy: ship to a small internal/research group first, then research preview, then limited rollout, then broad rollout, then embed into the default model. Each "rung" has a safety gate and a rollback path. <a href="openai-iterative-deployment-framework.html">Has its own deep-dive page →</a></p>
-    <p class="first">First seen here: <a href="openai-iterative-deployment-framework.html">OpenAI iterative deployment</a> (own page) <span class="why">Why it matters: makes release a controlled escalation instead of a single launch event.</span></p>
-  </section>
-
-  <section class="term" id="park">
-    <h3>Park (verdict)</h3>
-    <p>Anthropic's verdict when a <a class="x" href="anthropic-side-quest-framework.html">side quest</a> works conceptually but the model can't yet support it. The work is shelved (not killed) and re-tested when the next model ships. Distinguishes "this idea is bad" from "this idea is early."</p>
-    <p class="first">First seen here: <a href="anthropic-side-quest-framework.html">Anthropic side quests</a> <span class="why">Why it matters: makes "wait for the model" an explicit, trackable status.</span></p>
-  </section>
-
-  <section class="term" id="preparedness-framework">
-    <h3>Preparedness Framework</h3>
-    <p>OpenAI's safety-evaluation gate for releasing new capabilities. Each capability is scored against tracked risk categories (e.g. Bio, Cyber, AI Self-Improvement); each category has tiers (Low → Medium → High → Critical). Anything rated Critical can't ship; High requires specific mitigations. The framework determines whether a model gets to advance to the next deployment rung.</p>
-    <p class="first">First seen here: <a href="openai-iterative-deployment-framework.html">OpenAI iterative deployment</a> <span class="why">Why it matters: reframes release as a safety decision, not just a product decision.</span></p>
-  </section>
-
-  <section class="term" id="preparedness-tier">
-    <h3>Preparedness tier (Critical / High)</h3>
-    <p>The severity classification within the <a class="x" href="#preparedness-framework">Preparedness Framework</a>. <em>Critical</em> = could create new severe-harm pathways that didn't exist before. <em>High</em> = could amplify existing pathways to severe harm. A capability scored Critical (post-mitigation) cannot ship. High requires explicit mitigations approved by the safety advisory group.</p>
-    <p class="first">First seen here: <a href="openai-iterative-deployment-framework.html">OpenAI iterative deployment</a> <span class="why">Why it matters: the actual go/no-go criterion at the highest tiers.</span></p>
-  </section>
-
-  <section class="term" id="red-team">
-    <h3>Red-team / red-teaming</h3>
-    <p>Proactive adversarial testing of a system to find misuse pathways before release. For AI, this typically means a team trying to elicit harmful, deceptive, or out-of-policy outputs using every trick they can think of — jailbreaks, indirect injection, role-play, edge-case inputs. Findings shape mitigations and <a class="x" href="#system-card">system-card</a> disclosures.</p>
-    <p class="first">First seen here: <a href="openai-iterative-deployment-framework.html">OpenAI iterative deployment</a> <span class="why">Why it matters: finds failure modes <em>before</em> users (or adversaries) do.</span></p>
-  </section>
-
-  <section class="term" id="research-preview">
-    <h3>Research preview / limited rollout / broad rollout</h3>
-    <p>OpenAI's named rungs on the deployment ladder. <em>Research preview</em> = small external group on gated waitlist (research partners, hand-picked users). <em>Limited rollout</em> = gated wider release (Plus subscribers, API allowlist). <em>Broad rollout</em> = full public release, default-on for new users. Each rung has its own safety gate.</p>
-    <p class="first">First seen here: <a href="openai-iterative-deployment-framework.html">OpenAI iterative deployment</a> <span class="why">Why it matters: shared vocabulary for "how exposed is this thing right now?"</span></p>
-  </section>
-
-  <section class="term" id="rollback-path">
-    <h3>Rollback path</h3>
-    <p>The verified mechanism to pull a capability back one or more deployment rungs without breaking dependent systems. Required as a precondition for advancing to the next rung — you can't ship something you can't unship. The hidden engineering work that makes <a class="x" href="#iterative-deployment">iterative deployment</a> actually safe.</p>
-    <p class="first">First seen here: <a href="openai-iterative-deployment-framework.html">OpenAI iterative deployment</a> <span class="why">Why it matters: the "unship" button is what makes ship-fast safe.</span></p>
+    <p>Cat Wu's phrasing — paraphrased — for what gets a prototype promoted: <em>"the ones with real engagement get polished and shared more broadly."</em> A qualitative read on whether the team keeps coming back to a prototype after the novelty wears off. The essay doesn't define a numeric threshold or compare it to a pre-declared <a class="x" href="#oec">OEC</a>; it's an editorial judgement.</p>
+    <p class="first">First seen here: <a href="anthropic-pm-on-ai-exponential.html">Anthropic · PM on AI exponential</a> <span class="why">Why it matters: in early prototype phase there's no numeric OEC yet, so the signal is necessarily qualitative.</span></p>
   </section>
 
   <section class="term" id="side-quest">
     <h3>Side quest</h3>
-    <p>Anthropic's term for a short, self-directed prototype experiment — sized to an afternoon, built outside the official roadmap. The team ships the prototype to themselves first, judges by <a class="x" href="#engagement-signal">engagement signal</a>, and either promotes it, parks it, or kills it. <a href="anthropic-side-quest-framework.html">Has its own deep-dive page →</a></p>
-    <p class="first">First seen here: <a href="anthropic-side-quest-framework.html">Anthropic side quests</a> (own page) <span class="why">Why it matters: inverts "decide what to build then build it" to "build then decide."</span></p>
-  </section>
-
-  <section class="term" id="system-card">
-    <h3>System card</h3>
-    <p>A public document accompanying a model or capability release, disclosing what it can do, known failure modes, <a class="x" href="#red-team">red-team</a> findings, and the mitigations in place. Originally from the ML-fairness community ("model cards"); now standard at OpenAI, Anthropic, and Google for major model launches.</p>
-    <p class="first">First seen here: <a href="openai-iterative-deployment-framework.html">OpenAI iterative deployment</a> · also <a href="anthropic-side-quest-framework.html">Anthropic side quests</a> <span class="why">Why it matters: makes safety claims auditable instead of marketing copy.</span></p>
+    <p>Cat Wu's term, verbatim: <em>"a short self-directed experiment you run outside your official roadmap — an afternoon spent prototyping an idea, testing a capability you assumed was out of reach."</em> Sits <em>alongside</em> the roadmap (not in place of it). The post says the ones with real internal engagement get polished and shared more broadly; it does not specify what happens to the rest. <a href="anthropic-pm-on-ai-exponential.html">Has its own deep-dive page →</a></p>
+    <p class="first">First seen here: <a href="anthropic-pm-on-ai-exponential.html">Anthropic · PM on AI exponential</a> (own page) <span class="why">Why it matters: lets a team try ideas the roadmap didn't predict — without disrupting the roadmap.</span></p>
   </section>
 
   <!-- ============================================================

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anthropic — Product management on the AI exponential</title>
+<link rel="stylesheet" href="framework.css">
+<style>
+  :root{--page-accent:var(--teal);--page-accent-soft:var(--teal-soft)}
+  .practice{background:#fff;border:1px solid var(--line);border-left:4px solid var(--page-accent);border-radius:10px;padding:18px 20px;margin:14px 0;box-shadow:var(--shadow)}
+  .practice h3{margin:0 0 8px;font-family:Georgia,serif;font-size:17px;color:var(--page-accent)}
+  .practice p{margin:6px 0;font-size:14px;color:var(--ink-soft);line-height:1.55}
+  .practice .pq{margin:10px 0 4px;padding:10px 14px;background:var(--page-accent-soft);border-left:3px solid var(--page-accent);font-style:italic;font-size:13.5px;color:var(--ink);border-radius:0 6px 6px 0}
+  .feat{background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:10px 0;box-shadow:var(--shadow)}
+  .feat h4{margin:0 0 4px;font-family:Georgia,serif;font-size:15.5px;color:var(--ink)}
+  .feat p{margin:0;font-size:13.5px;color:var(--ink-soft);line-height:1.5}
+  .gap{background:#fff7ed;border:1px solid #fed7aa;border-left:4px solid #c2410c;border-radius:10px;padding:16px 20px;margin:12px 0}
+  .gap h4{margin:0 0 6px;color:#9a3412;font-family:Georgia,serif;font-size:15.5px}
+  .gap p{margin:4px 0;font-size:13.5px;color:var(--ink-soft);line-height:1.55}
+</style>
+</head>
+<body>
+<nav class="sitenav">
+<details>
+<summary>📑 Jump to</summary>
+<div class="navmenu">
+<div class="navgrp"><h4>Start here</h4>
+<a href="index.html"><b>← Home (goal &amp; map)</b></a>
+<a href="impact-saas-companies.html">SaaS / B2B field study</a>
+<a href="impact-consumer-companies.html">Consumer-tech field study</a>
+<a href="methodologies-comparison.html"><b>All methods compared →</b></a>
+<a href="experiment-trustworthiness.html">How 40k tests actually work →</a>
+<a href="jargon.html">Jargon (glossary)</a>
+</div>
+<div class="navgrp"><h4>Scoring &amp; Input modeling</h4>
+<a href="rice-framework.html">RICE (Intercom)</a>
+<a href="north-star-framework.html">North Star (Amplitude / Slack)</a>
+</div>
+<div class="navgrp"><h4>Goal-laddering / Define first</h4>
+<a href="v2mom-framework.html">V2MOM (Salesforce)</a>
+<a href="pyramid-of-clarity-framework.html">Pyramid of Clarity (Asana)</a>
+<a href="pr-faq-framework.html">PR-FAQ / Working Backwards (Amazon)</a>
+<a href="heart-framework.html">HEART (Google)</a>
+<a href="dibb-framework.html">DIBB (Spotify)</a>
+</div>
+<div class="navgrp"><h4>Experimentation (SaaS)</h4>
+<a href="microsoft-exp-framework.html">Microsoft ExP / CUPED</a>
+<a href="linkedin-xlnt-framework.html">LinkedIn T-REX</a>
+</div>
+<div class="navgrp"><h4>Experimentation (Consumer)</h4>
+<a href="netflix-experimentation.html">Netflix · ABlaze</a>
+<a href="booking-experimentation.html">Booking.com</a>
+<a href="airbnb-erf-framework.html">Airbnb ERF</a>
+<a href="uber-xp-framework.html">Uber XP</a>
+<a href="doordash-switchback-framework.html">DoorDash switchback</a>
+<a href="lyft-experimentation.html">Lyft</a>
+<a href="pinterest-ab-framework.html">Pinterest</a>
+</div>
+<div class="navgrp"><h4>AI labs</h4>
+<a class="cur" href="anthropic-pm-on-ai-exponential.html">Anthropic — PM on the AI exponential</a>
+</div>
+<div class="navgrp"><h4>Written discipline</h4>
+<a href="stripe-shaping-framework.html">Stripe shaping</a>
+</div>
+</div>
+</details>
+</nav>
+
+<div class="wrap">
+  <header class="masthead">
+    <p class="kicker">Methods · Deep-dive · AI-lab essay (Anthropic)</p>
+    <h1>Anthropic — Product management on the AI exponential <span class="srcyr">2026</span></h1>
+    <p class="sub">A personal essay by Cat Wu (Head of Product, Claude Code) describing the PM habits her team uses when the underlying technology — the model itself — improves week-over-week. <strong>This is not a method or a framework.</strong> It is a substrate-shift essay arguing that the assumption every traditional PM playbook makes — "what's possible at the start of a project is roughly what's possible at the end" — is broken for AI products, and listing five habits her team uses in response.</p>
+    <p class="sub">Canonical source: Cat Wu — <a class="cite" href="https://claude.com/blog/product-management-on-the-ai-exponential">"Product management on the AI exponential"</a>, claude.com blog, March 19, 2026.</p>
+    <div class="goal"><span>What the post is</span><br>An essay about <em>how to work</em> on a moving target — not <em>how to choose</em> what to work on, and not a replacement for roadmaps, PRDs, or scoring elsewhere in your org.</div>
+  </header>
+
+  <div class="eli">
+    <div class="lbl">🎓 8th-grade version</div>
+    The usual way to run a product is: pick what you'll build, write down what it does, get it built, ship it, see how it lands. That works when the technology you build on stays the same from start to finish. AI models don't stay the same — they get noticeably better every few months, so the thing you decided was "too hard for the model" in January may be easy by April. Cat Wu, the PM lead for Claude Code, describes the habits her team uses to deal with this: prototype fast (Claude itself writes most of the code), prefer demos over written plans, try things you assumed were impossible just to check, run small self-directed experiments — "side quests" — <em>alongside</em> the official roadmap. She is <em>not</em> claiming this replaces roadmaps or PRDs everywhere; she's describing what works when you and your colleagues use the product daily and the product itself is changing under you.
+  </div>
+
+  <nav class="toc">
+    <a href="#thesis">The thesis</a>
+    <a href="#practices">The five practices</a>
+    <a href="#features">Three named examples</a>
+    <a href="#absent">What the post does <em>not</em> address</a>
+    <a href="#applies">Where this applies (and doesn't)</a>
+    <a href="methodologies-comparison.html" style="color:var(--teal);font-weight:700">All methods compared →</a>
+  </nav>
+
+  <div class="finding" id="thesis">
+    <h2>The thesis — the substrate is moving, so the playbook has to bend</h2>
+    <p>One observation drives the whole post:</p>
+    <blockquote>"The traditional product management playbook is built on the assumption that what's technologically possible at the start of a project is roughly what's possible at the end. […] The constraints you designed around might disappear mid-project."<span class="cred">— Cat Wu, <a class="cite" href="https://claude.com/blog/product-management-on-the-ai-exponential">"Product management on the AI exponential"</a>, March 19, 2026 (verbatim)</span></blockquote>
+    <p>Everything else in the post — prototypes, side quests, demos over docs, "optimise for capability first" — is downstream of that single claim. The recommendation is not "discard roadmaps, PRDs, scoring formulas, quarterly planning." The recommendation is: plan in shorter sprints, and let prototypes tell you what's now possible before you commit a quarter to it.</p>
+    <p>That distinction is the difference between reading the post honestly and over-extrapolating it into a methodology that isn't there.</p>
+  </div>
+
+  <h2 class="sec" id="practices">The five practices Cat Wu describes</h2>
+  <p class="secsub">She lists each as something her team does, with roughly equal weight. "Side quest" is one of them — not the centerpiece of the post. The post itself defines it once, gives three examples, and moves on.</p>
+
+  <div class="practice">
+    <h3>1 · Plan in short sprints, not long roadmaps</h3>
+    <p>Because what's possible changes inside a planning horizon, multi-quarter roadmaps go stale before they execute. The post does <em>not</em> say "no roadmap" — it says <em>"long-term"</em> roadmap.</p>
+    <p class="pq">"Instead of a long-term roadmap, we encourage everyone on the team (engineers, product managers, designers) to take on side quests."</p>
+  </div>
+
+  <div class="practice">
+    <h3>2 · Demos over docs ("prototype-first thinking")</h3>
+    <p>Replace documentation-first planning with working prototypes built in hours, not weeks. Stand-ups become demo-sharing. Specs aren't abolished; their role moves <em>after</em> the prototype, not before.</p>
+    <p class="pq">"Our team has largely replaced documentation-first thinking with prototype-first thinking. Instead of hosting traditional stand-ups, we share demos of new ideas. Internal users try them, and the ones with real engagement get polished and shared more broadly."</p>
+  </div>
+
+  <div class="practice">
+    <h3>3 · Side quests — short, self-directed experiments <em>outside</em> the roadmap</h3>
+    <p>An afternoon spent prototyping an idea or testing a capability you assumed was out of reach. <strong>Read the preposition carefully:</strong> "outside" presupposes the roadmap still exists. Side quests run <em>alongside</em> the roadmap, not instead of it. The ones that get internal engagement get polished and promoted.</p>
+    <p class="pq">"A side quest is a short self-directed experiment you run outside your official roadmap — an afternoon spent prototyping an idea, testing a capability you assumed was out of reach, or just seeing what happens when you push the model harder than you expect to."</p>
+    <p class="pq">"Because you can prototype in an afternoon, wrong bets are cheap."</p>
+  </div>
+
+  <div class="practice">
+    <h3>4 · "Optimise for capability first" — costs later</h3>
+    <p>During prototyping, use more compute / tokens than you think you need. The next model release will be cheaper anyway; what matters in the prototype is finding out whether the thing is <em>possible</em>. Keep the implementation simple so that when a better model lands, you can swap it in cleanly.</p>
+    <p class="pq">"Optimise for capability first. Use more tokens than you think you need."</p>
+    <p class="pq">"Do the simple thing that works […] the simpler your implementation, the easier it is to swap in new capabilities."</p>
+  </div>
+
+  <div class="practice">
+    <h3>5 · Be a daily active user; deliberately push the model</h3>
+    <p>The PM should use the product daily and deliberately try things they suspect are too hard for the current model. When something suddenly works, that's a signal the product needs to catch up to the model — not the other way around.</p>
+    <p class="pq">"Deliberately ask it to do things you think might be too hard. Sometimes it works, and that's a signal that the product needs to catch up."</p>
+  </div>
+
+  <h2 class="sec" id="features">The three features the post names as side-quest origins</h2>
+  <p class="secsub">These are the only worked examples in the essay. There is no leaderboard, no kill list, no verdict framework, no rule for when to promote — Cat Wu just names three things that started this way.</p>
+
+  <div class="feat">
+    <h4>Claude Code on Desktop</h4>
+    <p>Started as a side quest by an engineer who wanted Claude available outside the terminal. Promoted after internal usage stuck.</p>
+  </div>
+  <div class="feat">
+    <h4>AskUserQuestion tool</h4>
+    <p>The structured-question primitive Claude uses to clarify ambiguous instructions. Built as a side-quest experiment; kept because the engagement was real (notably, the model itself used it).</p>
+  </div>
+  <div class="feat">
+    <h4>Todo lists</h4>
+    <p>The in-context task tracker now embedded in Claude Code's loop. Same origin pattern. The post also notes earlier versions needed system-prompt workarounds that became unnecessary as the model improved — a direct illustration of practice #4.</p>
+  </div>
+  <p class="src">Source: Cat Wu — <a class="cite" href="https://claude.com/blog/product-management-on-the-ai-exponential">"Product management on the AI exponential"</a>, March 19, 2026.</p>
+
+  <h2 class="sec" id="absent">What the post does <em>not</em> address</h2>
+  <p class="secsub">Naming the gaps matters because the essay is short and easy to over-read into a complete methodology.</p>
+
+  <div class="gap">
+    <h4>How a feature is verified <em>after</em> external release</h4>
+    <p>The signal Cat Wu discusses is <strong>internal engagement</strong> — colleagues using the prototype. The post stops there. It does not describe what happens after polish-and-ship: no analytics rule, no retention bar, no real-user-traction step. Whether the externally-shipped feature actually gets used by paying customers is silent on the page.</p>
+  </div>
+
+  <div class="gap">
+    <h4>How to pick from many candidate side quests</h4>
+    <p>If a team has 20 prototype-able ideas, the post doesn't say which to build, whether to build all of them, or how to cap the queue. It only says cost-per-bet is low. There is no selection rule, scoring, ranking, or backlog cadence in the essay.</p>
+  </div>
+
+  <div class="gap">
+    <h4>How upstream strategy is set</h4>
+    <p>She explicitly defers this: <em>"clear strategy and goals let everyone prioritize autonomously."</em> The post is about execution habits <em>below</em> the strategy line; how the strategy itself gets decided is not in scope.</p>
+  </div>
+
+  <div class="gap">
+    <h4>Whether the habits generalise beyond Claude Code</h4>
+    <p>The essay is about Cat Wu's team — a developer-tools product whose users are technical and whose staff <em>are</em> the target user. She does not claim the habits transfer to consumer products, to teams that aren't their own users, or to work with multi-quarter commitments (regulatory, infrastructure, contract-shaped). She is careful to say "we" throughout.</p>
+  </div>
+
+  <h2 class="sec" id="applies">Where this actually applies</h2>
+  <div class="warn">
+    <b>The load-bearing conditions, in plain English:</b><br><br>
+    <b>1. Your substrate is improving on a known cadence.</b> The "new model every few months" assumption is what makes "do the simple thing that works" and "wait for the next release" sensible. Products built on stable substrates don't get this leverage.<br><br>
+    <b>2. Your team is your user.</b> Anthropic staff use Claude Code daily, so internal engagement is a high-fidelity proxy for external engagement. A consumer team building for users who aren't in the building gets near-zero signal from internal ship — and the rest of the loop falls apart.<br><br>
+    <b>3. Prototypes really do cost an afternoon.</b> The "wrong bets are cheap" argument collapses if a prototype is two weeks. The post implicitly assumes AI-assisted prototyping has compressed that cost to ~hours; without that, the calculus is different.<br><br>
+    <b>4. The work is "discoverable."</b> Side quests fit features that can be tried. Multi-quarter infrastructure, regulatory work, and contract-shaped commitments don't fit, and the post doesn't pretend they do.
+  </div>
+
+  <div class="note"><b>Why this page is on the site.</b> The user asked whether AI labs have published a feature-decision method. This is the only on-the-record Anthropic publication. The honest read is that <em>it isn't a method</em> — it's an essay arguing that the underlying-tech assumption every traditional method depends on is broken for AI products. That observation is what's worth taking, not the side-quest tactic specifically. The contrast with <a href="pr-faq-framework.html">PR-FAQ</a> (maximum upfront writing) is sharper if you read both as positions on the same axis: how much do you decide before you build?</div>
+
+  <footer>
+    Contrast with <a href="pr-faq-framework.html">PR-FAQ</a> (the maximally up-front method — opposite end of the spectrum) · <a href="methodologies-comparison.html">all methods compared</a>.<br>
+    <b>Grounded in</b> Cat Wu — <a href="https://claude.com/blog/product-management-on-the-ai-exponential">"Product management on the AI exponential"</a>, claude.com blog, March 19, 2026 (1st-party). <b>Verbatim quotes</b> are inside the indented bubbles on each practice card. <b>Out-of-source notes:</b> the "engineers &gt; PMs" hiring-shape claim sometimes attributed to Anthropic comes from Cat Wu's Lenny's Podcast interview (Apr 2026), not this blog post — and is deliberately not used as a load-bearing claim on this page. The <a class="cite" href="https://github.com/anthropics/knowledge-work-plugins/tree/main/product-management">anthropics/knowledge-work-plugins · product-management</a> repo ships RICE, MoSCoW, JTBD and HMW as supported tools — strong evidence that Anthropic's <em>own</em> position is "use a framework if it helps; we don't need one for this specific product."<br>
+    <em>Note: a 2026-05-26 rewrite removed earlier framing that overstated the post's claims — specifically a "Promote / Iterate / Drop / Park" verdict framework, an 8-row "side-quest leaderboard" table, a "discarded the traditional PM stack" contrast, and the assertion that Anthropic uses "no PRD, no score, no quarterly stack-rank." The post argues for none of those. The page (and its filename: was <code>anthropic-pm-on-ai-exponential.html</code>) now tracks what Cat Wu actually wrote.</em>
+  </footer>
+</div>
+</body>
+</html>

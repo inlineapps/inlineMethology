@@ -119,8 +119,7 @@
 <a href="pinterest-ab-framework.html">Pinterest</a>
 </div>
 <div class="navgrp"><h4>AI labs</h4>
-<a href="anthropic-side-quest-framework.html">Anthropic side quests</a>
-<a href="openai-iterative-deployment-framework.html">OpenAI iterative deployment</a>
+<a href="anthropic-pm-on-ai-exponential.html">Anthropic · PM on AI exponential</a>
 </div>
 <div class="navgrp"><h4>Written discipline</h4>
 <a href="stripe-shaping-framework.html">Stripe shaping</a>
@@ -207,11 +206,11 @@
     <div class="co-head"><h3><span class="n">04</span>Netflix</h3><span class="tag measure">Measure</span></div>
     <div class="fw">Framework: <b>Experimentation &amp; Causal Inference</b> (ABlaze platform) &nbsp;·&nbsp; <a href="netflix-experimentation.html" style="color:var(--blue);font-weight:700;border-bottom:1px solid var(--blue);text-decoration:none">Deep-dive →</a></div>
     <ul>
-      <li>Published norm: <em>"nothing ships without a measured causal effect"</em> (paraphrased across the Netflix TechBlog and Research-area posts) — experimentation is the default even where A/B isn't possible.</li>
-      <li>Where A/B tests are infeasible, uses quasi-experiments and causal ML (interrupted time series, <a class="j" href="jargon.html#ipw">IPW</a>).</li>
+      <li>Published norm (verbatim, 2016 ABlaze TechBlog): <em>"every product change Netflix considers goes through a rigorous A/B testing process before becoming the default user experience."</em> Image-A/B alone has produced <em>"20% to 30% more viewing"</em> on tested titles.</li>
+      <li>Causal-inference methods (interrupted time series, <a class="j" href="jargon.html#ipw">IPW</a>) are a Netflix Research area; specific applications to non-A/B-able decisions (pricing, content, regional rollouts) are not detailed in the canonical TechBlog posts.</li>
     </ul>
     <div class="impact"><b>How they handle impact</b>
-      Post-hoc <em>measurement</em>, not pre-build estimation — measures causal lift via controlled experiments, using <a class="j" href="jargon.html#sequential-testing">sequential testing</a> and <a class="j" href="jargon.html#cuped">CUPED</a>-style variance reduction to detect effects faster.</div>
+      Post-hoc <em>measurement</em> via A/B on the ABlaze platform. <a class="j" href="jargon.html#sequential-testing">Sequential testing</a> is published as the method for software canary deployments (2024 series); CUPED-style variance reduction is associated with Microsoft / LinkedIn rather than Netflix.</div>
     <div class="src"><span class="lbl">Source</span><a href="https://research.netflix.com/research-area/experimentation-and-causal-inference">Netflix Research — Experimentation</a><a href="https://netflixtechblog.com/sequential-a-b-testing-keeps-the-world-streaming-netflix-part-1-continuous-data-cba6c7ed49df">TechBlog — Sequential A/B testing</a></div>
   </div>
 
@@ -229,7 +228,7 @@
       <div class="stat"><div class="n">~25,000</div><div class="l">tests per year</div></div>
     </div>
     <div class="caveat">Numbers via HBR (Thomke 2020) — reputable, secondary-published.</div>
-    <div class="src"><span class="lbl">Source</span><a href="https://hbr.org/2020/03/building-a-culture-of-experimentation">HBR — Building a culture of experimentation</a><a href="https://www.researchgate.net/publication/320582817">Paper — Democratizing OCEs at Booking.com</a></div>
+    <div class="src"><span class="lbl">Source</span><a href="https://hbr.org/2020/03/building-a-culture-of-experimentation">HBR — Building a culture of experimentation</a><a href="https://arxiv.org/abs/1710.08217">arXiv — Democratizing OCEs at Booking.com</a></div>
   </div>
 
   <div class="co measure">

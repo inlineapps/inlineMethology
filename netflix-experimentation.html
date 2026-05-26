@@ -56,8 +56,7 @@
 <a href="pinterest-ab-framework.html">Pinterest</a>
 </div>
 <div class="navgrp"><h4>AI labs</h4>
-<a href="anthropic-side-quest-framework.html">Anthropic side quests</a>
-<a href="openai-iterative-deployment-framework.html">OpenAI iterative deployment</a>
+<a href="anthropic-pm-on-ai-exponential.html">Anthropic · PM on AI exponential</a>
 </div>
 <div class="navgrp"><h4>Written discipline</h4>
 <a href="stripe-shaping-framework.html">Stripe shaping</a>
@@ -70,8 +69,8 @@
   <header class="masthead">
     <p class="kicker">Methods · Deep-dive · Experimentation</p>
     <h1>Netflix — ABlaze, sequential testing, and causal inference for the unexperimentable <span class="srcyr">2016</span></h1>
-    <p class="sub">Netflix's published method: most product decisions ship behind a measured causal effect, run on a platform called <strong>ABlaze</strong> (first publicly described in the April 29, 2016 TechBlog post <em>"It's All A/Bout Testing"</em>).</p>
-    <p class="sub">Their distinct contribution to the field — <strong><a class="j" href="jargon.html#sequential-testing">sequential testing</a></strong> (read results continuously without inflating false positives) and <strong>causal inference</strong> for decisions where A/B is infeasible (content investments, pricing, regional rollouts).</p>
+    <p class="sub">Netflix's published method: <em>"every product change Netflix considers goes through a rigorous A/B testing process before becoming the default user experience"</em> — including UI, recommendations, playback, and (sometimes) the images for titles, where image A/B tests have produced <em>"20% to 30% more viewing"</em> on a given title. Their platform is called <strong>ABlaze</strong>, first publicly described in the April 29, 2016 TechBlog post <em>"It's All A/Bout Testing"</em>.</p>
+    <p class="sub">Two additional, narrower contributions are publicly documented: <strong><a class="j" href="jargon.html#sequential-testing">sequential testing</a></strong> (used for safe software-canary rollouts — the 2024 "Sequential A/B Testing Keeps the World Streaming" series, specifically for play-delay regression detection) and <strong>causal inference</strong> as a published <a class="cite" href="https://research.netflix.com/research-area/experimentation-and-causal-inference">research area</a> at Netflix (specific applications to content, pricing, or regional decisions are not detailed in either canonical TechBlog post).</p>
     <div class="goal"><span>Goal</span><br>Decide features by data-backed expected impact — choose by outcome, not by to-do list or opinion.</div>
   </header>
 
@@ -89,9 +88,9 @@
   </nav>
 
   <div class="finding" id="headline">
-    <h2>The honest headline: experimentation is the default, even where it's hard</h2>
-    <p>Netflix is famous for testing every UI change — but the more interesting claim is what they do <em>when an A/B test is infeasible</em>. You can't randomly assign half your subscribers to "Netflix without <em>Squid Game</em>" to measure its lift. Their answer: <b>quasi-experiments and causal machine learning</b> — interrupted time series, inverse-probability weighting, synthetic controls. The discipline ("nothing ships without a measured causal effect") survives even where the textbook A/B doesn't.</p>
-    <p>The reasoning rule is borrowed from <a class="cite" href="microsoft-exp-framework.html">Microsoft ExP</a>: declare the success metric, measure causally, ship/kill on the result. Netflix's contributions are the methods that make that rule applicable to <em>more decisions</em>.</p>
+    <h2>The honest headline: A/B is the default, and the platform is highly engineered</h2>
+    <p>The canonical 2016 TechBlog post is mostly about the <em>platform</em> — how ABlaze assigns members to cells, persists allocations through Cassandra + EVCache, publishes events via Kafka, and serves ~150K–450K requests per second with sub-millisecond cached lookups. The headline editorial claim is that <em>"every product change Netflix considers goes through a rigorous A/B testing process before becoming the default user experience"</em> — applied across UI, recommendations, playback, search, email, registration. Image-A/B is the most-quoted example because the effect sizes are striking (the post itself reports up to 20–30% more viewing for a title from an image change).</p>
+    <p>What's <em>not</em> in the 2016 post: causal-inference methods for non-A/B-able decisions. That's its own research area at Netflix Research and is in a separate (mostly academic) literature. The 2024 sequential-testing series is also narrower than its name suggests — it's specifically about software canary tests detecting play-delay regressions, not feature A/B in general.</p>
   </div>
 
   <!-- ANATOMY -->
@@ -101,18 +100,18 @@
   <div class="three">
     <div class="concept">
       <div class="ab">ABlaze</div>
-      <h3>The platform</h3>
-      <p>Internal experimentation platform — Netflix's name for the equivalent of Microsoft's ExP or LinkedIn's T-REX. Provides randomization, metric pipelines, dashboards.</p>
+      <h3>The platform (sourced in detail)</h3>
+      <p>Internal experimentation platform with batch and real-time allocation, <b>stratified sampling</b> for cell assignment, Cassandra-backed metadata + EVCache, Kafka event stream into Hive / Ignite / ElasticSearch. Architecture from 2010, ~150K–450K requests/sec at the time of the post.</p>
     </div>
     <div class="concept">
       <div class="ab">Sequential</div>
-      <h3>Sequential A/B testing</h3>
-      <p>Lets you peek at results <em>during</em> the experiment and stop early on clear winners/losers — without inflating false-positive rate. The win: faster ship-decisions; the cost: more complex statistics.</p>
+      <h3>Sequential testing (for software canaries)</h3>
+      <p>"Any-time valid" statistical tests that permit continuous peeking without inflating Type-I error. Per Netflix's 2024 series, the published use case is <b>software canary deployments</b> — detecting play-delay regressions in new client versions — not general feature A/B. References Howard &amp; Ramdas (2022) confidence sequences and Wald (1945).</p>
     </div>
     <div class="concept">
       <div class="ab">Causal</div>
-      <h3>Causal inference for non-A/B-able decisions</h3>
-      <p>For things you can't randomize (content slate, pricing changes, regional rollouts) Netflix uses interrupted time-series, IPW, <a class="j" href="jargon.html#double-ml">double-ML</a>. Result: a defensible <em>causal</em> estimate even without a clean experiment.</p>
+      <h3>Causal inference (research area)</h3>
+      <p>Netflix Research publishes work in causal inference (<a class="cite" href="https://research.netflix.com/research-area/experimentation-and-causal-inference">research-area page</a>) — interrupted time-series, inverse-probability weighting, <a class="j" href="jargon.html#double-ml">double-ML</a> — for situations where randomized assignment isn't possible. The specific applications (pricing, content, regional rollouts) are commonly assumed but not detailed in either canonical TechBlog post; treat as "research practice exists" rather than "this is how Netflix decides pricing."</p>
     </div>
   </div>
   <div class="src">Sources: <a class="cite" href="https://netflixtechblog.com/its-all-a-bout-testing-the-netflix-experimentation-platform-4e1ca458c15">Netflix TechBlog — "It's All A/Bout Testing: The Netflix Experimentation Platform" (April 29, 2016)</a> — the canonical ABlaze post · <a class="cite" href="https://research.netflix.com/research-area/experimentation-and-causal-inference">Netflix Research — Experimentation &amp; Causal Inference area</a> · <a class="cite" href="https://netflixtechblog.com/sequential-a-b-testing-keeps-the-world-streaming-netflix-part-1-continuous-data-cba6c7ed49df">TechBlog — "Sequential A/B Testing Keeps the World Streaming Netflix" (Part 1, continuous data)</a>.</div>
@@ -121,11 +120,11 @@
   <h2 class="sec" id="mechanism">How Netflix actually picks the work</h2>
   <p class="secsub">Same OEC-driven rule as Microsoft, applied through their own toolset. The interesting part is what happens <em>before</em> the test — they invest heavily in metric design and causal-design choices.</p>
 
-  <div class="step"><div class="num">1</div><div><h3>Decide whether this is A/B-able</h3><p>Most product changes (UI, recommendations, playback) are. Content investments and pricing typically aren't. The decision sets the methodology.</p></div></div>
-  <div class="step"><div class="num">2</div><div><h3>Pick the OEC and guardrails</h3><p>Netflix's headline metric is <em>retention</em> — but it's noisy and slow. Most experiments use proxy metrics with established correlation to retention (engagement, completion, session length) plus retention as the long-run check.</p></div></div>
-  <div class="step"><div class="num">3</div><div><h3>Choose the design — A/B, sequential, or quasi-experimental</h3><p>A/B for randomizable changes. Sequential when speed matters. Quasi-experiment when randomization isn't possible.</p></div></div>
-  <div class="step"><div class="num">4</div><div><h3>Run, monitor, decide</h3><p>The platform reads out the OEC. Sequential designs may stop early; classical designs run to pre-declared sample size.</p></div></div>
-  <div class="step"><div class="num">5</div><div><h3>Re-evaluate the metric model itself</h3><p>Netflix periodically re-tests which proxy metrics actually correlate with long-run retention — keeping the OEC honest over time. Most companies skip this; it's why their experiments stay trustworthy at scale.</p></div></div>
+  <div class="step"><div class="num">1</div><div><h3>Decide whether this is A/B-able</h3><p>Most product changes (UI, recommendations, playback) are. The 2016 post lists domains using ABlaze: <em>UI, Recommendations, Playback, Search, Email, Registration.</em></p></div></div>
+  <div class="step"><div class="num">2</div><div><h3>Pick the metric</h3><p>The 2016 post is explicit: <em>"typically (but not always) streaming hours and retention."</em> The page-level headline metric is retention; experiments often track proxy metrics that read out faster.</p></div></div>
+  <div class="step"><div class="num">3</div><div><h3>Allocate (batch or real-time) with stratified sampling</h3><p>Two allocation modes (batch = pre-resolved query; real-time = rules evaluated as user interacts). Stratified sampling ensures cells are homogeneous on country + device type so random allocation doesn't bias the comparison.</p></div></div>
+  <div class="step"><div class="num">4</div><div><h3>Run, monitor, decide via the platform</h3><p>ABlaze (the front-end) shows test schedules and results; Ignite is the internal analysis tool. Sequential-testing methodology (where applicable, e.g. canary tests) lets the decision happen earlier than a fixed end date.</p></div></div>
+  <div class="step"><div class="num">5</div><div><h3>Causal inference where A/B isn't possible</h3><p>Netflix Research's published practice for non-randomizable decisions. The methods exist; the published material does not show specific feature-decision walkthroughs for pricing / content / regional, so treat this step as "applies in principle" rather than "this is the documented workflow."</p></div></div>
 
   <!-- APPLY TO A SHEET -->
   <h2 class="sec" id="apply">Apply to a feature sheet</h2>
@@ -161,7 +160,8 @@
   <div class="note"><b>The transferable insight: experimentation isn't just A/B.</b> Most teams equate "experimentation" with "split-test the button colour." Netflix's contribution is showing that the <em>discipline</em> (causal estimate of expected impact) is portable to decisions that can't be randomized — by using time-series, regional, and quasi-experimental designs. That means even "non-A/B-able" items (a partnership integration, a one-off campaign, a pricing change) can still be evaluated causally with the right design.</div>
   <footer>
     Companion to <a href="impact-consumer-companies.html#measure">← Consumer case studies · Measure don't estimate</a> · <a href="methodologies-comparison.html">All methods compared</a> · sibling: <a href="microsoft-exp-framework.html">Microsoft ExP</a> (same discipline, different domain)<br>
-    <b>Grounded in</b> <a href="https://netflixtechblog.com/its-all-a-bout-testing-the-netflix-experimentation-platform-4e1ca458c15">Netflix TechBlog — "It's All A/Bout Testing: The Netflix Experimentation Platform" (April 29, 2016)</a>, the <a href="https://research.netflix.com/research-area/experimentation-and-causal-inference">Netflix Research Experimentation &amp; Causal Inference area</a>, and the <a href="https://netflixtechblog.com/sequential-a-b-testing-keeps-the-world-streaming-netflix-part-1-continuous-data-cba6c7ed49df">"Sequential A/B Testing Keeps the World Streaming Netflix"</a> series. <b>Verbatim from Netflix:</b> the "ABlaze" platform name and the published existence of sequential-testing and causal-inference methods. <b>Paraphrased:</b> the framing that "most product decisions are an experiment" (well-supported across Netflix posts but not a single literal quote), and the proxy-metric-to-retention chain (Netflix discusses this in talks; the specific phrasing here is our restatement). <b>Added by us, not in Netflix's posts:</b> the 8-row experiment-ledger worked example, the four-verdict logic (Promote / Iterate / Kill / Invalid), the in-page glossary, and the "Try it Monday" exercise.
+    <b>Grounded in</b> <a href="https://netflixtechblog.com/its-all-a-bout-testing-the-netflix-experimentation-platform-4e1ca458c15">Netflix TechBlog — "It's All A/Bout Testing: The Netflix Experimentation Platform" (Urban, Sreenivasan, Kannan — April 29, 2016)</a>, the <a href="https://research.netflix.com/research-area/experimentation-and-causal-inference">Netflix Research Experimentation &amp; Causal Inference area</a>, and the <a href="https://netflixtechblog.com/sequential-a-b-testing-keeps-the-world-streaming-netflix-part-1-continuous-data-cba6c7ed49df">"Sequential A/B Testing Keeps the World Streaming Netflix — Part 1: Continuous Data" (Lindon et al. — Feb 12, 2024)</a>. <b>Verbatim from Netflix:</b> the "ABlaze" platform name, the "every product change… goes through a rigorous A/B testing process" framing, the "20% to 30% more viewing" image-A/B figure, the listed domains (UI / Recommendations / Playback / Search / Email / Registration), the stratified-sampling and Cassandra / EVCache / Kafka / Spark architecture, and the canary-test framing for sequential testing. <b>Added by us, not in Netflix's posts:</b> the 8-row experiment-ledger worked example (clearly illustrative), the four-verdict logic (Promote / Iterate / Kill / Invalid), the in-page glossary, and the "Try it Monday" exercise.<br>
+    <em>Note: a 2026-05-26 rewrite tightened earlier framing that over-attributed causal-inference applications (pricing, content, regional rollouts) to the canonical 2016 ABlaze post — neither that post nor the 2024 sequential-testing series details those applications. Causal inference is established as a Netflix research area (per research.netflix.com); specific feature-decision workflows for pricing / content / regions are not in either fetched source. The Step #5 "re-evaluate the metric model" claim from the previous version is removed — it was not in the sources.</em>
   </footer>
 </div>
 </body>
