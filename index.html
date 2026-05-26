@@ -40,11 +40,13 @@
   .group .pill{font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:#fff;padding:3px 9px;border-radius:5px}
   .pill.s{background:var(--accent)}.pill.i{background:var(--teal)}
   .pill.e{background:var(--blue)}.pill.g{background:var(--gold)}.pill.q{background:var(--purple)}
+  .pill.ailab{background:#3a6859}
   .group .gdesc{color:var(--ink-soft);margin:2px 0 14px;font-size:14.5px}
   .pgs{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
   .pg{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--ink);border-radius:8px;padding:13px 16px;box-shadow:var(--shadow)}
   .pg.s{border-left-color:var(--accent)}.pg.i{border-left-color:var(--teal)}
   .pg.e{border-left-color:var(--blue)}.pg.g{border-left-color:var(--gold)}.pg.q{border-left-color:var(--purple)}
+  .pg.ailab{border-left-color:#3a6859}
   .pg a{color:var(--ink);text-decoration:none;font-weight:700;font-size:15.5px;display:block}
   .pg a:hover{color:var(--accent)}
   .pg .from{font-size:12.5px;color:var(--ink-soft);margin-top:3px;letter-spacing:.02em}
@@ -113,6 +115,10 @@
 <a href="lyft-experimentation.html">Lyft</a>
 <a href="pinterest-ab-framework.html">Pinterest</a>
 </div>
+<div class="navgrp"><h4>AI labs</h4>
+<a href="anthropic-side-quest-framework.html">Anthropic side quests</a>
+<a href="openai-iterative-deployment-framework.html">OpenAI iterative deployment</a>
+</div>
 <div class="navgrp"><h4>Written discipline</h4>
 <a href="stripe-shaping-framework.html">Stripe shaping</a>
 </div>
@@ -145,7 +151,7 @@
       <div class="n">2</div>
       <h3>Methods deep-dive</h3>
       <p>Each method gets its own page — what it is, how it works, where the evidence comes from. Click any company in the field studies, or jump from the comparison table.</p>
-      <p style="margin-top:8px"><a href="methodologies-comparison.html">All 19 methods compared →</a></p>
+      <p style="margin-top:8px"><a href="methodologies-comparison.html">All 20 methods compared →</a></p>
     </div>
     <div class="step">
       <div class="n">3</div>
@@ -156,7 +162,7 @@
   </div>
 
   <div class="keyshelf">
-    <b>Shortcut for reviewers who want to skim:</b> &nbsp;The <a href="methodologies-comparison.html">19-method comparison table</a> is the single most useful page — it lays out every method side-by-side with what each does, what it doesn't do, and where the evidence comes from. From there, click into the deep-dives for whatever looks promising.
+    <b>Shortcut for reviewers who want to skim:</b> &nbsp;The <a href="methodologies-comparison.html">20-method comparison table</a> is the single most useful page — it lays out every method side-by-side with what each does, what it doesn't do, and where the evidence comes from. From there, click into the deep-dives for whatever looks promising.
   </div>
 
   <h2 class="sec">All pages, by category</h2>
@@ -214,10 +220,19 @@
     </div>
   </div>
 
+  <div class="group">
+    <h3><span class="pill ailab">AI Labs</span> Capability-led, no published pre-build score</h3>
+    <p class="gdesc">Neither lab has published a feature-<em>ranking</em> method. What they have published is the <em>shipping</em> half of the loop — and at opposite ends: Anthropic builds first &amp; lets internal engagement decide; OpenAI ladders capabilities through safety-gated release rings. Useful as a pair, not as a substitute for upstream prioritisation.</p>
+    <div class="pgs">
+      <div class="pg ailab"><a href="anthropic-side-quest-framework.html">Side quests · prototype-first loop</a><div class="from">From: Anthropic (Claude Code)</div><div class="what">No PRDs, no roadmap. Build in an afternoon, ship internally, promote what gets used.</div></div>
+      <div class="pg ailab"><a href="openai-iterative-deployment-framework.html">Iterative deployment · scope ladder</a><div class="from">From: OpenAI</div><div class="what">Widening release rings gated by the Preparedness Framework's safety tiers (High / Critical).</div></div>
+    </div>
+  </div>
+
   <h2 class="sec">Background reading</h2>
   <p class="secsub">Two foundational pages that aren't methods themselves but help interpret the rest.</p>
   <div class="pgs" style="grid-template-columns:1fr 1fr">
-    <div class="pg" style="border-left-color:var(--ink-soft)"><a href="methodologies-comparison.html">All 19 methods compared — side-by-side</a><div class="what">9-column table: what each method decides, what it doesn't do, where it's from, where the evidence is. The most useful single page for reviewers.</div></div>
+    <div class="pg" style="border-left-color:var(--ink-soft)"><a href="methodologies-comparison.html">All 20 methods compared — side-by-side</a><div class="what">9-column table: what each method decides, what it doesn't do, where it's from, where the evidence is. The most useful single page for reviewers.</div></div>
     <div class="pg" style="border-left-color:var(--ink-soft)"><a href="experiment-trustworthiness.html">How "40,000 tests a day" actually works</a><div class="what">Grounded answer to the obvious skepticism about high-volume experimentation. Covers interference (Google KDD 2010), duration, variance.</div></div>
   </div>
 

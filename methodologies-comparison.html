@@ -38,6 +38,7 @@
   .tag{font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:5px 11px;border-radius:6px;color:#fff;white-space:nowrap}
   .tag.scoring{background:var(--accent)} .tag.input{background:var(--purple)}
   .tag.experiment{background:var(--blue)} .tag.goal{background:var(--gold)} .tag.qual{background:var(--teal)} .tag.define{background:var(--gold)}
+  .tag.ailab{background:#3a6859}
   .tag.saas{background:var(--ink);color:#f3efe6}
   .tag.consumer{background:#7a8aa3;color:#fff}
   /* The big table */
@@ -63,6 +64,7 @@
   .catsec.experiment{border-left:5px solid var(--blue)}
   .catsec.goal{border-left:5px solid var(--gold)}
   .catsec.qual{border-left:5px solid var(--teal)}
+  .catsec.ailab{border-left:5px solid #3a6859}
   .catsec h3{margin:0 0 8px;font-family:Georgia,serif;font-size:18px}
   .catsec p{margin:0 0 6px;font-size:14px;color:var(--ink-soft);line-height:1.55}
   .catsec ul{margin:8px 0 0;padding-left:20px;font-size:13.5px;color:var(--ink-soft)}
@@ -138,6 +140,10 @@
 <a href="lyft-experimentation.html">Lyft</a>
 <a href="pinterest-ab-framework.html">Pinterest</a>
 </div>
+<div class="navgrp"><h4>AI labs</h4>
+<a href="anthropic-side-quest-framework.html">Anthropic side quests</a>
+<a href="openai-iterative-deployment-framework.html">OpenAI iterative deployment</a>
+</div>
 <div class="navgrp"><h4>Written discipline</h4>
 <a href="stripe-shaping-framework.html">Stripe shaping</a>
 </div>
@@ -147,23 +153,23 @@
 
 <div class="wrap">
   <header class="masthead">
-    <p class="kicker">Methods · Side-by-side comparison · All 19</p>
+    <p class="kicker">Methods · Side-by-side comparison · All 20</p>
     <h1>All Methodologies Compared — SaaS &amp; Consumer, side-by-side</h1>
-    <p class="sub">Nineteen real product-decision methods from documented companies. Two case-study lists (<strong>SaaS</strong> &amp; <strong>Consumer</strong>) collapsed into one table so we can pick what to adopt or mix. Each row links to its full deep-dive. Each claim about <em>what a method does</em> traces back to that company's own published source.</p>
+    <p class="sub">Twenty real product-decision methods from documented companies. Two case-study lists (<strong>SaaS</strong> &amp; <strong>Consumer</strong>) collapsed into one table so we can pick what to adopt or mix. Each row links to its full deep-dive. Each claim about <em>what a method does</em> traces back to that company's own published source.</p>
     <div class="goal"><span>Goal</span><br>Decide features by data-backed expected impact — choose by outcome, not by to-do list or opinion.</div>
   </header>
 
   <nav class="toc">
     <a href="#headline">How to read</a>
     <a href="#table">The big table</a>
-    <a href="#cats">Five categories explained</a>
+    <a href="#cats">Six categories explained</a>
     <a href="#stacks">Three coherent stacks</a>
     <a href="index.html" style="color:var(--blue);font-weight:700">← Home</a>
   </nav>
 
   <div class="finding" id="headline">
     <h2>How to read this — and the one thing it makes obvious</h2>
-    <p>The methods sort into <b>five categories</b>: <span class="tag scoring">Scoring</span> <span class="tag input">Input modeling</span> <span class="tag experiment">Experimentation</span> <span class="tag goal">Goal-laddering / Define-first</span> <span class="tag qual">Written discipline</span>. <b>None of them is sufficient alone.</b> Scoring without a goal is theatre; experimentation without a metric is noise; goal-laddering without scoring is alignment but no priority.</p>
+    <p>The methods sort into <b>six categories</b>: <span class="tag scoring">Scoring</span> <span class="tag input">Input modeling</span> <span class="tag experiment">Experimentation</span> <span class="tag goal">Goal-laddering / Define-first</span> <span class="tag qual">Written discipline</span> <span class="tag ailab">AI lab</span>. <b>None of them is sufficient alone.</b> Scoring without a goal is theatre; experimentation without a metric is noise; goal-laddering without scoring is alignment but no priority.</p>
     <p>The point of the table is to make the gaps obvious — <em>which jobs does each method actually do, and which does it leave to a partner method?</em> Real teams stack 2–3 methods that cover all the jobs. The "<a href="#stacks" style="color:#9bc7ef">three coherent stacks</a>" section below shows three viable combinations to compare and choose between.</p>
   </div>
 
@@ -176,10 +182,11 @@
     <span class="tag experiment">Experimentation</span>
     <span class="tag goal">Goal / Define-first</span>
     <span class="tag qual">Written discipline</span>
+    <span class="tag ailab">AI lab</span>
   </div>
 
   <!-- THE BIG TABLE -->
-  <h2 class="sec" id="table">The big table — 19 methods, 9 columns</h2>
+  <h2 class="sec" id="table">The big table — 20 methods, 9 columns</h2>
   <p class="secsub">Scroll right on mobile. The <em>What it doesn't do</em> column is the most useful one — it reveals what you have to pair the method with.</p>
 
   <div class="tblwrap">
@@ -407,13 +414,37 @@
           <td class="method"><a href="stripe-shaping-framework.html">Stripe →</a></td>
         </tr>
 
+        <!-- AI LABS -->
+        <tr>
+          <td class="method">Side quests<div class="from">Anthropic (Claude Code)</div><div class="badges"><span class="tag saas">SaaS</span></div></td>
+          <td><span class="tag ailab">AI lab</span></td>
+          <td>Cat Wu — claude.com blog (Mar 2026)</td>
+          <td>Prototype-first loop: build in an afternoon, ship internally, let engagement decide promote / iterate / drop.</td>
+          <td class="not">Rank features pre-build. Provide a score. Handle non-dogfood-able work.</td>
+          <td>AI-native product teams whose staff are the target user; fast-moving capability-led products.</td>
+          <td class="cost low">Low (per quest)</td>
+          <td>1st-party</td>
+          <td class="method"><a href="anthropic-side-quest-framework.html">Anthropic →</a></td>
+        </tr>
+        <tr>
+          <td class="method">Iterative deployment<div class="from">OpenAI</div><div class="badges"><span class="tag consumer">Consumer</span></div></td>
+          <td><span class="tag ailab">AI lab</span></td>
+          <td>Planning for AGI &amp; Beyond · Preparedness Framework v2 · system cards</td>
+          <td>Widening release rings (Internal → Preview → Limited → Broad → Embedded) with a Preparedness safety gate between each.</td>
+          <td class="not">Decide which capability to build. Replace a feature-prioritisation method upstream.</td>
+          <td>Release discipline for capabilities with real-world risk surface; staged rollouts with a documented rollback path.</td>
+          <td class="cost high">High (safety org)</td>
+          <td>1st-party</td>
+          <td class="method"><a href="openai-iterative-deployment-framework.html">OpenAI →</a></td>
+        </tr>
+
       </tbody>
     </table>
   </div>
 
   <!-- CATEGORIES -->
-  <h2 class="sec" id="cats">The five categories — what each does, what it leaves out</h2>
-  <p class="secsub">Re-organising the table by category, so you can see which jobs each kind of method actually does. A complete stack covers all five (or deliberately skips one and admits it).</p>
+  <h2 class="sec" id="cats">The six categories — what each does, what it leaves out</h2>
+  <p class="secsub">Re-organising the table by category, so you can see which jobs each kind of method actually does. A complete stack covers all six (or deliberately skips one and admits it).</p>
 
   <div class="catsec scoring">
     <h3><span class="tag scoring">Scoring</span> — turn many candidates into a coarse ranking</h3>
@@ -445,9 +476,15 @@
     <p><b>What it doesn't do:</b> produce a number, or operate without an existing writing culture. The honest "no scoring formula" exemplar — included to make explicit that successful companies sometimes skip scoring deliberately.</p>
   </div>
 
+  <div class="catsec ailab">
+    <h3><span class="tag ailab">AI lab</span> — capability-led, no published pre-build score</h3>
+    <p>Methods: <a href="anthropic-side-quest-framework.html">Anthropic side quests</a>, <a href="openai-iterative-deployment-framework.html">OpenAI iterative deployment</a>. <b>What they do:</b> Anthropic prototypes side quests and lets internal-dogfood engagement decide promotion; OpenAI ladders capabilities through widening release rings with a Preparedness-Framework safety gate between each.</p>
+    <p><b>What they don't do:</b> rank or score features pre-build. Anthropic deliberately doesn't; OpenAI hasn't published one. Useful as <em>shipping disciplines</em>, not as prioritisation. Pair with Scoring or Define-first for the upstream "which one to build" decision.</p>
+  </div>
+
   <!-- COHERENT STACKS -->
   <h2 class="sec" id="stacks">Three coherent stacks you could actually adopt</h2>
-  <p class="secsub">Nineteen methods is overwhelming; you only need 3–4 that cover the bases. Here are three "complete" stacks — each picks one method per job, sourced from companies that actually use them together.</p>
+  <p class="secsub">Twenty methods is overwhelming; you only need 3–4 that cover the bases. Here are three "complete" stacks — each picks one method per job, sourced from companies that actually use them together.</p>
 
   <div class="stackrow">
     <div class="stack">

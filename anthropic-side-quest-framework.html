@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anthropic side quests — prototype-first, engagement-gated</title>
+<style>
+  :root{
+    --ink:#1c2230; --ink-soft:#465065; --line:#e3ddd0; --paper:#faf7f0;
+    --card:#ffffff; --accent:#b5482e; --accent-soft:#fbeae4;
+    --gold:#9a7b2e; --gold-soft:#f6efdc; --teal:#1f6f6b; --teal-soft:#e2f0ee;
+    --blue:#2d4a7c; --blue-soft:#e6ecf6; --purple:#5b3b78; --purple-soft:#efe6f6;
+    --shadow:0 1px 2px rgba(28,34,48,.06),0 8px 24px rgba(28,34,48,.06);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.62;font-size:16px;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:960px;margin:0 auto;padding:0 24px 96px}
+  header.masthead{border-bottom:3px solid var(--ink);margin-bottom:8px;padding:48px 0 22px}
+  .kicker{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--teal);font-weight:700;margin:0 0 10px}
+  h1{font-family:Georgia,"Times New Roman",serif;font-size:40px;line-height:1.08;margin:0 0 12px;letter-spacing:-.01em}
+  .sub{color:var(--ink-soft);margin:0;max-width:66ch}
+  .goal{margin-top:18px;background:var(--teal-soft);border:1px solid #bcdcd8;border-left:5px solid var(--teal);border-radius:10px;padding:13px 18px;font-size:15px}
+  .goal span{color:var(--teal);text-transform:uppercase;letter-spacing:.08em;font-size:11px;font-weight:800}
+  nav.toc{position:sticky;top:0;background:rgba(250,247,240,.92);backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);padding:12px 0;margin-bottom:34px;z-index:5;font-size:14px}
+  nav.toc a{color:var(--ink-soft);text-decoration:none;margin-right:16px;white-space:nowrap}
+  nav.toc a:hover{color:var(--teal)}
+  .finding{background:var(--ink);color:#f3efe6;border-radius:14px;padding:24px 28px;margin:0 0 36px;box-shadow:var(--shadow)}
+  .finding h2{color:#fff;margin:0 0 8px;font-family:Georgia,serif;font-size:21px}
+  .finding p{margin:0 0 10px;color:#cfc9bb}
+  .finding p:last-child{margin:0}
+  .finding b{color:#a7d4cf}
+  h2.sec{font-family:Georgia,serif;font-size:26px;margin:40px 0 6px;padding-top:18px;border-top:2px solid var(--line)}
+  .secsub{color:var(--ink-soft);font-size:14.5px;margin:0 0 18px;max-width:68ch}
+  p{margin:0 0 14px}
+
+  /* THE LOOP RIBBON — Anthropic's signature visual */
+  .loop{margin:18px 0;padding:24px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);overflow-x:auto}
+  .loopflow{display:grid;grid-template-columns:repeat(5,1fr) auto;gap:0;align-items:stretch;min-width:760px}
+  .lstep{background:var(--teal-soft);border:1px solid #bcdcd8;border-radius:10px;padding:14px 12px;position:relative;text-align:center;border-left:4px solid var(--teal)}
+  .lstep .stage{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin:0 0 4px}
+  .lstep h3{margin:0 0 6px;font-family:Georgia,serif;font-size:15px;color:var(--ink);line-height:1.2}
+  .lstep p{margin:0;font-size:12px;color:var(--ink-soft);line-height:1.4}
+  .larrow{align-self:center;color:var(--teal);font-size:24px;padding:0 4px;font-weight:700;line-height:1}
+  .lreturn{margin-top:14px;text-align:center;color:var(--teal);font-size:12.5px;font-style:italic;letter-spacing:.04em}
+  .lreturn::before{content:"↻  "}
+
+  /* CADENCE — the speed numbers */
+  .cadence{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:18px 0}
+  .num{background:#fff;border:1px solid var(--line);border-left:5px solid var(--teal);border-radius:10px;padding:18px 20px;box-shadow:var(--shadow)}
+  .num .big{font-family:Georgia,serif;font-size:30px;font-weight:700;color:var(--teal);line-height:1;margin:0 0 4px}
+  .num .lbl{font-size:13.5px;color:var(--ink);font-weight:700;margin:0 0 4px}
+  .num .src{font-size:12px;color:var(--ink-soft);margin:0}
+
+  /* CONTRAST — what gets thrown out */
+  .contrast{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+  .col{background:#fff;border:1px solid var(--line);border-radius:10px;padding:18px 20px;box-shadow:var(--shadow)}
+  .col.old{border-top:4px solid var(--accent)}
+  .col.new{border-top:4px solid var(--teal)}
+  .col h3{margin:0 0 8px;font-family:Georgia,serif;font-size:16px}
+  .col.old h3{color:var(--accent)} .col.new h3{color:var(--teal)}
+  .col ul{margin:6px 0 0;padding-left:18px;font-size:13.5px;color:var(--ink-soft)}
+  .col li{margin:5px 0}
+
+  /* SHEET TABLE */
+  .extable{margin:14px 0;overflow-x:auto}
+  table.ex{border-collapse:collapse;width:100%;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:13px}
+  table.ex thead th{background:var(--teal);color:#fff;padding:10px 11px;text-align:left;font-size:11px;letter-spacing:.05em;text-transform:uppercase}
+  table.ex tbody td{padding:10px 11px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.5}
+  table.ex tbody tr:last-child td{border-bottom:none}
+  table.ex tbody tr:hover{background:#f6f4ee}
+  table.ex td.score{font-weight:700;font-family:Georgia,serif}
+  table.ex tr.top td{background:var(--teal-soft)} table.ex tr.top td.score{color:var(--teal)}
+
+  /* warn / note */
+  .warn{background:#f7e9d6;border-left:4px solid #c97f1a;border-radius:8px;padding:14px 18px;margin:18px 0;font-size:14.5px;color:#5b3b08}
+  .warn b{color:#9a4e08}
+  .note{background:var(--blue-soft);border-left:4px solid var(--blue);border-radius:8px;padding:14px 18px;margin:18px 0;font-size:14.5px}
+  .note b{color:var(--blue)}
+  .src{font-size:13px;color:var(--ink-soft);margin-top:10px}
+  a.cite{color:var(--teal);text-decoration:none;border-bottom:1px solid var(--teal)}
+  a.cite:hover{color:var(--accent);border-color:var(--accent)}
+  blockquote{margin:14px 0;padding:12px 18px;border-left:3px solid var(--teal);background:var(--teal-soft);font-style:italic;color:var(--ink);font-size:15px;border-radius:0 8px 8px 0}
+  blockquote .cred{display:block;margin-top:6px;font-style:normal;font-size:12.5px;color:var(--ink-soft);letter-spacing:.02em}
+
+  footer{border-top:1px solid var(--line);padding-top:20px;color:var(--ink-soft);font-size:13px;margin-top:44px}
+  footer a{color:var(--teal)}
+  @media(max-width:680px){h1{font-size:30px}.cadence,.contrast{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav class="sitenav">
+<style>
+  .sitenav{position:fixed;top:12px;right:16px;z-index:100;font-size:13px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  .sitenav details{background:#1c2230;color:#f3efe6;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.22)}
+  .sitenav summary{list-style:none;cursor:pointer;padding:8px 14px;font-weight:700;letter-spacing:.04em;user-select:none}
+  .sitenav summary::-webkit-details-marker{display:none}
+  .sitenav summary::after{content:" \25BE";color:#cfc9bb;font-size:10px;margin-left:2px}
+  .sitenav details[open] summary::after{content:" \25B4"}
+  .sitenav .navmenu{position:absolute;top:calc(100% + 6px);right:0;background:#fff;color:#1c2230;border:1px solid #e3ddd0;border-radius:10px;padding:16px 18px;box-shadow:0 8px 28px rgba(28,34,48,.22);display:grid;grid-template-columns:repeat(2,minmax(180px,1fr));gap:14px 26px;min-width:400px;max-width:92vw;max-height:80vh;overflow-y:auto}
+  .sitenav .navgrp h4{margin:0 0 5px;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:#465065;font-weight:700;border-bottom:1px solid #e3ddd0;padding-bottom:4px}
+  .sitenav .navgrp a{display:block;color:#1c2230;text-decoration:none;font-size:13px;padding:2px 0;line-height:1.5}
+  .sitenav .navgrp a:hover{color:#b5482e}
+  .sitenav .navgrp a.cur{font-weight:700;color:#b5482e}
+  @media(max-width:600px){.sitenav .navmenu{grid-template-columns:1fr;min-width:240px;max-width:88vw}.sitenav{top:8px;right:8px}}
+</style>
+<details>
+<summary>📑 Jump to</summary>
+<div class="navmenu">
+<div class="navgrp"><h4>Start here</h4>
+<a href="index.html"><b>← Home (goal &amp; map)</b></a>
+<a href="impact-saas-companies.html">SaaS / B2B field study</a>
+<a href="impact-consumer-companies.html">Consumer-tech field study</a>
+<a href="methodologies-comparison.html"><b>All methods compared →</b></a>
+<a href="experiment-trustworthiness.html">How 40k tests actually work →</a>
+</div>
+<div class="navgrp"><h4>Scoring &amp; Input modeling</h4>
+<a href="rice-framework.html">RICE (Intercom)</a>
+<a href="north-star-framework.html">North Star (Amplitude / Slack)</a>
+</div>
+<div class="navgrp"><h4>Goal-laddering / Define first</h4>
+<a href="v2mom-framework.html">V2MOM (Salesforce)</a>
+<a href="pyramid-of-clarity-framework.html">Pyramid of Clarity (Asana)</a>
+<a href="pr-faq-framework.html">PR-FAQ / Working Backwards (Amazon)</a>
+<a href="heart-framework.html">HEART (Google)</a>
+<a href="dibb-framework.html">DIBB (Spotify)</a>
+</div>
+<div class="navgrp"><h4>Experimentation (SaaS)</h4>
+<a href="microsoft-exp-framework.html">Microsoft ExP / CUPED</a>
+<a href="linkedin-xlnt-framework.html">LinkedIn T-REX</a>
+</div>
+<div class="navgrp"><h4>Experimentation (Consumer)</h4>
+<a href="netflix-experimentation.html">Netflix · ABlaze</a>
+<a href="booking-experimentation.html">Booking.com</a>
+<a href="airbnb-erf-framework.html">Airbnb ERF</a>
+<a href="uber-xp-framework.html">Uber XP</a>
+<a href="doordash-switchback-framework.html">DoorDash switchback</a>
+<a href="lyft-experimentation.html">Lyft</a>
+<a href="pinterest-ab-framework.html">Pinterest</a>
+</div>
+<div class="navgrp"><h4>AI labs</h4>
+<a class="cur" href="anthropic-side-quest-framework.html">Anthropic side quests</a>
+<a href="openai-iterative-deployment-framework.html">OpenAI iterative deployment</a>
+</div>
+<div class="navgrp"><h4>Written discipline</h4>
+<a href="stripe-shaping-framework.html">Stripe shaping</a>
+</div>
+</div>
+</details>
+</nav>
+
+<div class="wrap">
+  <header class="masthead">
+    <p class="kicker">Methods · Deep-dive · AI-lab process (Anthropic)</p>
+    <h1>Anthropic side quests — prototype first, let engagement decide</h1>
+    <p class="sub">Anthropic's published product approach is, deliberately, <em>not</em> a ranking method. There is no score, no PRD, no quarterly stack-rank. Features are built as <strong>"side quests"</strong> — afternoon prototypes shipped inside the company; the ones that get used get promoted. The judgement is downstream, not upstream.</p>
+    <div class="goal"><span>Goal</span><br>Decide what to ship by <em>seeing what works in real use</em>, not by scoring what might.</div>
+  </header>
+
+  <nav class="toc">
+    <a href="#headline">Honest headline</a>
+    <a href="#loop">The loop</a>
+    <a href="#cadence">The cadence numbers</a>
+    <a href="#contrast">What it throws out</a>
+    <a href="#example">Worked example</a>
+    <a href="#apply">Apply to a sheet</a>
+    <a href="#limits">Where it breaks</a>
+    <a href="methodologies-comparison.html" style="color:var(--teal);font-weight:700">Comparison table →</a>
+  </nav>
+
+  <div class="finding" id="headline">
+    <h2>The honest headline: this is an anti-method, on purpose</h2>
+    <p>Most pages on this site describe a <em>framework</em> with explicit columns or formulas. The Anthropic one doesn't, and the head of product for Claude Code says so directly. The mechanism is: prototype on company time, ship it inside the building, watch what people use, and promote that. <b>Engagement is the score; the prototype is the spec.</b></p>
+    <p>What makes this work — and what makes it hard to copy — is that the prototype-to-internal-ship loop has been compressed to hours, not weeks. The cost of a wrong bet is "an afternoon," so the team can afford to make the bet without ranking it first. That cost structure is the load-bearing assumption.</p>
+  </div>
+
+  <!-- LOOP -->
+  <h2 class="sec" id="loop">The loop — five stages, run continuously</h2>
+  <p class="secsub">No roadmap, no quarterly planning. A side quest enters the loop, runs once, and exits with one of three verdicts: <strong>promote</strong>, <strong>iterate</strong>, or <strong>drop</strong>. Many run in parallel; the loop never stops.</p>
+
+  <div class="loop">
+    <div class="loopflow">
+      <div class="lstep"><p class="stage">1 · Pick</p><h3>Idea, sized to an afternoon</h3><p>Self-directed; off the official roadmap. If it can't be prototyped in a day, re-shape it.</p></div>
+      <div class="larrow">→</div>
+      <div class="lstep"><p class="stage">2 · Build</p><h3>Prototype with the model itself</h3><p>Claude Code writes most of the code. The PM does the prototyping. Capability first, costs later.</p></div>
+      <div class="larrow">→</div>
+      <div class="lstep"><p class="stage">3 · Ship internal</p><h3>Dogfood to the company</h3><p>Posted in an internal launch channel — no review gate, no PRD. Anyone at Anthropic can try it.</p></div>
+      <div class="larrow">→</div>
+      <div class="lstep"><p class="stage">4 · Watch</p><h3>Engagement is the signal</h3><p>Who actually uses it. Qualitative reactions. Usage telemetry. No pre-declared OEC — the signal is "are people coming back?"</p></div>
+      <div class="larrow">→</div>
+      <div class="lstep"><p class="stage">5 · Decide</p><h3>Promote, iterate, or drop</h3><p>Real engagement → polish &amp; ship externally. Mixed → keep prototyping. None → drop, no post-mortem.</p></div>
+    </div>
+    <div class="lreturn">Loop is continuous — the next side quest is already in stage 1 while this one is in stage 4.</div>
+  </div>
+
+  <blockquote>"A side quest is a short self-directed experiment you run outside your official roadmap… The ones with real engagement get polished and shared more broadly. Because you can prototype in an afternoon, wrong bets are cheap."<span class="cred">— Cat Wu, Head of Product for Claude Code, <a class="cite" href="https://claude.com/blog/product-management-on-the-ai-exponential">"Product management on the AI exponential"</a> (Mar 19, 2026)</span></blockquote>
+
+  <!-- CADENCE -->
+  <h2 class="sec" id="cadence">The cadence — what makes the loop affordable</h2>
+  <p class="secsub">The load-bearing claim is speed: if a wrong bet costs an afternoon, you don't need to rank before building. These are the numbers Anthropic has publicly disclosed.</p>
+
+  <div class="cadence">
+    <div class="num">
+      <p class="big">~ afternoon</p>
+      <p class="lbl">Idea → working prototype</p>
+      <p class="src">PMs prototype with Claude Code directly; the model writes most of the implementation.</p>
+    </div>
+    <div class="num">
+      <p class="big">days, not months</p>
+      <p class="lbl">Internal ship → external release</p>
+      <p class="src">Shipping cadence reportedly moved from multi-month release cycles to weekly / daily updates.</p>
+    </div>
+    <div class="num">
+      <p class="big">engineers &gt; PMs</p>
+      <p class="lbl">Hiring shape</p>
+      <p class="src">Hire engineers with product taste rather than scale PM headcount — fewer coordination layers, more shipping.</p>
+    </div>
+  </div>
+  <div class="src">Source: Cat Wu interview on Lenny's Podcast (Apr 2026); claude.com PM blog post; <a class="cite" href="https://github.com/anthropics/knowledge-work-plugins/tree/main/product-management">anthropics/knowledge-work-plugins · product-management</a> (the public PM plugin codifying these workflows for Claude Code).</div>
+
+  <!-- CONTRAST -->
+  <h2 class="sec" id="contrast">What this approach explicitly throws out</h2>
+  <p class="secsub">The Anthropic post is unusual in being directly anti-something. Worth listing what's missing so the reader can decide if those things mattered.</p>
+
+  <div class="contrast">
+    <div class="col old">
+      <h3>The traditional PM stack — discarded</h3>
+      <ul>
+        <li>PRDs / written specs ahead of build</li>
+        <li>Quarterly roadmap stack-rank</li>
+        <li>Scoring formulas (RICE, ICE, weighted)</li>
+        <li>Pre-build impact estimation</li>
+        <li>Kill criteria written before the test</li>
+        <li>Cost-per-token optimisation early in build</li>
+      </ul>
+    </div>
+    <div class="col new">
+      <h3>What it kept (or built in their place)</h3>
+      <ul>
+        <li>Prototype-first ("demos over docs")</li>
+        <li>Side-quest queue, refreshed continuously</li>
+        <li>Engagement signal from internal dogfood</li>
+        <li>"Capability first" — over-spend tokens, optimise later</li>
+        <li>"Do the simple thing that works" — newer models will close the gap</li>
+        <li>Re-test old prototypes when a new model drops</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- EXAMPLE -->
+  <h2 class="sec" id="example">Worked example — features that started as side quests</h2>
+  <div class="warn">
+    <b>What's sourced and what isn't.</b> The three named-and-sourced features below are explicitly called out in Cat Wu's post as side-quest origins. The "didn't promote" rows in the sheet section are <em>illustrative</em> — they're not in the post (Anthropic doesn't publish kill lists) and are labeled as such.
+  </div>
+
+  <ul style="font-size:14.5px;color:var(--ink-soft);line-height:1.7">
+    <li><b>Claude Code on Desktop</b> — started as a side quest by an engineer who wanted Claude available outside the terminal. Promoted after internal usage grew.</li>
+    <li><b>AskUserQuestion tool</b> — the structured-question primitive Claude Code uses to clarify ambiguous instructions. Built as a side-quest experiment, kept because the engagement was real.</li>
+    <li><b>Todo lists</b> — the in-context task tracker now embedded in Claude Code's loop. Same origin pattern.</li>
+  </ul>
+  <p class="src">Source: <a class="cite" href="https://claude.com/blog/product-management-on-the-ai-exponential">Cat Wu — "Product management on the AI exponential"</a>, March 19, 2026.</p>
+
+  <!-- APPLY TO A SHEET -->
+  <h2 class="sec" id="apply">Apply to a feature sheet</h2>
+  <p class="secsub">The "sheet" for this method isn't a backlog — it's a <strong>side-quest leaderboard</strong>. Rows aren't ranked by a score; they're tracked by where they are in the loop and what the engagement signal looks like. The decision rule is downstream of usage, not upstream of build.</p>
+
+  <div class="extable">
+    <table class="ex">
+      <thead><tr><th>Column to add</th><th>What it captures</th><th>How you fill it</th></tr></thead>
+      <tbody>
+        <tr><td>Side quest</td><td>The thing being prototyped</td><td>One-line title — no spec, no PRD</td></tr>
+        <tr><td>Sized at</td><td>How long to first prototype</td><td>Hours / 1 day / 2-3 days — if more, re-shape smaller</td></tr>
+        <tr><td>Shipped internal?</td><td>Posted in internal launch channel</td><td>Date / N — gates the engagement signal</td></tr>
+        <tr><td>Who's using it</td><td>Internal users that came back &gt; once</td><td>Count + team names (qualitative)</td></tr>
+        <tr><td>Engagement signal</td><td>"Real engagement," "mixed," or "none"</td><td>Hand-graded from telemetry + reactions — no numeric OEC</td></tr>
+        <tr><td>Capability ceiling</td><td>What the current model can't yet do for this feature</td><td>Free text — re-tested when next model drops</td></tr>
+        <tr><td>Simple-thing version?</td><td>Built the simplest implementation that works?</td><td>Y / N — favours adaptability over cleverness</td></tr>
+        <tr><td>Verdict</td><td>The decision</td><td>Promote / Iterate / Drop / Park (re-try on next model)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 style="font-family:Georgia,serif;font-size:18px;margin:24px 0 8px">Worked example — a side-quest leaderboard snapshot</h3>
+  <p style="font-size:13.5px;color:var(--ink-soft);margin:0 0 12px">Eight in-flight side quests at a Claude-Code-style team. The first three are the publicly-named ones from Cat Wu's post; the rest are <em>illustrative</em> shapes (clearly labelled) showing the verdict mix. The point is that most prototypes drop or park — the few that promote are obvious from the engagement signal alone.</p>
+
+  <div class="extable">
+    <table class="ex">
+      <thead><tr><th>Side quest</th><th>Sized</th><th>Shipped internal</th><th>Who's using it</th><th>Engagement</th><th>Simple-thing?</th><th>Verdict</th></tr></thead>
+      <tbody>
+        <tr class="top"><td>Claude on the Desktop</td><td>~1 day</td><td>Yes</td><td>Eng + research, daily</td><td>Real — stuck</td><td>Y</td><td class="score">Promote</td></tr>
+        <tr class="top"><td>AskUserQuestion tool</td><td>~1 day</td><td>Yes</td><td>Whole product team, embedded</td><td>Real — model uses it itself</td><td>Y</td><td class="score">Promote</td></tr>
+        <tr class="top"><td>In-context todo lists</td><td>~½ day</td><td>Yes</td><td>Every Claude Code session</td><td>Real — visible in agent traces</td><td>Y</td><td class="score">Promote</td></tr>
+        <tr><td><em>illustrative:</em> auto-summary panel</td><td>2 days</td><td>Yes</td><td>~6 PMs, dropped off after week 2</td><td>Mixed — novelty</td><td>Y</td><td class="score" style="color:var(--gold)">Iterate</td></tr>
+        <tr><td><em>illustrative:</em> "explain this PR" button</td><td>1 day</td><td>Yes</td><td>Code review channel, sporadic</td><td>Mixed — used when remembered</td><td>Y</td><td class="score" style="color:var(--gold)">Iterate</td></tr>
+        <tr><td><em>illustrative:</em> meeting-notes agent</td><td>2 days</td><td>Yes</td><td>3 users in week 1, 0 in week 2</td><td>None</td><td>Y</td><td class="score" style="color:var(--accent)">Drop</td></tr>
+        <tr><td><em>illustrative:</em> cross-repo refactor flow</td><td>3 days</td><td>Yes</td><td>2 staff eng tried once</td><td>None — model can't yet</td><td>Y</td><td class="score" style="color:var(--blue)">Park · re-try next model</td></tr>
+        <tr><td><em>illustrative:</em> on-call triage assistant</td><td>1 day</td><td>Yes</td><td>SRE team, weekly</td><td>Mixed — low volume, high value</td><td>Y</td><td class="score" style="color:var(--gold)">Iterate</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note"><b>Decision rule.</b> <b>Promote</b> when the engagement signal is unambiguously "real" — people seek it out, come back, and the team would notice if it were removed. <b>Iterate</b> when usage is mixed; re-prototype, don't write a PRD. <b>Drop</b> with no post-mortem when no one uses it; the prototype already paid for itself by answering the question. <b>Park</b> when the capability ceiling is the bottleneck — re-run the loop the day the next model ships. The whole rule is "the model is the moving target; build for it, not around it."</div>
+
+  <!-- LIMITS -->
+  <h2 class="sec" id="limits">Where Anthropic's approach breaks (be honest about this)</h2>
+  <div class="warn">
+    <b>It needs an internal dogfood pool of the right shape.</b> The engagement signal only works because Anthropic's staff <em>are</em> the target user (technical, AI-native, willing to try half-built things). A consumer team with no proxy user inside the building gets zero signal from internal ship.<br><br>
+    <b>It abdicates upstream prioritisation.</b> The method works for AI-product features Anthropic is going to discover one way or the other. It doesn't help when there's a <em>strategic</em> choice between unrelated bets — that decision is made elsewhere (the post explicitly says "clear strategy and goals let everyone prioritize autonomously"), and the side-quest loop doesn't address how that strategy is set.<br><br>
+    <b>It is structurally biased toward the discoverable.</b> A side quest is, by definition, prototype-able in an afternoon. Multi-quarter infrastructure work, regulatory work, and anything contract-shaped doesn't fit the loop. Anthropic's RSP (separate document) is what handles the high-cost-of-wrong items.<br><br>
+    <b>The "anti-method" framing is overstated outside Claude Code.</b> Cat Wu's post is specifically about how <em>her</em> team works on a developer-tools product. The public PM plugin (<a class="cite" href="https://github.com/anthropics/knowledge-work-plugins/tree/main/product-management">anthropics/knowledge-work-plugins</a>) ships with RICE, MoSCoW, JTBD and HMW as supported tools — so it's clear that Anthropic's <em>own</em> opinion is "use a framework if it helps; we don't need one for this product."
+  </div>
+
+  <div class="note"><b>Why it's on the list.</b> Two reasons. First, the user asked specifically whether AI labs have published a feature-decision method — and this is the one direct on-the-record publication from either lab. Second, the &quot;cost of a wrong bet is an afternoon&quot; cost-structure claim is the load-bearing assumption every traditional method makes <em>opposite</em>; seeing the inversion stated plainly is useful for our own decision about how much pre-build estimation to do.</div>
+
+  <footer>
+    Companion to <a href="openai-iterative-deployment-framework.html">OpenAI iterative deployment →</a> (the other AI-lab page) · <a href="methodologies-comparison.html">all methods compared</a> · contrast with <a href="pr-faq-framework.html">PR-FAQ</a> (the maximally up-front method — opposite end of the spectrum).<br>
+    Grounded in: Cat Wu, <a href="https://claude.com/blog/product-management-on-the-ai-exponential">"Product management on the AI exponential"</a>, claude.com blog, March 19, 2026 (1st-party). Cadence numbers cross-checked against Cat Wu on Lenny's Podcast (Apr 2026, secondary). The public-feature attributions (Claude Code on Desktop, AskUserQuestion tool, todo lists) are named in the blog post; the illustrative side-quest rows in the sheet are clearly labeled as such — Anthropic does not publish kill lists.
+  </footer>
+</div>
+</body>
+</html>
