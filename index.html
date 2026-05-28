@@ -97,16 +97,19 @@
 <a href="experiment-trustworthiness.html">How 40k tests actually work →</a>
 <a href="jargon.html">Jargon (glossary)</a>
 </div>
-<div class="navgrp"><h4>Scoring &amp; Input modeling</h4>
+<div class="navgrp"><h4>Scoring</h4>
 <a href="rice-framework.html">RICE (Intercom)</a>
-<a href="north-star-framework.html">North Star (Amplitude / Slack)</a>
 </div>
-<div class="navgrp"><h4>Goal-laddering / Define first</h4>
+<div class="navgrp"><h4>Define-first</h4>
+<a href="north-star-framework.html">North Star (Amplitude / Slack)</a>
 <a href="v2mom-framework.html">V2MOM (Salesforce)</a>
 <a href="pyramid-of-clarity-framework.html">Pyramid of Clarity (Asana)</a>
-<a href="pr-faq-framework.html">PR-FAQ / Working Backwards (Amazon)</a>
 <a href="heart-framework.html">HEART (Google)</a>
 <a href="dibb-framework.html">DIBB (Spotify)</a>
+</div>
+<div class="navgrp"><h4>Written discipline</h4>
+<a href="pr-faq-framework.html">PR-FAQ / Working Backwards (Amazon)</a>
+<a href="stripe-shaping-framework.html">Stripe shaping</a>
 </div>
 <div class="navgrp"><h4>Experimentation (SaaS)</h4>
 <a href="microsoft-exp-framework.html">Microsoft ExP / CUPED</a>
@@ -123,9 +126,7 @@
 </div>
 <div class="navgrp"><h4>AI labs</h4>
 <a href="anthropic-pm-on-ai-exponential.html">Anthropic · PM on AI exponential</a>
-</div>
-<div class="navgrp"><h4>Written discipline</h4>
-<a href="stripe-shaping-framework.html">Stripe shaping</a>
+<a href="google-customer-zero-2026.html">Google · "Customer zero" 2026</a>
 </div>
 </div>
 </details>
@@ -156,7 +157,7 @@
       <div class="n">2</div>
       <h3>Methods deep-dive</h3>
       <p>Each method gets its own page — what it is, how it works, where the evidence comes from. Click any company in the field studies, or jump from the comparison table.</p>
-      <p style="margin-top:8px"><a href="methodologies-comparison.html">All 19 methods compared →</a></p>
+      <p style="margin-top:8px"><a href="methodologies-comparison.html">All methods compared →</a></p>
     </div>
     <div class="step">
       <div class="n">3</div>
@@ -167,7 +168,7 @@
   </div>
 
   <div class="keyshelf">
-    <b>Shortcut for reviewers who want to skim:</b> &nbsp;The <a href="methodologies-comparison.html">19-method comparison table</a> is the single most useful page — it lays out every method side-by-side with what each does, what it doesn't do, and where the evidence comes from. From there, click into the deep-dives for whatever looks promising.
+    <b>Shortcut for reviewers who want to skim:</b> &nbsp;The <a href="methodologies-comparison.html">methods comparison table</a> is the single most useful page — it lays out every method side-by-side with what each does, what it doesn't do, and where the evidence comes from. From there, click into the deep-dives for whatever looks promising.
   </div>
 
   <h2 class="sec">All pages, by category</h2>
@@ -186,33 +187,10 @@
   </div>
 
   <div class="group">
-    <h3><span class="pill i">Input Modeling</span> Map work to a single output metric</h3>
-    <p class="gdesc">Build a tree from a "North Star" outcome down to the inputs teams can move. Helps every team see whether their work moves the company-level metric or not.</p>
+    <h3><span class="pill g">Define-first</span> Pick the metric (or goal) before the work</h3>
+    <p class="gdesc">Name the target — a company-level outcome metric or a cascaded goal — <em>before</em> committing to build. Then "which 10 features first" becomes "the 10 that most move the named target." North Star is the company-wide outcome-metric variant; HEART, DIBB, V2MOM, and Pyramid of Clarity are different shapes of the same cascade discipline. Cheap discipline, high payoff.</p>
     <div class="pgs">
-      <div class="pg i"><a href="north-star-framework.html">North Star metric &amp; input model</a><div class="from">From: Amplitude, Slack</div><div class="what">One number for the whole company; inputs cascade down to team-level <a class="j" href="jargon.html#okr">OKRs</a>.</div></div>
-    </div>
-  </div>
-
-  <div class="group">
-    <h3><span class="pill e">Experimentation</span> Measure, don't estimate</h3>
-    <p class="gdesc">Ship a controlled test and let the data decide. The only category that produces a <em>causal</em> answer; pays for that rigour in infrastructure cost and slower decisions.</p>
-    <div class="pgs">
-      <div class="pg e"><a href="microsoft-exp-framework.html">ExP · OEC · CUPED</a><div class="from">From: Microsoft (Bing, Office, Azure)</div><div class="what">The classic platform — single <a class="j" href="jargon.html#oec">Overall Evaluation Criterion</a> + variance reduction.</div></div>
-      <div class="pg e"><a href="linkedin-xlnt-framework.html">LiX → XLNT → T-REX</a><div class="from">From: LinkedIn</div><div class="what">Same discipline as Microsoft, told as a platform-investment story.</div></div>
-      <div class="pg e"><a href="netflix-experimentation.html">ABlaze + Causal Inference</a><div class="from">From: Netflix</div><div class="what">A/B for what's randomizable; quasi-experiments for what isn't.</div></div>
-      <div class="pg e"><a href="booking-experimentation.html">Booking's democratized experimentation</a><div class="from">From: Booking.com</div><div class="what">~25,000 tests/year. Hypothesis-first, <a class="j" href="jargon.html#srm">SRM</a>-checked, standard metric library.</div></div>
-      <div class="pg e"><a href="airbnb-erf-framework.html">ERF — Experimentation Reporting Framework</a><div class="from">From: Airbnb</div><div class="what">Shared metric <a class="j" href="jargon.html#dsl">DSL</a> + standard reports + variance reduction.</div></div>
-      <div class="pg e"><a href="uber-xp-framework.html">XP + universal holdout</a><div class="from">From: Uber</div><div class="what">Staged ramp 1→5→25→50→100% + quarterly cumulative-effect measurement.</div></div>
-      <div class="pg e"><a href="doordash-switchback-framework.html">Switchback experiments</a><div class="from">From: DoorDash</div><div class="what">For marketplace <a class="j" href="jargon.html#sutva">SUTVA</a> violations — randomize region × time-window cells.</div></div>
-      <div class="pg e"><a href="lyft-experimentation.html">A/B + time-split + bandits</a><div class="from">From: Lyft</div><div class="what">Three designs for three kinds of marketplace problem.</div></div>
-      <div class="pg e"><a href="pinterest-ab-framework.html">Pinterest's A/B platform</a><div class="from">From: Pinterest</div><div class="what">Lightweight config + cross-platform consistency + real-time monitoring.</div></div>
-    </div>
-  </div>
-
-  <div class="group">
-    <h3><span class="pill g">Goal-laddering / Define-first</span> Pick the metric before the work</h3>
-    <p class="gdesc">Force the team to name what success looks like — and how it will be measured — <em>before</em> committing to build. Cheap discipline, high payoff.</p>
-    <div class="pgs">
+      <div class="pg g"><a href="north-star-framework.html">North Star metric &amp; input model</a><div class="from">From: Amplitude, Slack</div><div class="what">One outcome number for the whole company; inputs cascade down to team-level <a class="j" href="jargon.html#okr">OKRs</a>. Features get picked by how much they move an input.</div></div>
       <div class="pg g"><a href="heart-framework.html">HEART + Goals-Signals-Metrics</a><div class="from">From: Google (CHI 2010)</div><div class="what">5 user-experience dimensions, each laddered down to a specific metric.</div></div>
       <div class="pg g"><a href="dibb-framework.html">DIBB — Data → Insight → Belief → Bet</a><div class="from">From: Spotify</div><div class="what">Every bet must trace back through evidence; antidote to "we just feel like it."</div></div>
       <div class="pg g"><a href="v2mom-framework.html">V2MOM — Vision · Values · Methods · Obstacles · Measures</a><div class="from">From: Salesforce (Benioff, 1999)</div><div class="what">Top-down alignment cascade; every team's plan rolls up to the company V2MOM.</div></div>
@@ -230,6 +208,22 @@
   </div>
 
   <div class="group">
+    <h3><span class="pill e">Experimentation</span> Post-build validation — "did it work?"</h3>
+    <p class="gdesc">These methods answer a different question from the rest of this page: <em>of the features you've already shipped, which actually worked?</em> They presume the prioritization decision is already made. Useful for the <em>next</em> round of picks, not the first one. The only category that produces a <em>causal</em> answer — at the cost of presuming you can ship and measure many variants in parallel.</p>
+    <div class="pgs">
+      <div class="pg e"><a href="microsoft-exp-framework.html">ExP · OEC · CUPED</a><div class="from">From: Microsoft (Bing, Office, Azure)</div><div class="what">The classic platform — single <a class="j" href="jargon.html#oec">Overall Evaluation Criterion</a> + variance reduction.</div></div>
+      <div class="pg e"><a href="linkedin-xlnt-framework.html">LiX → XLNT → T-REX</a><div class="from">From: LinkedIn</div><div class="what">Same discipline as Microsoft, told as a platform-investment story.</div></div>
+      <div class="pg e"><a href="netflix-experimentation.html">ABlaze + Causal Inference</a><div class="from">From: Netflix</div><div class="what">A/B for what's randomizable; quasi-experiments for what isn't.</div></div>
+      <div class="pg e"><a href="booking-experimentation.html">Booking's democratized experimentation</a><div class="from">From: Booking.com</div><div class="what">~25,000 tests/year. Hypothesis-first, <a class="j" href="jargon.html#srm">SRM</a>-checked, standard metric library.</div></div>
+      <div class="pg e"><a href="airbnb-erf-framework.html">ERF — Experimentation Reporting Framework</a><div class="from">From: Airbnb</div><div class="what">Shared metric <a class="j" href="jargon.html#dsl">DSL</a> + standard reports + variance reduction.</div></div>
+      <div class="pg e"><a href="uber-xp-framework.html">XP + universal holdout</a><div class="from">From: Uber</div><div class="what">Staged ramp 1→5→25→50→100% + quarterly cumulative-effect measurement.</div></div>
+      <div class="pg e"><a href="doordash-switchback-framework.html">Switchback experiments</a><div class="from">From: DoorDash</div><div class="what">For marketplace <a class="j" href="jargon.html#sutva">SUTVA</a> violations — randomize region × time-window cells.</div></div>
+      <div class="pg e"><a href="lyft-experimentation.html">A/B + time-split + bandits</a><div class="from">From: Lyft</div><div class="what">Three designs for three kinds of marketplace problem.</div></div>
+      <div class="pg e"><a href="pinterest-ab-framework.html">Pinterest's A/B platform</a><div class="from">From: Pinterest</div><div class="what">Lightweight config + cross-platform consistency + real-time monitoring.</div></div>
+    </div>
+  </div>
+
+  <div class="group">
     <h3><span class="pill ailab">AI Labs</span> Capability-led, no published pre-build score</h3>
     <p class="gdesc">Two on-the-record accounts from frontier AI labs in 2026. <em>Neither is a feature-prioritisation method.</em> Anthropic's is a personal essay from Cat Wu on five PM habits for a fast-moving model. Google's is a documented gap: a great deal said about <em>how</em> they build (velocity claims with verbatim Sundar Pichai quotes), nothing published about <em>how</em> they decide what to build, keep, or kill in the agentic era.</p>
     <div class="pgs">
@@ -241,7 +235,7 @@
   <h2 class="sec">Background reading</h2>
   <p class="secsub">Two foundational pages that aren't methods themselves but help interpret the rest.</p>
   <div class="pgs" style="grid-template-columns:1fr 1fr">
-    <div class="pg" style="border-left-color:var(--ink-soft)"><a href="methodologies-comparison.html">All 19 methods compared — side-by-side</a><div class="what">9-column table: what each method decides, what it doesn't do, where it's from, where the evidence is. The most useful single page for reviewers.</div></div>
+    <div class="pg" style="border-left-color:var(--ink-soft)"><a href="methodologies-comparison.html">All methods compared — side-by-side</a><div class="what">9-column table: what each method decides, what it doesn't do, where it's from, where the evidence is. The most useful single page for reviewers.</div></div>
     <div class="pg" style="border-left-color:var(--ink-soft)"><a href="experiment-trustworthiness.html">How "40,000 tests a day" actually works</a><div class="what">Grounded answer to the obvious skepticism about high-volume experimentation. Covers interference (Google <a class="j" href="jargon.html#kdd">KDD</a> 2010), duration, variance.</div></div>
   </div>
 
