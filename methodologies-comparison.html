@@ -75,13 +75,6 @@
   .catsec li{margin:4px 0}
   .catsec a{color:var(--teal);text-decoration:none;border-bottom:1px solid var(--teal)}
   .catsec a:hover{color:var(--accent);border-color:var(--accent)}
-  /* mix-and-match */
-  .stackrow{display:flex;gap:14px;flex-wrap:wrap;margin:14px 0}
-  .stack{flex:1 1 280px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;box-shadow:var(--shadow);border-top:5px solid var(--teal)}
-  .stack h3{margin:0 0 8px;font-family:Georgia,serif;font-size:17px}
-  .stack ol{margin:6px 0;padding-left:22px;font-size:13.5px;color:var(--ink-soft)}
-  .stack li{margin:4px 0}
-  .stack li b{color:var(--ink)}
   /* our pick */
   .ours{background:var(--teal-soft);border-left:5px solid var(--teal);border-radius:10px;padding:18px 22px;margin:18px 0}
   .ours h3{margin:0 0 8px;color:var(--teal);font-size:18px;font-family:Georgia,serif}
@@ -169,7 +162,6 @@
     <a href="#table">Prioritization frameworks</a>
     <a href="#exp-table">Experimentation</a>
     <a href="#cats">Camps explained</a>
-    <a href="#stacks">Three coherent stacks</a>
     <a href="index.html" style="color:var(--blue);font-weight:700">← Home</a>
   </nav>
 
@@ -177,7 +169,7 @@
     <h2>How to read this — and the one thing it makes obvious</h2>
     <p>Methods sort into <b>two questions</b>. <b>Three camps answer "100 features, 10 engineers — which 10 first?"</b>: <span class="tag scoring">Scoring</span> <span class="tag define">Define-first</span> <span class="tag qual">Written discipline</span>. They're complementary — scoring without a goal is theatre; define-first without scoring is alignment but no priority; written discipline without either is taste.</p>
     <p>The other group on this page, <span class="tag experiment">Experimentation</span>, answers a different question — <em>"of what we shipped, which actually worked?"</em> — and <span class="tag ailab">AI labs</span> publish build-side velocity claims, not prioritisation rubrics. Both are kept on this page for context; Experimentation lives in <a href="#exp-table" style="color:#9bc7ef">its own table</a> below.</p>
-    <p>The point of the tables is to make the gaps obvious — <em>which jobs does each method actually do, and which does it leave to a partner method?</em> The "<a href="#stacks" style="color:#9bc7ef">three coherent stacks</a>" section below shows viable combinations a real team could adopt.</p>
+    <p>The point of the tables is to make the gaps obvious — <em>which jobs does each method actually do, and which does it leave to a partner method?</em></p>
   </div>
 
   <div class="legend">
@@ -201,12 +193,9 @@
         <tr>
           <th>Method &amp; source</th>
           <th>Category</th>
-          <th>From / where</th>
           <th>What it decides</th>
           <th>What it does NOT do</th>
           <th>Best for</th>
-          <th>Cost</th>
-          <th>Sourcing</th>
           <th>Deep-dive</th>
         </tr>
       </thead>
@@ -216,24 +205,18 @@
         <tr>
           <td class="method">RICE<div class="from">Intercom</div><div class="badges"><span class="tag saas">SaaS</span></div></td>
           <td><span class="tag scoring">Scoring</span></td>
-          <td>Intercom growth team blog post (Sean McBride, January 5, 2018)</td>
           <td>Ranks candidate ideas with one formula: <code>R×I×C÷E</code>. Reveals weakest input as low Confidence.</td>
           <td class="not">Pick the goal. Estimate the lift. Replace experiments.</td>
           <td>Long candidate lists where every idea is "kind of good." Cheap weekly use.</td>
-          <td class="cost low">Low</td>
-          <td>1st-party</td>
           <td class="method"><a href="rice-framework.html">RICE →</a></td>
         </tr>
         <!-- DEFINE-FIRST: NORTH STAR (was Input modeling — merged) -->
         <tr>
           <td class="method">North Star Framework<div class="from">Amplitude (also Slack)</div><div class="badges"><span class="tag saas">SaaS</span></div></td>
           <td><span class="tag define">Define-first</span></td>
-          <td>Amplitude North Star Playbook (John Cutler et al.)</td>
           <td>Picks <em>which metric</em> to move; forces feature → input mapping; identifies leverage points.</td>
           <td class="not">Rank features. Estimate lifts. Provide a per-feature score.</td>
           <td>Teams that ship many features but can't say which metric they're moving.</td>
-          <td class="cost med">Medium</td>
-          <td>1st-party (Slack is secondary)</td>
           <td class="method"><a href="north-star-framework.html">North Star →</a></td>
         </tr>
 
@@ -241,56 +224,41 @@
         <tr>
           <td class="method">PR-FAQ / <a href="pr-faq-framework.html">Working Backwards</a><div class="from">Amazon</div><div class="badges"><span class="tag consumer">Consumer</span></div></td>
           <td><span class="tag define">Define-first</span></td>
-          <td>About Amazon · Bryar &amp; Carr <em>Working Backwards</em></td>
           <td>Mock press release + FAQ written <em>before</em> code. Forces customer value &amp; success metrics into writing.</td>
           <td class="not">Score against alternatives. Measure actual lift.</td>
           <td>Big bets where the team can't agree on customer value.</td>
-          <td class="cost med">Medium</td>
-          <td>1st (Amazon) + book</td>
           <td class="method"><a href="pr-faq-framework.html">PR-FAQ →</a></td>
         </tr>
         <tr>
           <td class="method">HEART + Goals-Signals-Metrics<div class="from">Google</div><div class="badges"><span class="tag consumer">Consumer</span></div></td>
           <td><span class="tag define">Define-first</span></td>
-          <td>Rodden, Hutchinson, Fu — CHI 2010 (Google Research)</td>
           <td>Picks <em>which metrics</em> to watch (Happiness/Engagement/Adoption/Retention/Task-success) + ladders Goal → Signal → Metric.</td>
           <td class="not">Estimate lift. Decide priority between features.</td>
           <td>Any feature — cheap 30-min exercise to stop vague "engagement" arguments.</td>
-          <td class="cost low">Low</td>
-          <td>1st-party (peer-reviewed)</td>
           <td class="method"><a href="heart-framework.html">HEART →</a></td>
         </tr>
         <tr>
           <td class="method">DIBB + Bets Board<div class="from">Spotify</div><div class="badges"><span class="tag consumer">Consumer</span></div></td>
           <td><span class="tag define">Define-first</span></td>
-          <td>Henrik Kniberg (ex-Spotify) · secondary PM sites</td>
           <td>Data → Insight → Belief → Bet chain. Each arrow must hold. Bets Board limits concurrent bets.</td>
           <td class="not">Replace a scoring formula. Run experiments.</td>
           <td>Killing under-evidenced bets before commitment.</td>
-          <td class="cost low">Low</td>
-          <td>2nd-party (no 1st-party Spotify post)</td>
           <td class="method"><a href="dibb-framework.html">DIBB →</a></td>
         </tr>
         <tr>
           <td class="method">V2MOM<div class="from">Salesforce</div><div class="badges"><span class="tag saas">SaaS</span></div></td>
           <td><span class="tag define">Define-first</span></td>
-          <td>Salesforce blog · Benioff <em>Behind the Cloud</em></td>
           <td>One-page cascade: Vision/Values/Methods/Obstacles/Measures. Every leader writes one aligned to the CEO's.</td>
           <td class="not">Pick which feature ships next. Estimate impact.</td>
           <td>Setting direction when the team is misaligned on <em>what we're trying to do</em>.</td>
-          <td class="cost low">Low</td>
-          <td>1st-party + book</td>
           <td class="method"><a href="v2mom-framework.html">V2MOM →</a></td>
         </tr>
         <tr>
           <td class="method">Pyramid of Clarity<div class="from">Asana</div><div class="badges"><span class="tag saas">SaaS</span></div></td>
           <td><span class="tag define">Define-first</span></td>
-          <td>Asana / Dustin Moskovitz · Wavelength</td>
           <td>Mission → Strategy → Objectives → Key Results → Projects. Each layer must reference the one above.</td>
           <td class="not">Score projects against each other within a KR.</td>
           <td>Visibly catching projects that don't trace to any goal.</td>
-          <td class="cost low">Low</td>
-          <td>1st-party</td>
           <td class="method"><a href="pyramid-of-clarity-framework.html">Pyramid →</a></td>
         </tr>
 
@@ -298,12 +266,9 @@
         <tr>
           <td class="method"><a href="stripe-shaping-framework.html">Shaping</a> + Deep-dives + LT filter<div class="from">Stripe</div><div class="badges"><span class="tag saas">SaaS</span></div></td>
           <td><span class="tag qual">Written discipline</span></td>
-          <td>Ken Norton essay · Stripe Atlas · Berkeley Haas</td>
           <td>Qualitative: shape the problem, write long-form, filter through multi-decade direction.</td>
           <td class="not">Produce a number. Anything quantitative.</td>
           <td>High-judgement bets at orgs that already have a writing culture.</td>
-          <td class="cost high">High (culture)</td>
-          <td>2nd-party</td>
           <td class="method"><a href="stripe-shaping-framework.html">Stripe →</a></td>
         </tr>
 
@@ -311,23 +276,17 @@
         <tr>
           <td class="method"><a href="anthropic-pm-on-ai-exponential.html">Prototype-first habits</a><div class="from">Anthropic (Claude Code)</div><div class="badges"><span class="tag saas">SaaS</span></div></td>
           <td><span class="tag ailab">AI lab</span></td>
-          <td>Cat Wu — claude.com blog (Mar 2026)</td>
           <td>Five habits for working when the AI substrate improves week-over-week: short sprints, demos over docs, side quests alongside the roadmap, capability-first prototyping, daily-use the product.</td>
           <td class="not">Rank features pre-build. Provide a score. Tell you how to verify post-launch. Handle non-<a class="j" href="jargon.html#dogfooding">dogfood</a>-able work.</td>
           <td>AI-native product teams whose staff are the target user; fast-moving capability-led products.</td>
-          <td class="cost low">Low (per side quest)</td>
-          <td>1st-party</td>
           <td class="method"><a href="anthropic-pm-on-ai-exponential.html">Anthropic →</a></td>
         </tr>
         <tr>
           <td class="method"><a href="google-customer-zero-2026.html">"Customer zero" velocity story</a><div class="from">Google (Sundar Pichai, 2026)</div><div class="badges"><span class="tag saas">SaaS</span><span class="tag consumer">Consumer</span></div></td>
           <td><span class="tag ailab">AI lab</span></td>
-          <td>Sundar Pichai — Cloud Next 2026 (Apr 22) &amp; I/O 2026 (May 19) keynote blogs</td>
           <td>Verbatim 2026 internal-velocity claims: 75% AI-generated &amp; engineer-approved code, 6× faster code migration, 6× more developer-tool tokens in 2 months, training in weeks-not-months, idea-to-Swift-prototype in days. "Customer zero" framing — Google builds with its own agents first.</td>
           <td class="not">Rank features pre-build. Provide a score. Tell you what to ship, keep, or kill. Explain why Project Mariner was shut down (no public rationale).</td>
           <td>Teams asking "what's the build-side leverage of leaning into agentic coding tooling?" — not teams asking "how should we decide what to build?"</td>
-          <td class="cost low">Low (read-only insight)</td>
-          <td>1st-party</td>
           <td class="method"><a href="google-customer-zero-2026.html">Google →</a></td>
         </tr>
 
@@ -345,12 +304,9 @@
         <tr>
           <th>Method &amp; source</th>
           <th>Category</th>
-          <th>From / where</th>
           <th>What it decides</th>
           <th>What it does NOT do</th>
           <th>Best for</th>
-          <th>Cost</th>
-          <th>Sourcing</th>
           <th>Deep-dive</th>
         </tr>
       </thead>
@@ -358,100 +314,73 @@
         <tr>
           <td class="method">ExP + OEC + <a class="j" href="jargon.html#cuped">CUPED</a><div class="from">Microsoft</div><div class="badges"><span class="tag saas">SaaS</span></div></td>
           <td><span class="tag experiment">Experimentation</span></td>
-          <td>exp-platform.com · Kohavi, Tang, Xu book · CUPED paper (2013)</td>
           <td>Measures causal impact via controlled tests; OEC = the one success metric; CUPED halves required sample.</td>
           <td class="not">Decide what to test (needs a candidate list). Work without traffic.</td>
           <td>High-traffic features; high cost-of-being-wrong decisions.</td>
-          <td class="cost high">High</td>
-          <td>1st-party (book + papers)</td>
           <td class="method"><a href="microsoft-exp-framework.html">Microsoft ExP →</a></td>
         </tr>
         <tr>
           <td class="method">XLNT / T-REX<div class="from">LinkedIn</div><div class="badges"><span class="tag saas">SaaS</span></div></td>
           <td><span class="tag experiment">Experimentation</span></td>
-          <td>LinkedIn Engineering blog (T-REX series, 2020+)</td>
           <td>Same as Microsoft ExP, told as a platform-investment story; 40k tests/day, 20× engine speed-up.</td>
           <td class="not">Add anything to Microsoft's discipline — it's the same rule at scale.</td>
           <td>Demonstrating what "experimentation as default" looks like at maximum operational scale.</td>
-          <td class="cost high">High</td>
-          <td>1st-party</td>
           <td class="method"><a href="linkedin-xlnt-framework.html">LinkedIn T-REX →</a></td>
         </tr>
         <tr>
           <td class="method">ABlaze + Sequential + Causal<div class="from">Netflix</div><div class="badges"><span class="tag consumer">Consumer</span></div></td>
           <td><span class="tag experiment">Experimentation</span></td>
-          <td>Netflix Research (Experimentation &amp; Causal Inference)</td>
-          <td>A/B + sequential tests (read continuously) + causal inference for non-randomisable decisions.</td>
+          <td>A/B as the default platform-wide; sequential tests for software canaries (play-delay regressions); causal inference as a research area for non-randomisable decisions.</td>
           <td class="not">Help when traffic is tiny. Replace good metric design.</td>
-          <td>Decisions that can't be cleanly A/B'd (pricing, content, regional rollouts).</td>
-          <td class="cost high">High</td>
-          <td>1st-party</td>
+          <td>High-volume A/B as default; quasi-experimental designs when A/B isn't possible (specific applications like pricing/regional rollouts are widely cited but not documented in the 2016 ABlaze post).</td>
           <td class="method"><a href="netflix-experimentation.html">Netflix →</a></td>
         </tr>
         <tr>
           <td class="method">Democratised experimentation<div class="from">Booking.com</div><div class="badges"><span class="tag consumer">Consumer</span></div></td>
           <td><span class="tag experiment">Experimentation</span></td>
-          <td>HBR Thomke 2020 · Booking democratization paper</td>
           <td>Any employee can launch a test (no manager gate); auto <a class="j" href="jargon.html#srm">SRM</a> &amp; shared metric definitions enforce trust.</td>
           <td class="not">Replace direction-setting. Pick the OEC for you.</td>
           <td>Cultures where ideas are constrained by review bottlenecks, not by hypotheses.</td>
-          <td class="cost med">Medium</td>
-          <td>1st (paper) + 2nd (HBR)</td>
           <td class="method"><a href="booking-experimentation.html">Booking →</a></td>
         </tr>
         <tr>
           <td class="method">ERF (variance reduction)<div class="from">Airbnb</div><div class="badges"><span class="tag consumer">Consumer</span></div></td>
           <td><span class="tag experiment">Experimentation</span></td>
-          <td>Airbnb Engineering blog (ERF posts)</td>
           <td>Standardised analysis: one metric <a class="j" href="jargon.html#dsl">DSL</a>, automatic variance reduction, templated reports → engineers read tests without analysts.</td>
           <td class="not">Help if you have no metric library yet.</td>
           <td>Scaling experiment volume past where analyst-per-test is feasible.</td>
-          <td class="cost med">Medium</td>
-          <td>1st-party</td>
           <td class="method"><a href="airbnb-erf-framework.html">Airbnb ERF →</a></td>
         </tr>
         <tr>
           <td class="method">XP + <a class="j" href="jargon.html#universal-holdout">universal holdout</a><div class="from">Uber</div><div class="badges"><span class="tag consumer">Consumer</span></div></td>
           <td><span class="tag experiment">Experimentation</span></td>
-          <td>Uber Engineering (XP posts)</td>
           <td>Staged ramp with auto-rollback; <strong>universal holdout</strong> measures cumulative quarterly impact (not just per-feature).</td>
           <td class="not">Pick the OEC. Handle marketplace interference alone.</td>
           <td>Detecting "many local wins, no net gain" — the failure mode roll-ups hide.</td>
-          <td class="cost med">Medium</td>
-          <td>1st-party</td>
           <td class="method"><a href="uber-xp-framework.html">Uber XP →</a></td>
         </tr>
         <tr>
           <td class="method">Switchback (Dash-AB)<div class="from">DoorDash</div><div class="badges"><span class="tag consumer">Consumer</span></div></td>
           <td><span class="tag experiment">Experimentation</span></td>
-          <td>DoorDash Engineering blog</td>
           <td>Marketplace-specific design: randomise <em>region × time window</em>, not users, to avoid interference (<a class="j" href="jargon.html#sutva">SUTVA</a> violation).</td>
           <td class="not">Apply when there's no shared resource — overkill for UI tests.</td>
           <td>Any feature that changes a shared pool (Dasher supply, pricing, slot inventory).</td>
-          <td class="cost med">Medium</td>
-          <td>1st-party</td>
           <td class="method"><a href="doordash-switchback-framework.html">DoorDash →</a></td>
         </tr>
         <tr>
           <td class="method">Time/region splits + bandits<div class="from">Lyft</div><div class="badges"><span class="tag consumer">Consumer</span></div></td>
           <td><span class="tag experiment">Experimentation</span></td>
-          <td>Lyft Engineering blog</td>
           <td>Three-way routing: A/B for non-marketplace, time/region splits for marketplace, bandits for continuous decisions.</td>
           <td class="not">Replace classical A/B; it complements it.</td>
-          <td>Always-on optimisation problems (matching, dispatch, ranking).</td>
-          <td class="cost med">Medium</td>
-          <td>1st-party</td>
+          <td>Always-on optimisation where the winner depends on context (Lyft's published bandit example: customer communications).</td>
           <td class="method"><a href="lyft-experimentation.html">Lyft →</a></td>
         </tr>
         <tr>
           <td class="method">A/B platform + real-time<div class="from">Pinterest</div><div class="badges"><span class="tag consumer">Consumer</span></div></td>
           <td><span class="tag experiment">Experimentation</span></td>
-          <td>Pinterest Engineering blog</td>
           <td>"Boring" but copyable: lightweight config UI + standard A/B + real-time regression monitoring.</td>
           <td class="not">Innovate statistically — same OEC discipline as the others.</td>
           <td>Small/mid teams building their first proper experimentation stack.</td>
-          <td class="cost low">Low</td>
-          <td>1st-party (platform only)</td>
           <td class="method"><a href="pinterest-ab-framework.html">Pinterest →</a></td>
         </tr>
       </tbody>
@@ -491,46 +420,9 @@
     <p>Methods: <a href="anthropic-pm-on-ai-exponential.html">Anthropic · PM on AI exponential</a> and <a href="google-customer-zero-2026.html">Google · "Customer zero" 2026</a>. <b>What they do:</b> the Anthropic essay describes five PM habits for working on an AI product whose substrate improves fast (short sprints, prototype-first, side quests, capability-first builds, daily use). The Google study records what Sundar Pichai has actually said in 2026 about build-side velocity ("customer zero" framing, verbatim numbers). <b>What they don't do:</b> rank features pre-build, or address post-launch verification of real users — neither lab has published a prioritisation rubric or kill criterion for the agentic era. Useful as <em>working discipline</em> and <em>build-side context</em>, not as prioritisation. Pair with Scoring or Define-first for the upstream "which one to build" decision.</p>
   </div>
 
-  <!-- COHERENT STACKS -->
-  <h2 class="sec" id="stacks">Three coherent stacks you could actually adopt</h2>
-  <p class="secsub">The methods are many; you only need 3–4 that cover the bases. Here are three "complete" stacks — each picks one method per job, drawn from companies that actually use them together. Each stack combines a pre-build prioritization camp with (where useful) Experimentation on top.</p>
-
-  <div class="stackrow">
-    <div class="stack">
-      <h3>Stack A — Scored &amp; cascaded</h3>
-      <ol>
-        <li><b>Direction:</b> <a href="v2mom-framework.html">V2MOM</a> (Salesforce) — one-page cascade.</li>
-        <li><b>Metric:</b> <a href="heart-framework.html">HEART/GSM</a> (Google) — pick the success metrics.</li>
-        <li><b>Rank:</b> <a href="rice-framework.html">RICE</a> (Intercom) — coarse ranking of candidates.</li>
-        <li><b>Audit:</b> log estimate-vs-actual after each release.</li>
-      </ol>
-      <p style="font-size:13px;color:var(--ink-soft);margin:10px 0 0"><b>Fits Route A.</b> Cheap, fast, biased toward up-front estimation. Risk: confident-looking scores that turn out wrong.</p>
-    </div>
-    <div class="stack">
-      <h3>Stack B — Measured &amp; focused</h3>
-      <ol>
-        <li><b>Direction:</b> <a href="north-star-framework.html">North Star</a> (Amplitude/Slack) — pick the focus input.</li>
-        <li><b>Bets:</b> <a href="dibb-framework.html">DIBB</a> (Spotify) — every bet needs a data chain.</li>
-        <li><b>Validate:</b> <a href="microsoft-exp-framework.html">Microsoft ExP</a>-lite — ramp behind a flag with a pre-declared OEC.</li>
-        <li><b>Audit:</b> <a href="uber-xp-framework.html">Uber-style holdout</a> quarterly.</li>
-      </ol>
-      <p style="font-size:13px;color:var(--ink-soft);margin:10px 0 0"><b>Fits Route B.</b> Needs traffic/infra; produces ground-truth numbers. Risk: slow on contractual / no-traffic items.</p>
-    </div>
-    <div class="stack">
-      <h3>Stack C — Hybrid (the synthesis)</h3>
-      <ol>
-        <li><b>Direction:</b> <a href="north-star-framework.html">North Star</a> + <a href="v2mom-framework.html">V2MOM</a>-lite (combine model + cascade).</li>
-        <li><b>Bet artifact:</b> <a href="pr-faq-framework.html">PR-FAQ</a> for big bets; <a href="rice-framework.html">RICE</a> for the long tail.</li>
-        <li><b>Validate:</b> <a href="microsoft-exp-framework.html">ExP-lite ramp</a> for discovery items; ship as scored for contracts.</li>
-        <li><b>Audit:</b> estimate-vs-actual + a small <a href="uber-xp-framework.html">holdout cohort</a>.</li>
-      </ol>
-      <p style="font-size:13px;color:var(--ink-soft);margin:10px 0 0"><b>Fits the  synthesis.</b> More to learn; covers contract bets and discovery bets honestly.</p>
-    </div>
-  </div>
-
   <footer>
     From: <a href="impact-saas-companies.html">SaaS / B2B case studies</a> · <a href="impact-consumer-companies.html">Consumer-tech case studies</a><br>
-    All methods in the two tables link to a dedicated deep-dive page. Every "What it decides / doesn't do" claim traces to that company's published material; caveats noted on the deep-dive pages where sourcing is secondary. The "Three coherent stacks" framing is editorial, not a sourced framework recommendation. <em>Note: a 2026-05-26 cleanup removed the OpenAI "Iterative Deployment" row — its source documents (Planning for AGI and Beyond, Preparedness Framework v2) could not be reliably re-fetched from the editing environment to verify the row's content. A later 2026-05-26 addition introduced the Google "Customer zero" 2026 row — grounded entirely in two first-party Sundar Pichai blog posts (Cloud Next April 22, I/O May 19); it is documented as a velocity-side study, not a feature-decision methodology, because Google has not published one for the agentic era. A 2026-05-28 cleanup removed the Atlassian "Weighted Scoring" row entirely — both cited Atlassian sources (atlassian.com/agile/.../prioritization-framework and the Jira Product Discovery handbook) were verified to be general educational guides covering RICE/Kano/MoSCoW/Value-Effort/Opportunity-Scoring/Cost-of-Delay (URL 1) and RICE/Impact-Effort/$10-Game/RUF/3-Bucket/WSJF (URL 2); neither describes a method called "Weighted Scoring" with the "100 points across weighted criteria" mechanic our row attributed to Atlassian. The four newly-canonical methods from URL 1 — Kano, MoSCoW, Opportunity Scoring (ODI), Cost of Delay — are surfaced on the index for future deep-dives. Value vs Effort was skipped (no canonical originator).</em>
+    All methods in the two tables link to a dedicated deep-dive page. Every "What it decides / doesn't do" claim traces to that company's published material; caveats noted on the deep-dive pages where sourcing is secondary. <em>Note: a 2026-05-26 cleanup removed the OpenAI "Iterative Deployment" row — its source documents (Planning for AGI and Beyond, Preparedness Framework v2) could not be reliably re-fetched from the editing environment to verify the row's content. A later 2026-05-26 addition introduced the Google "Customer zero" 2026 row — grounded entirely in two first-party Sundar Pichai blog posts (Cloud Next April 22, I/O May 19); it is documented as a velocity-side study, not a feature-decision methodology, because Google has not published one for the agentic era. A 2026-05-28 cleanup removed the Atlassian "Weighted Scoring" row entirely — both cited Atlassian sources (atlassian.com/agile/.../prioritization-framework and the Jira Product Discovery handbook) were verified to be general educational guides covering RICE/Kano/MoSCoW/Value-Effort/Opportunity-Scoring/Cost-of-Delay (URL 1) and RICE/Impact-Effort/$10-Game/RUF/3-Bucket/WSJF (URL 2); neither describes a method called "Weighted Scoring" with the "100 points across weighted criteria" mechanic our row attributed to Atlassian. The four newly-canonical methods from URL 1 — Kano, MoSCoW, Opportunity Scoring (ODI), Cost of Delay — are surfaced on the index for future deep-dives. Value vs Effort was skipped (no canonical originator).</em>
   </footer>
 </div>
 </body>
