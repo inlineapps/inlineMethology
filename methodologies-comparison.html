@@ -121,16 +121,19 @@
 <a href="experiment-trustworthiness.html">How 40k tests actually work →</a>
 <a href="jargon.html">Jargon (glossary)</a>
 </div>
-<div class="navgrp"><h4>Scoring &amp; Input modeling</h4>
+<div class="navgrp"><h4>Scoring</h4>
 <a href="rice-framework.html">RICE (Intercom)</a>
-<a href="north-star-framework.html">North Star (Amplitude / Slack)</a>
 </div>
-<div class="navgrp"><h4>Goal-laddering / Define first</h4>
+<div class="navgrp"><h4>Define-first</h4>
+<a href="north-star-framework.html">North Star (Amplitude / Slack)</a>
 <a href="v2mom-framework.html">V2MOM (Salesforce)</a>
 <a href="pyramid-of-clarity-framework.html">Pyramid of Clarity (Asana)</a>
-<a href="pr-faq-framework.html">PR-FAQ / Working Backwards (Amazon)</a>
 <a href="heart-framework.html">HEART (Google)</a>
 <a href="dibb-framework.html">DIBB (Spotify)</a>
+</div>
+<div class="navgrp"><h4>Written discipline</h4>
+<a href="pr-faq-framework.html">PR-FAQ / Working Backwards (Amazon)</a>
+<a href="stripe-shaping-framework.html">Stripe shaping</a>
 </div>
 <div class="navgrp"><h4>Experimentation (SaaS)</h4>
 <a href="microsoft-exp-framework.html">Microsoft ExP / CUPED</a>
@@ -149,33 +152,32 @@
 <a href="anthropic-pm-on-ai-exponential.html">Anthropic · PM on AI exponential</a>
 <a href="google-customer-zero-2026.html">Google · "Customer zero" 2026</a>
 </div>
-<div class="navgrp"><h4>Written discipline</h4>
-<a href="stripe-shaping-framework.html">Stripe shaping</a>
-</div>
 </div>
 </details>
 </nav>
 
 <div class="wrap">
   <header class="masthead">
-    <p class="kicker">Methods · Side-by-side comparison · All 20</p>
+    <p class="kicker">Methods · Side-by-side comparison</p>
     <h1>All Methodologies Compared — SaaS &amp; Consumer, side-by-side</h1>
-    <p class="sub">Nineteen real product-decision methods from documented companies. Two case-study lists (<strong>SaaS</strong> &amp; <strong>Consumer</strong>) collapsed into one table so we can pick what to adopt or mix. Each row links to its full deep-dive. Each claim about <em>what a method does</em> traces back to that company's own published source.</p>
+    <p class="sub">Two tables. <strong>Prioritization frameworks</strong> answer the core question: <em>"100 features, 10 engineers — which 10 first?"</em> <strong>Experimentation</strong> answers a different question: <em>"of what we shipped, which actually worked?"</em> Each row links to its full deep-dive; each claim about <em>what a method does</em> traces back to that company's own published source.</p>
     <div class="goal"><span>Goal</span><br>Decide features by data-backed expected impact — choose by outcome, not by to-do list or opinion.</div>
   </header>
 
   <nav class="toc">
     <a href="#headline">How to read</a>
-    <a href="#table">The big table</a>
-    <a href="#cats">Six categories explained</a>
+    <a href="#table">Prioritization frameworks</a>
+    <a href="#exp-table">Experimentation</a>
+    <a href="#cats">Camps explained</a>
     <a href="#stacks">Three coherent stacks</a>
     <a href="index.html" style="color:var(--blue);font-weight:700">← Home</a>
   </nav>
 
   <div class="finding" id="headline">
     <h2>How to read this — and the one thing it makes obvious</h2>
-    <p>The methods sort into <b>six categories</b>: <span class="tag scoring">Scoring</span> <span class="tag input">Input modeling</span> <span class="tag experiment">Experimentation</span> <span class="tag goal">Goal-laddering / Define-first</span> <span class="tag qual">Written discipline</span> <span class="tag ailab">AI lab</span>. <b>None of them is sufficient alone.</b> Scoring without a goal is theatre; experimentation without a metric is noise; goal-laddering without scoring is alignment but no priority.</p>
-    <p>The point of the table is to make the gaps obvious — <em>which jobs does each method actually do, and which does it leave to a partner method?</em> Real teams stack 2–3 methods that cover all the jobs. The "<a href="#stacks" style="color:#9bc7ef">three coherent stacks</a>" section below shows three viable combinations to compare and choose between.</p>
+    <p>Methods sort into <b>two questions</b>. <b>Three camps answer "100 features, 10 engineers — which 10 first?"</b>: <span class="tag scoring">Scoring</span> <span class="tag define">Define-first</span> <span class="tag qual">Written discipline</span>. They're complementary — scoring without a goal is theatre; define-first without scoring is alignment but no priority; written discipline without either is taste.</p>
+    <p>The other group on this page, <span class="tag experiment">Experimentation</span>, answers a different question — <em>"of what we shipped, which actually worked?"</em> — and <span class="tag ailab">AI labs</span> publish build-side velocity claims, not prioritisation rubrics. Both are kept on this page for context; Experimentation lives in <a href="#exp-table" style="color:#9bc7ef">its own table</a> below.</p>
+    <p>The point of the tables is to make the gaps obvious — <em>which jobs does each method actually do, and which does it leave to a partner method?</em> The "<a href="#stacks" style="color:#9bc7ef">three coherent stacks</a>" section below shows viable combinations a real team could adopt.</p>
   </div>
 
   <div class="legend">
@@ -183,16 +185,15 @@
     <span class="tag consumer">Consumer-tech</span>
     &nbsp;&nbsp;
     <span class="tag scoring">Scoring</span>
-    <span class="tag input">Input model</span>
-    <span class="tag experiment">Experimentation</span>
-    <span class="tag goal">Goal / Define-first</span>
+    <span class="tag define">Define-first</span>
     <span class="tag qual">Written discipline</span>
+    <span class="tag experiment">Experimentation</span>
     <span class="tag ailab">AI lab</span>
   </div>
 
-  <!-- THE BIG TABLE -->
-  <h2 class="sec" id="table">The big table — 19 methods, 9 columns</h2>
-  <p class="secsub">Scroll right on mobile. The <em>What it doesn't do</em> column is the most useful one — it reveals what you have to pair the method with.</p>
+  <!-- PRIORITIZATION FRAMEWORKS TABLE -->
+  <h2 class="sec" id="table">Prioritization frameworks — pre-build "which to build first?"</h2>
+  <p class="secsub">The three camps that answer the core question, plus the AI-lab context rows. Scroll right on mobile. The <em>What it doesn't do</em> column is the most useful one — it reveals what you have to pair the method with.</p>
 
   <div class="tblwrap">
     <table class="comp">
@@ -223,10 +224,10 @@
           <td>1st-party</td>
           <td class="method"><a href="rice-framework.html">RICE →</a></td>
         </tr>
-        <!-- INPUT MODELING -->
+        <!-- DEFINE-FIRST: NORTH STAR (was Input modeling — merged) -->
         <tr>
           <td class="method">North Star Framework<div class="from">Amplitude (also Slack)</div><div class="badges"><span class="tag saas">SaaS</span></div></td>
-          <td><span class="tag input">Input modeling</span></td>
+          <td><span class="tag define">Define-first</span></td>
           <td>Amplitude North Star Playbook (John Cutler et al.)</td>
           <td>Picks <em>which metric</em> to move; forces feature → input mapping; identifies leverage points.</td>
           <td class="not">Rank features. Estimate lifts. Provide a per-feature score.</td>
@@ -236,7 +237,124 @@
           <td class="method"><a href="north-star-framework.html">North Star →</a></td>
         </tr>
 
-        <!-- EXPERIMENTATION -->
+        <!-- DEFINE-FIRST (PR-FAQ, HEART, DIBB, V2MOM, Pyramid) -->
+        <tr>
+          <td class="method">PR-FAQ / <a href="pr-faq-framework.html">Working Backwards</a><div class="from">Amazon</div><div class="badges"><span class="tag consumer">Consumer</span></div></td>
+          <td><span class="tag define">Define-first</span></td>
+          <td>About Amazon · Bryar &amp; Carr <em>Working Backwards</em></td>
+          <td>Mock press release + FAQ written <em>before</em> code. Forces customer value &amp; success metrics into writing.</td>
+          <td class="not">Score against alternatives. Measure actual lift.</td>
+          <td>Big bets where the team can't agree on customer value.</td>
+          <td class="cost med">Medium</td>
+          <td>1st (Amazon) + book</td>
+          <td class="method"><a href="pr-faq-framework.html">PR-FAQ →</a></td>
+        </tr>
+        <tr>
+          <td class="method">HEART + Goals-Signals-Metrics<div class="from">Google</div><div class="badges"><span class="tag consumer">Consumer</span></div></td>
+          <td><span class="tag define">Define-first</span></td>
+          <td>Rodden, Hutchinson, Fu — CHI 2010 (Google Research)</td>
+          <td>Picks <em>which metrics</em> to watch (Happiness/Engagement/Adoption/Retention/Task-success) + ladders Goal → Signal → Metric.</td>
+          <td class="not">Estimate lift. Decide priority between features.</td>
+          <td>Any feature — cheap 30-min exercise to stop vague "engagement" arguments.</td>
+          <td class="cost low">Low</td>
+          <td>1st-party (peer-reviewed)</td>
+          <td class="method"><a href="heart-framework.html">HEART →</a></td>
+        </tr>
+        <tr>
+          <td class="method">DIBB + Bets Board<div class="from">Spotify</div><div class="badges"><span class="tag consumer">Consumer</span></div></td>
+          <td><span class="tag define">Define-first</span></td>
+          <td>Henrik Kniberg (ex-Spotify) · secondary PM sites</td>
+          <td>Data → Insight → Belief → Bet chain. Each arrow must hold. Bets Board limits concurrent bets.</td>
+          <td class="not">Replace a scoring formula. Run experiments.</td>
+          <td>Killing under-evidenced bets before commitment.</td>
+          <td class="cost low">Low</td>
+          <td>2nd-party (no 1st-party Spotify post)</td>
+          <td class="method"><a href="dibb-framework.html">DIBB →</a></td>
+        </tr>
+        <tr>
+          <td class="method">V2MOM<div class="from">Salesforce</div><div class="badges"><span class="tag saas">SaaS</span></div></td>
+          <td><span class="tag define">Define-first</span></td>
+          <td>Salesforce blog · Benioff <em>Behind the Cloud</em></td>
+          <td>One-page cascade: Vision/Values/Methods/Obstacles/Measures. Every leader writes one aligned to the CEO's.</td>
+          <td class="not">Pick which feature ships next. Estimate impact.</td>
+          <td>Setting direction when the team is misaligned on <em>what we're trying to do</em>.</td>
+          <td class="cost low">Low</td>
+          <td>1st-party + book</td>
+          <td class="method"><a href="v2mom-framework.html">V2MOM →</a></td>
+        </tr>
+        <tr>
+          <td class="method">Pyramid of Clarity<div class="from">Asana</div><div class="badges"><span class="tag saas">SaaS</span></div></td>
+          <td><span class="tag define">Define-first</span></td>
+          <td>Asana / Dustin Moskovitz · Wavelength</td>
+          <td>Mission → Strategy → Objectives → Key Results → Projects. Each layer must reference the one above.</td>
+          <td class="not">Score projects against each other within a KR.</td>
+          <td>Visibly catching projects that don't trace to any goal.</td>
+          <td class="cost low">Low</td>
+          <td>1st-party</td>
+          <td class="method"><a href="pyramid-of-clarity-framework.html">Pyramid →</a></td>
+        </tr>
+
+        <!-- WRITTEN DISCIPLINE -->
+        <tr>
+          <td class="method"><a href="stripe-shaping-framework.html">Shaping</a> + Deep-dives + LT filter<div class="from">Stripe</div><div class="badges"><span class="tag saas">SaaS</span></div></td>
+          <td><span class="tag qual">Written discipline</span></td>
+          <td>Ken Norton essay · Stripe Atlas · Berkeley Haas</td>
+          <td>Qualitative: shape the problem, write long-form, filter through multi-decade direction.</td>
+          <td class="not">Produce a number. Anything quantitative.</td>
+          <td>High-judgement bets at orgs that already have a writing culture.</td>
+          <td class="cost high">High (culture)</td>
+          <td>2nd-party</td>
+          <td class="method"><a href="stripe-shaping-framework.html">Stripe →</a></td>
+        </tr>
+
+        <!-- AI LABS -->
+        <tr>
+          <td class="method"><a href="anthropic-pm-on-ai-exponential.html">Prototype-first habits</a><div class="from">Anthropic (Claude Code)</div><div class="badges"><span class="tag saas">SaaS</span></div></td>
+          <td><span class="tag ailab">AI lab</span></td>
+          <td>Cat Wu — claude.com blog (Mar 2026)</td>
+          <td>Five habits for working when the AI substrate improves week-over-week: short sprints, demos over docs, side quests alongside the roadmap, capability-first prototyping, daily-use the product.</td>
+          <td class="not">Rank features pre-build. Provide a score. Tell you how to verify post-launch. Handle non-<a class="j" href="jargon.html#dogfooding">dogfood</a>-able work.</td>
+          <td>AI-native product teams whose staff are the target user; fast-moving capability-led products.</td>
+          <td class="cost low">Low (per side quest)</td>
+          <td>1st-party</td>
+          <td class="method"><a href="anthropic-pm-on-ai-exponential.html">Anthropic →</a></td>
+        </tr>
+        <tr>
+          <td class="method"><a href="google-customer-zero-2026.html">"Customer zero" velocity story</a><div class="from">Google (Sundar Pichai, 2026)</div><div class="badges"><span class="tag saas">SaaS</span><span class="tag consumer">Consumer</span></div></td>
+          <td><span class="tag ailab">AI lab</span></td>
+          <td>Sundar Pichai — Cloud Next 2026 (Apr 22) &amp; I/O 2026 (May 19) keynote blogs</td>
+          <td>Verbatim 2026 internal-velocity claims: 75% AI-generated &amp; engineer-approved code, 6× faster code migration, 6× more developer-tool tokens in 2 months, training in weeks-not-months, idea-to-Swift-prototype in days. "Customer zero" framing — Google builds with its own agents first.</td>
+          <td class="not">Rank features pre-build. Provide a score. Tell you what to ship, keep, or kill. Explain why Project Mariner was shut down (no public rationale).</td>
+          <td>Teams asking "what's the build-side leverage of leaning into agentic coding tooling?" — not teams asking "how should we decide what to build?"</td>
+          <td class="cost low">Low (read-only insight)</td>
+          <td>1st-party</td>
+          <td class="method"><a href="google-customer-zero-2026.html">Google →</a></td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+  <!-- EXPERIMENTATION TABLE -->
+  <h2 class="sec" id="exp-table">Experimentation — post-build "did it work?"</h2>
+  <p class="secsub">A different question from the table above. These methods presume the prioritization decision is already made; they produce causal answers to whether shipped features worked. Useful for the <em>next</em> round of picks, not the first one.</p>
+
+  <div class="tblwrap">
+    <table class="comp">
+      <thead>
+        <tr>
+          <th>Method &amp; source</th>
+          <th>Category</th>
+          <th>From / where</th>
+          <th>What it decides</th>
+          <th>What it does NOT do</th>
+          <th>Best for</th>
+          <th>Cost</th>
+          <th>Sourcing</th>
+          <th>Deep-dive</th>
+        </tr>
+      </thead>
+      <tbody>
         <tr>
           <td class="method">ExP + OEC + <a class="j" href="jargon.html#cuped">CUPED</a><div class="from">Microsoft</div><div class="badges"><span class="tag saas">SaaS</span></div></td>
           <td><span class="tag experiment">Experimentation</span></td>
@@ -336,137 +454,36 @@
           <td>1st-party (platform only)</td>
           <td class="method"><a href="pinterest-ab-framework.html">Pinterest →</a></td>
         </tr>
-
-        <!-- DEFINE-FIRST / GOAL-LADDERING -->
-        <tr>
-          <td class="method">PR-FAQ / <a href="pr-faq-framework.html">Working Backwards</a><div class="from">Amazon</div><div class="badges"><span class="tag consumer">Consumer</span></div></td>
-          <td><span class="tag define">Define-first</span></td>
-          <td>About Amazon · Bryar &amp; Carr <em>Working Backwards</em></td>
-          <td>Mock press release + FAQ written <em>before</em> code. Forces customer value &amp; success metrics into writing.</td>
-          <td class="not">Score against alternatives. Measure actual lift.</td>
-          <td>Big bets where the team can't agree on customer value.</td>
-          <td class="cost med">Medium</td>
-          <td>1st (Amazon) + book</td>
-          <td class="method"><a href="pr-faq-framework.html">PR-FAQ →</a></td>
-        </tr>
-        <tr>
-          <td class="method">HEART + Goals-Signals-Metrics<div class="from">Google</div><div class="badges"><span class="tag consumer">Consumer</span></div></td>
-          <td><span class="tag define">Define-first</span></td>
-          <td>Rodden, Hutchinson, Fu — CHI 2010 (Google Research)</td>
-          <td>Picks <em>which metrics</em> to watch (Happiness/Engagement/Adoption/Retention/Task-success) + ladders Goal → Signal → Metric.</td>
-          <td class="not">Estimate lift. Decide priority between features.</td>
-          <td>Any feature — cheap 30-min exercise to stop vague "engagement" arguments.</td>
-          <td class="cost low">Low</td>
-          <td>1st-party (peer-reviewed)</td>
-          <td class="method"><a href="heart-framework.html">HEART →</a></td>
-        </tr>
-        <tr>
-          <td class="method">DIBB + Bets Board<div class="from">Spotify</div><div class="badges"><span class="tag consumer">Consumer</span></div></td>
-          <td><span class="tag define">Define-first</span></td>
-          <td>Henrik Kniberg (ex-Spotify) · secondary PM sites</td>
-          <td>Data → Insight → Belief → Bet chain. Each arrow must hold. Bets Board limits concurrent bets.</td>
-          <td class="not">Replace a scoring formula. Run experiments.</td>
-          <td>Killing under-evidenced bets before commitment.</td>
-          <td class="cost low">Low</td>
-          <td>2nd-party (no 1st-party Spotify post)</td>
-          <td class="method"><a href="dibb-framework.html">DIBB →</a></td>
-        </tr>
-        <tr>
-          <td class="method">V2MOM<div class="from">Salesforce</div><div class="badges"><span class="tag saas">SaaS</span></div></td>
-          <td><span class="tag goal">Goal-laddering</span></td>
-          <td>Salesforce blog · Benioff <em>Behind the Cloud</em></td>
-          <td>One-page cascade: Vision/Values/Methods/Obstacles/Measures. Every leader writes one aligned to the CEO's.</td>
-          <td class="not">Pick which feature ships next. Estimate impact.</td>
-          <td>Setting direction when the team is misaligned on <em>what we're trying to do</em>.</td>
-          <td class="cost low">Low</td>
-          <td>1st-party + book</td>
-          <td class="method"><a href="v2mom-framework.html">V2MOM →</a></td>
-        </tr>
-        <tr>
-          <td class="method">Pyramid of Clarity<div class="from">Asana</div><div class="badges"><span class="tag saas">SaaS</span></div></td>
-          <td><span class="tag goal">Goal-laddering</span></td>
-          <td>Asana / Dustin Moskovitz · Wavelength</td>
-          <td>Mission → Strategy → Objectives → Key Results → Projects. Each layer must reference the one above.</td>
-          <td class="not">Score projects against each other within a KR.</td>
-          <td>Visibly catching projects that don't trace to any goal.</td>
-          <td class="cost low">Low</td>
-          <td>1st-party</td>
-          <td class="method"><a href="pyramid-of-clarity-framework.html">Pyramid →</a></td>
-        </tr>
-
-        <!-- WRITTEN DISCIPLINE -->
-        <tr>
-          <td class="method"><a href="stripe-shaping-framework.html">Shaping</a> + Deep-dives + LT filter<div class="from">Stripe</div><div class="badges"><span class="tag saas">SaaS</span></div></td>
-          <td><span class="tag qual">Written discipline</span></td>
-          <td>Ken Norton essay · Stripe Atlas · Berkeley Haas</td>
-          <td>Qualitative: shape the problem, write long-form, filter through multi-decade direction.</td>
-          <td class="not">Produce a number. Anything quantitative.</td>
-          <td>High-judgement bets at orgs that already have a writing culture.</td>
-          <td class="cost high">High (culture)</td>
-          <td>2nd-party</td>
-          <td class="method"><a href="stripe-shaping-framework.html">Stripe →</a></td>
-        </tr>
-
-        <!-- AI LABS -->
-        <tr>
-          <td class="method"><a href="anthropic-pm-on-ai-exponential.html">Prototype-first habits</a><div class="from">Anthropic (Claude Code)</div><div class="badges"><span class="tag saas">SaaS</span></div></td>
-          <td><span class="tag ailab">AI lab</span></td>
-          <td>Cat Wu — claude.com blog (Mar 2026)</td>
-          <td>Five habits for working when the AI substrate improves week-over-week: short sprints, demos over docs, side quests alongside the roadmap, capability-first prototyping, daily-use the product.</td>
-          <td class="not">Rank features pre-build. Provide a score. Tell you how to verify post-launch. Handle non-<a class="j" href="jargon.html#dogfooding">dogfood</a>-able work.</td>
-          <td>AI-native product teams whose staff are the target user; fast-moving capability-led products.</td>
-          <td class="cost low">Low (per side quest)</td>
-          <td>1st-party</td>
-          <td class="method"><a href="anthropic-pm-on-ai-exponential.html">Anthropic →</a></td>
-        </tr>
-        <tr>
-          <td class="method"><a href="google-customer-zero-2026.html">"Customer zero" velocity story</a><div class="from">Google (Sundar Pichai, 2026)</div><div class="badges"><span class="tag saas">SaaS</span><span class="tag consumer">Consumer</span></div></td>
-          <td><span class="tag ailab">AI lab</span></td>
-          <td>Sundar Pichai — Cloud Next 2026 (Apr 22) &amp; I/O 2026 (May 19) keynote blogs</td>
-          <td>Verbatim 2026 internal-velocity claims: 75% AI-generated &amp; engineer-approved code, 6× faster code migration, 6× more developer-tool tokens in 2 months, training in weeks-not-months, idea-to-Swift-prototype in days. "Customer zero" framing — Google builds with its own agents first.</td>
-          <td class="not">Rank features pre-build. Provide a score. Tell you what to ship, keep, or kill. Explain why Project Mariner was shut down (no public rationale).</td>
-          <td>Teams asking "what's the build-side leverage of leaning into agentic coding tooling?" — not teams asking "how should we decide what to build?"</td>
-          <td class="cost low">Low (read-only insight)</td>
-          <td>1st-party</td>
-          <td class="method"><a href="google-customer-zero-2026.html">Google →</a></td>
-        </tr>
-
       </tbody>
     </table>
   </div>
 
-  <!-- CATEGORIES -->
-  <h2 class="sec" id="cats">The six categories — what each does, what it leaves out</h2>
-  <p class="secsub">Re-organising the table by category, so you can see which jobs each kind of method actually does. A complete stack covers all six (or deliberately skips one and admits it).</p>
+  <!-- CAMPS / CATEGORIES -->
+  <h2 class="sec" id="cats">The camps — what each does, what it leaves out</h2>
+  <p class="secsub">Re-organising the methods by camp, so you can see which jobs each kind of method actually does. A complete stack covers the three main camps; experimentation gets added on top once you're shipping enough to measure.</p>
 
   <div class="catsec scoring">
     <h3><span class="tag scoring">Scoring</span> — turn many candidates into a coarse ranking</h3>
     <p>Method (deep-dived): <a href="rice-framework.html">RICE</a> (Intercom). <b>What it does:</b> lets you compare 50 ideas on the same scale and surface the top 5–10. The Confidence multiplier is the discipline — un-evidenced ideas are visibly weaker. Four additional scoring/prioritization methods are <em>surfaced for future deep-dive</em> on the <a href="index.html#scoring-group">home page Scoring group</a>: Kano, MoSCoW, Opportunity Scoring (ODI), Cost of Delay — each with a canonical external source pending dedicated deep-dive pages.</p>
-    <p><b>What they don't do:</b> tell you what goal to score against, or estimate lift. Pair with goal-laddering (V2MOM / Pyramid) for goals, and with experimentation for lift.</p>
-  </div>
-
-  <div class="catsec input">
-    <h3><span class="tag input">Input modeling</span> — model the metric, focus on the lever</h3>
-    <p>Method: <a href="north-star-framework.html">North Star Framework</a> (Amplitude / Slack). <b>What it does:</b> writes the causal model <code>NSM = f(inputs)</code>, picks the focus input, narrows the roadmap to bets on that input.</p>
-    <p><b>What it doesn't do:</b> rank the bets that move the input. That falls to scoring (RICE) or experimentation. North Star is the <em>filter</em>, not the scoreboard.</p>
-  </div>
-
-  <div class="catsec experiment">
-    <h3><span class="tag experiment">Experimentation</span> — measure causal impact rather than estimate it</h3>
-    <p>Methods: <a href="microsoft-exp-framework.html">Microsoft ExP</a>, <a href="linkedin-xlnt-framework.html">LinkedIn T-REX</a>, <a href="netflix-experimentation.html">Netflix</a>, <a href="booking-experimentation.html">Booking</a>, <a href="airbnb-erf-framework.html">Airbnb ERF</a>, <a href="uber-xp-framework.html">Uber XP</a>, <a href="doordash-switchback-framework.html">DoorDash switchback</a>, <a href="lyft-experimentation.html">Lyft</a>, <a href="pinterest-ab-framework.html">Pinterest</a>. <b>What they do:</b> A/B and quasi-experimental designs that produce a causal estimate of lift on a pre-declared OEC. The only category that produces ground-truth numbers.</p>
-    <p><b>What they don't do:</b> work without traffic, replace metric design, or pick the bet. Pair with goal-laddering for what to test, scoring for which to test first.</p>
+    <p><b>What they don't do:</b> tell you what goal to score against, or estimate lift. Pair with Define-first (North Star / V2MOM / Pyramid) for goals, and with Experimentation for lift.</p>
   </div>
 
   <div class="catsec goal">
-    <h3><span class="tag goal">Define-first / Goal-laddering</span> — set the destination, force traceability</h3>
-    <p>Methods: <a href="pr-faq-framework.html">Amazon PR-FAQ</a>, <a href="heart-framework.html">Google HEART/GSM</a>, <a href="dibb-framework.html">Spotify DIBB</a>, <a href="v2mom-framework.html">Salesforce V2MOM</a>, <a href="pyramid-of-clarity-framework.html">Asana Pyramid</a>. <b>What they do:</b> establish what success looks like, and require every piece of work to trace upward to it. The discipline that stops "feature-itis."</p>
-    <p><b>What they don't do:</b> rank features against each other, or measure outcomes. They're upstream of scoring and experimentation, not substitutes.</p>
+    <h3><span class="tag define">Define-first</span> — set the destination, force traceability</h3>
+    <p>Methods: <a href="north-star-framework.html">North Star Framework</a> (Amplitude / Slack), <a href="pr-faq-framework.html">Amazon PR-FAQ</a>, <a href="heart-framework.html">Google HEART/GSM</a>, <a href="dibb-framework.html">Spotify DIBB</a>, <a href="v2mom-framework.html">Salesforce V2MOM</a>, <a href="pyramid-of-clarity-framework.html">Asana Pyramid</a>. <b>What they do:</b> establish what success looks like — either as a company-wide outcome metric (North Star writes the causal model <code>NSM = f(inputs)</code> and picks the focus input) or as a cascaded goal (V2MOM, Pyramid, HEART, DIBB, PR-FAQ) — and require every piece of work to trace upward to it. The discipline that stops "feature-itis."</p>
+    <p><b>What they don't do:</b> rank features against each other, or measure outcomes. They're upstream of Scoring and Experimentation, not substitutes.</p>
   </div>
 
   <div class="catsec qual">
     <h3><span class="tag qual">Written discipline</span> — rigour by prose, not by formula</h3>
     <p>Method: <a href="stripe-shaping-framework.html">Stripe product shaping</a>. <b>What it does:</b> forces every bet into a deep-dive doc filtered by a multi-decade direction; quality of writing is the funding gate.</p>
     <p><b>What it doesn't do:</b> produce a number, or operate without an existing writing culture. The honest "no scoring formula" exemplar — included to make explicit that successful companies sometimes skip scoring deliberately.</p>
+  </div>
+
+  <div class="catsec experiment">
+    <h3><span class="tag experiment">Experimentation</span> — post-build "did it work?" (a different question)</h3>
+    <p>Methods: <a href="microsoft-exp-framework.html">Microsoft ExP</a>, <a href="linkedin-xlnt-framework.html">LinkedIn T-REX</a>, <a href="netflix-experimentation.html">Netflix</a>, <a href="booking-experimentation.html">Booking</a>, <a href="airbnb-erf-framework.html">Airbnb ERF</a>, <a href="uber-xp-framework.html">Uber XP</a>, <a href="doordash-switchback-framework.html">DoorDash switchback</a>, <a href="lyft-experimentation.html">Lyft</a>, <a href="pinterest-ab-framework.html">Pinterest</a>. <b>What they do:</b> A/B and quasi-experimental designs that produce a causal estimate of lift on a pre-declared OEC. The only category that produces ground-truth numbers.</p>
+    <p><b>What they don't do:</b> answer "which 10 to build first?" — they presume the prioritization decision is already made. Pair with Define-first for what to test, Scoring for which to test first.</p>
   </div>
 
   <div class="catsec ailab">
@@ -476,7 +493,7 @@
 
   <!-- COHERENT STACKS -->
   <h2 class="sec" id="stacks">Three coherent stacks you could actually adopt</h2>
-  <p class="secsub">Nineteen methods is overwhelming; you only need 3–4 that cover the bases. Here are three "complete" stacks — each picks one method per job, sourced from companies that actually use them together.</p>
+  <p class="secsub">The methods are many; you only need 3–4 that cover the bases. Here are three "complete" stacks — each picks one method per job, drawn from companies that actually use them together. Each stack combines a pre-build prioritization camp with (where useful) Experimentation on top.</p>
 
   <div class="stackrow">
     <div class="stack">
@@ -513,7 +530,7 @@
 
   <footer>
     From: <a href="impact-saas-companies.html">SaaS / B2B case studies</a> · <a href="impact-consumer-companies.html">Consumer-tech case studies</a><br>
-    19 methods in the table; all 19 link to a dedicated deep-dive page. Every "What it decides / doesn't do" claim traces to that company's published material; caveats noted on the deep-dive pages where sourcing is secondary. The "Three coherent stacks" framing is editorial, not a sourced framework recommendation. <em>Note: a 2026-05-26 cleanup removed the OpenAI "Iterative Deployment" row — its source documents (Planning for AGI and Beyond, Preparedness Framework v2) could not be reliably re-fetched from the editing environment to verify the row's content. A later 2026-05-26 addition introduced the Google "Customer zero" 2026 row — grounded entirely in two first-party Sundar Pichai blog posts (Cloud Next April 22, I/O May 19); it is documented as a velocity-side study, not a feature-decision methodology, because Google has not published one for the agentic era. A 2026-05-28 cleanup removed the Atlassian "Weighted Scoring" row entirely — both cited Atlassian sources (atlassian.com/agile/.../prioritization-framework and the Jira Product Discovery handbook) were verified to be general educational guides covering RICE/Kano/MoSCoW/Value-Effort/Opportunity-Scoring/Cost-of-Delay (URL 1) and RICE/Impact-Effort/$10-Game/RUF/3-Bucket/WSJF (URL 2); neither describes a method called "Weighted Scoring" with the "100 points across weighted criteria" mechanic our row attributed to Atlassian. The four newly-canonical methods from URL 1 — Kano, MoSCoW, Opportunity Scoring (ODI), Cost of Delay — are surfaced on the index for future deep-dives. Value vs Effort was skipped (no canonical originator).</em>
+    All methods in the two tables link to a dedicated deep-dive page. Every "What it decides / doesn't do" claim traces to that company's published material; caveats noted on the deep-dive pages where sourcing is secondary. The "Three coherent stacks" framing is editorial, not a sourced framework recommendation. <em>Note: a 2026-05-26 cleanup removed the OpenAI "Iterative Deployment" row — its source documents (Planning for AGI and Beyond, Preparedness Framework v2) could not be reliably re-fetched from the editing environment to verify the row's content. A later 2026-05-26 addition introduced the Google "Customer zero" 2026 row — grounded entirely in two first-party Sundar Pichai blog posts (Cloud Next April 22, I/O May 19); it is documented as a velocity-side study, not a feature-decision methodology, because Google has not published one for the agentic era. A 2026-05-28 cleanup removed the Atlassian "Weighted Scoring" row entirely — both cited Atlassian sources (atlassian.com/agile/.../prioritization-framework and the Jira Product Discovery handbook) were verified to be general educational guides covering RICE/Kano/MoSCoW/Value-Effort/Opportunity-Scoring/Cost-of-Delay (URL 1) and RICE/Impact-Effort/$10-Game/RUF/3-Bucket/WSJF (URL 2); neither describes a method called "Weighted Scoring" with the "100 points across weighted criteria" mechanic our row attributed to Atlassian. The four newly-canonical methods from URL 1 — Kano, MoSCoW, Opportunity Scoring (ODI), Cost of Delay — are surfaced on the index for future deep-dives. Value vs Effort was skipped (no canonical originator).</em>
   </footer>
 </div>
 </body>
