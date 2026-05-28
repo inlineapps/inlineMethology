@@ -147,7 +147,7 @@
 
   <div class="finding" id="finding">
     <h2>The pattern across all nine</h2>
-    <p>SaaS/B2B companies split into three honest camps. A few publish a real <strong>quantitative scoring or input-modeling method</strong> (Intercom, Atlassian, Amplitude, Slack). A few are <strong>experimentation-led</strong> — they measure impact rather than forecast it (Microsoft, LinkedIn). The rest are <strong>goal-alignment frameworks</strong> that ladder work to outcomes but do <em>not</em> score features (Salesforce, Asana, Stripe). Knowing which is which stops us from copying a goal framework and pretending it's an impact estimator.</p>
+    <p>SaaS/B2B companies split into three honest camps. A few publish a real <strong>quantitative scoring or input-modeling method</strong> (Intercom, Amplitude, Slack). A few are <strong>experimentation-led</strong> — they measure impact rather than forecast it (Microsoft, LinkedIn). The rest are <strong>goal-alignment frameworks</strong> that ladder work to outcomes but do <em>not</em> score features (Salesforce, Asana, Stripe). Knowing which is which stops us from copying a goal framework and pretending it's an impact estimator.</p>
   </div>
 
   <div class="legend">
@@ -174,24 +174,12 @@
     <div class="src"><span class="lbl">Source</span><a href="https://www.intercom.com/blog/rice-simple-prioritization-for-product-managers/">Intercom — RICE</a></div>
   </div>
 
-  <div class="co scoring">
-    <div class="co-head"><h3><span class="n">02</span>Atlassian</h3><span class="tag scoring">Scoring</span></div>
-    <div class="fw">Framework: <b>Weighted Scoring Model</b> (+ prioritization playbook) &nbsp;·&nbsp; <a href="methodologies-comparison.html#table" style="color:var(--accent);font-weight:700;border-bottom:1px solid var(--accent);text-decoration:none">See in comparison →</a></div>
-    <ul>
-      <li>Publishes a guide comparing six prioritization frameworks for choosing what to build next.</li>
-      <li>Frames prioritization as weighing opportunities against business goals, customer value, and resources — strategy-led, not preference-led.</li>
-    </ul>
-    <div class="impact"><b>How they estimate impact</b>
-      Weighted Scoring: distribute 100 points across weighted criteria, score each feature per criterion, multiply by weight and sum. The weighted total is the expected-value proxy used to rank.</div>
-    <div class="src"><span class="lbl">Source</span><a href="https://www.atlassian.com/agile/product-management/prioritization-framework">Atlassian — Prioritization frameworks</a><a href="https://www.atlassian.com/software/jira/product-discovery/resources/handbook/prioritization">Jira Product Discovery handbook</a></div>
-  </div>
-
   <!-- INPUT MODELING -->
   <h2 class="grouphead" id="input">Input Modeling</h2>
   <p class="groupsub">Tie each feature to the metric input it moves, not to raw output. &nbsp;→ <a href="north-star-framework.html" style="color:var(--purple);font-weight:700;border-bottom:1px solid var(--purple);text-decoration:none">Deep-dive: how the North Star Framework actually sets priority</a></p>
 
   <div class="co input">
-    <div class="co-head"><h3><span class="n">03</span>Amplitude</h3><span class="tag input">Input modeling</span></div>
+    <div class="co-head"><h3><span class="n">02</span>Amplitude</h3><span class="tag input">Input modeling</span></div>
     <div class="fw">Framework: <b>North Star Framework / Playbook</b> &nbsp;·&nbsp; <a href="north-star-framework.html" style="color:var(--purple);font-weight:700;border-bottom:1px solid var(--purple);text-decoration:none">Deep-dive →</a></div>
     <ul>
       <li>One North Star Metric (NSM) capturing customer value, supported by 3–5 Inputs teams can directly move.</li>
@@ -204,7 +192,7 @@
   </div>
 
   <div class="co input">
-    <div class="co-head"><h3><span class="n">04</span>Slack</h3><span class="tag input">Input modeling</span></div>
+    <div class="co-head"><h3><span class="n">03</span>Slack</h3><span class="tag input">Input modeling</span></div>
     <div class="fw">Framework: <b>North Star + activation-input metric</b> &nbsp;·&nbsp; <a href="north-star-framework.html" style="color:var(--purple);font-weight:700;border-bottom:1px solid var(--purple);text-decoration:none">Deep-dive →</a></div>
     <ul>
       <li>North Star is <strong>Weekly Active Teams</strong> (team-level value, not raw user count); team-level inputs like messages-sent and activation rate feed it.</li>
@@ -221,7 +209,7 @@
   <p class="groupsub">Define a success metric up front, ship behind a test, let data decide. &nbsp;</p>
 
   <div class="co experiment">
-    <div class="co-head"><h3><span class="n">05</span>Microsoft</h3><span class="tag experiment">Experimentation</span></div>
+    <div class="co-head"><h3><span class="n">04</span>Microsoft</h3><span class="tag experiment">Experimentation</span></div>
     <div class="fw">Framework: <b>ExP platform · OEC · <a class="j" href="jargon.html#cuped">CUPED</a></b> (Ron Kohavi) &nbsp;·&nbsp; <a href="microsoft-exp-framework.html" style="color:var(--blue);font-weight:700;border-bottom:1px solid var(--blue);text-decoration:none">Deep-dive →</a></div>
     <ul>
       <li>Pioneered trustworthy controlled experiments at scale; features ship on test results, not opinion.</li>
@@ -239,7 +227,7 @@
   </div>
 
   <div class="co experiment">
-    <div class="co-head"><h3><span class="n">06</span>LinkedIn</h3><span class="tag experiment">Experimentation</span></div>
+    <div class="co-head"><h3><span class="n">05</span>LinkedIn</h3><span class="tag experiment">Experimentation</span></div>
     <div class="fw">Framework: <b>XLNT → T-REX</b> experimentation platform &nbsp;·&nbsp; <a href="linkedin-xlnt-framework.html" style="color:var(--blue);font-weight:700;border-bottom:1px solid var(--blue);text-decoration:none">Deep-dive →</a></div>
     <ul>
       <li>End-to-end internal A/B platform; easy design/deploy plus automatic metric analysis to popularize testing.</li>
@@ -260,7 +248,7 @@
   <p class="groupsub">These connect work to outcomes — but do not estimate per-feature impact. Use them for alignment, not as a scoring model.</p>
 
   <div class="co goal">
-    <div class="co-head"><h3><span class="n">07</span>Salesforce</h3><span class="tag goal">Goal-laddering</span></div>
+    <div class="co-head"><h3><span class="n">06</span>Salesforce</h3><span class="tag goal">Goal-laddering</span></div>
     <div class="fw">Framework: <b>V2MOM</b> — Vision, Values, Methods, Obstacles, Measures &nbsp;·&nbsp; <a href="v2mom-framework.html" style="color:var(--gold);font-weight:700;border-bottom:1px solid var(--gold);text-decoration:none">Deep-dive →</a></div>
     <ul>
       <li>Strategic alignment framework created by Marc Benioff; cascades company direction so individual work ladders to top goals.</li>
@@ -272,7 +260,7 @@
   </div>
 
   <div class="co goal">
-    <div class="co-head"><h3><span class="n">08</span>Asana</h3><span class="tag goal">Goal-laddering</span></div>
+    <div class="co-head"><h3><span class="n">07</span>Asana</h3><span class="tag goal">Goal-laddering</span></div>
     <div class="fw">Framework: <b>Pyramid of Clarity</b> (Mission → Strategy → Objectives → Key Results → Projects) &nbsp;·&nbsp; <a href="pyramid-of-clarity-framework.html" style="color:var(--gold);font-weight:700;border-bottom:1px solid var(--gold);text-decoration:none">Deep-dive →</a></div>
     <ul>
       <li>Every person can trace how daily work ladders to objectives and the company mission.</li>
@@ -288,7 +276,7 @@
   <p class="groupsub">No scoring formula — rigor comes from forcing the argument onto paper.</p>
 
   <div class="co qual">
-    <div class="co-head"><h3><span class="n">09</span>Stripe</h3><span class="tag qual">Written discipline</span></div>
+    <div class="co-head"><h3><span class="n">08</span>Stripe</h3><span class="tag qual">Written discipline</span></div>
     <div class="fw">Practice: <b>Product <a href="stripe-shaping-framework.html">shaping</a> + written deep-dives + long-term-direction filter</b> &nbsp;·&nbsp; <a href="stripe-shaping-framework.html" style="color:var(--teal);font-weight:700;border-bottom:1px solid var(--teal);text-decoration:none">Deep-dive →</a></div>
     <ul>
       <li>Disciplined product judgment over scoring: shape the problem, write deep-dive docs, filter against a multi-decade direction.</li>

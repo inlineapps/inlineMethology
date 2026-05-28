@@ -135,7 +135,7 @@
   <header class="masthead">
     <p class="kicker">Methodology research · for team review</p>
     <h1>How to rank features and define metrics — a methodology survey</h1>
-    <p class="sub">A field study of how 19 of the most-studied software companies (plus two AI labs) actually rank features and decide which metrics matter. The point is to compare the published methods side-by-side so the team can pick (or mix) the one that suits us.</p>
+    <p class="sub">A field study of how 18 of the most-studied software companies (plus two AI labs) actually rank features and decide which metrics matter. The point is to compare the published methods side-by-side so the team can pick (or mix) the one that suits us.</p>
     <div class="goal">
       <span class="lbl">Goal of this research</span>
       <h2>Find a suitable method — to rank features and define metrics — that we can apply across the whole company.</h2>
@@ -149,14 +149,14 @@
     <div class="step">
       <div class="n">1</div>
       <h3>Field studies — who does what</h3>
-      <p>What 19 successful companies actually do, with sources. Start here for the lay of the land.</p>
+      <p>What 18 successful companies actually do, with sources. Start here for the lay of the land.</p>
       <p style="margin-top:8px"><a href="impact-saas-companies.html">SaaS &amp; B2B (Study A) →</a><br><a href="impact-consumer-companies.html">Consumer-tech (Study B) →</a></p>
     </div>
     <div class="step">
       <div class="n">2</div>
       <h3>Methods deep-dive</h3>
       <p>Each method gets its own page — what it is, how it works, where the evidence comes from. Click any company in the field studies, or jump from the comparison table.</p>
-      <p style="margin-top:8px"><a href="methodologies-comparison.html">All 20 methods compared →</a></p>
+      <p style="margin-top:8px"><a href="methodologies-comparison.html">All 19 methods compared →</a></p>
     </div>
     <div class="step">
       <div class="n">3</div>
@@ -167,17 +167,21 @@
   </div>
 
   <div class="keyshelf">
-    <b>Shortcut for reviewers who want to skim:</b> &nbsp;The <a href="methodologies-comparison.html">20-method comparison table</a> is the single most useful page — it lays out every method side-by-side with what each does, what it doesn't do, and where the evidence comes from. From there, click into the deep-dives for whatever looks promising.
+    <b>Shortcut for reviewers who want to skim:</b> &nbsp;The <a href="methodologies-comparison.html">19-method comparison table</a> is the single most useful page — it lays out every method side-by-side with what each does, what it doesn't do, and where the evidence comes from. From there, click into the deep-dives for whatever looks promising.
   </div>
 
   <h2 class="sec">All pages, by category</h2>
   <p class="secsub">Every method below is sourced. Caveats on sourcing are noted on the deep-dive pages themselves. "From" indicates the company the method is documented at — methods are then transferable across teams.</p>
 
-  <div class="group">
-    <h3><span class="pill s">Scoring</span> Numeric ranking formulas</h3>
-    <p class="gdesc">Produce a number to rank ideas. Cheap to run, easy to game; best as a tool to expose disagreements about Reach/Impact/Confidence.</p>
+  <div class="group" id="scoring-group">
+    <h3><span class="pill s">Scoring</span> Scoring &amp; prioritization frameworks</h3>
+    <p class="gdesc">Produce a score or a category to rank features. Numeric formulas (RICE, Opportunity Scoring, Cost of Delay) surface disagreement via Reach/Impact/Confidence-style trade-offs; categorical buckets (Kano, MoSCoW) sort features by satisfaction effect or delivery-timebox priority. RICE has a full deep-dive on this site; the other four are surfaced below with canonical external sources, deep-dives queued.</p>
     <div class="pgs">
       <div class="pg s"><a href="rice-framework.html">RICE — Reach × Impact × Confidence ÷ Effort</a><div class="from">From: Intercom</div><div class="what">The most-cited scoring formula. Fixed scales, transparent math, easy to audit.</div></div>
+      <div class="pg s"><a href="https://en.wikipedia.org/wiki/Kano_model" target="_blank" rel="noopener">Kano model — Must-be / Performance / Attractive ↗</a><div class="from">From: Noriaki Kano (1984, "Attractive quality and must-be quality")</div><div class="what">Five-category model sorting features by how their presence/absence affects customer satisfaction: must-be, one-dimensional, attractive, indifferent, reverse. Categorical, not numeric. <em>Canonical external source · deep-dive queued.</em></div></div>
+      <div class="pg s"><a href="https://en.wikipedia.org/wiki/MoSCoW_method" target="_blank" rel="noopener">MoSCoW — Must / Should / Could / Won't ↗</a><div class="from">From: Dai Clegg (1994, Oracle UK → DSDM Consortium)</div><div class="what">Four-bucket prioritization around a delivery timebox. Categorical and stakeholder-consensus-driven; widely used in Agile / DSDM / Scrum. <em>Canonical external source · deep-dive queued.</em></div></div>
+      <div class="pg s"><a href="https://en.wikipedia.org/wiki/Outcome-Driven_Innovation" target="_blank" rel="noopener">Opportunity Scoring (ODI) — Importance + max(Importance − Satisfaction, 0) ↗</a><div class="from">From: Tony Ulwick (HBR Jan 2002, "Turn Customer Input into Innovation")</div><div class="what">Customers rate each outcome's importance and current satisfaction (1–10); the formula surfaces high-importance / low-satisfaction outcomes as top opportunities. Numeric; built on jobs-to-be-done theory. <em>Canonical external source · deep-dive queued.</em></div></div>
+      <div class="pg s"><a href="http://leanmagazine.net/lean/cost-of-delay-don-reinertsen/" target="_blank" rel="noopener">Cost of Delay (CoD) — economic prioritization ↗</a><div class="from">From: Don Reinertsen (2009, "The Principles of Product Development Flow")</div><div class="what">Prioritize by the economic cost of postponement, often as CoD ÷ cycle time (WSJF). Treats prioritization as a queuing problem; lean-product-development origin. <em>First-party interview · deep-dive queued.</em></div></div>
     </div>
   </div>
 
@@ -185,7 +189,7 @@
     <h3><span class="pill i">Input Modeling</span> Map work to a single output metric</h3>
     <p class="gdesc">Build a tree from a "North Star" outcome down to the inputs teams can move. Helps every team see whether their work moves the company-level metric or not.</p>
     <div class="pgs">
-      <div class="pg i"><a href="north-star-framework.html">North Star metric &amp; input model</a><div class="from">From: Amplitude, Slack, Atlassian</div><div class="what">One number for the whole company; inputs cascade down to team-level <a class="j" href="jargon.html#okr">OKRs</a>.</div></div>
+      <div class="pg i"><a href="north-star-framework.html">North Star metric &amp; input model</a><div class="from">From: Amplitude, Slack</div><div class="what">One number for the whole company; inputs cascade down to team-level <a class="j" href="jargon.html#okr">OKRs</a>.</div></div>
     </div>
   </div>
 
@@ -237,7 +241,7 @@
   <h2 class="sec">Background reading</h2>
   <p class="secsub">Two foundational pages that aren't methods themselves but help interpret the rest.</p>
   <div class="pgs" style="grid-template-columns:1fr 1fr">
-    <div class="pg" style="border-left-color:var(--ink-soft)"><a href="methodologies-comparison.html">All 20 methods compared — side-by-side</a><div class="what">9-column table: what each method decides, what it doesn't do, where it's from, where the evidence is. The most useful single page for reviewers.</div></div>
+    <div class="pg" style="border-left-color:var(--ink-soft)"><a href="methodologies-comparison.html">All 19 methods compared — side-by-side</a><div class="what">9-column table: what each method decides, what it doesn't do, where it's from, where the evidence is. The most useful single page for reviewers.</div></div>
     <div class="pg" style="border-left-color:var(--ink-soft)"><a href="experiment-trustworthiness.html">How "40,000 tests a day" actually works</a><div class="what">Grounded answer to the obvious skepticism about high-volume experimentation. Covers interference (Google <a class="j" href="jargon.html#kdd">KDD</a> 2010), duration, variance.</div></div>
   </div>
 
